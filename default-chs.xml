@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dialog>
+	<skindlg width="394" height="141">
+		<color bkg="ffffff" text="0" link="993300" lineup="c1c1c1" linedown="ffffff" bottom="f8f8f8"/>
+		<rect bottom="0,-40,0,40" ok="-200,-33,80,26" cancel="-110,-33,80,26"/>
+	</skindlg>
+	<aboutdlg width="435" height="188">
+		<image bkg="\image\chs\aboutbkg.png"/>
+		<rect ok="350,140,73,21" ie="8,140,200,20"/>
+		<string window="关于" version="版本号:%s" company="够快科技" ie="www.gokuai.com"/>
+	</aboutdlg>
+	<guide width="484" height="440">
+		<rect bottom="0,-45,0,45" page="0,0,484,391" pagetext="10,-36,80,26" set="20,-36,80,26" back="-270,-36,80,26" jump="-180,-36,80,26" next="-90,-36,80,26"/>
+		<string window="够快" pagenum="向导" back="上一步" jump="跳过" next="下一步" setting="网络设置" finish="完成" login="登录" register="注册并登录" registerok="注册成功，正在登录..." setsyncerror="同步设置失败，请重试"/>
+	</guide>
+	<guidepage>
+		<image radio="\image\radio.png" unradio="\image\unradio.png"/>
+		<rect radio="10,0,12,12"/>
+		<color moveonline="fae8d3" selectline="f9cc98" moveon="fffcf8" select="fff3e6"/>
+	</guidepage>
+	<guidewelcome>
+		<image bkg="\image\pagebkgw.png"/>
+		<rect title="20,60,-20,50" login="20,120,-20,65" register="20,195,-20,65" web="20,270,-20,65" message="160,345,-20,20"/>
+		<color title="cb986b" select="ffffff" message="0072ff"/>
+		<string title="欢  迎" login="我已有够快帐号" register="我还未注册够快帐号" web="使用合作帐号登录"/>
+	</guidewelcome>
+	<guideweb>
+		<image bkg="\image\pagebkg.png"/>
+		<color title="cb986b" message="0072ff"/>
+		<rect title="20,0,-20,60" content1="80,85,-20,30" content2="80,130,-20,30" message="20,320,-20,20"/>
+		<string title="合作帐号登录使用说明" content1="在网站上选择合作帐号登录。" content2="授权成功后，返回客户端点击'登录完成'。" button="登录完成"/>
+	</guideweb>
+	<guideregister>
+		<image bkg="\image\pagebkg.png"/>
+		<rect title="20,60,-20,50" userstatic="15,150,110,20" user="140,150,240,20" passwordstatic="15,190,110,20" password="140,190,240,20" passwordagainstatic="15,230,110,20" passwordagain="140,230,240,20" readpact="140,270,110,20" link="248,270,100,20" message="145,320,292,20"/>
+		<color title="cb986b" message="0072ff"/>
+		<string title="注  册"  passwordagain="确认密码:" passwordagainnull="请输入确认密码" passwordsameerror="密码不一至，请重新输入" registering="正在注册..." readpact="我已阅读并接受" pact="用户协议"/>
+	</guideregister>
+	<guidelogin>
+		<image bkg="\image\pagebkg.png"/>
+		<rect title="20,60,-20,50" userstatic="20,170,110,20" user="145,165,240,30" passwordstatic="20,220,110,20" password="145,215,240,30" link="315,270,80,20" message="145,320,292,20"/>
+		<color title="cb986b" message="0072ff"/>
+		<string title="登  录" username="帐  号:" password="密  码:" usernameprompt="youname@example.com" usernamenull="请输入邮箱" passwordnull="请输入密码" usernameerror="请输入正确的邮箱" loginerror="登录失败，请重试" forget="忘记密码"/>
+	</guidelogin>
+	<guidelast>
+		<image bkg="\image\pagebkg.png"/>
+		<rect title="20,0,-20,60" normal="20,65,-20,55" advanced="20,130,-20,55"/>
+		<string title="是否使用上一次同步设置" normal="默认上一次的同步设置" advanced="重新设置"/>
+	</guidelast>
+	<guidenormal>
+		<image bkg="\image\pagebkg.png"/>
+		<rect title="20,0,-20,60" normal="20,65,-20,90" advanced="20,165,-20,90"/>
+		<string title="设置您的客户端" normal="默认设置" normalexp="使用默认同步目录和同步设置" advanced="自定义设置" advancedexp="手动设置同步目录和同步设置" />
+	</guidenormal>
+	<guidepath>
+		<image bkg="\image\pagebkg.png"/>
+		<rect title="20,0,-20,60" normal="20,65,-20,55" advanced="20,130,-20,90" path="35,46,-93,24" change="-85,46,75,24"/>
+		<string title="选择同步文件夹路径" normal="默认本地同步文件夹路径" advanced="我想选择的本地同步文件夹路径" button="浏览..." selectpath="选择路径"/>
+	</guidepath>
+	<guidenode>
+		<image bkg="\image\pagebkg.png"/>
+		<rect title="20,0,-20,60" normal="20,65,-20,55" advanced="20,130,-20,90" change="-130,46,120,24"/>
+		<string title="选择性同步" normal="同步所有文件夹到我的电脑" advanced="选择文件夹同步到我的电脑" button="选择同步文件夹" nodemsg="是否确定当前选择同步文件夹？未选择同步的文件夹将在您的电脑中移除！"/>
+	</guidenode>
+	<guidestep1>
+		<image bkg="\image\chs\guidestep1.png"/>
+	</guidestep1>
+	<guidestep2>
+		<image bkg="\image\chs\guidestep2.png"/>
+	</guidestep2>
+	<guidestep3>
+		<image bkg="\image\chs\guidestep3.png"/>
+	</guidestep3>
+	<guidestep4>
+		<image bkg="\image\chs\guidestep4.png"/>
+	</guidestep4>
+	<guideselect width="350" height="362">
+		<rect title="15,10,-15,20" tree="15,45,-15,-55"/>
+		<color text="993300"/>
+		<string window="选择性同步" selecttitle="选择同步文件夹"/>
+	</guideselect>
+	<addlist width="430" height="141">
+		<rect staticext="20,30,60,20" staticprogram="20,58,60,20" ext="80,28,60,20" program="80,55,-60,20" selectpath="-60,55,40,20"/>
+		<string ext="扩展名：" program="程序：" select="..." error="扩展名请以.开头"/>
+	</addlist>
+	<comparedlg width="310" height="60">
+		<rect statictitle="10,10,-10,20" progress="10,30,-10,20"/>
+		<string window="文件比较" title="文件下载进度：" openerror="文件打开失败，请重试" selecterror="请选择该类型文件的比较程序"/>
+	</comparedlg>
+	<warning width="400" height="140">
+		<rect title="62,10,-20,-50" icon="20,10,32,32" disk="-280,-36,130,32" web="-140,-36,130,32" reset="-360,-36,70,32"/>
+		<image icon="\image\warningicon.png"/>
+		<string window="提示" reset="重新选择" disk="本地覆盖服务端文件" web="服务端覆盖本地文件" msg="您选择的目录[%s]含有文件，会引起本地覆盖服务端文件或服务端覆盖本地文件，请选择？"/>
+	</warning>
+	<settingdlg width="376" height="420">
+		<image tabuser="\image\chs\tab_user.png" taboptions="\image\chs\tab_options.png" tabagent="\image\chs\tab_agent.png" tabtool="\image\chs\tab_tool.png" tabadvanced="\image\chs\tab_advanced.png"/>
+		<rect page="0,52,0,-42" tabuser="43,0,50,50" taboptions="103,0,50,50" tabagent="163,0,50,50" tabtool="223,0,50,50" tabadvanced="283,0,50,50"/>
+		<string window="软件设置" />
+	</settingdlg>
+	<tabuser>
+		<rect staticcomputer="20,20,100,20" computer="120,20,120,20" staticusername="20,50,100,20" username="120,47,140,20" logoff="265,47,60,20" staticsyncpath="20,80,-20,50" syncpath="30,100,-100,20" move="-95,100,60,20" staticselect="20,150,-20,50" staticselectcontent="30,173,-130,20" select="-125,170,90,20" staticlanguage="20,220,-20,50" language="30,240,-30,20"/>
+		<string staticcomputer="当前计算机名：" staticusername="当前登录帐号：" logoff="退出登录" staticsyncpath="同步目录"  move="移动" staticselect="选择性同步" staticselectcontent="选择文件夹同步到我的电脑" staticlanguage="语言(Language)"  logoffmsg="是否保留当前帐号的帐号信息, 同步状态和缓存文件?" default="默认语言(Default language)" chiness="中文(Chinese)" english="英文(English)" movefolder="您是否确定移动同步目录[%s]到[%s]？" movefolderok="移动目录成功！" movefoldererror="移动目录失败，请重试！" folderunnull="[%s]目录不为空，是否确定移动同步目录？移动后将覆盖相同文件名！" folderin="选择目录不能在原同步目录下！" selectfoldermsg="是否确定当前选择同步文件夹？未选择同步的文件夹将在您的电脑中移除！"/>
+	</tabuser>
+	<tabtool>
+		<rect title="10,10,-10,20" list="11,35,354,250" add="15,294,64,21" modify="85,294,64,21" delete="155,294,64,21"/>
+		<string title="配置自定义比较工具：" add="添加" modify="修改" delete="删除" selectmodify="请选择您要修改的项" selectdelete="请选择您要删除的项" ext="扩展名" program="程序"/>
+	</tabtool>
+	<taboptions>
+		<rect autorun="20,20,-20,20" rightmenu="20,50,-20,20" syncicon="20,80,-20,20" prompt="20,110,-20,20" shelltool="20,140,-20,20" local="20,170,-20,20"/>
+		<string autorun="软件自动开机启动" rightmenu="Explorer右键菜单支持" syncicon="Explorer同步图标支持" prompt="开启事件消息通知" shelltool="显示Explorer浏览文件的操作栏" local="开启局域网同步"/>
+	</taboptions>
+	<tabagent>
+		<rect staticagenttitle="5,5,-5,140" statictype="20,30,70,20" agenttype="90,27,100,20" staticip="20,55,70,20" ip="90,52,100,20" staticport="195,55,45,20" port="240,52,60,20" checkuser="20,80,-20,20" staticuser="20,105,70,20" user="90,102,80,20" staticpassword="175,105,45,20" password="220,102,80,20"/>
+		<string normal="不使用代理" http="HTTP代理" sock4="SOCK4代理" sock5="SOCK5代理" staticagenttitle="设置代理" statictype="代理类型：" staticip="代理地址：" staticport="端口：" checkuser="代理服务器需要用户密码" staticuser="用户名：" staticpassword="密码：" />
+	</tabagent>
+	<tabadvanced>
+		<image selectfolder="\image\selectfolder.png"/>
+		<rect title="20,20,200,20" folder="20,40,-50,20" selectfolder="-50,40,20,20" restart="20,65,200,20" https="20,90,-20,20" history="20,120,-20,20" clearcache="20,120,60,20" clearinfo="85,120,-20,40"/>
+		<string title="配置文件位置：" selectfolder="选择路径" restart="(软件下次启动生效)" https="开启HTTPS安全连接" history="开启本地历史版本记录" clearcache="清除缓存" clearinfo="(删除缓存可以换取您的硬盘空间，但可能会导致您的同步效率下降)" deletecache="是否确定删除缓存"/>
+	</tabadvanced>
+	<historycompare>
+		<rect window="0,0,500,600"/>
+		<string window="历史与比较" filesame="文件相同" downloaderror="文件下载失败！" compareerror="比较文件失败：%s"  timeout="接口超时，请重试！"/>
+	</historycompare>
+	<publish>
+		<rect window="0,0,500,600" />
+		<string window="外链"/>
+	</publish>
+	<remind>
+		<rect window="0,0,500,600" />
+		<string window="讨论"/>
+	</remind>
+	<copyfiledlg width="300" height="110">
+		<rect title="15,15,-15,20" time="15,75,-15,20" progress="15,40,-15,30"/>
+		<string window="正在移动同步目录" title="当前已移动文件 %d/%d" samedisk="正在移动同步目录，请等待" time="移动剩余时间 %s"/>
+	</copyfiledlg>
+	<update>
+		<rect window="0,0,500,600" />
+		<string window="够快"/>
+	</update>
+	<sharedlg>
+		<rect window="0,0,500,600" />
+		<string window="共享"/>
+	</sharedlg>
+	<shelldlg>
+		<image html="\UI\default\chs\index.html"/>
+		<rect window="0,0,194,0"/>
+
+	</shelldlg>
+	<weblogin>
+		<image html="\UI\start\chs\login.html"/>
+		<rect window="0,0,800,500"/>
+	</weblogin>
+	<launchpad>
+		<string window="够快"/>
+		<rect window="0,0,704,492"/>
+		<image html="\UI\default\chs\launchpad.html" />
+	</launchpad>
+	<menu>
+		<image html="\UI\default\chs\menu.xml" />
+	</menu>
+	<favorite>
+		<image title="\image\chs\favoritetitle.png" view="\image\chs\favoriteview.png" disk="\image\chs\favoritedisk.png" del="\image\chs\favoritedel.png"/>
+		<string window="收藏列表" addsuccess="添加收藏成功" adderror="添加收藏失败，请重试！" delquestion="是否确定删除此项收藏？" null="您还没有收藏文件" folder="根目录/" delerror="删除收藏失败，请重试" load="正在读取列表中..." loaderror="读取列表失败，请重试" dir="目录"/>
+	</favorite>
+	<historylistctrl>
+		<image icon="\image\remindicon.png"/>
+		<color title="993300" caption="a2a2a2" time="a2a2a2" size="a2a2a2"/>
+		<rect icon="0,7,32,32" title="38,7,-55,16" caption="38,23,-55,16" time="-50,8,40,38" size="-170,23,175,16"/>
+		<int title="26" item="46"/>
+	</historylistctrl>
+	<staroneinfo>
+		<string unlink="未连接网络" unlogin="帐号:未登录" useremail="帐号: %s&lt;%s&gt;" userweb="帐号: %s" org="团队:%s" uploadnum="上传任务数: %d个" downloadnum="下载任务数: %d个" uploadspeed="上传速度: %s" downloadspeed="下载速度: %s" uploadfile="正在上传文件: %s 已完成%d%%" downloadfile="正在下载文件: %s 已完成%d%%" scan="正在扫描文件变化" sync="有%d个文件变化正在处理" stop="暂停同步"/>
+	</staroneinfo>
+	<message>
+		<string know="我知道了" update="立即更新" more="更多"/>
+	</message>
+	<treectrl>
+		<image button="\image\treebutton.png" check="\image\check.png" hcheck="\image\hcheck.png" uncheck="\image\uncheck.png" icon="\image\treeicon.png" focus="\image\treefocusselect.png" unfocus="\image\treeunfocusselect.png" hover="\image\treehover.png"/>
+		<int item="21" root="21"/>
+	</treectrl>
+	<hummerdlg>
+		<string window="够快" traymount="打开够快" trayonline="在线管理" traylogoff="退出登录" trayunlogin="帐号未登录"  traypathhistory="最近浏览的文件夹" trayunsize="未知" translist="传输列表" favorite="收藏列表"  traypause="暂停同步" traystart="开启同步" traysetting="软件设置"  trayhelp="在线帮助" traynews="新功能介绍" trayupdate="在线升级" trayexit="退出"/>
+	</hummerdlg>
+	<prompt>
+		<string prompt="提示" errorprompt="错误提示" link="网络已连接" unlink="网络已断开连接" logout="是否确定退出" logoutsync="还有%d个文件正在处理，是否退出？" restapiunlink="连接失败" restsyncpath="是否确定立即重新同步[%s]文件夹？" nosize="您的空间不足" registererror="注册失败，请重试" updatemessage="软件有最新版本 %s!请及时更新" update="软件有最新版本，请升级" selectpath="选择路径" lockoff="是否解锁当前选中的文件？" lockon="是否锁定当前选中的文件？" lockerror="当前文件还未同步完成，不能锁定文件！" mklinkerror="创建映射失败" mklinkmsg="是否确定映射文件夹[%s]到[%s]?(注意：移动映射的文件夹会导致原文件也被移动，删除文件夹可以取消映射关系)"/>
+	</prompt>
+	<string>
+		<item_1>确定</item_1>
+		<item_2>取消</item_2>
+		<item_10014>请求无效</item_10014>
+		<item_10015>当前客户端版本已不能使用，请升级到最新版本</item_10015>
+		<item_10016>您输入帐号或密码错误 请重新输入</item_10016>
+		<item_10017>请求失败，请重试</item_10017>
+		<item_10018>%s可用, 总%s</item_10018>
+		<item_10019>个人已用%s,团队已用%s</item_10019>
+		<item_10029>用户信息获取失败</item_10029>
+		<item_10031>当前设备已经被禁用</item_10031>
+		<item_10039>够快</item_10039>
+		<item_10042>团队管理员已限制您使用同步客户端</item_10042>
+		<item_10043>合作帐号授权失败，请确定授权是否完成？</item_10043>
+		<item_11905>未连接网络</item_11905>
+	</string>
+</dialog>
