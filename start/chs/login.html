@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html lang="zh-cn">
+    <head>
+        <title>够快</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
+        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/util.js"></script>
+        <!--     <script type="text/javascript" src="../common/js/util.js"></script>-->
+        <script type="text/javascript" src="../common/js/config.js"></script>
+        <script type="text/javascript" src="../common/js/jquery.js"></script>
+        <script type="text/javascript" src="../common/js/jsMD5.js"></script>
+        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/interface.js"></script>
+        <!--        <script type="text/javascript" src="../common/js/interface.js"></script>-->
+        <script type="text/javascript" src="../common/js/login.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                gkClientLogin.init();
+            })
+        </script>
+    </head>
+    <body id="login">
+        <div>
+            <div class="slide">
+
+            </div>
+            <div class="grid">
+                <div></div>
+            </div>
+            <div id="login_p1" class="login_page">
+                <form id="form_login_from">
+                    <div class="content">
+                        <h1>欢 迎</h1>
+                        <div class="from_raw">
+                            <label>
+                                <input type="radio" name="t" checked="checked" value="login_p2" />
+                                我已有够快帐号</label>
+                        </div>
+                        <div class="from_raw">
+                            <label>
+                                <input type="radio" name="t" value="login_p9" />
+                                我还未注册够快帐号</label>
+                        </div>
+                        <div class="from_raw">
+                            <label>
+                                <input type="radio" name="t" value="login_p10" />
+                                使用合作帐号登录</label>
+                        </div>
+                    </div>
+                    <div class="dialog_bottom">
+                        <div class="right">
+                            <button type="submit">下一步</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="login_p2" class="login_page">
+                <form id="form_login" class="form-horizontal">
+                    <div class="content">
+                        <h1>欢 迎</h1>
+                        <div class="login_fieldset">
+                            <div class="control-group">
+                                <div class="controls"><input type="text" placeholder="请输入您的够快帐号" id="email" class="input_text" /></div>
+                            </div>
+                            <div class="control-group">
+                                <div class="controls"><input type="password" placeholder="请输入密码" id="password" class="input_text" /></div>
+                            </div>
+                            <div class="control-group">
+                                <button class="btn blue_btn login_btn" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+                            </div>
+                        </div>
+                        <div id="btn_findpassword">忘记密码?</div>
+                    </div>
+                    <div class="dialog_bottom">
+                        <div class="left">
+                            <button type="button" class="network_settings">网络设置</button>
+                        </div>
+                        <div class="right">
+                            <button type="button" class="go2regist">注册帐号</button>
+                            <button type="button" class="go2oauth">第三方登录</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="login_p3" class="login_page">
+                <form id="gk_settings_form" class="form-horizontal">
+                    <input type="hidden" value="" name="over_write" />
+                    <div class="content">
+                        <h1>请设置您的客户端</h1>
+                        <dl class="from_raw">
+                            <dt>
+                            <label>
+                                <input name="chose_settings" type="radio" name="gk_settings_type" checked="checked" value="0" />
+                                默认设置</label>
+                            </dt>
+                            <dd>
+                                使用默认的同步目录和同步设置
+                            </dd>
+                        </dl>
+                        <dl class="from_raw">
+                            <dt>
+                            <label>
+                                <input name="chose_settings" type="radio" name="gk_settings_type" value="1" />
+                                自定义设置
+                            </label>
+                            </dt>
+                            <dd>
+                                手动设置同步目录和同步设置
+                            </dd>
+                        </dl>
+                    </div>
+                    <div class="dialog_bottom">
+                        <div class="right">
+                            <button type="button" class="btn_prev">上一步</button>
+                            <button type="submit" class="btn_next">下一步</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+
+            <div id="login_p9" class="login_page">
+                <form id="regist_form">
+                    <div class="content">
+                        <h1>注册够快帐号</h1>
+                        <div class="from_raw">
+                            <input type="text" value="" class="input_text" placeholder="请输入邮箱地址" id="email" name="email" />
+                        </div>
+                        <div class="from_raw">
+                            <input type="password" value="" class="input_text" placeholder="请输入密码" id="password" name="password" />
+                        </div>
+                        <div class="from_raw">
+                            <input type="password" value="" class="input_text" placeholder="请输入确认密码" id="repassword" name="repassword" />
+                        </div>
+                        <div class="from_raw">
+                            <button type="submit" class="btn green_btn regist_btn">注册并登录</button>
+                        </div>
+                        <div class="from_raw">
+                            <input type="checkbox" value="" id="agreement" name="agreement" />
+                            <label for="agreement">
+                                我已阅读并同意 <a class="gk_agreement" href="javascript:void(gkClientInterface.openURL({url:'help.gokuai.com/?page_id=773',sso:0}));">够快服务协议</a> 的各项条款
+                            </label>
+                        </div>
+
+                    </div>
+                    <div class="dialog_bottom">
+                        <div class="left">
+                            <button class="network_settings" type="button">网络设置</button>
+                        </div>
+                        <div class="right">
+                            <button class="btn_prev" type="button">上一步</button>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="login_p10" class="login_page">
+                <form id="oauth_login_from">
+                    <div class="content">
+                        <h1>第三方帐号登录</h1>
+                        <div class="from_raw">
+                            <label>
+                                <input type="radio" name="oauth" checked="checked" value="sina" />
+                                新浪微博</label>
+                        </div>
+                        <div class="from_raw">
+                            <label>
+                                <input type="radio" name="oauth" value="qq" />
+                                腾讯QQ</label>
+                        </div>
+                        <div class="from_raw">
+                            <label>
+                                <input type="radio" name="oauth" value="hichina" />
+                                万网企业邮箱</label>
+                        </div>
+                        <div class="from_raw">
+                            <label>
+                                <input type="radio" name="oauth" value="shnu" />
+                                上海师范大学</label>
+                        </div>
+                    </div>
+                    <div class="dialog_bottom">
+                        <div class="left">
+                            <button class="network_settings" type="button">网络设置</button>
+                        </div>
+                        <div class="right">
+                            <button class="btn_prev" type="button">上一步</button>
+                            <button type="submit">下一步</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="login_p11" class="login_page">
+                <form id="select_sync_dir">
+                    <div class="content">
+                        <h1>请选择同步文件夹路径</h1>
+                        <dl class="from_raw">
+                            <dt> 
+                            <label>
+                                <input type="radio" name="sync_dir" checked="checked" value="0" />
+                                默认本地同步文件夹路径
+                            </label></dt>
+                            <dd>“<span id="default_gk_sync_dir"></span>”</dd>
+                        </dl>
+                        <dl class="from_raw">
+                            <dt> 
+                            <label>
+                                <input type="radio" name="sync_dir" value="1" />
+                                我想选择的本地同步文件夹路径</label>
+                            </dt>
+                            <dd>
+                                <div>
+                                    <input type="text" class="" readonly="readonly" value="" id="gk_sync_dir" name="gk_sync_dir" />
+                                </div>
+                                <div><button type="button" id="select_gk_sync_dir">浏览...</button></div>
+                            </dd>
+                        </dl>
+
+                    </div>
+                    <div class="dialog_bottom">
+                        <div class="right">
+                            <button type="button" class="btn_prev">上一步</button>
+                            <button type="submit">下一步</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div id="login_p12" class="login_page">
+                <form id="is_chose_sync">
+                    <div class="content">
+                        <h1>选择性同步</h1>
+                        <dl class="from_raw">
+                            <dt> <label>
+                                <input type="radio" name="chose_dir" checked="checked" value="0" />
+                                同步所有文件夹到我的电脑</label></dt>
+
+                        </dl>
+                        <dl class="from_raw">
+                            <dt>  <label>
+                                <input type="radio" name="chose_dir" value="1" />
+                                选择文件夹同步到我的电脑</label></dt>
+                            <dd><button id="select_sync_dirs">选择同步文件夹</button></dd>
+                        </dl>
+                    </div>
+                    <div class="dialog_bottom">
+                        <div class="right">
+                            <button type="button" class="btn_prev">上一步</button>
+                            <button type="submit">下一步</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div id="login_p13" class="login_page">
+                <form id="is_use_old_settings">
+                    <div class="content">
+                        <h1>是否使用上一次同步设置</h1>
+                        <div class="from_raw selected">
+                            <label>
+                                <input type="radio" name="use_old_settings" checked="checked" value="1" />
+                                默认上一次的同步设置</label>
+                        </div>
+                        <div class="from_raw">
+                            <label>
+                                <input type="radio" name="use_old_settings" value="0" />
+                                重新设置</label>
+                        </div>
+                    </div>
+                    <div class="dialog_bottom">
+                        <div class="right">
+                            <button type="submit">下一步</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+    </body>
+</html>

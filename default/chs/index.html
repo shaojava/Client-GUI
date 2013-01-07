@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
+        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/util.js"></script>
+        <!--   <script type="text/javascript" src="../common/js/util.js"></script>-->
+        <script type="text/javascript" src="../common/js/config.js"></script>
+        <script type="text/javascript" src="../common/js/jquery.js"></script>
+        <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
+        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/interface.js"></script>
+        <!--        <script type="text/javascript" src="../common/js/interface.js"></script>-->
+
+        <script type="text/javascript" src="../common/js/client_menu.js"></script>
+        <script type="text/javascript">
+            PAGE_CONFIG.state='0';
+            $(function(){
+                gkClientMenu.init();
+            });
+        </script>
+    </head>
+
+    <body id="sider_page">
+        <div class="wrapper">
+            <div class="header"></div>
+            <div class="toolbar">
+                <ul class="tools">
+                    <li class="start"><i></i><span>开始</span></li>
+                    <li class="website"><i></i></li>
+                    <li class="help"><i></i></li>
+<!--                    <li class="task"><i></i></li>-->
+                </ul>
+            </div>
+        </div>
+
+        <script id="sideMenuList" type="text/x-jquery-tmpl">
+            <ul class="side_menu_list">
+                {{each(k,v) menus}}
+                <li class="{{if typeof(v.classes)!=='undefined' && v.classes.length}}${v.classes}{{/if}}{{if typeof(v.tip)==='undefined' || !v.tip.length}} no_tip_item{{/if}}" data-folder_enable="${v.folder}" data-file_enable="${v.file}">
+                    <div class="icon"></div>
+                    <div class="desc">
+                        <div class="name">${v.name}</div>
+                        {{if typeof(v.tip)!=='undefined' && !!v.tip.length}}
+                        <div class="tip">${v.tip}</div>
+                        {{/if}}
+                    </div>
+                </li>
+                {{/each}}
+            </ul>
+
+        </script>
+        <script id="sideMenuHeader" type="text/x-jquery-tmpl">
+            <div class="member">
+                <div class="logo_wrapper">
+                    {{if typeof(orgLogo)!=='undefined'}}
+                    <img class="logo" src="${orgLogo}" alt="" />
+                    {{else}}
+                    <img class="logo" src="${gkLogo}" alt="" />
+                    {{/if}}
+                </div>
+                <div class="attrs">
+                    <div class="member_name">${memberName}</div>
+                    {{if typeof(orgName)!=='undefined'}}
+                    <div class="org_name">${orgName}</div>
+                    {{/if}}
+                    <div class="size">已使用${Util.Number.bitSize(size)}</div>
+                </div>
+            </div>
+        </script>
+    </body>
+</html>
