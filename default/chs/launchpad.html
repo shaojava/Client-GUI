@@ -97,5 +97,25 @@
 
             </div>
         </script>
+        <script id="messageBanner" type="text/x-jquery-tmpl">
+            <div class="message_banner">
+                <div class="message_banner_left">
+                    <i class="type_icon"></i>
+                    <span class="member_name">${member_name}</span>
+                    <span class="message_content">${text}</span>
+                    <span class="timeago">${timeago}</span>
+                </div>
+                <div class="message_banner_right">
+                    <i class="message_icon"></i>
+                    <span>
+                        {{if count>99}}
+                        99+
+                        {{else}}
+                        ${count}
+                        {{/if}}
+                    </span>
+                </div>    
+            </div>
+        </script>
     </body>
 </html>

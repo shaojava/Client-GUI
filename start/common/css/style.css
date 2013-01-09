@@ -369,6 +369,7 @@ input[type="radio"]{
     margin-top: 20px;
     margin-right: 21px;
     padding: 10px;
+    cursor: default;
 }
 .from_raw.selected{
     background:#DFDFDF;
@@ -398,7 +399,7 @@ input[type="radio"]{
 }
 .login_page input[type="text"],
 .login_page input[type="password"]{
-    width:220px;
+    width:214px;
     line-height:24px;
     font-size:15px;
     border-radius: 8px;

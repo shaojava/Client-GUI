@@ -8,7 +8,7 @@ html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, fo
     padding: 0;
 }
 html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, form, fieldset, legend, button,th,td{
-      -webkit-user-select: none;
+    -webkit-user-select: none;
 }
 h1, h2, h3, h4, h5, h6{
     font-weight:normal;
@@ -403,10 +403,12 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 #lanchpad_page .header .header_left{
     float:left;
     margin: 10px 0 0 15px;
+    cursor: pointer;
 }
 #lanchpad_page .header .header_right{
     float:right;
     margin: 10px 15px 0 0;
+     cursor: pointer;
 }
 #lanchpad_page .header .member img{
     float: left;
@@ -776,4 +778,37 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     display: block;
     margin: 0 auto;
     font-weight: 700;
+}
+/*消息banner*/
+.message_banner{
+    background: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#e7e7e7));
+    box-shadow: inset 0 1px  0 #FFFFFF;
+    color:#666;
+    position: absolute;
+    bottom: 0;
+    left:0;
+    right: 0;
+    border-top:1px solid #CECECE;
+
+}
+.message_banner .message_banner_left{
+    float: left;
+               padding: 15px;
+}
+
+.message_banner .message_banner_right{
+    float: right;
+    border-left: 1px solid #CECECE;
+    box-shadow: inset 1px 0 0 #FFFFFF;
+        padding: 15px;
+}
+.message_banner .timeago{
+    color:#999;
+}
+.message_banner .count{
+    background: #BA0000;
+    border-radius: 3px;
+    position: absolute;
+    top:-6px;
+    right:-6px;
 }

@@ -11,6 +11,8 @@ var gkClientLogin = {
         gkClientLogin.showPage('#'+ac);
     },
     init:function(){
+        //disable浏览器的默认事件
+        gkClientCommon.disableDefaultEvent();
         $(window).on('hashchange', function(){
             gkClientLogin.fetchHash();
         });
@@ -245,12 +247,12 @@ var gkClientLogin = {
         })
         
         //选择同步目录
-        $('#select_gk_sync_dir').on('click',function(){
+        $('#select_gk_sync_dir').on('click',function(e){
             var path = gkClientInterface.getBindPath();
             if(path.length){
                 $('#gk_sync_dir').val(path).attr('title',path);
             }
-            return;
+            e.preventDefault();
         });
         
         //选择同步目录后
@@ -303,9 +305,9 @@ var gkClientLogin = {
         })
       
         //选择性同步
-        $('#select_sync_dirs').on('click',function(){
+        $('#select_sync_dirs').on('click',function(e){
             gkClientInterface.selectSyncFile();
-            return false;
+            e.preventDefault();
         })
         
         //选择性同步下一步
@@ -354,35 +356,6 @@ var gkClientLogin = {
     choseSyncType:function(){
         
     }
-}
-
-function gLoginResult(data) {
-    var loginBtn = $('#form_login button[type="submit"]');
-    loginBtn.removeAttr('disabled');
-    if(!data){
-        gkClientInterface.showError('无数据返回');
-        return;
-    }
-    var rep = JSON.parse(data);
-    if(!rep){
-        gkClientInterface.showError('无效的数据格式');
-        return;
-    }
-    if (rep.type == 'login') {
-        if(rep.error != 0){
-            gkClientInterface.showError(rep.message);
-            return;
-        }
-
-        if(gkClientInterface.checkLastPath()){
-            gkClientLogin.setHash('login_p13');
-        }else{
-            gkClientLogin.setHash('login_p3');
-        }
-     
-
-    }
-   
 }
 
 var gkClientModal={
@@ -434,4 +407,35 @@ var gkClientModal={
         $('body > .overlay').remove();
         $('body > .modal').remove();
     }
+}
+
+/*登录后客户端的回调函数*/
+function gLoginResult(data) {
+    var loginBtn = $('#form_login button[type="submit"]');
+    loginBtn.removeAttr('disabled');
+    if(!data){
+        gkClientInterface.showError('无数据返回');
+        return;
+    }
+    var rep = JSON.parse(data);
+    if(!rep){
+        gkClientInterface.showError('无效的数据格式');
+        return;
+    }
+    if(rep.error != 0){
+        gkClientInterface.showError(rep.message);
+        //第三方登录失败
+        if(rep.type=="weblogin"){
+            gkClientLogin.setHash('login_p10');
+        }else{
+            gkClientLogin.setHash('login_p2');
+        }
+        return;
+    }
+
+    if(gkClientInterface.checkLastPath()){
+        gkClientLogin.setHash('login_p13');
+    }else{
+        gkClientLogin.setHash('login_p3');
+    }     
 }

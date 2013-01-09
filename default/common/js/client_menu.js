@@ -1,6 +1,9 @@
 var gkClientMenu = {
   
     init:function(){
+        //disable浏览器的默认事件
+        gkClientCommon.disableDefaultEvent();
+        
         var menus =[
         {
             classes:'share',
@@ -128,8 +131,8 @@ var gkClientMenu = {
                 gkClientInterface.launchpad();
             }else if(_self.is('.toolbar .tools li.website')){
                 param ={
-                    url:'www.gokuai.com/storage',
-                    sso:0
+                    url:'/storage',
+                    sso:1
                 };
                 gkClientInterface.openURL(param);
             }else if(_self.is('.toolbar .tools li.help')){
