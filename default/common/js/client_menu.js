@@ -145,6 +145,16 @@ var gkClientMenu = {
                 };
                 
                 gkClientInterface.openWindow(param);
+            }else if(_self.is('.toolbar .tools li.news')){
+                param ={
+                    url:'/client/updates',
+                    sso:1,
+                    resize:0,
+                    width:800,
+                    height:500
+                };
+                
+                gkClientInterface.openWindow(param);
             }else if(_self.is('.toolbar .tools li.task')){
                 
             }
