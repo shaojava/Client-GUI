@@ -52,6 +52,8 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     -o-transition: border linear 0.2s, box-shadow linear 0.2s;
     transition: border linear 0.2s, box-shadow linear 0.2s;
 }
+
+.news_num,
 .input_text_radius,
 .textarea_radius,
 .select_radius{
@@ -408,7 +410,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 #lanchpad_page .header .header_right{
     float:right;
     margin: 10px 15px 0 0;
-     cursor: pointer;
+    cursor: pointer;
 }
 #lanchpad_page .header .member img{
     float: left;
@@ -521,6 +523,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 .toolbar .tools li{
     float: left;
+    position:relative;
     width:38px;
     border-left: 1px solid #B4BECA;
     height: 100%;
@@ -544,7 +547,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     border-left: 0 none;
 }
 .toolbar .tools li.start{
-    width:77px; 
+    width:76px; 
     background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#98C0E3), to(#678FC5));
     box-shadow: inset 0 1px 0 0 rgba(255,255,255,.6);
 }
@@ -568,6 +571,17 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 .toolbar .tools li.news i{
     background-position: 0 -64px;
+}
+.toolbar .tools li.news .news_num{
+    position: absolute;
+    margin:2px 0 0 -7px;
+    width:20px;
+    line-height:13px;
+    color:white;
+    background:-webkit-gradient(linear,0 0,0 100%,from(#fc0000),to(#c30000));
+    -webkit-box-shadow:0 0 3px #333;
+    -moz-box-shadow:0 0 3px #333;
+    z-index: 1;
 }
 .toolbar .tools li.help i{
     background-position: 0 -32px;
@@ -806,14 +820,14 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 .message_banner .message_banner_left{
     float: left;
-               padding: 15px;
+    padding: 15px;
 }
 
 .message_banner .message_banner_right{
     float: right;
     border-left: 1px solid #CECECE;
     box-shadow: inset 1px 0 0 #FFFFFF;
-        padding: 15px;
+    padding: 15px;
 }
 .message_banner .timeago{
     color:#999;

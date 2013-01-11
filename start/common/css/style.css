@@ -8,7 +8,7 @@ html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, fo
     padding: 0;
 }
 html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, form, fieldset, legend, button,th,td{
-      -webkit-user-select: none;
+    -webkit-user-select: none;
 }
 h1, h2, h3, h4, h5, h6{
     font-weight:normal;
@@ -339,13 +339,37 @@ input[type="radio"]{
 
 }
 
-.slide{
+.container{
     width: 518px;
-    background:url("../images/logo_bg.png") no-repeat 0 0;
     position: absolute;
     top:0;
     left:0;
     bottom:0;
+}
+.container img{
+    width:518px;
+    height:auto;
+}
+.container #idNum{
+    position:absolute;
+    left:50%;
+    margin:455px 0 0 -42px;
+    z-index:1; 
+}
+.container #idNum li{
+    width: 16px;
+    height: 16px;
+    margin:0 6px 0 6px;
+    vertical-align: middle;
+    background: url("../images/tab.png") no-repeat 0 0;
+    display: inline-block;
+}
+.container #idNum li:hover, .container #idNum li.on{
+    width: 16px;
+    height: 16px;
+    vertical-align: middle;
+    background: url("../images/tab.png") no-repeat -16px 0;
+    display: inline-block;
 }
 .login_page{
     width: 280px;
