@@ -195,7 +195,7 @@ function g_initmenu(){
   
 }
 
-function setUpdateCount(count){
+function gSetUpdateCount(count){
     if(typeof count === undefined){
         return;
     }
