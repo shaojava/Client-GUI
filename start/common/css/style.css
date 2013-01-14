@@ -336,7 +336,8 @@ input[type="radio"]{
     height: 100%;
 }
 #login .content {
-
+    border-top:1px #FFF solid;
+    padding:5px 0 5px 0;
 }
 
 .container{
@@ -380,20 +381,19 @@ input[type="radio"]{
     background: url("../images/content_bg.png") repeat 0 0;
 }
 .login_page h1{
+    font-family: "Microsoft YaHei";
     height: 40px;
     line-height: 40px;
-    font-size:14px;
-    padding:0 10px;
-    font-weight: 700;
+    font-size:16px;
+    padding:0 20px;
     border-bottom:1px solid #cecece;
     background:-webkit-gradient(linear,0 0,0 100%,from(#F9F9F9),to(#E7E7E7)); 
 }
 .from_raw {
-    margin-left:21px;
-    margin-top: 20px;
-    margin-right: 21px;
-    padding: 10px;
-    cursor: default;
+margin: 10px auto;
+padding: 5px;
+cursor: default;
+width: 240px;
 }
 .from_raw.selected{
     background:#DFDFDF;
@@ -404,16 +404,10 @@ input[type="radio"]{
 .from_raw label {
 
 }
-.from_raw input {
-    margin-right:8px;
-}
+
 .from_raw dd{
     margin-left: 23px;
     color:#666;
-}
-#login_p2 .login_fieldset {
-    padding-top:40px;
-    border-top: 1px solid #fff;
 }
 #login_p2 .control-label {
     font-size:16px;
@@ -423,10 +417,10 @@ input[type="radio"]{
 }
 .login_page input[type="text"],
 .login_page input[type="password"]{
-    width:214px;
+    width:226px;
     line-height:24px;
     font-size:15px;
-    border-radius: 8px;
+    border-radius: 4px;
 }
 #btn_findpassword {
     color:#06a;
@@ -668,7 +662,7 @@ input[type="radio"]{
 /*登录页*/
 .login_btn,
 .regist_btn{
-    width: 234px;
+    width: 240px;
     font-size: 15px;
     padding-top: 8px;
     padding-bottom: 8px;
