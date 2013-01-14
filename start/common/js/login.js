@@ -55,31 +55,16 @@ var gkClientLogin = {
         });
     
         //登陆
-        $('#form_login').on('submit',function(){
-            var email = $.trim($(this).find('input[name="email"]').val());
-            var password = $.trim($(this).find('input[name="password"]').val());
-            if(!email.length){
-                alert('请输入您的够快帐号（邮箱地址）');
-                return false;
-            }
-            if(!Util.Validation.isEmail(email)){
-                alert('请输入正确格式的邮箱地址');
-                return false;
-            }
-            if(!password.length){
-                alert('请输入您的密码');
-                return false;
-            }
+        $('#form_login').on('submit', function(e){
             var loginBtn =$(this).find('button[type="submit"]');
             var param = {
-                'username':email,
-                'password':MD5(password)
+                'username':$('#email').val(),
+                'password':MD5($('#password').val())
             };
             loginBtn.attr('disabled','disabled');
             gkClientInterface.login(param);
             return false;
-        })        
-        
+        });
         
         //注册帐号
         $('.go2regist').on('click',function(){
