@@ -147,7 +147,7 @@ var gkClientMenu = {
                 gkClientInterface.openWindow(param);
             }else if(_self.is('.toolbar .tools li.news')){
                 param ={
-                    url:'/client/updates',
+                    url:'/client/updates?ac=updates',
                     sso:1,
                     resize:0,
                     width:800,
@@ -155,6 +155,8 @@ var gkClientMenu = {
                 };
                 
                 gkClientInterface.openWindow(param);
+                gkClientInterface.clearUpdateCount();
+                _self.find('.news_num').hide();
             }else if(_self.is('.toolbar .tools li.task')){
                 
             }
@@ -191,4 +193,23 @@ function gShellSelect(re){
 }
 function g_initmenu(){      
   
+}
+
+function setUpdateCount(count){
+    if(typeof count === undefined){
+        return;
+    }
+    var el = $('.toolbar .tools .news .news_num');
+    if(!el.size()){
+        return;
+    }
+
+    if(count<=0){
+        count = 0;
+    }
+    if(!count){
+        el.hide();
+        return;
+    }
+    el.text(count>99?'99+':count).show()
 }
