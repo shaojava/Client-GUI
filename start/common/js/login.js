@@ -327,7 +327,7 @@ var gkClientLogin = {
                 syncnode:syncnode
             };
             if(overwrite.length){
-                param.overwrite = overwrite;
+                param.overwrite = parseInt(overwrite);
             }
             //console.log(param);
             gkClientInterface.finishSettings(param);
