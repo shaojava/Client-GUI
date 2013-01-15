@@ -153,12 +153,11 @@ var gkClientMenu = {
                     width:800,
                     height:500
                 };
-                
                 gkClientInterface.openWindow(param);
-                gkClientInterface.clearUpdateCount();
                 _self.find('.news_num').hide();
+                gkClientInterface.clearUpdateCount();
             }else if(_self.is('.toolbar .tools li.task')){
-                
+
             }
             return;
         })
@@ -172,7 +171,6 @@ function gShellSelect(re){
         return;
     }
     PAGE_CONFIG.state = state;
-  
     PAGE_CONFIG.path = path;
     var menu_items = $('.side_menu_list li');
     menu_items.removeClass('disable_item');
