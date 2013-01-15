@@ -381,7 +381,7 @@ input[type="radio"]{
     background: url("../images/content_bg.png") repeat 0 0;
 }
 .login_page h1{
-    font-family: "Microsoft YaHei";
+    font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3";
     height: 40px;
     line-height: 40px;
     font-size:16px;
