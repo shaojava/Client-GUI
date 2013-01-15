@@ -147,7 +147,7 @@ var gkClientMenu = {
                 gkClientInterface.openWindow(param);
             }else if(_self.is('.toolbar .tools li.news')){
                 param ={
-                    url:'/client/updates?ac=updates',
+                    url:'/storage/client?ac=updates',
                     sso:1,
                     resize:0,
                     width:800,
