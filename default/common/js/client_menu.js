@@ -16,7 +16,7 @@ var gkClientMenu = {
                     return;
                 }
                 var params = {
-                    url:'/storage/client_file_detail?tab=share&fullpath='+PAGE_CONFIG.path,
+                    url:'/client/client_file_detail?tab=share&fullpath='+PAGE_CONFIG.path,
                     sso:1,
                     resize:0,
                     width:800,
@@ -36,7 +36,7 @@ var gkClientMenu = {
                     return;
                 }
                 var params = {
-                    url:'/storage/client_file_detail?tab=history&fullpath='+PAGE_CONFIG.path,
+                    url:'/client/client_file_detail?tab=history&fullpath='+PAGE_CONFIG.path,
                     sso:1,
                     resize:0,
                     width:800,
@@ -56,7 +56,7 @@ var gkClientMenu = {
                     return;
                 }
                 var params = {
-                    url:'/storage/client_file_detail?tab=remark&fullpath='+PAGE_CONFIG.path,
+                    url:'/client/client_file_detail?tab=remark&fullpath='+PAGE_CONFIG.path,
                     sso:1,
                     resize:0,
                     width:800,
@@ -147,7 +147,7 @@ var gkClientMenu = {
                 gkClientInterface.openWindow(param);
             }else if(_self.is('.toolbar .tools li.news')){
                 param ={
-                    url:'/client/updates?ac=updates',
+                    url:'/client/client?ac=updates',
                     sso:1,
                     resize:0,
                     width:800,

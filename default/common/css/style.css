@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6{
     font-weight:normal;
 }
 body,button, input, select, textarea{
-    font: 12px/1.5 "Lucida Grande", "Segoe UI", "Arial", "Lucida Sans Unicode", "宋体", "simsun", "sans-serif";
+    font: 12px/1.5 "Lucida Grande", "Segoe UI", "Arial", "Lucida Sans Unicode","Microsoft YaHei", "宋体", "simsun", "sans-serif";
 }
 address, cite, dfn, em, var { font-style: normal; }
 small { font-size: 12px; }
@@ -53,7 +53,6 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 
-.news_num,
 .input_text_radius,
 .textarea_radius,
 .select_radius{
@@ -382,15 +381,14 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     display: none;
 }
 #lanchpad_page{
-    background: #ECEDEE url("../images/content_bg.png") repeat 0 0;
+    background: #ECEDEE url("../images/launchpad_bg.png") repeat 0 0;
 }
 #lanchpad_page .header{
-    height:55px;
+    height:70px;
     color:#fff;
     font-size: 13px;
     text-shadow: -1px -1px 0 rgba(16, 32, 66, 1);
     position: relative;
-    background:#354F75 url("../images/body_bg_blue.png") repeat 0 0;
 }
 #lanchpad_page .wrapper{
     height: 500px;
@@ -404,12 +402,12 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 #lanchpad_page .header .header_left{
     float:left;
-    margin: 10px 0 0 15px;
+    margin: 20px 0 0 15px;
     cursor: pointer;
 }
 #lanchpad_page .header .header_right{
     float:right;
-    margin: 10px 15px 0 0;
+    margin: 20px 15px 0 0;
     cursor: pointer;
 }
 #lanchpad_page .header .member img{
@@ -438,24 +436,34 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 #lanchpad_page .header .member img{
     margin-top: 0;
 }
+#lanchpad_page .content, .message_banner{
+    border:1px #333538 solid;
+    border-radius:8px;
+    box-shadow: inset 0 0 5px #35373a;
+    border-bottom:1px solid #858b92;
+    width:680px;
+    margin:0 auto;
+    background: #ECEDEE url("../images/launchpad_deep_bg.png") repeat 0 0;
+}
 #lanchpad_page .menus{
     overflow: hidden;
     width:630px;
-    margin: 50px auto 0;
+    margin: 25px auto;
 
 }
 #lanchpad_page .menus .menu_item{
     float: left;
     cursor: pointer;
-    margin:20px 15px;
+    margin:15px;
     width: 96px;
     border-radius: 8px;
-    padding: 10px 0;
+    padding: 15px 0 10px 0;
 }
 #lanchpad_page .menus .menu_item:hover,
 #lanchpad_page .menus .menu_item:active{
-    background: #D4D5D7 url("../images/horizon_nav_bg.png")  repeat 0 0;
-    box-shadow:  inset 0 1px 0 0 #A5A5A6,0 1px 0 0 #fff;
+    background: #313845;
+    /*border:2px solid #7babec;*/
+    box-shadow: inset 0 0 0 2px #7babec;
 }
 #lanchpad_page .menus .menu_item .menu_icon{
     width: 64px;
@@ -470,18 +478,13 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     text-align: center;
     width: 64px;
     margin: 14px auto 0;
-    background: #999;
     height: 20px;
     line-height: 20px;
     color:#fff;
-    border-radius: 9px;
-    border-top:0;
-    box-shadow:  inset 0 1px 0 0 #777,0 1px 0 0 #fff;
-    text-shadow: -1px -1px rgba(0,0,0,.3);
     font-weight: 600;
 }
 #lanchpad_page .menus .menu_item .menu_name{
-
+    text-shadow: -1px -1px 3px #000;
 }
 .blue_cowboy_border{
     position: absolute;
@@ -574,15 +577,8 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 .toolbar .tools li.news .news_num{
     position: absolute;
-    top:-5px;
-    right: -5px;
-    width:20px;
-    line-height:13px;
-    color:white;
-    background:-webkit-gradient(linear,0 0,0 100%,from(#fc0000),to(#c30000));
-    -webkit-box-shadow:0 0 3px #333;
-    -moz-box-shadow:0 0 3px #333;
-    z-index: 1;
+    top: -2px;
+    right: -3px;
 }
 .toolbar .tools li.help i{
     background-position: 0 -32px;
@@ -809,34 +805,44 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 /*消息banner*/
 .message_banner{
-    background: -webkit-gradient(linear, 0 0, 0 100%, from(#f9f9f9), to(#e7e7e7));
-    box-shadow: inset 0 1px  0 #FFFFFF;
-    color:#666;
     position: absolute;
-    bottom: 0;
     left:0;
     right: 0;
-    border-top:1px solid #CECECE;
-
 }
 .message_banner .message_banner_left{
     float: left;
     padding: 15px;
+    color:white;
 }
 
 .message_banner .message_banner_right{
     float: right;
-    border-left: 1px solid #CECECE;
-    box-shadow: inset 1px 0 0 #FFFFFF;
-    padding: 15px;
 }
 .message_banner .timeago{
     color:#999;
 }
-.message_banner .count{
-    background: #BA0000;
-    border-radius: 3px;
+.message_banner .message_icon{
+    display: block;
+    width: 50px;
+    height: 48px;
+    background: url("../images/msg_ico.png") no-repeat center;
+    margin: 0px 15px;
+    cursor: pointer;
+}
+.message_banner .message_num{
     position: absolute;
-    top:-6px;
-    right:-6px;
+    right: 16px;
+    bottom: 30px;
+}
+/*右上角新信息提示标记*/
+.coner_news{
+    width: 20px;
+    text-align: center;
+    line-height: 13px;
+    color: white;
+    background: -webkit-gradient(linear,0 0,0 100%,from(#FC0000),to(#C30000));
+    box-shadow: 0 0 3px #333;
+    border-radius: 3px;
+    cursor:pointer;
+    z-index: 1;
 }

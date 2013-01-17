@@ -21,7 +21,7 @@
     <body id="lanchpad_page">
         <div class="wrapper">
             <div class="header">
-                <div class="blue_cowboy_border"><div></div></div>
+                
             </div>
             <div class="content">
                 <ul class="menus">
@@ -31,25 +31,26 @@
                         </div>
                         <div class="menu_name">打开文件</div>
                     </li>
-                    <li class="menu_item" data-url="/storage/client?ac=updates">
+                    <li class="menu_item" data-url="/client/client?ac=updates">
                         <div class="menu_icon">
-                            <img src="../common/images/update64x64.png" alt="" /> 
+                            <img src="../common/images/update64x64.png" alt="" />
+                            <span class="news_num coner_news"></span>
                         </div>
                         <div class="menu_name">更新</div>
                     </li>
-                    <li class="menu_item" data-url="/storage/client?ac=shares">
+                    <li class="menu_item" data-url="/client/client?ac=shares">
                         <div class="menu_icon">
-                            <img src="../common/images/share64x64.png" alt="" /> 
+                            <img src="../common/images/share64x64.png" alt="" />
                         </div>
                         <div class="menu_name">我的共享</div>
                     </li>
-                    <li class="menu_item" data-url="/storage/client?ac=favorites">
+                    <li class="menu_item" data-url="/client/client?ac=favorites">
                         <div class="menu_icon">
                             <img src="../common/images/favorites64x64.png" alt="" /> 
                         </div>
                         <div class="menu_name">收藏夹</div>
                     </li>
-                    <li class="menu_item" data-url="/storage/client?ac=contacts">
+                    <li class="menu_item" data-url="/client/client?ac=contacts">
                         <div class="menu_icon">
                             <img src="../common/images/contact64x64.png" alt="" /> 
                         </div>
@@ -62,7 +63,7 @@
                         <div class="menu_name">应用</div>
                     </li>
 
-                    <li class="menu_item" data-url="/storage/client?ac=recyclebin">
+                    <li class="menu_item" data-url="/client/client?ac=recyclebin">
                         <div class="menu_icon">
                             <img src="../common/images/recyclebin64x64.png" alt="" /> 
                         </div>
@@ -107,7 +108,7 @@
                 </div>
                 <div class="message_banner_right">
                     <i class="message_icon"></i>
-                    <span>
+                    <span class="message_num coner_news">
                         {{if count>99}}
                         99+
                         {{else}}

@@ -51,40 +51,46 @@ var gkClientLaunchPad = {
             }
                  
         });
-        
         //最新消息
-       //this.showMessage();
+        this.showMessage();
     },
     showMessage:function(){
         var re  =  gkClientInterface.getMessage();
-        console.log(re);
+       
         var msg = re.message[0]||{};
         //        if(!msg){
         //            return;
         //        }
-        
+        //console.log(msg);
         msg.count = re.message_count;
         var msg = {
-            count:10,
-            member_name:'ddd',
-            text:'dadsdadfdsafasdfasd',
-            timeago:'17分钟前'
+            count:re.message_count,
+            member_name:msg.member_name,
+            text:msg.message + msg.msg,
+            timeago:msg.timeago
         }
         var msgBanner = $('#messageBanner').tmpl(msg);
-        msgBanner.appendTo($('body'));
-        msgBanner.css({
-            'opacity':0,
-            'bottom':msgBanner.outerHeight() *-1
-        })
-        msgBanner.animate({
-            'bottom':0,
-            'opacity':1
-        },400);
+        if(msg.count!=0){
+            msgBanner.appendTo($('body'));
+            msgBanner.css({
+                'opacity':0,
+                'bottom':msgBanner.outerHeight() *-1
+            })
+            msgBanner.animate({
+                'bottom':16,
+                'opacity':1
+            },300);
+        }
         msgBanner.find('.message_banner_right').on('click',function(){
             var param = {
-                
+                url:'/client/client_notice',
+                sso:1,
+                resize:0,
+                width:500,
+                height:485
             };
             gkClientInterface.openWindow(param);
+            msgBanner.hide();
         })
     }
 }
