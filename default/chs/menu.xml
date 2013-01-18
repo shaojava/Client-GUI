@@ -5,7 +5,7 @@
 		<icon>shellshare.bmp</icon>
 		<status>3</status>
 		<action>gMain</action>
-		<url>/client/client_file_detail?tab=remark</url>
+		<url>/client/client_file_detail?tab=share</url>
 		<sso>1</sso>
 		<resize>1</resize>
 		<width>800</width>
@@ -16,7 +16,7 @@
 		<icon>shellhistory.bmp</icon>
 		<status>1</status>
 		<action>gMain</action>
-		<url>/client/client_file_detail?tab=remark</url>
+		<url>/client/client_file_detail?tab=history</url>
 		<sso>1</sso>
 		<resize>1</resize>
 		<width>800</width>
