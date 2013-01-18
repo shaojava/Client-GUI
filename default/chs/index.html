@@ -38,7 +38,7 @@
         </div>
 
         <script id="sideMenuList" type="text/x-jquery-tmpl">
-            <ul class="side_menu_list">
+            <ul class="side_menu_list scrollbar">
                 {{each(k,v) menus}}
                 <li class="{{if typeof(v.classes)!=='undefined' && v.classes.length}}${v.classes}{{/if}}{{if typeof(v.tip)==='undefined' || !v.tip.length}} no_tip_item{{/if}}" data-folder_enable="${v.folder}" data-file_enable="${v.file}">
                     <div class="icon"></div>
