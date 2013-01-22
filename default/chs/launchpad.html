@@ -82,6 +82,7 @@
                 {{else}}
                 <div class="gokuai">
                     <img class="logo" src="${gkLogo}" alt="" />
+                     <span class="name">我的够快</span>
                 </div>
                 {{/if}}
 
@@ -92,7 +93,7 @@
                     <img class="photo_radus photo" src="${member.photo}" alt="" />
                     <div class="attrs">
                         <div class="name">${member.name}</div>
-                        <div class="size">${Util.Number.bitSize(member.size)}</div>
+                        <div class="size">已使用${Util.Number.bitSize(member.size)}</div>
                     </div>
                 </div>
 

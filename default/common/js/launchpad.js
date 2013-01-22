@@ -7,12 +7,11 @@ var gkClientLaunchPad = {
             gkLogo:'../common/images/logo32x32.png'
         };
         if(user){
-            meta = {
-                member:{
+            meta.member ={
                     name:user.username,
                     photo:user.photourl,
                     size:user.size
-                }
+            
             };  
             
             if(user.org_id!=0){
