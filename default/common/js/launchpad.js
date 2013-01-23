@@ -83,7 +83,7 @@ var gkClientLaunchPad = {
         }
         msgBanner.find('.message_banner_right').on('click',function(){
             var param = {
-                url:'/client/client_notice',
+                url:'/client/notice',
                 sso:1,
                 resize:0,
                 width:500,
