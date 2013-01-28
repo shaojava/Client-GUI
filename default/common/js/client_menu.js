@@ -161,6 +161,9 @@ var gkClientMenu = {
             }
             return;
         })
+        $('body').tooltip({
+            selector:'.gktooltip'
+        })
     }
 }
 
