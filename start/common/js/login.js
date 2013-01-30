@@ -185,7 +185,7 @@ var gkClientLogin = {
             });
             return false;
         })
-        
+                
         //是否使用上一步同步设置
         $('#login_p13 form').on('submit',function(){
             var val = $(this).find('input[name="use_old_settings"]:checked').val();
@@ -195,10 +195,29 @@ var gkClientLogin = {
                 }
                 gkClientInterface.finishSettings(param);
             }else{//不使用上一次的同步设置
+                if($("#login_p3 .btn_prev")){
+                    $('#login_p3 .btn_prev').remove();
+                }
+                var prev = $("<button type='button' class='btn_prev'>上一步</button>");
+                prev.on('click',function(){
+                    history.back();
+                    return;
+                })
+                $('#login_p3 form .right').prepend(prev);
+                
                 gkClientLogin.setHash('login_p3');
             }
             return false;
         })
+        $('#login_p13 form').on('click',function(){
+            var val =$(this).find('input[name="use_old_settings"]:checked').val();
+            if(val==1){
+                $(this).find(':button').html('完成');
+            }
+            else{
+                $(this).find(':button').html('下一步');
+            }
+        })        
         
         //同步设置
         $('#login_p3 form').on('submit',function(){
@@ -206,7 +225,7 @@ var gkClientLogin = {
             var gkSettingsType =$(this).find('input[name="chose_settings"]:checked').val(); 
             if(gkSettingsType==1){//非默认设置
                 gkClientLogin.setHash('login_p11');
-            }else{//默认设置
+            }else{//默认设置z
                 var defaultPath = gkClientInterface.getNormalPath();
                 var isEmpty = gkClientInterface.checkIsEmptyPath(defaultPath);
                 if(!parseInt(isEmpty)){
@@ -260,6 +279,16 @@ var gkClientLogin = {
             }
             return false
         })
+       $('#login_p3 form').on('click',function(){
+            var val =$(this).find('input[name="chose_settings"]:checked').val();
+            if(val==1){
+                $(this).find('.btn_next').html('下一步');
+            }
+            else{
+                $(this).find('.btn_next').html('完成');
+            }
+        })        
+        
         
         //选择同步目录
         $('#select_gk_sync_dir').on('click',function(e){
