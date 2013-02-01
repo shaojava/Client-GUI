@@ -350,6 +350,37 @@ var gkClientLogin = {
         })
         //幻灯片运行
         gkClientLogin.slideRun();
+        
+        var key = gkClientInterface.getOauthKey();
+        
+        var qrImg = $('<img src="'+gkClientInterface.getSiteDomain()+'/account/get_login_qr?key='+key+'" />');
+         
+         
+        //检测二维码登录
+        var checkLogin = function(key){
+            $.ajax({
+                url:gkClientInterface.getSiteDomain()+'/account/check_client_qr_login',
+                dataType:'json',
+                data:{
+                    key:key
+                },
+                success:function(logined){
+                    if(logined==1){
+                        gkClientInterface.login();
+                    }
+                },
+                error:function(){
+                    
+                }
+            });
+        }
+        
+        var loginCheckTimer = setInterval(function(){
+            checkLogin(key);
+        },5000);
+        checkLogin(key);
+    //
+      
     },
     slideRun : function(){
         var nums = [], timer, n = $("#idContainer td").size(),

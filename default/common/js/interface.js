@@ -1,8 +1,13 @@
 var gkClientInterface = {
     login:function(param){
         try{
-            param = JSON.stringify(param);
-            gkClient.gLogin(param);
+            if(typeof arguments[0] ===undefined){
+                gkClient.gLogin();
+            }else{
+                param = JSON.stringify(param);
+                gkClient.gLogin(param);
+            }
+          
         }catch(e){
             throw e;
         }
@@ -183,6 +188,9 @@ var gkClientInterface = {
     },
     clearUpdateCount:function(){
         gkClient.gClearUpdateCount();
+    },
+    getSiteDomain:function(){
+        return  gkClient.gSiteDomain();
     }
 }
 var gkClientAjax = {};
