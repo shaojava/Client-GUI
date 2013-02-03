@@ -26,6 +26,26 @@ var gkClientMenu = {
             }
         },
         {
+            classes:'qr_share',
+            name:'扫一扫共享',
+            folder:true,
+            file:true,
+            tip:'扫描二维码分享文件',
+            click:function(){
+                if(!PAGE_CONFIG.path.length){
+                    return;
+                }
+                var params = {
+                    url:'/client/client_file_detail?tab=share_qr&fullpath='+PAGE_CONFIG.path,
+                    sso:1,
+                    resize:0,
+                    width:800,
+                    height:600
+                }
+                gkClientInterface.openWindow(params);
+            }
+        },
+        {
             classes:'history',
             name:'查看历史',
             tip:'查看文件的修改历史',

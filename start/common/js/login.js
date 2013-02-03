@@ -78,19 +78,56 @@ var gkClientLogin = {
             loginBtn.attr('disabled','disabled');
             gkClientInterface.login(param);
             return false;
-        })        
+        })
+        //企业用户登陆
+        $('#ent_login_form').on('submit',function(){
+            var ent_id=$.trim($(this).find('input[name="ent_id"]').val());
+            var ent_user_id = $.trim($(this).find('input[name="ent_user_id"]').val());
+            var password = $.trim($(this).find('input[name="password"]').val());
+            if(!ent_id.length){
+                alert('请输入企业代码');
+                return false;
+            }
+            if(!ent_user_id.length){
+                alert('请输入您的帐号');
+                return false;
+            }
+            if(!password.length){
+                alert('请输入您的密码');
+                return false;
+            }
+            var loginBtn =$(this).find('button[type="submit"]');
+            var param = {
+                'domain':ent_id,
+                'username':ent_user_id,
+                'password':password,
+                'key':gkClientInterface.getOauthKey()
+            };
+            
+            loginBtn.attr('disabled','disabled');
+            $.ajax({
+                url:gkClientInterface.getSiteDomain()+'/account/login_submit',
+                dataType:'json',
+                data:param,
+                success:function(){
+                    gkClientInterface.login();
+                },
+                error:function(request, textStatus, errorThrown){
+                    var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                    alert(errorMsg);
+                }
+            });
+            return false;
+        })
         
+        
+
         
         //注册帐号
         $('.go2regist').on('click',function(){
             gkClientLogin.setHash('login_p9');
         })
-            
-        //第三方登陆
-        $('.go2oauth').on('click',function(){
-            gkClientLogin.setHash('login_p10');
-        })
-    
+
         //找回密码
         $('#btn_findpassword').on('click', function(){
             var param = {
@@ -109,8 +146,8 @@ var gkClientLogin = {
         });
         
         //使用第三方帐号
-        $('.login_page #oauth_login_from').on('submit',function(){
-            var oauth = $(this).find('input[name="oauth"]:checked').val();
+        $('#oauth_login_form .btn').on('click',function(){
+            var oauth = $(this).attr('name');
             var oauthURL =  PAGE_CONFIG.siteDomain.replace(/http:\/\/|https:\/\//,'')+'/account/oauth?oauth='+oauth+'&key='+gkClientInterface.getOauthKey();
             gkClientInterface.openWindow({
                 url:oauthURL,
@@ -279,7 +316,7 @@ var gkClientLogin = {
             }
             return false
         })
-       $('#login_p3 form').on('click',function(){
+        $('#login_p3 form').on('click',function(){
             var val =$(this).find('input[name="chose_settings"]:checked').val();
             if(val==1){
                 $(this).find('.btn_next').html('下一步');
@@ -377,21 +414,22 @@ var gkClientLogin = {
             gkClientInterface.finishSettings(param);
             return false;
         })
-        //幻灯片运行
-        gkClientLogin.slideRun();
+        
         
         var key = gkClientInterface.getOauthKey();
-        
-        var qrImg = $('<img src="'+gkClientInterface.getSiteDomain()+'/account/get_login_qr?key='+key+'" />');
-         
-         
+        console.log(key);
+        var qrImg = $('<img class="qrcode" src="'+gkClientInterface.getSiteDomain()+'/account/get_login_qr?key='+key+'&client=1" />');
+        $('#idSlider td .qrcode').prepend(qrImg);
+        //幻灯片运行
+        gkClientLogin.slideRun();
         //检测二维码登录
         var checkLogin = function(key){
             $.ajax({
                 url:gkClientInterface.getSiteDomain()+'/account/check_client_qr_login',
                 dataType:'json',
                 data:{
-                    key:key
+                    key:key,
+                    client:1
                 },
                 success:function(logined){
                     if(logined==1){
@@ -411,6 +449,7 @@ var gkClientLogin = {
     //
       
     },
+    //幻灯片实例化
     slideRun : function(){
         var nums = [], timer, n = $("#idContainer td").size(),
         st = new SlideTrans("idContainer", "idSlider", n, {//SlideTrans
@@ -439,6 +478,87 @@ var gkClientLogin = {
             }
             nums[i] = num;
         }
+        //登录tab页展开
+        $('#loginTab').on('click',function(){
+            $('#ent_login_form').animate({
+                top:"360px"
+            },200);
+            $('#mobile_login_form').animate({
+                top:"390px"
+            },200);
+            $('#oauth_login_form').animate({
+                top:"420px"
+            },200);
+            st.Auto = true;
+            st.Run();
+            //            st.Run(Math.floor(Math.random()*4+1));
+            $('#loginTab i').attr('class','unfold');
+            $('#entTab i').attr('class','fold');
+            $('#mobileTab i').attr('class','fold');
+            $('#oauthTab i').attr('class','fold');
+        })
+        //企业登录tab页展开
+        $('#entTab').on('click',function(){
+            if($('#entTab').offset().top < 100){
+                $('#mobile_login_form').animate({
+                    top:"390px"
+                },200);
+                $('#oauth_login_form').animate({
+                    top:"420"
+                },200);
+            }
+            else{
+                $('#ent_login_form').animate({
+                    top:"30px"
+                },200);
+            }
+            st.Auto = true;
+            st.Run();
+            $('#loginTab i').attr('class','fold');
+            $('#entTab i').attr('class','unfold');
+            $('#mobileTab i').attr('class','fold');
+            $('#oauthTab i').attr('class','fold');
+        })
+        //手机登录tab页展开
+        $('#mobileTab').on('click',function(){
+            if($('#mobileTab').offset().top < 100){
+                $('#oauth_login_form').animate({
+                    top:"420px"
+                },200);
+            }
+            else{
+                $('#ent_login_form').animate({
+                    top:"30px"
+                },200);
+                $('#mobile_login_form').animate({
+                    top:"60px"
+                },200);
+            }
+            st.Auto = false;
+            st.Run(3);
+            $('#loginTab i').attr('class','fold');
+            $('#entTab i').attr('class','fold');
+            $('#mobileTab i').attr('class','unfold');
+            $('#oauthTab i').attr('class','fold');
+        })
+        //第三方登陆tab页展开
+        $('#oauthTab').on('click',function(){
+            $('#ent_login_form').animate({
+                top:"30px"
+            },200);
+            $('#mobile_login_form').animate({
+                top:"60px"
+            },200);
+            $('#oauth_login_form').animate({
+                top:"90px"
+            },200);
+            st.Auto = true;
+            st.Run();
+            $('#loginTab i').attr('class','fold');
+            $('#entTab i').attr('class','fold');
+            $('#mobileTab i').attr('class','fold');
+            $('#oauthTab i').attr('class','unfold');
+        })
         st.Run();
     },
     showPage:function(target){
@@ -460,7 +580,7 @@ var gkClientLogin = {
     },
     choseSyncType:function(){
         
-    }
+    }    
 }
 
 var gkClientModal={

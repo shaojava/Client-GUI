@@ -5,12 +5,12 @@
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
         <!--<script type="text/javascript" src="http://gv6.gokuai.com/Common/js/util.js"></script>-->
-         <script type="text/javascript" src="../common/js/util.js"></script>
+        <script type="text/javascript" src="../common/js/util.js"></script>
         <script type="text/javascript" src="../common/js/config.js"></script>
         <script type="text/javascript" src="../common/js/jquery.js"></script>
         <script type="text/javascript" src="../common/js/jsMD5.js"></script>
         <!--<script type="text/javascript" src="http://gv6.gokuai.com/Common/js/interface.js"></script>-->
-         <script type="text/javascript" src="../common/js/interface.js"></script>
+        <script type="text/javascript" src="../common/js/interface.js"></script>
         <script type="text/javascript" src="../common/js/login.js"></script>
         <script type="text/javascript">
             $(function(){
@@ -23,68 +23,77 @@
             <div class="container" id="idContainer">
                 <table id="idSlider" >
                     <tr>
-                        <td><img src="../common/images/slide1.png" alt="" /></td>
-                        <td><img src="../common/images/slide2.png" alt="" /></td>
-                        <td><img src="../common/images/slide3.png" alt="" /></td>
+                        <td><div><img src="../common/images/slide1.png" alt="" /></div></td>
+                        <td><div><img src="../common/images/slide2.png" alt="" /></div></td>
+                        <td><div><img src="../common/images/slide3.png" alt="" /></div></td>
+                        <td><div class="qrcode"><p>请使用够快移动客户端扫描二维码，即可轻松登录。</p></div></td>
                     </tr>
                 </table>
                 <ul id="idNum"></ul>
             </div>
             <div class="grid">
                 <div></div>
-            </div>
-            <div id="login_p1" class="login_page">
-                <form id="form_login_from">
-                    <h1>欢 迎</h1>
-                    <div class="content">
-                        <div class="from_raw">
-                            <label>
-                                <input type="radio" name="t" checked="checked" value="login_p2" />
-                                我已有够快帐号</label>
-                        </div>
-                        <div class="from_raw">
-                            <label>
-                                <input type="radio" name="t" value="login_p9" />
-                                我还未注册够快帐号</label>
-                        </div>
-                        <div class="from_raw">
-                            <label>
-                                <input type="radio" name="t" value="login_p10" />
-                                使用合作帐号登录</label>
-                        </div>
-                    </div>
-                    <div class="dialog_bottom">
-                        <div class="right">
-                            <button type="submit">下一步</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
+            </div>        
             <div id="login_p2" class="login_page">
                 <form id="form_login" class="form-horizontal">
-                    <h1>登录</h1>
+                    <h1 id="loginTab"><i class="unfold"></i>登录</h1>
                     <div class="content">
-                            <div class="from_raw">
-                                <input type="text" placeholder="请输入您的够快帐号" id="email" name="email" class="input_text" />
-                            </div>
-                            <div class="from_raw">
-                                <input type="password" placeholder="请输入密码" id="password" name="password" class="input_text" />
-                            </div>
-                            <div class="from_raw">
-                                <button class="btn blue_btn login_btn" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
-                            </div>
+                        <div class="from_raw">
+                            <input type="text" placeholder="请输入您的够快帐号" id="email" name="email" class="input_text" />
+                        </div>
+                        <div class="from_raw">
+                            <input type="password" placeholder="请输入密码" id="password" name="password" class="input_text" />
+                        </div>
+                        <div class="from_raw">
+                            <button class="btn blue_btn login_btn" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+                        </div>
                         <div id="btn_findpassword">忘记密码?</div>
                     </div>
-                    <div class="dialog_bottom">
-                        <div class="left">
-                            <button type="button" class="network_settings">网络设置</button>
+                </form>
+                <form id="ent_login_form" class="form-horizontal">
+                    <h1 id="entTab"><i class="fold"></i>企业用户登录</h1>
+                    <div class="content">
+                        <div class="from_raw">
+                            <input type="text" placeholder="请输入企业代码" id="ent_id" name="ent_id" class="input_text" />
                         </div>
-                        <div class="right">
-                            <button type="button" class="go2regist">注册帐号</button>
-                            <button type="button" class="go2oauth">第三方登录</button>
+                        <div class="from_raw">
+                            <input type="text" placeholder="请输入您的帐号" id="ent_user_id" name="ent_user_id" class="input_text" />
+                        </div>
+                        <div class="from_raw">
+                            <input type="password" placeholder="请输入密码" id="password" name="password" class="input_text" />
+                        </div>
+                        <div class="from_raw">
+                            <button class="btn blue_btn login_btn" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
                         </div>
                     </div>
                 </form>
+                <form id="mobile_login_form">
+                    <h1 id="mobileTab"><i class="fold"></i>二维码登录</h1>
+                    <div class="content">
+                        <img src="../common/images/qrcode_login.png" alt="" />
+                        <p>使用够快移动客户端的“发现”功能扫描左侧二维码即可轻松登录够快客户端。</p>
+                    </div>
+                </form>
+                <form id="oauth_login_form">
+                    <h1 id="oauthTab"><i class="fold"></i>合作帐号登录</h1>
+                    <div class="content">
+                        <a class="btn" href="" name="sina"><i class="sina_logo"></i>新浪微博</a>
+                        <a class="btn" href="" name="qq"><i class="qq_logo"></i>腾讯QQ</a>
+                        <a class="btn" href="" name="shnu"><i class="shnu_logo"></i>上海师范大学</a>
+                        <a class="btn" href="" name="hichina"><i class="hichina_logo"></i>万网企业邮箱</a>                        
+                    </div>
+                </form>
+                <div class="dialog_bottom">
+                    <div class="left">
+                        <button type="button" class="network_settings"><i class="setting_icon"></i>网络设置</button>
+                    </div>
+                    <div class="right">
+                        <button type="button" class="go2regist"><i class="regist_icon"></i>注册帐号</button>
+                    </div>
+                </div>
+            </div>
+            <div id="login_p_ent" class="login_page">
+                
             </div>
             <div id="login_p3" class="login_page">
                 <form id="gk_settings_form" class="form-horizontal">
@@ -121,12 +130,11 @@
                 </form>
             </div>
 
-
             <div id="login_p9" class="login_page">
                 <form id="regist_form">
-                    <h1>注册</h1>
+                    <h1 id="registTab"><i class="unfold"></i>注册</h1>
                     <div class="content">
-                        
+
                         <div class="from_raw">
                             <input type="text" value="" class="input_text" placeholder="请输入邮箱地址" id="email" name="email" />
                         </div>
@@ -149,53 +157,16 @@
                     </div>
                     <div class="dialog_bottom">
                         <div class="left">
-                            <button class="network_settings" type="button">网络设置</button>
+                            <button class="network_settings" type="button"><i class="setting_icon"></i>网络设置</button>
                         </div>
                         <div class="right">
-                            <button class="btn_prev" type="button">上一步</button>
+                            <button class="btn_prev" type="button"><i class="go_back_icon"></i>返回登录</button>
 
                         </div>
                     </div>
                 </form>
             </div>
-
-            <div id="login_p10" class="login_page">
-                <form id="oauth_login_from">
-                    <h1>第三方帐号登录</h1>
-                    <div class="content">
-                        <div class="from_raw">
-                            <label>
-                                <input type="radio" name="oauth" checked="checked" value="sina" />
-                                新浪微博</label>
-                        </div>
-                        <div class="from_raw">
-                            <label>
-                                <input type="radio" name="oauth" value="qq" />
-                                腾讯QQ</label>
-                        </div>
-                        <div class="from_raw">
-                            <label>
-                                <input type="radio" name="oauth" value="hichina" />
-                                万网企业邮箱</label>
-                        </div>
-                        <div class="from_raw">
-                            <label>
-                                <input type="radio" name="oauth" value="shnu" />
-                                上海师范大学</label>
-                        </div>
-                    </div>
-                    <div class="dialog_bottom">
-                        <div class="left">
-                            <button class="network_settings" type="button">网络设置</button>
-                        </div>
-                        <div class="right">
-                            <button class="btn_prev" type="button">上一步</button>
-                            <button type="submit">下一步</button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-
+            
             <div id="login_p11" class="login_page">
                 <form id="select_sync_dir">
                     <h1>请选择同步文件夹路径</h1>

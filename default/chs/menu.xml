@@ -11,6 +11,17 @@
 		<width>800</width>
 		<height>600</height>
 	</item>
+        <item>
+                <title>扫一扫共享</title>
+                <icon>shellqrshare.bmp</icon>
+		<status>3</status>
+		<action>gMain</action>
+		<url>/client/client_file_detail?tab=share_qr</url>
+		<sso>1</sso>
+		<resize>1</resize>
+		<width>800</width>
+		<height>600</height>
+        </item>
 	<item>
 		<title>查看历史</title>
 		<icon>shellhistory.bmp</icon>

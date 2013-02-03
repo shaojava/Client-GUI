@@ -625,6 +625,12 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .side_menu_list .share.disable_item .icon{
     background-position: 0 -32px;
 }
+.side_menu_list .qr_share .icon{
+    background-position: 0 -320px;
+}
+.side_menu_list .qr_share.disable_item .icon{
+    background-position: 0 -352px;
+}
 .side_menu_list .history .icon{
     background-position: 0 -64px;
 }

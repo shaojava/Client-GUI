@@ -183,6 +183,9 @@ var gkClientInterface = {
     },
     clearUpdateCount:function(){
         gkClient.gClearUpdateCount();
+    },
+    getSiteDomain:function(){
+        return  gkClient.gSiteDomain();
     }
 }
 var gkClientAjax = {};
