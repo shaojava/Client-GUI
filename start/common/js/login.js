@@ -111,7 +111,7 @@ var gkClientLogin = {
                 data:param,
                 type:'POST',
                 success:function(){
-                    gkClientInterface.login();
+                    gkClientInterface.loginByKey();
                 },
                 error:function(request, textStatus, errorThrown){
                     var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
