@@ -99,7 +99,7 @@ var gkClientLogin = {
             var loginBtn =$(this).find('button[type="submit"]');
             var param = {
                 'domain':ent_id,
-                'username':ent_user_id,
+                'email':ent_user_id,
                 'password':password,
                 'key':gkClientInterface.getOauthKey()
             };
@@ -109,6 +109,7 @@ var gkClientLogin = {
                 url:gkClientInterface.getSiteDomain()+'/account/login_submit',
                 dataType:'json',
                 data:param,
+                type:'POST',
                 success:function(){
                     gkClientInterface.login();
                 },
