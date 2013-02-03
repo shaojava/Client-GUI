@@ -114,6 +114,7 @@ var gkClientLogin = {
                     gkClientInterface.loginByKey();
                 },
                 error:function(request, textStatus, errorThrown){
+                    loginBtn.removeAttr('disabled');
                     var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
                     alert(errorMsg);
                 }
