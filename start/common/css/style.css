@@ -506,6 +506,20 @@ input[type="radio"]{
     cursor: default;
     width: 240px;
 }
+.from_raw.selected{
+    background:#DFDFDF;
+    box-shadow:  inset 0 1px 0 0 #A1A1A1,0 1px 0 0 #fff;
+
+    border-radius: 4px;
+}
+.from_raw label {
+
+}
+
+.from_raw dd{
+    margin-left: 23px;
+    color:#666;
+}
 #login_p2 .control-label {
     font-size:16px;
 }
