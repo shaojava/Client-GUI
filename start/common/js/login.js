@@ -466,12 +466,12 @@ var gkClientLogin = {
         checkLogin(key);
     
         
-        //菊花转啊转
+        //载入时菊花的参数设置
         var loadingIcon = {
             lines: 9, // The number of lines to draw
             length: 4, // The length of each line
-            width: 3, // The line thickness
-            radius: 4, // The radius of the inner circle
+            width: 2, // The line thickness
+            radius: 3, // The radius of the inner circle
             corners: 1, // Corner roundness (0..1)
             rotate: 0, // The rotation offset
             color: '#FFF', // #rgb or #rrggbb
