@@ -470,6 +470,8 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 #lanchpad_page .menus .menu_item .menu_icon img{
     width: 64px;
     height: 64px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+    border-radius: 8px;
 }
 #lanchpad_page .menus .menu_item .menu_name{
     text-align: center;
@@ -481,7 +483,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     font-weight: 600;
 }
 #lanchpad_page .menus .menu_item .menu_name{
-    text-shadow: -1px -1px 3px #000;
+    text-shadow: 1px 1px 5px #000;
 }
 .blue_cowboy_border{
     position: absolute;

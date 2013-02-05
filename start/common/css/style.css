@@ -145,7 +145,7 @@ input[type="radio"]{
 .btn[disabled] {
     cursor: default;
     background-color: #e6e6e6;
-    background-image: none;
+    color:white;
     opacity: 0.65;
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -787,6 +787,14 @@ input[type="radio"]{
     display: block;
     margin: 0 auto;
     font-weight: 700;
+}
+.login_btn .spinner{
+    left:50%;
+    margin:-8px 0 0 40px;
+}
+.regist_btn .spinner{
+    left:50%;
+    margin:-8px 0 0 50px;
 }
 
 /*选择同步目录*/

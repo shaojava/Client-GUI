@@ -68,28 +68,28 @@ var gkClientLaunchPad = {
             text:msg.message + msg.msg,
             timeago:msg.timeago
         }
-        var msgBanner = $('#messageBanner').tmpl(msg);
-        if(msg.count!=0){
-            msgBanner.appendTo($('body'));
-            msgBanner.css({
-                'opacity':0,
-                'bottom':msgBanner.outerHeight() *-1
-            })
-            msgBanner.animate({
-                'bottom':16,
-                'opacity':1
-            },300);
-        }
-        msgBanner.find('.message_banner_right').on('click',function(){
-            var param = {
-                url:'/client/notice',
-                sso:1,
-                resize:0,
-                width:500,
-                height:485
-            };
-            gkClientInterface.openWindow(param);
-            msgBanner.hide();
-        })
+//        var msgBanner = $('#messageBanner').tmpl(msg);
+//        if(msg.count!=0){
+//            msgBanner.appendTo($('body'));
+//            msgBanner.css({
+//                'opacity':0,
+//                'bottom':msgBanner.outerHeight() *-1
+//            })
+//            msgBanner.animate({
+//                'bottom':16,
+//                'opacity':1
+//            },300);
+//        }
+//        msgBanner.find('.message_banner_right').on('click',function(){
+//            var param = {
+//                url:'/client/notice',
+//                sso:1,
+//                resize:0,
+//                width:500,
+//                height:485
+//            };
+//            gkClientInterface.openWindow(param);
+//            msgBanner.hide();
+//        })
     }
 }

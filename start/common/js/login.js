@@ -75,6 +75,8 @@ var gkClientLogin = {
                 'username':email,
                 'password':MD5(password)
             };
+            var spinner = new Spinner(loadingIcon).spin(loginBtn);
+            loginBtn.append(spinner.el);
             loginBtn.attr('disabled','disabled');
             gkClientInterface.login(param);
             return false;
@@ -103,7 +105,8 @@ var gkClientLogin = {
                 'password':password,
                 'key':gkClientInterface.getOauthKey()
             };
-            
+            var spinner = new Spinner(loadingIcon).spin(loginBtn);
+            loginBtn.append(spinner.el);            
             loginBtn.attr('disabled','disabled');
             $.ajax({
                 url:gkClientInterface.getSiteDomain()+'/account/login_submit',
@@ -112,8 +115,11 @@ var gkClientLogin = {
                 type:'POST',
                 success:function(){
                     gkClientInterface.loginByKey();
+                    loginBtn.find('.spinner').remove();
+                    loginBtn.removeAttr('disabled');
                 },
                 error:function(request, textStatus, errorThrown){
+                    loginBtn.find('.spinner').remove();
                     loginBtn.removeAttr('disabled');
                     var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
                     alert(errorMsg);
@@ -199,6 +205,10 @@ var gkClientLogin = {
                     return false;
                 }
             }
+            var registBtn = $('#regist_form button[type="submit"]');
+            var spinner = new Spinner(loadingIcon).spin(registBtn);
+            registBtn.append(spinner.el);
+            registBtn.attr('disabled','disabled');
             $.ajax({
                 url:'http://www.gokuai.com/account/regist_member',
                 data:{
@@ -214,11 +224,15 @@ var gkClientLogin = {
                     var param = {
                         username:email,
                         password:MD5(password)
-                    }
+                    }                    
                     gkClientInterface.login(param);
+                    registBtn.find('.spinner').remove();
+                    registBtn.removeAttr('disabled');
                 },
                 error:function(request, textStatus, errorThrown){
                     var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                    registBtn.removeAttr('disabled');
+                    registBtn.find('.spinner').remove();
                     alert(errorMsg);
                 }
             });
@@ -445,11 +459,31 @@ var gkClientLogin = {
         }
         
         var loginCheckTimer = setInterval(function(){
-            checkLogin(key);
+            if(location.hash=='#!login_p2'){
+                checkLogin(key);
+            }
         },5000);
         checkLogin(key);
-    //
-      
+    
+        
+        //菊花转啊转
+        var loadingIcon = {
+            lines: 9, // The number of lines to draw
+            length: 4, // The length of each line
+            width: 3, // The line thickness
+            radius: 4, // The radius of the inner circle
+            corners: 1, // Corner roundness (0..1)
+            rotate: 0, // The rotation offset
+            color: '#FFF', // #rgb or #rrggbb
+            speed: 1, // Rounds per second
+            trail: 60, // Afterglow percentage
+            shadow: false, // Whether to render a shadow
+            hwaccel: false, // Whether to use hardware acceleration
+            className: 'spinner', // The CSS class to assign to the spinner
+            zIndex: 2e9, // The z-index (defaults to 2000000000)
+            top: 'auto', // Top position relative to parent in px
+            left: 'auto' // Left position relative to parent in px
+        }; 
     },
     //幻灯片实例化
     slideRun : function(){
@@ -640,6 +674,7 @@ var gkClientModal={
 function gLoginResult(data) {
     var loginBtn = $('#form_login button[type="submit"]');
     loginBtn.removeAttr('disabled');
+    loginBtn.find('.spinner').remove();
     if(!data){
         gkClientInterface.showError('无数据返回');
         return;
@@ -668,12 +703,12 @@ function gLoginResult(data) {
 }
 
 /*!
- * SlideTrans
- * Copyright (c) 2010 cloudgamer
- * Blog: http://cloudgamer.cnblogs.com/
- * Date: 2008-7-6
- * 幻灯片插件
- */
+* SlideTrans
+* Copyright (c) 2010 cloudgamer
+* Blog: http://cloudgamer.cnblogs.com/
+* Date: 2008-7-6
+* 幻灯片插件
+*/
 var $$ = function (id) {
     return "string" == typeof id ? document.getElementById(id) : id;
 };
