@@ -433,12 +433,11 @@ var gkClientLogin = {
         
         
         var key = gkClientInterface.getOauthKey();
-        console.log(key);
         var qrImg = $('<img class="qrcode" alt="您的网络似乎有问题，请检查您的网络连接。" src="'+gkClientInterface.getSiteDomain()+'/account/get_login_qr?key='+key+'&client=1" />');
         $('#idSlider td .qrcode').prepend(qrImg);
         //幻灯片运行
         gkClientLogin.slideRun();
-        //检测二维码登录
+        //检测二维码登录 
         var checkLogin = function(key){
             $.ajax({
                 url:gkClientInterface.getSiteDomain()+'/account/check_client_qr_login',
@@ -458,12 +457,12 @@ var gkClientLogin = {
             });
         }
         
-        var loginCheckTimer = setInterval(function(){
-            if(location.hash=='#!login_p2'){
-                checkLogin(key);
-            }
-        },5000);
-        checkLogin(key);
+//        var loginCheckTimer = setInterval(function(){
+//            if(location.hash=='#!login_p2'){
+//                checkLogin(key);
+//            }
+//        },5000);
+//        checkLogin(key);隐藏二维码登录2013/2/16
     
         
         //载入时菊花的参数设置
@@ -517,7 +516,8 @@ var gkClientLogin = {
         //登录tab页展开
         $('#loginTab').on('click',function(){
             $('#ent_login_form').animate({
-                top:"360px"
+//                top:"360px"隐藏二维码登录2013/2/16
+                  top:"390px"
             },200);
             $('#mobile_login_form').animate({
                 top:"390px"
@@ -527,7 +527,6 @@ var gkClientLogin = {
             },200);
             st.Auto = true;
             st.Run();
-            //            st.Run(Math.floor(Math.random()*4+1));
             $('#loginTab i').attr('class','unfold');
             $('#entTab i').attr('class','fold');
             $('#mobileTab i').attr('class','fold');
@@ -586,7 +585,8 @@ var gkClientLogin = {
                 top:"60px"
             },200);
             $('#oauth_login_form').animate({
-                top:"90px"
+//                top:"90px"隐藏二维码登录2013/2/16
+                top:"60px"
             },200);
             st.Auto = true;
             st.Run();
