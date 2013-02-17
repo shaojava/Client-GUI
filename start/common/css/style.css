@@ -336,8 +336,7 @@ input[type="radio"]{
 }
 #ent_login_form{
     position: absolute;
-/*    top:360px;隐藏二维码登录2013/2/16*/
-    top:390px;
+    top:360px;
 }
 #mobile_login_form{
     position: absolute;
@@ -433,7 +432,8 @@ input[type="radio"]{
 .container #idNum{
     position:absolute;
     left:50%;
-    margin:455px 0 0 -56px;
+/*    margin:455px 0 0 -56px;隐藏*/
+    margin:455px 0 0 -42px;
     z-index:1; 
 }
 .container #idNum li{
