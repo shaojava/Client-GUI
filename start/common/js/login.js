@@ -516,8 +516,7 @@ var gkClientLogin = {
         //登录tab页展开
         $('#loginTab').on('click',function(){
             $('#ent_login_form').animate({
-//                top:"360px"隐藏二维码登录2013/2/16
-                  top:"390px"
+                top:"360px"
             },200);
             $('#mobile_login_form').animate({
                 top:"390px"
@@ -586,7 +585,7 @@ var gkClientLogin = {
             },200);
             $('#oauth_login_form').animate({
 //                top:"90px"隐藏二维码登录2013/2/16
-                top:"60px"
+                top:"30px"
             },200);
             st.Auto = true;
             st.Run();
