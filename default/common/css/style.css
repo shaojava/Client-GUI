@@ -700,7 +700,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 #sider_page .header .member{
     overflow: hidden;
-    padding: 0 15px;
+    padding: 0 10px;
     color:#596F86;
     font-size: 13px;
 }
@@ -717,7 +717,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 #sider_page .header .attrs{
     float: left;
-    width: 95px;
+    width: 108px;
 }
 #sider_page .header .attrs div{
     white-space: nowrap;
