@@ -27,7 +27,7 @@
                         <td><div><img src="../common/images/slide1.png" alt="" /></div></td>
                         <td><div><img src="../common/images/slide2.png" alt="" /></div></td>
                         <td><div><img src="../common/images/slide3.png" alt="" /></div></td>
-                        <td><div class="qrcode"><p>请使用够快移动客户端扫描二维码，即可轻松登录。</p></div></td>
+                        <!-- <td><div class="qrcode"><p>使用够快移动客户端扫描二维码，即刻轻松登录。</p></div></td> -->
                     </tr>
                 </table>
                 <ul id="idNum"></ul>
@@ -40,7 +40,7 @@
                     <h1 id="loginTab"><i class="unfold"></i>登录</h1>
                     <div class="content">
                         <div class="from_raw">
-                            <input type="text" placeholder="请输入您的够快帐号" id="email" name="email" class="input_text" />
+                            <input type="text" placeholder="请输入帐号" id="email" name="email" class="input_text" />
                         </div>
                         <div class="from_raw">
                             <input type="password" placeholder="请输入密码" id="password" name="password" class="input_text" />
@@ -51,14 +51,14 @@
                         <div id="btn_findpassword">忘记密码?</div>
                     </div>
                 </form>
-                <form id="ent_login_form" class="form-horizontal">
+                <!-- 隐藏企业登陆<form id="ent_login_form" class="form-horizontal">
                     <h1 id="entTab"><i class="fold"></i>企业用户登录</h1>
                     <div class="content">
                         <div class="from_raw">
                             <input type="text" placeholder="请输入企业代码" id="ent_id" name="ent_id" class="input_text" />
                         </div>
                         <div class="from_raw">
-                            <input type="text" placeholder="请输入您的帐号" id="ent_user_id" name="ent_user_id" class="input_text" />
+                            <input type="text" placeholder="请输入帐号" id="ent_user_id" name="ent_user_id" class="input_text" />
                         </div>
                         <div class="from_raw">
                             <input type="password" placeholder="请输入密码" id="password" name="password" class="input_text" />
@@ -67,14 +67,14 @@
                             <button class="btn blue_btn login_btn" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
                         </div>
                     </div>
-                </form>
-                <form id="mobile_login_form">
+                </form> -->
+                <!--隐藏二维码登录2013/2/16 <form id="mobile_login_form">
                     <h1 id="mobileTab"><i class="fold"></i>二维码登录</h1>
                     <div class="content">
                         <img src="../common/images/qrcode_login.png" alt="" />
-                        <p>使用够快移动客户端的“发现”功能扫描左侧二维码即可轻松登录够快客户端。</p>
+                        <p>使用够快移动客户端的“发现”功能扫描左侧二维码，即刻轻松登录。</p>
                     </div>
-                </form>
+                </form> -->
                 <form id="oauth_login_form">
                     <h1 id="oauthTab"><i class="fold"></i>合作帐号登录</h1>
                     <div class="content">
@@ -137,7 +137,7 @@
                     <div class="content">
 
                         <div class="from_raw">
-                            <input type="text" value="" class="input_text" placeholder="请输入邮箱地址" id="email" name="email" />
+                            <input type="text" value="" class="input_text" placeholder="请输入您的邮箱，将作为您的帐号" id="email" name="email" />
                         </div>
                         <div class="from_raw">
                             <input type="password" value="" class="input_text" placeholder="请输入密码" id="password" name="password" />

@@ -432,7 +432,8 @@ input[type="radio"]{
 .container #idNum{
     position:absolute;
     left:50%;
-    margin:455px 0 0 -56px;
+/*    margin:455px 0 0 -56px;隐藏*/
+    margin:455px 0 0 -42px;
     z-index:1; 
 }
 .container #idNum li{
