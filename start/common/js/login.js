@@ -434,7 +434,7 @@ var gkClientLogin = {
         
         var key = gkClientInterface.getOauthKey();
 //隐藏二维码        var qrImg = $('<img class="qrcode" alt="您的网络似乎有问题，请检查您的网络连接。" src="'+gkClientInterface.getSiteDomain()+'/account/get_login_qr?key='+key+'&client=1" />');
-        $('#idSlider td .qrcode').prepend(qrImg);
+//        $('#idSlider td .qrcode').prepend(qrImg);
         //幻灯片运行
         gkClientLogin.slideRun();
         //检测二维码登录 
