@@ -992,3 +992,32 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     border-bottom-color: #000000;
     border-bottom-style: solid;
 }
+#error_page{
+    background: #ECEDEE url("../images/launchpad_bg.png") repeat 0 0;
+}
+.error_info{
+    position:absolute;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin:auto;
+    height:120px;
+    width:400px;
+    cursor:default;
+}
+.error_info .desc{
+    color:#88e45a;
+    width:250px;
+    margin:0 auto;
+    font-size:30px;
+}
+/*.error_info .tip{
+    width:350px;
+    margin:10px auto;
+    font-size:16px;
+    color:#DDDDDD;
+}*/
+.error_info a{
+    color:#7babec;
+}
