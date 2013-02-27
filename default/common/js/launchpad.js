@@ -38,7 +38,19 @@ var gkClientLaunchPad = {
             var params = {};
             if(!url.length){
                 gkClientInterface.openSyncDir();
-            }else{
+            }
+            //若是消息，重新设置弹窗的大小
+            else if(url=='/client/notice'){
+                params = {
+                    url:url,
+                    width:500,
+                    height:485,
+                    sso:1,
+                    resize:0
+                };
+                gkClientInterface.openWindow(params);
+            }
+            else{
                 params = {
                     url:url,
                     width:800,
@@ -51,36 +63,31 @@ var gkClientLaunchPad = {
                  
         });
         //最新消息
-        this.showMessage();
-    },
-    showMessage:function(){
-        var re  =  gkClientInterface.getMessage();
-       
-        var msg = re.message[0]||{};
-        //        if(!msg){
-        //            return;
-        //        }
-        //console.log(msg);
-        msg.count = re.message_count;
-        var msg = {
-            count:re.message_count,
-            member_name:msg.member_name,
-            text:msg.message + msg.msg,
-            timeago:msg.timeago
-        }
-//        var msgBanner = $('#messageBanner').tmpl(msg);
-//        if(msg.count!=0){
-//            msgBanner.appendTo($('body'));
-//            msgBanner.css({
-//                'opacity':0,
-//                'bottom':msgBanner.outerHeight() *-1
-//            })
-//            msgBanner.animate({
-//                'bottom':16,
-//                'opacity':1
-//            },300);
+//        this.showMessage();
+    }
+//    showMessage:function(){
+//        var re  =  gkClientInterface.getMessage();
+//       
+//        var msg = re.message[0]||{};
+//        //        if(!msg){
+//        //            return;
+//        //        }
+//        //console.log(msg);
+//        msg.count = re.message_count;
+//        var text = msg.message + msg.msg;
+//        if(msg.count==0){
+//            text = '没有新消息';
 //        }
-//        msgBanner.find('.message_banner_right').on('click',function(){
+//        var msg = {
+//            count:re.message_count,
+//            member_name:msg.member_name,
+//            text:text,
+//            timeago:msg.timeago
+//        }
+//        var msgBanner = $('#messageBanner').tmpl(msg).appendTo($('body'));
+//        
+//        var msg_icon = $('.message_banner').find('.message_icon')
+//        msg_icon.on('click',function(){
 //            var param = {
 //                url:'/client/notice',
 //                sso:1,
@@ -89,7 +96,6 @@ var gkClientLaunchPad = {
 //                height:485
 //            };
 //            gkClientInterface.openWindow(param);
-//            msgBanner.hide();
 //        })
-    }
+//    }
 }

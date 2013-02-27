@@ -820,6 +820,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     position: absolute;
     left:0;
     right: 0;
+    bottom:8px;
 }
 .message_banner .message_banner_left{
     float: left;
@@ -830,16 +831,21 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .message_banner .message_banner_right{
     float: right;
 }
+.message_banner .message_banner_right .no_message{
+    display: none;
+}
 .message_banner .timeago{
     color:#999;
 }
 .message_banner .message_icon{
     display: block;
-    width: 50px;
-    height: 48px;
+    width: 32px;
+    height: 32px;
     background: url("../images/msg_ico.png") no-repeat center;
-    margin: 0px 15px;
     cursor: pointer;
+    position: relative;
+    right: 20px;
+    top: 8px;
 }
 .message_banner .message_num{
     position: absolute;

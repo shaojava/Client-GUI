@@ -4,13 +4,13 @@
         <title>开始够快</title>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-<!--        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/util.js"></script>-->
- <script type="text/javascript" src="../common/js/util.js"></script>
+        <!--        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/util.js"></script>-->
+        <script type="text/javascript" src="../common/js/util.js"></script>
         <script type="text/javascript" src="../common/js/jquery.js"></script>
         <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="../common/js/config.js"></script>
-<!--       <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/interface.js"></script>-->
- <script type="text/javascript" src="../common/js/interface.js"></script>
+        <!--       <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/interface.js"></script>-->
+        <script type="text/javascript" src="../common/js/interface.js"></script>
         <script type="text/javascript" src="../common/js/launchpad.js"></script>
         <script type="text/javascript">
             $(function(){
@@ -22,16 +22,10 @@
     <body id="lanchpad_page">
         <div class="wrapper">
             <div class="header">
-                
+
             </div>
             <div class="content">
                 <ul class="menus">
-                    <li class="menu_item" data-url="">
-                        <div class="menu_icon">
-                            <img src="../common/images/file64x64.png" alt="" /> 
-                        </div>
-                        <div class="menu_name">打开文件</div>
-                    </li>
                     <li class="menu_item" data-url="/client/client?ac=updates">
                         <div class="menu_icon">
                             <img src="../common/images/update64x64.png" alt="" />
@@ -39,11 +33,23 @@
                         </div>
                         <div class="menu_name">更新</div>
                     </li>
-                    <li class="menu_item" data-url="/client/client?ac=shares">
+                    <li class="menu_item" data-url="">
+                        <div class="menu_icon">
+                            <img src="../common/images/file64x64.png" alt="" /> 
+                        </div>
+                        <div class="menu_name">我的文件</div>
+                    </li>
+                    <!-- 隐藏我的共享 <li class="menu_item" data-url="/client/client?ac=shares">
                         <div class="menu_icon">
                             <img src="../common/images/share64x64.png" alt="" />
                         </div>
                         <div class="menu_name">我的共享</div>
+                    </li> -->
+                    <li class="menu_item" data-url="/client/client?ac=contacts">
+                        <div class="menu_icon">
+                            <img src="../common/images/contact64x64.png" alt="" /> 
+                        </div>
+                        <div class="menu_name">联系人</div>
                     </li>
                     <li class="menu_item" data-url="/client/client?ac=favorites">
                         <div class="menu_icon">
@@ -51,24 +57,24 @@
                         </div>
                         <div class="menu_name">收藏夹</div>
                     </li>
-                    <li class="menu_item" data-url="/client/client?ac=contacts">
-                        <div class="menu_icon">
-                            <img src="../common/images/contact64x64.png" alt="" /> 
-                        </div>
-                        <div class="menu_name">联系人</div>
-                    </li>
                     <li class="menu_item" data-url="/client/app?ac=apps">
                         <div class="menu_icon">
                             <img src="../common/images/app64x64.png" alt="" /> 
                         </div>
                         <div class="menu_name">应用</div>
                     </li>
-<!-- 隐藏资料库 2013-2-19                    <li class="menu_item" data-url="/client/library">
+                    <li class="menu_item" data-url="/client/notice">
                         <div class="menu_icon">
-                            <img src="../common/images/library64x64.png" alt="" /> 
+                            <img src="../common/images/msg64x64.png" alt="" /> 
                         </div>
-                        <div class="menu_name">资料库</div>
-                    </li> -->
+                        <div class="menu_name">新消息</div>
+                    </li>
+                    <!-- 隐藏资料库 2013-2-19                    <li class="menu_item" data-url="/client/library">
+                                            <div class="menu_icon">
+                                                <img src="../common/images/library64x64.png" alt="" /> 
+                                            </div>
+                                            <div class="menu_name">资料库</div>
+                                        </li> -->
 
                     <li class="menu_item" data-url="/client/client?ac=recyclebin">
                         <div class="menu_icon">
@@ -78,7 +84,7 @@
                     </li>
                 </ul>
             </div>
-        </div>
+                </div>
         <script id="lanchpadHeader" type="text/x-jquery-tmpl">
             <div class="header_left">
                 {{if typeof(org)!=='undefined'}}
@@ -89,13 +95,11 @@
                 {{else}}
                 <div class="gokuai">
                     <img class="logo" src="${gkLogo}" alt="" />
-                     <span class="name">我的够快</span>
+                    <span class="name">我的够快</span>
                 </div>
                 {{/if}}
-
             </div>
             <div class="header_right">
-
                 <div class="member">
                     <img class="photo_radus photo" src="${member.photo}" alt="" />
                     <div class="attrs">
@@ -103,11 +107,9 @@
                         <div class="size">已使用${Util.Number.bitSize(member.size)}</div>
                     </div>
                 </div>
-
             </div>
         </script>
-        <!--
-        <script id="messageBanner" type="text/x-jquery-tmpl">
+        <!-- <script id="messageBanner" type="text/x-jquery-tmpl">
             <div class="message_banner">
                 <div class="message_banner_left">
                     <i class="type_icon"></i>
@@ -117,7 +119,7 @@
                 </div>
                 <div class="message_banner_right">
                     <i class="message_icon"></i>
-                    <span class="message_num coner_news">
+                    <span class="message_num coner_news {{if count==0}}no_message{{/if}}">
                         {{if count>99}}
                         99+
                         {{else}}
@@ -126,7 +128,6 @@
                     </span>
                 </div>    
             </div>
-        </script>
-        -->
+        </script> -->
     </body>
 </html>
