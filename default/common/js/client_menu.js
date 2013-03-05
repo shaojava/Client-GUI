@@ -16,7 +16,7 @@ var gkClientMenu = {
                     return;
                 }
                 var params = {
-                    url:'/client/client_file_detail?tab=share&fullpath='+PAGE_CONFIG.path,
+                    url:'/client/client_file_detail?tab=share&fullpath='+encodeURIComponent(PAGE_CONFIG.path),
                     sso:1,
                     resize:0,
                     width:800,
@@ -36,7 +36,7 @@ var gkClientMenu = {
 //                    return;
 //                }
 //                var params = {
-//                    url:'/client/client_file_detail?tab=share_qr&fullpath='+PAGE_CONFIG.path,
+//                    url:'/client/client_file_detail?tab=share_qr&fullpath='+encodeURIComponent(PAGE_CONFIG.path),
 //                    sso:1,
 //                    resize:0,
 //                    width:800,
@@ -56,7 +56,7 @@ var gkClientMenu = {
                     return;
                 }
                 var params = {
-                    url:'/client/client_file_detail?tab=history&fullpath='+PAGE_CONFIG.path,
+                    url:'/client/client_file_detail?tab=history&fullpath='+encodeURIComponent(PAGE_CONFIG.path),
                     sso:1,
                     resize:0,
                     width:800,
@@ -76,7 +76,7 @@ var gkClientMenu = {
                     return;
                 }
                 var params = {
-                    url:'/client/client_file_detail?tab=remark&fullpath='+PAGE_CONFIG.path,
+                    url:'/client/client_file_detail?tab=remark&fullpath='+encodeURIComponent(PAGE_CONFIG.path),
                     sso:1,
                     resize:0,
                     width:800,
