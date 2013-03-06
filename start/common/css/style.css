@@ -325,22 +325,15 @@ input[type="radio"]{
 .controls .text {
     line-height:28px;
 }
-
 #login {
     background:url("../images/body_bg_blue.png") repeat 0 0;
 }
-
+#login .container {
+    width: 518px;
+}
 #login form{
     width:280px;
     background: url("../images/content_bg.png") repeat 0 0;
-}
-#ent_login_form{
-    position: absolute;
-    top:360px;
-}
-#mobile_login_form{
-    position: absolute;
-    top:390px;
 }
 #mobile_login_form img{
     margin:15px 0 15px 31px;
@@ -350,10 +343,6 @@ input[type="radio"]{
     line-height: 20px;
     font-size:14px;
     color:#444444;
-}
-#oauth_login_form{
-    position: absolute;
-    top:420px;
 }
 #oauth_login_form .btn{
     display:block;
@@ -401,56 +390,6 @@ input[type="radio"]{
     border-top:1px #FFF solid;
     padding:5px 0 5px 0;
 }
-
-.container{
-    width: 518px;
-    position: absolute;
-    top:0;
-    left:0;
-    bottom:0;
-}
-.container div{
-    width:518px;
-    height:auto;
-}
-.container .qrcode img{
-    display:block;
-    width:260px;
-    margin:0 auto;
-    margin-top:80px;
-    box-shadow: 1px 1px 2px #000;
-}
-.container .qrcode p{
-    width:370px;
-    padding:20px;
-    margin:0 auto;
-    font-size:16px;
-    color:white;
-    text-shadow: 1px 1px 2px #000;
-}
-
-.container #idNum{
-    position:absolute;
-    left:50%;
-/*    margin:455px 0 0 -56px;隐藏*/
-    margin:455px 0 0 -42px;
-    z-index:1; 
-}
-.container #idNum li{
-    width: 16px;
-    height: 16px;
-    margin:0 6px 0 6px;
-    vertical-align: middle;
-    background: url("../images/tab.png") no-repeat 0 0;
-    display: inline-block;
-}
-.container #idNum li:hover, .container #idNum li.on{
-    width: 16px;
-    height: 16px;
-    vertical-align: middle;
-    background: url("../images/tab.png") no-repeat -16px 0;
-    display: inline-block;
-}
 .login_page{
     width: 280px;
     position: absolute;
@@ -469,6 +408,10 @@ input[type="radio"]{
     background:-webkit-gradient(linear,0 0,0 100%,from(#F9F9F9),to(#E7E7E7));
     cursor:pointer;
 }
+#login_p2 .content {
+    display: none;
+    height: 350px;
+}
 #login_p2 h1, #login_p9 h1{
     font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3";
     height: 29px;
@@ -486,7 +429,6 @@ input[type="radio"]{
     background:-webkit-gradient(linear,0 0,0 100%,from(#F0F0F0),to(#FEFEFE));
     box-shadow: inset 0 5px 5px #DDD;
 }
-
 .login_page h1 i{
     float:left;
     margin:8px 6px 0 0;
@@ -496,7 +438,6 @@ input[type="radio"]{
 }
 .login_page h1 i.fold{
     float:left;
-    margin:8px 0 0 0;
     width:16px;
     height:16px;
     background: url("../images/arrow_fold.png") no-repeat 0 0;
@@ -811,4 +752,58 @@ input[type="radio"]{
 #select_sync_dir #select_gk_sync_dir{
     padding: 3px 10px;
     margin-top: 6px;
+}
+
+/* 幻灯片样式 */
+.xslider-nav ul {
+    overflow: hidden;
+}
+.xslider-nav ul li{
+    float: left;
+    padding: 5px;
+    margin-right: 10px;
+}
+.xslider-nav ul li a{
+    width: 16px;
+    height: 16px;
+    background: url("../images/tab.png") 0 0 no-repeat;
+    text-indent: -999px;
+    display: block;
+}
+.xslider-nav ul li .current{
+    background-position: -16px 0px;
+}
+.xslider-nav{
+    width: 160px;
+    margin: auto;
+}
+/* 登录页的幻灯片 */
+.slide_banner{
+    margin: 30px auto 0;
+}
+.slide_banner li{
+    height: 380px;
+    width: 450px;
+    text-align: center;
+    font-family: "hiragino sans gb","Microsoft Yahei","宋体", "simsun", "Helvetica","Tahoma","sans-serif";
+}
+.slide_banner .banner_title{
+    margin-bottom: 10px;
+    color: #FAFAFA;
+    font-size: 22px;
+    text-shadow: 1px 1px 4px rgba(0,0,0,0.5);
+}
+.slide_banner .banner_title_middle{
+    font-size: 20px;
+}
+.slide_banner .banner_desc{
+    color: #EEE;
+    font-size: 14px;
+    text-shadow: 1px 1px 5px rgba(0,0,0,0.5);
+}
+.slide_banner .banner_ops{
+    text-align: center;
+}
+.slide_banner .qr_img{
+    padding: 40px 0;
 }

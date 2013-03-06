@@ -4,13 +4,20 @@
         <title>够快</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-<!--        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/util.js"></script>-->
-    <script type="text/javascript" src="../common/js/util.js"></script>
+<!--        <script type="text/javascript" >
+            var gkClient = {
+                gOAuthKey:function(){},
+                gSiteDomain:function(){
+                    return 'http://gv6.gokuai.com';
+                }
+            }
+        </script>-->
+        <script type="text/javascript" src="../common/js/util.js"></script>
         <script type="text/javascript" src="../common/js/config.js"></script>
         <script type="text/javascript" src="../common/js/jquery.js"></script>
+        <script type="text/javascript" src="../common/js/jquery.xslider.js"></script>
         <script type="text/javascript" src="../common/js/jsMD5.js"></script>
-<!--        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/interface.js"></script>-->
- <script type="text/javascript" src="../common/js/interface.js"></script>
+        <script type="text/javascript" src="../common/js/interface.js"></script>
         <script type="text/javascript" src="../common/js/login.js"></script>
         <script type="text/javascript" src="../common/js/spin.js"></script>
         <script type="text/javascript">
@@ -22,14 +29,29 @@
     <body id="login">
         <div>
             <div class="container" id="idContainer">
-                <table id="idSlider" >
-                    <tr>
-                        <td><div><img src="../common/images/slide1.png" alt="" /></div></td>
-                        <td><div><img src="../common/images/slide2.png" alt="" /></div></td>
-                        <td><div><img src="../common/images/slide3.png" alt="" /></div></td>
-                        <!-- <td><div class="qrcode"><p>使用够快移动客户端扫描二维码，即刻轻松登录。</p></div></td> -->
-                    </tr>
-                </table>
+                <ul class="slide_banner" >
+                    <li>
+                        <div class="banner_img"><img src="../common/images/slide1.png" alt="" /></div>
+                        <div class="banner_title">运筹帷幄之中，协同千里之外。</div>
+                        <div class="banner_desc">够快桌面客户端，领先的不仅仅是同步。</div>
+                    </li>
+                    <li>
+                        <div class="banner_img"><img src="../common/images/slide2.png" alt="" /></div>
+                        <div class="banner_title">我们的传递，就在彼此相遇的瞬间。</div>
+                        <div class="banner_desc">够快全新移动客户端，“码”上分享，谁有我精彩？</div>
+                    </li>
+                    <li>
+                        <div class="banner_img"><img src="../common/images/slide3.png" alt="" /></div>
+                        <div class="banner_title banner_title_middle">简单部署，友好兼容，灵活定制，服务百分百。</div>
+                        <div class="banner_desc">够快企业套件，提供一站式可自主定制的混合云解决方案。</div>
+                    </li>
+                    <li>
+                        <div class="banner_img qr_img"></div>
+                        <div class="banner_title">扫描二维码即可登录</div>
+                        <div class="banner_desc">使用够快移动客户端的“够快发现”功能扫描左侧二维码</div>
+                        <div class="banner_desc">即可登录网页版！快来试试吧！</div>
+                    </li>
+                </ul>
                 <ul id="idNum"></ul>
             </div>
             <div class="grid">
@@ -37,8 +59,8 @@
             </div>        
             <div id="login_p2" class="login_page">
                 <form id="form_login" class="form-horizontal">
-                    <h1 id="loginTab"><i class="unfold"></i>登录</h1>
-                    <div class="content">
+                    <h1 id="loginTab"><i class=""></i>登录</h1>
+                    <div class="content" style="display: block">
                         <div class="from_raw">
                             <input type="text" placeholder="请输入帐号" id="email" name="email" class="input_text" />
                         </div>
@@ -68,13 +90,6 @@
                         </div>
                     </div>
                 </form> -->
-                <!--隐藏二维码登录2013/2/16 <form id="mobile_login_form">
-                    <h1 id="mobileTab"><i class="fold"></i>二维码登录</h1>
-                    <div class="content">
-                        <img src="../common/images/qrcode_login.png" alt="" />
-                        <p>使用够快移动客户端的“发现”功能扫描左侧二维码，即刻轻松登录。</p>
-                    </div>
-                </form> -->
                 <form id="oauth_login_form">
                     <h1 id="oauthTab"><i class="fold"></i>合作帐号登录</h1>
                     <div class="content">
@@ -82,6 +97,13 @@
                         <a class="btn" href="" name="qq"><i class="qq_logo"></i>腾讯QQ</a>
                         <a class="btn" href="" name="shnu"><i class="shnu_logo"></i>上海师范大学</a>
                         <a class="btn" href="" name="hichina"><i class="hichina_logo"></i>万网企业邮箱</a>                        
+                    </div>
+                </form>
+                <form id="mobile_login_form">
+                    <h1 id="mobileTab"><i class="fold"></i>二维码登录</h1>
+                    <div class="content qr_login">
+                        <img src="../common/images/qrcode_login.png" alt="" />
+                        <p>使用够快移动客户端的“发现”功能扫描左侧二维码，即刻轻松登录。</p>
                     </div>
                 </form>
                 <div class="dialog_bottom">
@@ -94,7 +116,7 @@
                 </div>
             </div>
             <div id="login_p_ent" class="login_page">
-                
+
             </div>
             <div id="login_p3" class="login_page">
                 <form id="gk_settings_form" class="form-horizontal">
@@ -167,7 +189,7 @@
                     </div>
                 </form>
             </div>
-            
+
             <div id="login_p11" class="login_page">
                 <form id="select_sync_dir">
                     <h1>请选择同步文件夹路径</h1>

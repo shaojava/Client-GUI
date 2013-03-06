@@ -433,10 +433,10 @@ var gkClientLogin = {
         
         
         var key = gkClientInterface.getOauthKey();
-//隐藏二维码        var qrImg = $('<img class="qrcode" alt="您的网络似乎有问题，请检查您的网络连接。" src="'+gkClientInterface.getSiteDomain()+'/account/get_login_qr?key='+key+'&client=1" />');
-//        $('#idSlider td .qrcode').prepend(qrImg);
+        var qrImg = $('<img class="qrcode" alt="您的网络似乎有问题，请检查您的网络连接。" src="'+gkClientInterface.getSiteDomain()+'/account/get_login_qr?key='+key+'&client=1" />');
+        $('.slide_banner .qr_img').prepend(qrImg);
         //幻灯片运行
-        gkClientLogin.slideRun();
+        gkClientLogin.bindUI();
         //检测二维码登录 
         var checkLogin = function(key){
             $.ajax({
@@ -457,14 +457,13 @@ var gkClientLogin = {
             });
         }
         
-//        var loginCheckTimer = setInterval(function(){
-//            if(location.hash=='#!login_p2'){
-//                checkLogin(key);
-//            }
-//        },5000);
-//        checkLogin(key);隐藏二维码登录2013/2/16
+        var loginCheckTimer = setInterval(function(){
+            if(location.hash=='#!login_p2'){
+                checkLogin(key);
+            }
+        },5000);
+        checkLogin(key);
     
-        
         //载入时菊花的参数设置
         var loadingIcon = {
             lines: 9, // The number of lines to draw
@@ -484,117 +483,48 @@ var gkClientLogin = {
             left: 'auto' // Left position relative to parent in px
         }; 
     },
-    //幻灯片实例化
-    slideRun : function(){
-        var nums = [], timer, n = $("#idContainer td").size(),
-        st = new SlideTrans("idContainer", "idSlider", n, {//SlideTrans
-            onStart: function(){//设置按钮激活时的样式
-                forEach(nums, function(o, i){
-                    o.className = st.Index == i ? "on" : "";
-                })
-            } , 
-            Vertical: false
-        });
-        for(var i = 0; i < n; AddNum(i++)){};
-        function AddNum(i){
-            var num = $$("idNum").appendChild(document.createElement("li"));
-            num.onmouseover = function(){
-                timer = setTimeout(function(){
-                    num.className = "on";
-                    st.Auto = false;
-                    st.Run(i);
-                }, 200);
-            }
-            num.onmouseout = function(){
-                clearTimeout(timer);
-                num.className = "";
-                st.Auto = true;
-                st.Run();
-            }
-            nums[i] = num;
+    //绑定UI事件
+    bindUI : function(){
+        var banner = $('.slide_banner');
+        if(!banner.size()){
+            return;
         }
-        //登录tab页展开
-        $('#loginTab').on('click',function(){
-            $('#ent_login_form').animate({
-                top:"360px"
-            },200);
-            $('#mobile_login_form').animate({
-                top:"390px"
-            },200);
-            $('#oauth_login_form').animate({
-                top:"420px"
-            },200);
-            st.Auto = true;
-            st.Run();
-            $('#loginTab i').attr('class','unfold');
-            $('#entTab i').attr('class','fold');
-            $('#mobileTab i').attr('class','fold');
-            $('#oauthTab i').attr('class','fold');
-        })
-        //企业登录tab页展开
-        $('#entTab').on('click',function(){
-            if($('#entTab').offset().top < 100){
-                $('#mobile_login_form').animate({
-                    top:"390px"
-                },200);
-                $('#oauth_login_form').animate({
-                    top:"420"
-                },200);
-            }
-            else{
-                $('#ent_login_form').animate({
-                    top:"30px"
-                },200);
-            }
-            st.Auto = true;
-            st.Run();
-            $('#loginTab i').attr('class','fold');
-            $('#entTab i').attr('class','unfold');
-            $('#mobileTab i').attr('class','fold');
-            $('#oauthTab i').attr('class','fold');
-        })
-        //手机登录tab页展开
-        $('#mobileTab').on('click',function(){
-            if($('#mobileTab').offset().top < 100){
-                $('#oauth_login_form').animate({
-                    top:"420px"
-                },200);
-            }
-            else{
-                $('#ent_login_form').animate({
-                    top:"30px"
-                },200);
-                $('#mobile_login_form').animate({
-                    top:"60px"
-                },200);
-            }
-            st.Auto = false;
-            st.Run(3);
-            $('#loginTab i').attr('class','fold');
-            $('#entTab i').attr('class','fold');
-            $('#mobileTab i').attr('class','unfold');
-            $('#oauthTab i').attr('class','fold');
-        })
-        //第三方登陆tab页展开
-        $('#oauthTab').on('click',function(){
-            $('#ent_login_form').animate({
-                top:"30px"
-            },200);
-            $('#mobile_login_form').animate({
-                top:"60px"
-            },200);
-            $('#oauth_login_form').animate({
-//                top:"90px"隐藏二维码登录2013/2/16
-                top:"30px"
-            },200);
-            st.Auto = true;
-            st.Run();
-            $('#loginTab i').attr('class','fold');
-            $('#entTab i').attr('class','fold');
-            $('#mobileTab i').attr('class','fold');
-            $('#oauthTab i').attr('class','unfold');
-        })
-        st.Run();
+        
+        //幻灯片实例化
+        banner.xslider({
+            timeout: 5000,
+            effect: 'fade',
+            speed: 500,
+            navigation: true,
+            pauseOnHover: true
+        });
+        
+        //slide效果
+        var flag = false;
+        var slide = function(scope){
+            $('h1',scope).on('click',function(){
+                if(!$('i',$(this)).hasClass('fold')){
+                    return;
+                }
+                $(this).parent().siblings().find('.content').slideUp('fast',function(){
+                    $('i',$(this).prev()).addClass('fold');
+                    if($(this).hasClass('qr_login') && flag){
+                        banner.xslider('stop');
+                        banner.xslider('play');
+                        flag = false;
+                    }
+                });
+                $(this).next('.content').slideDown('fast',function(){
+                    $('i',$(this).prev()).removeClass('fold');
+                    if($(this).hasClass('qr_login')){
+                        banner.xslider('goto',3);
+                        banner.xslider('stop');
+                        flag = true;
+                    }
+                });
+            });
+        }
+        slide($('#login_p2'));
     },
     showPage:function(target){
         $('.login_page').hide().eq(target).show();
@@ -700,165 +630,3 @@ function gLoginResult(data) {
         gkClientLogin.setHash('login_p3');
     }     
 }
-
-/*!
-* SlideTrans
-* Copyright (c) 2010 cloudgamer
-* Blog: http://cloudgamer.cnblogs.com/
-* Date: 2008-7-6
-* 幻灯片插件
-*/
-var $$ = function (id) {
-    return "string" == typeof id ? document.getElementById(id) : id;
-};
-
-var Extend = function(destination, source) {
-    for (var property in source) {
-        destination[property] = source[property];
-    }
-    return destination;
-}
-
-var CurrentStyle = function(element){
-    return element.currentStyle || document.defaultView.getComputedStyle(element, null);
-}
-
-var Bind = function(object, fun) {
-    var args = Array.prototype.slice.call(arguments).slice(2);
-    return function() {
-        return fun.apply(object, args.concat(Array.prototype.slice.call(arguments)));
-    }
-}
-
-var forEach = function(array, callback, thisObject){
-    if(array.forEach){
-        array.forEach(callback, thisObject);
-    }else{
-        for (var i = 0, len = array.length; i < len; i++) {
-            callback.call(thisObject, array[i], i, array);
-        }
-    }
-}
-
-var Tween = {
-    Quart: {
-        easeOut: function(t,b,c,d){
-            return -c * ((t=t/d-1)*t*t*t - 1) + b;
-        }
-    },
-    Back: {
-        easeOut: function(t,b,c,d,s){
-            if (s == undefined) s = 1.70158;
-            return c*((t=t/d-1)*t*((s+1)*t + s) + 1) + b;
-        }
-    },
-    Bounce: {
-        easeOut: function(t,b,c,d){
-            if ((t/=d) < (1/2.75)) {
-                return c*(7.5625*t*t) + b;
-            } else if (t < (2/2.75)) {
-                return c*(7.5625*(t-=(1.5/2.75))*t + .75) + b;
-            } else if (t < (2.5/2.75)) {
-                return c*(7.5625*(t-=(2.25/2.75))*t + .9375) + b;
-            } else {
-                return c*(7.5625*(t-=(2.625/2.75))*t + .984375) + b;
-            }
-        }
-    }
-}
-
-
-//容器对象,滑动对象,切换数量
-var SlideTrans = function(container, slider, count, options) {
-    this._slider = $$(slider);
-    this._container = $$(container);//容器对象
-    this._timer = null;//定时器
-    this._count = Math.abs(count);//切换数量
-    this._target = 0;//目标值
-    this._t = this._b = this._c = 0;//tween参数
-	
-    this.Index = 0;//当前索引
-	
-    this.SetOptions(options);
-	
-    this.Auto = !!this.options.Auto;
-    this.Duration = Math.abs(this.options.Duration);
-    this.Time = Math.abs(this.options.Time);
-    this.Pause = Math.abs(this.options.Pause);
-    this.Tween = this.options.Tween;
-    this.onStart = this.options.onStart;
-    this.onFinish = this.options.onFinish;
-	
-    var bVertical = !!this.options.Vertical;
-    this._css = bVertical ? "top" : "left";//方向
-	
-    //样式设置
-    var p = CurrentStyle(this._container).position;
-    p == "relative" || p == "absolute" || (this._container.style.position = "relative");
-    this._container.style.overflow = "hidden";
-    this._slider.style.position = "absolute";
-	
-    this.Change = this.options.Change ? this.options.Change :
-    this._slider[bVertical ? "offsetHeight" : "offsetWidth"] / this._count;
-}
-SlideTrans.prototype = {
-    //设置默认属性
-    SetOptions: function(options) {
-        this.options = {//默认值
-            Vertical:	true,//是否垂直方向（方向不能改）
-            Auto:		true,//是否自动
-            Change:		0,//改变量
-            Duration:	30,//滑动持续时间
-            Time:		10,//滑动延时
-            Pause:		3000,//停顿时间(Auto为true时有效)
-            onStart:	function(){},//开始转换时执行
-            onFinish:	function(){},//完成转换时执行
-            Tween:		Tween.Quart.easeOut//tween算子
-        };
-        Extend(this.options, options || {});
-    },
-    //开始切换
-    Run: function(index) {
-        //修正index
-        index == undefined && (index = this.Index);
-        index < 0 && (index = this._count - 1) || index >= this._count && (index = 0);
-        //设置参数
-        this._target = parseInt(-Math.abs(this.Change) * (this.Index = index));
-        this._t = 0;
-        this._b = parseInt(CurrentStyle(this._slider)[this.options.Vertical ? "top" : "left"]);
-        this._c = this._target - this._b;
-	
-        this.onStart();
-        this.Move();
-    },
-    //移动
-    Move: function() {
-        clearTimeout(this._timer);
-        //未到达目标继续移动否则进行下一次滑动
-        if (this._c && this._t < this.Duration) {
-            this.MoveTo(Math.round(this.Tween(this._t++, this._b, this._c, this.Duration)));
-            this._timer = setTimeout(Bind(this, this.Move), this.Time);
-        }else{
-            this.MoveTo(this._target);
-            this.Auto && (this._timer = setTimeout(Bind(this, this.Next), this.Pause));
-        }
-    },
-    //移动到
-    MoveTo: function(i) {
-        this._slider.style[this._css] = i + "px";
-    },
-    //下一个
-    Next: function() {
-        this.Run(++this.Index);
-    },
-    //上一个
-    Previous: function() {
-        this.Run(--this.Index);
-    },
-    //停止
-    Stop: function() {
-        clearTimeout(this._timer);
-        this.MoveTo(this._target);
-    }
-}
-
