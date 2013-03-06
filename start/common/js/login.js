@@ -156,7 +156,7 @@ var gkClientLogin = {
         //使用第三方帐号
         $('#oauth_login_form .btn').on('click',function(){
             var oauth = $(this).attr('name');
-            var oauthURL =  gkInterface.getSiteDomain()+'/account/oauth?oauth='+oauth+'&key='+gkClientInterface.getOauthKey();
+            var oauthURL =  gkClientInterface.getSiteDomain()+'/account/oauth?oauth='+oauth+'&key='+gkClientInterface.getOauthKey();
             gkClientInterface.openWindow({
                 url:oauthURL,
                 sso:0,
