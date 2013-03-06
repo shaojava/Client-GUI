@@ -779,7 +779,7 @@ input[type="radio"]{
 }
 /* 登录页的幻灯片 */
 .slide_banner{
-    margin: 30px auto 0;
+    margin-top: 35px;
 }
 .slide_banner li{
     height: 380px;
