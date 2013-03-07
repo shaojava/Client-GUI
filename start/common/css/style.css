@@ -774,12 +774,12 @@ input[type="radio"]{
     background-position: -16px 0px;
 }
 .xslider-nav{
-    width: 160px;
+    width: 145px;
     margin: auto;
 }
 /* 登录页的幻灯片 */
 .slide_banner{
-    margin-top: 35px;
+    margin:50px auto 0;
 }
 .slide_banner li{
     height: 380px;
