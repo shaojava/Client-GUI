@@ -23,7 +23,7 @@ var gkClientInterface = {
     },
     openURL: function(param) {
         try {
-            if (!param.sso &&param.url&& /^(http:\/\/|https:\/\/).+/.test(param.url)) {
+            if (!param.sso && param.url && /^(http:\/\/|https:\/\/).+/.test(param.url)) {
                 param.url = param.url.replace(/^http:\/\/|^https:\/\//, '');
             }
             param = JSON.stringify(param);
@@ -107,7 +107,7 @@ var gkClientInterface = {
     },
     openWindow: function(params) {
         try {
-            if (!params.sso &&params.url&& /^(http:\/\/|https:\/\/).+/.test(params.url)) {
+            if (!params.sso && params.url && /^(http:\/\/|https:\/\/).+/.test(params.url)) {
                 params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
             }
             params = JSON.stringify(params);
@@ -284,18 +284,4 @@ function initWebHref() {
             return false;
         }
     });
-}
-;
-
-var gkClientCommon = {
-    disableDefaultEvent: function() {
-        $('body').on({
-            dragstart: function(e) {
-                e.preventDefault();
-            },
-            drop: function(e) {
-                e.preventDefault();
-            }
-        });
-    }
 };
