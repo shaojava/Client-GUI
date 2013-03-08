@@ -427,7 +427,7 @@ var gkClientLogin = {
             //console.log(param);
             gkClientInterface.finishSettings(param);
             return false;
-        })
+        });
         
         
         var key = gkClientInterface.getOauthKey();
