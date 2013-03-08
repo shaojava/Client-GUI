@@ -18,7 +18,7 @@ var gkClientLaunchPad = {
                 meta.org = {
                     name:user.org_name||'',
                     logo:'../common/images/logo32x32.png'
-                }
+                };
             }
         }
         
@@ -28,7 +28,7 @@ var gkClientLaunchPad = {
             var params = {
                 url:'/storage',
                 sso:1
-            }
+            };
             gkClientInterface.openURL(params);
             return;
         });
@@ -98,4 +98,4 @@ var gkClientLaunchPad = {
 //            gkClientInterface.openWindow(param);
 //        })
 //    }
-}
+};

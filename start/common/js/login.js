@@ -80,7 +80,7 @@ var gkClientLogin = {
             loginBtn.attr('disabled','disabled');
             gkClientInterface.login(param);
             return false;
-        })
+        });
         //企业用户登陆
         $('#ent_login_form').on('submit',function(){
             var ent_id=$.trim($(this).find('input[name="ent_id"]').val());
@@ -132,7 +132,7 @@ var gkClientLogin = {
         //注册帐号
         $('.go2regist').on('click',function(){
             gkClientLogin.setHash('login_p9');
-        })
+        });
 
         //找回密码
         $('#btn_findpassword').on('click', function(){
@@ -163,7 +163,7 @@ var gkClientLogin = {
                 height:500
             });
             return false;
-        })
+        });
         
         //注册
         $('.login_page #regist_form').on('submit',function(){
@@ -222,7 +222,7 @@ var gkClientLogin = {
                     var param = {
                         username:email,
                         password:MD5(password)
-                    }                    
+                    };                    
                     gkClientInterface.login(param);
                     registBtn.find('.spinner').remove();
                     registBtn.removeAttr('disabled');
@@ -235,7 +235,7 @@ var gkClientLogin = {
                 }
             });
             return false;
-        })
+        });
                 
         //是否使用上一步同步设置
         $('#login_p13 form').on('submit',function(){
@@ -243,7 +243,7 @@ var gkClientLogin = {
             if(val==1){//使用上一次的同步设置
                 var param ={
                     path:0
-                }
+                };
                 gkClientInterface.finishSettings(param);
             }else{//不使用上一次的同步设置
                 if($("#login_p3 .btn_prev")){
@@ -253,13 +253,13 @@ var gkClientLogin = {
                 prev.on('click',function(){
                     history.back();
                     return;
-                })
+                });
                 $('#login_p3 form .right').prepend(prev);
                 
                 gkClientLogin.setHash('login_p3');
             }
             return false;
-        })
+        });
         $('#login_p13 form').on('click',function(){
             var val =$(this).find('input[name="use_old_settings"]:checked').val();
             if(val==1){
@@ -268,7 +268,7 @@ var gkClientLogin = {
             else{
                 $(this).find(':button').html('下一步');
             }
-        })        
+        });        
         
         //同步设置
         $('#login_p3 form').on('submit',function(){
@@ -329,7 +329,7 @@ var gkClientLogin = {
               
             }
             return false
-        })
+        });
         $('#login_p3 form').on('click',function(){
             var val =$(this).find('input[name="chose_settings"]:checked').val();
             if(val==1){
@@ -338,7 +338,7 @@ var gkClientLogin = {
             else{
                 $(this).find('.btn_next').html('完成');
             }
-        })        
+        });
         
         
         //选择同步目录
@@ -397,13 +397,13 @@ var gkClientLogin = {
             }
            
             return false
-        })
+        });
       
         //选择性同步
         $('#select_sync_dirs').on('click',function(e){
             gkClientInterface.selectSyncFile();
             e.preventDefault();
-        })
+        });
         
         //选择性同步下一步
         $('#login_p12 form').on('submit',function(){
@@ -447,14 +447,14 @@ var gkClientLogin = {
                 },
                 success:function(logined){
                     if(logined==1){
-                        gkClientInterface.login();
+                        gkClientInterface.loginByKey();
                     }
                 },
                 error:function(){
                     
                 }
             });
-        }
+        };
         
         var loginCheckTimer = setInterval(function(){
             if(location.hash=='#!login_p2'){
@@ -523,7 +523,7 @@ var gkClientLogin = {
                     }
                 });
             });
-        }
+        };
         slide($('#login_p2'));
     },
     showPage:function(target){
@@ -546,7 +546,7 @@ var gkClientLogin = {
     choseSyncType:function(){
         
     }    
-}
+};
 
 var gkClientModal={
     show:function(params){
@@ -591,13 +591,13 @@ var gkClientModal={
         close.on('click',function(){
             _self.close();
             return;
-        })
+        });
     },
     close:function(){
         $('body > .overlay').remove();
         $('body > .modal').remove();
     }
-}
+};
 
 /*登录后客户端的回调函数*/
 function gLoginResult(data) {

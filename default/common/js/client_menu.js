@@ -21,7 +21,7 @@ var gkClientMenu = {
                     resize:0,
                     width:800,
                     height:600
-                }
+                };
                 gkClientInterface.openWindow(params);
             }
         },
@@ -61,7 +61,7 @@ var gkClientMenu = {
                     resize:0,
                     width:800,
                     height:600
-                }
+                };
                 gkClientInterface.openSingleWindow(params);
             }
         },
@@ -81,7 +81,7 @@ var gkClientMenu = {
                     resize:0,
                     width:800,
                     height:600
-                }
+                };
                 gkClientInterface.openSingleWindow(params);
             }
         },
@@ -122,7 +122,7 @@ var gkClientMenu = {
             memberName:user.username,
             memberPhoto:user.photourl,
             size:user.size
-        }
+        };
         if(user.org_id!=0){
             meta.orgName = user.org_name;
             meta.orgSize = user.org_size;
@@ -141,7 +141,7 @@ var gkClientMenu = {
                 if(callback && typeof callback ==='function'){
                     callback();
                 }
-            })
+            });
         });
         //工具栏
         $('.toolbar .tools li').on('click',function(){
@@ -180,12 +180,12 @@ var gkClientMenu = {
 
             }
             return;
-        })
+        });
         $('body').tooltip({
             selector:'.gktooltip'
-        })
+        });
     }
-}
+};
 
 function gShellSelect(re){
     var arr = re.split(',');
@@ -232,5 +232,5 @@ function gSetUpdateCount(count){
         el.hide();
         return;
     }
-    el.text(count>99?'99+':count).show()
+    el.text(count>99?'99+':count).show();
 }
