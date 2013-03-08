@@ -440,6 +440,7 @@ var gkClientLogin = {
             $.ajax({
                 url:gkClientInterface.getSiteDomain()+'/account/check_client_qr_login',
                 dataType:'json',
+                type:'post',
                 data:{
                     key:key,
                     client:1
