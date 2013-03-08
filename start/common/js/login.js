@@ -617,7 +617,7 @@ function gLoginResult(data) {
         gkClientInterface.showError(rep.message);
         //第三方登录失败
         if(rep.type=="weblogin"){
-            gkClientLogin.setHash('login_p10');
+            gkClientLogin.setHash('login_p2');
         }else{
             gkClientLogin.setHash('login_p2');
         }

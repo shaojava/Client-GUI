@@ -284,18 +284,4 @@ function initWebHref() {
             return false;
         }
     });
-}
-;
-
-var gkClientCommon = {
-    disableDefaultEvent: function() {
-        $('body').on({
-            dragstart: function(e) {
-                e.preventDefault();
-            },
-            drop: function(e) {
-                e.preventDefault();
-            }
-        });
-    }
 };
