@@ -109,14 +109,12 @@ var gkClientLogin = {
             loginBtn.append(spinner.el);            
             loginBtn.attr('disabled','disabled');
             $.ajax({
-                url:gkClientInterface.getSiteDomain()+'/account/login_submit',
+                url:gkClientInterface.getSiteDomain()+'/account/domain_login_submit',
                 dataType:'json',
                 data:param,
                 type:'POST',
                 success:function(){
                     gkClientInterface.loginByKey();
-                    loginBtn.find('.spinner').remove();
-                    loginBtn.removeAttr('disabled');
                 },
                 error:function(request, textStatus, errorThrown){
                     loginBtn.find('.spinner').remove();
