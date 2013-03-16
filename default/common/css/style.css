@@ -747,6 +747,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     bottom:0;
     background: #000;
     opacity: .2;
+	z-index:999;
 }
 .modal{
     background: #fff;
@@ -755,7 +756,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     left:50%;
     border:1px solid #ccc;
     border-radius: 5px;
-
+	z-index:999;
     box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
 }
 .modal .modal_top{
