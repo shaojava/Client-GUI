@@ -25,11 +25,12 @@ Util.String = {
         return ext;
     },
     baseName: function(path) {
+        path = path.toString();
         return path.replace(/\\/g, '/').replace(/.*\//, '');
     },
     dirName: function(path) {
-        return path.replace(/\\/g, '/').replace(/\/[^\/]*$/, '');
-        ;
+        path = path.toString();
+        return path.indexOf('/') < 0 ? '' : path.replace(/\\/g, '/').replace(/\/[^\/]*$/, '');
     },
     ltrim: function(str, charlist) {
         charlist = !charlist ? ' \\s\u00A0' : (charlist + '').replace(/([\[\]\(\)\.\?\/\*\{\}\+\$\^\:])/g, '$1');
@@ -504,7 +505,7 @@ Util.Number = {
         if (num == 0) {
             return num;
         } else {
-            return Math.floor(num * 100) / 100 + type[j];
+            return Math.round(num * 100) / 100 + type[j];
         }
     }
 };

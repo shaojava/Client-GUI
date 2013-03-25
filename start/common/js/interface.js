@@ -266,7 +266,7 @@ function initWebHref() {
                 }
                 path = (uppath.length ? uppath + '/' : '') + file;
                 if (dir) {
-                    gkClientInterface.openSyncDir(path);
+                    gkClientInterface.openSyncDir(path+'/');
                 } else {
                     gkClientInterface.openPathWithSelect(path);
                 }
