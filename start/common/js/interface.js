@@ -223,17 +223,17 @@ gkClientAjax.Exception = {
                     errorMsg = '';
                     break;
                 case 401:
-                    errorMsg = L('ERROR_MSG_401');
+                    errorMsg = '登录超时或者当前帐号在其他位置登录，请注意帐号安全';
                     break;
                 case 501:
                 case 502:
-                    errorMsg = L('ERROR_MSG_502');
+                    errorMsg = '服务器繁忙, 请稍候重试';
                     break;
                 case 503:
-                    errorMsg = L('ERROR_MSG_503');
+                    errorMsg = '因您的操作太过频繁, 操作已被取消';
                     break;
                 case 504:
-                    errorMsg = L('ERROR_MSG_504');
+                    errorMsg = '因您的操作太过频繁, 操作已被取消';
                     break;
                 default:
                     errorMsg = request.status + ':' + request.statusText;
