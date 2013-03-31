@@ -410,7 +410,7 @@ input[type="radio"]{
 }
 #login_p2 .content {
     display: none;
-    height: 380px;
+    height: 350px;
 }
 #login_p2 h1, #login_p9 h1{
     font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3";

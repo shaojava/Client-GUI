@@ -11,6 +11,8 @@ var gkClientLogin = {
         gkClientLogin.showPage('#' + ac);
     },
     init: function() {
+        var key = gkClientInterface.getOauthKey();
+        
         //disable浏览器的默认事件
         gkClientCommon.disableDefaultEvent();
         $(window).on('hashchange', function() {
@@ -84,37 +86,32 @@ var gkClientLogin = {
         //企业用户登陆
         $('#ent_login_form').on('submit', function() {
             var ent_id = $.trim($(this).find('input[name="ent_id"]').val());
-            var ent_user_id = $.trim($(this).find('input[name="ent_user_id"]').val());
-            var password = $.trim($(this).find('input[name="password"]').val());
             if (!ent_id.length) {
                 alert('请输入企业代码');
                 return false;
             }
-            if (!ent_user_id.length) {
-                alert('请输入您的帐号');
-                return false;
-            }
-            if (!password.length) {
-                alert('请输入您的密码');
-                return false;
-            }
             var loginBtn = $(this).find('button[type="submit"]');
             var param = {
-                'domain': ent_id,
-                'email': ent_user_id,
-                'password': password,
-                'key': gkClientInterface.getOauthKey()
+                'domain': ent_id
             };
             var spinner = new Spinner(loadingIcon).spin(loginBtn);
             loginBtn.append(spinner.el);
             loginBtn.attr('disabled', 'disabled');
             $.ajax({
-                url: gkClientInterface.getSiteDomain() + '/account/domain_login_submit',
+                url: gkClientInterface.getSiteDomain() + '/account/get_loginurl_by_domain',
                 dataType: 'json',
                 data: param,
                 type: 'POST',
-                success: function() {
-                    gkClientInterface.loginByKey();
+                success: function(data) {
+                    loginBtn.find('.spinner').remove();
+                    loginBtn.removeAttr('disabled');
+                    var params = {
+                        url:data.url + '?key=' + key,
+                        width:500,
+                        height:485,
+                        resize:0
+                    };
+                    gkClientInterface.openWindow(params);
                 },
                 error: function(request, textStatus, errorThrown) {
                     loginBtn.find('.spinner').remove();
@@ -427,8 +424,6 @@ var gkClientLogin = {
             return false;
         });
 
-
-        var key = gkClientInterface.getOauthKey();
         var qrImg = $('<img class="qrcode" alt="您的网络似乎有问题，请检查您的网络连接。" src="' + gkClientInterface.getSiteDomain() + '/account/get_login_qr?key=' + key + '&client=1" />');
         if ($('.slide_banner .qr_img').size()) {
             $('.slide_banner .qr_img').prepend(qrImg);
