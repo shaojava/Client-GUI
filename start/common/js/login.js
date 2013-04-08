@@ -12,7 +12,7 @@ var gkClientLogin = {
     },
     init: function() {
         var key = gkClientInterface.getOauthKey();
-        
+
         //disable浏览器的默认事件
         gkClientCommon.disableDefaultEvent();
         $(window).on('hashchange', function() {
@@ -90,36 +90,14 @@ var gkClientLogin = {
                 alert('请输入企业代码');
                 return false;
             }
-            var loginBtn = $(this).find('button[type="submit"]');
-            var param = {
-                'domain': ent_id
+            var params = {
+                url: gkClientInterface.getSiteDomain() + '/account/oauth?oauth=' + ent_id + '&key=' + key+'&gk=1',
+                width: 500,
+                height: 485,
+                resize: 0,
+                sso: 0
             };
-            var spinner = new Spinner(loadingIcon).spin(loginBtn);
-            loginBtn.append(spinner.el);
-            loginBtn.attr('disabled', 'disabled');
-            $.ajax({
-                url: gkClientInterface.getSiteDomain() + '/account/get_loginurl_by_domain',
-                dataType: 'json',
-                data: param,
-                type: 'POST',
-                success: function(data) {
-                    loginBtn.find('.spinner').remove();
-                    loginBtn.removeAttr('disabled');
-                    var params = {
-                        url:data.url + '?key=' + key,
-                        width:500,
-                        height:485,
-                        resize:0
-                    };
-                    gkClientInterface.openWindow(params);
-                },
-                error: function(request, textStatus, errorThrown) {
-                    loginBtn.find('.spinner').remove();
-                    loginBtn.removeAttr('disabled');
-                    var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
-                    alert(errorMsg);
-                }
-            });
+            gkClientInterface.openWindow(params);
             return false;
         });
 
@@ -451,11 +429,11 @@ var gkClientLogin = {
             });
         };
 
-        var loginCheckTimer = setInterval(function() {
-            if (location.hash == '#!login_p2') {
-                checkLogin(key);
-            }
-        }, 5000);
+//        var loginCheckTimer = setInterval(function() {
+//            if (location.hash == '#!login_p2') {
+//                checkLogin(key);
+//            }
+//        }, 5000);
         //checkLogin(key);
 
         //载入时菊花的参数设置
