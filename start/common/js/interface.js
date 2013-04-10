@@ -223,17 +223,17 @@ gkClientAjax.Exception = {
                     errorMsg = '';
                     break;
                 case 401:
-                    errorMsg = 'µÇÂ¼³¬Ê±»òÕßµ±Ç°ÕÊºÅÔÚÆäËûÎ»ÖÃµÇÂ¼£¬Çë×¢ÒâÕÊºÅ°²È«';
+                    errorMsg = 'ç™»å½•è¶…æ—¶æˆ–è€…å½“å‰å¸å·åœ¨å…¶ä»–ä½ç½®ç™»å½•ï¼Œè¯·æ³¨æ„å¸å·å®‰å…¨';
                     break;
                 case 501:
                 case 502:
-                    errorMsg = '·şÎñÆ÷·±Ã¦, ÇëÉÔºòÖØÊÔ';
+                    errorMsg = 'æœåŠ¡å™¨ç¹å¿™, è¯·ç¨å€™é‡è¯•';
                     break;
                 case 503:
-                    errorMsg = 'ÒòÄúµÄ²Ù×÷Ì«¹ıÆµ·±, ²Ù×÷ÒÑ±»È¡Ïû';
+                    errorMsg = 'å› æ‚¨çš„æ“ä½œå¤ªè¿‡é¢‘ç¹, æ“ä½œå·²è¢«å–æ¶ˆ';
                     break;
                 case 504:
-                    errorMsg = 'ÒòÄúµÄ²Ù×÷Ì«¹ıÆµ·±, ²Ù×÷ÒÑ±»È¡Ïû';
+                    errorMsg = 'å› æ‚¨çš„æ“ä½œå¤ªè¿‡é¢‘ç¹, æ“ä½œå·²è¢«å–æ¶ˆ';
                     break;
                 default:
                     errorMsg = request.status + ':' + request.statusText;
