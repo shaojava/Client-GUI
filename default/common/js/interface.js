@@ -1,4 +1,21 @@
+var gkClientFileState = {
+    DEFAULT_STATE: 0,
+    NORMAL_STATE: 1,
+    FINISH_STATE: 2,
+    LOCK_STATE: 3,
+    LOCAL_STATE: 4,
+    EDIT_STATE: 5
+};
+
 var gkClientInterface = {
+    setFileStatus: function(path, dir, state) {
+        var params = JSON.stringify({
+            webpath: path,
+            status: state,
+            dir: dir
+        });
+        gkClient.gSetFileStatus(params);
+    },
     closeWindow: function() {
         try {
             gkClient.gClose();
@@ -23,7 +40,7 @@ var gkClientInterface = {
     },
     openURL: function(param) {
         try {
-            if (!param.sso &&param.url&& /^(http:\/\/|https:\/\/).+/.test(param.url)) {
+            if (!param.sso && param.url && /^(http:\/\/|https:\/\/).+/.test(param.url)) {
                 param.url = param.url.replace(/^http:\/\/|^https:\/\//, '');
             }
             param = JSON.stringify(param);
@@ -107,7 +124,7 @@ var gkClientInterface = {
     },
     openWindow: function(params) {
         try {
-            if (!params.sso &&params.url&& /^(http:\/\/|https:\/\/).+/.test(params.url)) {
+            if (!params.sso && params.url && /^(http:\/\/|https:\/\/).+/.test(params.url)) {
                 params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
             }
             params = JSON.stringify(params);
@@ -266,7 +283,7 @@ function initWebHref() {
                 }
                 path = (uppath.length ? uppath + '/' : '') + file;
                 if (dir) {
-                    gkClientInterface.openSyncDir(path+'/');
+                    gkClientInterface.openSyncDir(path + '/');
                 } else {
                     gkClientInterface.openPathWithSelect(path);
                 }

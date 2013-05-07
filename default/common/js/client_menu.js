@@ -160,7 +160,7 @@ var gkClientMenu = {
                     sso: 1,
                     resize: 0,
                     width: 800,
-                    height: 500
+                    height: 600
                 };
 
                 gkClientInterface.openWindow(param);
@@ -170,7 +170,7 @@ var gkClientMenu = {
                     sso: 1,
                     resize: 0,
                     width: 800,
-                    height: 500
+                    height: 600
                 };
                 gkClientInterface.openWindow(param);
                 _self.find('.news_num').hide();
