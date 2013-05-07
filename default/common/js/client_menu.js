@@ -158,7 +158,7 @@ var gkClientMenu = {
                 param = {
                     url: '/client/feedback',
                     sso: 1,
-                    resize: 0,
+                    resize: 1,
                     width: 800,
                     height: 600
                 };
@@ -168,7 +168,7 @@ var gkClientMenu = {
                 param = {
                     url: '/client/client?ac=updates',
                     sso: 1,
-                    resize: 0,
+                    resize: 1,
                     width: 800,
                     height: 600
                 };
