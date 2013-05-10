@@ -172,6 +172,60 @@ input[type="radio"]{
     background-repeat: no-repeat;
     margin-top: -2px;
 }
+/* 滚动条样式 */
+.scrollbar::-webkit-scrollbar {
+    height:16px;
+    overflow:visible;
+    width:16px
+}
+.scrollbar::-webkit-scrollbar-button {
+    height:0;
+    width:0
+}
+.scrollbar::-webkit-scrollbar-track {
+    background-clip:padding-box;
+    border:solid transparent;
+    border-width:0 0 0 4px
+}
+.scrollbar::-webkit-scrollbar-track:horizontal {
+    border-width:4px 0 0
+}
+.scrollbar::-webkit-scrollbar-track:hover {
+    background-color:rgba(0,0,0,.05);
+    box-shadow:inset 1px 0 0 rgba(0,0,0,.1)
+}
+.scrollbar::-webkit-scrollbar-track:horizontal:hover {
+    box-shadow:inset 0 1px 0 rgba(0,0,0,.1)
+}
+.scrollbar::-webkit-scrollbar-track:active {
+    background-color:rgba(0,0,0,.05);
+    box-shadow:inset 1px 0 0 rgba(0,0,0,.14),inset -1px 0 0 rgba(0,0,0,.07)
+}
+.scrollbar::-webkit-scrollbar-track:horizontal:active {
+    box-shadow:inset 0 1px 0 rgba(0,0,0,.14),inset 0 -1px 0 rgba(0,0,0,.07)
+}
+.scrollbar::-webkit-scrollbar-thumb {
+    background-color:rgba(0,0,0,.2);
+    background-clip:padding-box;
+    border:solid transparent;
+    border-width:1px 1px 1px 6px;
+    min-height:28px;
+    padding:100px 0 0;
+    box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset 0 -1px 0 rgba(0,0,0,.07)
+}
+.scrollbar::-webkit-scrollbar-thumb:horizontal {
+    border-width:6px 1px 1px;
+    padding:0 0 0 100px;
+    box-shadow:inset 1px 1px 0 rgba(0,0,0,.1),inset -1px 0 0 rgba(0,0,0,.07)
+}
+.scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color:rgba(0,0,0,.4);
+    box-shadow:inset 1px 1px 1px rgba(0,0,0,.25)
+}
+.scrollbar::-webkit-scrollbar-thumb:active {
+    background-color:rgba(0,0,0,0.5);
+    box-shadow:inset 1px 1px 3px rgba(0,0,0,0.35)
+}
 /*有色按钮*/
 .green_btn{
     color: #FFF;
@@ -346,12 +400,12 @@ input[type="radio"]{
 }
 #oauth_login_form .btn{
     display:block;
-    width:140px;
+    width:160px;
     height:26px;
     line-height: 26px;
     font-size:13px;
-    margin:20px auto;
-    text-align: left;
+    margin:10px auto;
+    text-align: center;
 }
 #oauth_login_form .content i{
     width:32px;
@@ -361,16 +415,28 @@ input[type="radio"]{
     margin-right:5px;
 }
 #oauth_login_form .sina_logo{
-    background: url("../images/oath_logo.png") no-repeat -32px 0;
+    background: url("../images/oath_logo.png?v=2") no-repeat -32px 0;
 }
 #oauth_login_form .qq_logo{
-    background: url("../images/oath_logo.png") no-repeat 0 0;
+    background: url("../images/oath_logo.png?v=2") no-repeat 0 0;
 }
 #oauth_login_form .hichina_logo{
-    background: url("../images/oath_logo.png") no-repeat -64px 0;
+    background: url("../images/oath_logo.png?v=2") no-repeat -64px 0;
 }
 #oauth_login_form .shnu_logo{
-    background: url("../images/oath_logo.png") no-repeat -96px 0;
+    background: url("../images/oath_logo.png?v=2") no-repeat -96px 0;
+}
+#oauth_login_form .tita_logo{
+    background: url("../images/oath_logo.png?v=2") no-repeat -160px 0;
+}
+#oauth_login_form .shisu_logo{
+    background: url("../images/oath_logo.png?v=2") no-repeat -192px 0;
+}
+#oauth_login_form .sbs_logo{
+    background: url("../images/oath_logo.png?v=2") no-repeat -224px 0;
+}
+#oauth_login_form .shedu_logo{
+    background: url("../images/oath_logo.png?v=2") no-repeat -128px 0;
 }
 #login .grid{
     position: absolute;
@@ -411,6 +477,7 @@ input[type="radio"]{
 #login_p2 .content {
     display: none;
     height: 350px;
+	overflow: auto;
 }
 #login_p2 h1, #login_p9 h1{
     font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3";
