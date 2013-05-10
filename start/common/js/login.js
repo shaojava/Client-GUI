@@ -91,7 +91,7 @@ var gkClientLogin = {
                 return false;
             }
             var params = {
-                url: gkClientInterface.getSiteDomain() + '/account/oauth?oauth=' + ent_id + '&key=' + key+'&gk=1',
+                url: gkClientInterface.getSiteDomain() + '/account/oauth?oauth=' + ent_id + '&key=' + key + '&gk=1',
                 width: 500,
                 height: 485,
                 resize: 0,
@@ -181,11 +181,11 @@ var gkClientLogin = {
             registBtn.append(spinner.el);
             registBtn.attr('disabled', 'disabled');
             $.ajax({
-                url: 'http://www.gokuai.com/account/regist_member',
+                url: gkClientInterface.getSiteDomain() + '/regist/member',
                 data: {
                     email: email,
-                    passwd: password,
-                    repasswd: repassword,
+                    password: password,
+                    repassword: repassword,
                     user_license_chk: agreement,
                     verify_code: verify_code
                 },
