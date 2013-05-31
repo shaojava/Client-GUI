@@ -61,7 +61,7 @@ var gkClientMenu = {
                         width: 800,
                         height: 600
                     };
-                    gkClientInterface.openSingleWindow(params);
+                    gkClientInterface.openWindow(params);
                 }
             },
             {
@@ -81,7 +81,7 @@ var gkClientMenu = {
                         width: 800,
                         height: 600
                     };
-                    gkClientInterface.openSingleWindow(params);
+                    gkClientInterface.openWindow(params);
                 }
             },
             {
