@@ -24,6 +24,26 @@ var gkClientMenu = {
                     gkClientInterface.openWindow(params);
                 }
             },
+                    {
+                classes: 'link',
+                name: '链接',
+                folder: true,
+                file: true,
+                tip: '为文件或文件夹创建分享链接',
+                click: function() {
+                    if (!PAGE_CONFIG.path.length) {
+                        return;
+                    }
+                    var params = {
+                        url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
+                        sso: 1,
+                        resize: 0,
+                        width: 800,
+                        height: 600
+                    };
+                    gkClientInterface.openWindow(params);
+                }
+            },
 //        {
 //            classes:'qr_share',
 //            name:'扫一扫共享',
