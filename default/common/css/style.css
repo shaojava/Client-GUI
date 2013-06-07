@@ -1124,14 +1124,14 @@ i.share_i{background-position:0 -125px}
 .toolbar .main_nav li .share_info .links_info{padding:20px 10px 0;color:#999;font-family: "Microsoft Yahei";line-height:20px;}
 .toolbar .main_nav li .share_info .links_info p{padding-bottom: 10px}
 .toolbar .main_nav li .share_info .links_type{text-align:center;line-height:24px;padding-bottom: 10px;margin-top: 10px}
-.toolbar .main_nav li .share_info .links_type div{display:inline-block;color:#999;font-family: "Microsoft Yahei";font-weight: 700}
+.toolbar .main_nav li .share_info .links_type a{display:inline-block;color:#999;font-family: "Microsoft Yahei";font-weight: 700}
 .toolbar .main_nav li .share_info .links_type div.yl_links{margin-left: 6px;width:65px;position:relative;cursor:pointer;}
 .toolbar .main_nav li .share_info .links_type div.yl_links:after{background-position:right -232px;content:"";display:block;right:5px;width:16px;height:10px;position:absolute;top:5px}
 .extend_button{border-radius:3px;padding:0 10px;border:1px solid #c1cdd8;background:#f3f7f9;cursor:pointer}
-.toolbar .main_nav li .share_info .links_type div.fontcolor_blue{color:#6185bc;margin-right: 5px}
+.toolbar .main_nav li .share_info .links_type a.fontcolor_blue{color:#6185bc;margin-right: 5px}
 .toolbar .main_nav li.main_nav_li .date_time_file{color:#64727c;padding-left:5px}
 .toolbar .main_nav li.main_nav_li .date_time_file div:first-child{line-height:18px;width:30px;word-break:break-all;}
-.toolbar .main_nav li.main_nav_li .date_time_file div:last-child{margin-left:5px;width:130px;line-height:18px}
+.toolbar .main_nav li.main_nav_li .date_time_file div:last-child{margin-left:5px;width:136px;line-height:18px}
 
 
 /*动态更新*

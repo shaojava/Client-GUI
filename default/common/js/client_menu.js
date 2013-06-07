@@ -14,11 +14,9 @@ function bind_logo_click(){
                 width: 490,
                 height: 175
             };
-            alert(PAGE_CONFIG.path);
             gkClientInterface.openSingleWindow(params);
      });
-     //默认链接
-     $(".links_update").html('<div class="links_info"><p>该文件拥有者已经关闭了该分享</p></div>');
+  
 
    
 
@@ -409,13 +407,8 @@ function gShellSelect(re) {
     if (dir) {
         fullpath = Util.String.rtrim(fullpath, '/')
     }
-    if(dir == 1){
-        //如果是目录
-        create_dir_tag();
-    }else{
-        create_file_tag();
-    }
     change_comparty_class(fullpath);
+    link_ajax_load_data("fullpath="+path+"",""+path+"");
     var _image_url = select_file_dir(fullpath);
     $(".compart_file_img > img").attr("src",_image_url);
     menu_items.each(function(i, n) {

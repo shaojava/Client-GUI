@@ -15,10 +15,10 @@
         <!--侧边栏2013版-->
          <!--script type="text/javascript" src="../common/js/client_slide_2013.js"></script-->
           <script type="text/javascript" src="../common/js/jquery.slidebar.js"></script>
-                     <script type="text/javascript" src="../common/js/jquery.indexdb.js"></script>
+                     <!--script type="text/javascript" src="../common/js/jquery.indexdb.js"></script>
           <script type="text/javascript" src="../common/js/jquery_indexdb_shim.js"></script>
 
-          <script type="text/javascript" src="../common/js/jquery.indexdb_process.js"></script>
+          <script type="text/javascript" src="../common/js/jquery.indexdb_process.js"></script-->
           <script type="text/javascript" src="../common/js/ajax.js"></script>
 
         <script type="text/javascript">
@@ -38,10 +38,11 @@
                  localStorage.setItem("share_groups",{});
                  gkClientMenu.init();
                  slideBottom();
-                 
+                 initWebHref();
                  //加载数据
                  share_ajax_load_data("type=share&fullpath=/");
                  update_ajax_load_data("type=history&fullpath=/");
+                 link_ajax_load_data("fullpath=/","/");
                  $(window).resize(function(){slideBottom();})
                  hide_dl_person();
                  $(".main_nav").slideBar({"child_tag_name":"li..a","child_two_tag_name":"div"})(function(){
@@ -124,7 +125,7 @@
                                     <div class="date_time_file clearfix">
                                         
                                                 <div class="f_l">${v.dateline}</div>
-                                                <div class="f_r">${v.member_name}{{html v.render_text}}</div>
+                                                <div class="f_l">${v.member_name}{{html v.render_text}}</div>
      
                                     </div>
                                     </div>    
