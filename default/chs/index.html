@@ -3,29 +3,94 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-<!--        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/util.js"></script>-->
-    <script type="text/javascript" src="../common/js/util.js"></script>
+        <!--        <script type="text/javascript" src="http://127.0.0.1/Common/js/util.js"></script>-->
+        <script type="text/javascript" src="../common/js/util.js"></script>
         <script type="text/javascript" src="../common/js/config.js"></script>
         <script type="text/javascript" src="../common/js/jquery.js"></script>
         <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
-<!--        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/interface.js"></script>-->
-         <script type="text/javascript" src="../common/js/interface.js"></script>
+        <!--        <script type="text/javascript" src="http://127.0.0.1/Common/js/interface.js"></script>-->
+        <script type="text/javascript" src="../common/js/interface.js"></script>
         <script type="text/javascript" src="../common/js/client_menu.js"></script>
         <script type="text/javascript" src="../common/js/bootstrap_customize.min.js"></script>
+        <!--侧边栏2013版-->
+         <!--script type="text/javascript" src="../common/js/client_slide_2013.js"></script-->
+          <script type="text/javascript" src="../common/js/jquery.slidebar.js"></script>
+                     <script type="text/javascript" src="../common/js/jquery.indexdb.js"></script>
+          <script type="text/javascript" src="../common/js/jquery_indexdb_shim.js"></script>
+
+          <script type="text/javascript" src="../common/js/jquery.indexdb_process.js"></script>
+          <script type="text/javascript" src="../common/js/ajax.js"></script>
 
         <script type="text/javascript">
-            PAGE_CONFIG.state='0';
-            $(function(){
-                gkClientMenu.init();
-            });
+            PAGE_CONFIG.state = '0';
+            var _gk_share_info = null;
+            var affiliatedperson_dl = null,
+                affiliatedperson_cp = null,
+                affiliatedperson_yy = null;
+        $(function(){
+                 affiliatedperson_dl = $(".affiliatedperson_dl");
+                 affiliatedperson_cp = $(".affiliatedperson_cp");
+                 affiliatedperson_yy = $(".affiliatedperson_yy");
+                 
+                 //创建记录当前时间戳的，表示缓存时间
+                 localStorage["app_runtime_time"] = +new Date;
+                 localStorage.setItem("share_member",{});
+                 localStorage.setItem("share_groups",{});
+                 gkClientMenu.init();
+                 slideBottom();
+                 
+                 //加载数据
+                 share_ajax_load_data("type=share&fullpath=/");
+                 update_ajax_load_data("type=history&fullpath=/");
+                 $(window).resize(function(){slideBottom();})
+                 hide_dl_person();
+                 $(".main_nav").slideBar({"child_tag_name":"li..a","child_two_tag_name":"div"})(function(){
+                    
+               $(this).click(function(e){
+      
+                        if($(this).attr("class").indexOf("a_updates") >= 0){
+                            //更新
+                             if(check_cache_expire()){
+                              
+                               update_ajax_load_data("type=history&fullpath=/");
+                               localStorage["app_runtime_time"] = +new Date;
+                             }
+                            
+                        }else if($(this).attr("class").indexOf("a_links") >= 0){
+                             //链接
+                            
+                        }
+                        else{
+                          
+                            //检查缓存过期时间
+                            if(check_cache_expire()) {          
+                               share_ajax_load_data("type=share&fullpath=/");
+                               localStorage["app_runtime_time"] = +new Date;
+                              }
+                               //检查共享是否有数据
+                             if($(".affiliatedperson_dl").children().length == 0){
+                                hide_dl_person();
+                           }else{
+                                show_dl_person();
+                           }
+                             
+                 
+                        }
+                      })
+                 });
+                 
+        });
+           
+           
         </script>
     </head>
 
     <body id="sider_page">
         <div class="wrapper">
             <div class="header"></div>
+            <div class="compary_finance"></div>
             <div class="toolbar">
-                <ul class="tools">
+                <!--ul class="tools">
                     <li class="start gktooltip" data-placement="top" title="开始够快"><i></i></li>
                     <li class="news gktooltip" data-placement="top" title="最近更新">
                         <i></i>
@@ -34,43 +99,172 @@
                     <li class="website gktooltip" data-placement="top" title="够快网页版"><i></i></li>                 
                     <li class="help gktooltip" data-placement="top" title="支持"><i></i></li>
                     <!--                    <li class="task"><i></i></li>-->
+                <!--/ul-->
+                <script type="text/x-jquery-tmpl" id="affiliatedperson_dl">
+                                       {{each(k,v) d}}
+                                           <li data-auth=${v.auth}><a href="#">${v.username}</a></li>
+                                       {{/each}}
+                                    </script>
+                 <script type="text/x-jquery-tmpl" id="affiliatedperson_cp">
+                                       {{each(k,v) d}}
+                                           <li data-auth=${v.auth}><a href="#" title=${v.username}>${v.username}</a></li>
+                                       {{/each}}
+                                    </script>
+                                     <script type="text/x-jquery-tmpl" id="affiliatedperson_yy">
+                                       {{each(k,v) d}}
+                                           <li data-auth=${v.auth}><a href="#" title=${v.username}>${v.username}</a></li>
+                                       {{/each}}
+                                    </script>
+                                <!--动态更新-->
+                                <script type="text/x-jquery-tmpl" id="updates">
+                                                {{each(k,v) d}}
+                                           <div class="affiliatedperson affiliatedperson_1 affiliatedperson_update ">
+                                                  <div> 
+                                    <h3>${v.date}</h3>
+                                    <div class="date_time_file clearfix">
+                                        
+                                                <div class="f_l">${v.dateline}</div>
+                                                <div class="f_r">${v.member_name}{{html v.render_text}}</div>
+     
+                                    </div>
+                                    </div>    
+                            </div>
+                                                {{/each}}
+                                             
+                                 </script>
+                                  
+                <ul class="main_nav">
+                    <li class="main_nav_li">
+                        <a href="javascript:void(0)" title="共享" class="a_share extends">共享
+                               <i class="share"></i>
+                                <span><i class="share_span"></i></span>
+                        </a>
+                            <div class="share_info scrollbar">
+                              
+                                <div class="share_gx">
+                                     <button>共享关系</button>
+                                </div>
+                                <!--独立参与人-->
+                                <div class="affiliatedperson affiliatedperson_1 ">
+                                    <h3>独立参与人</h3>
+                                </div>
+                                <ul class="affiliatedperson_dl clearfix">
+                                    
+                                </ul>
+       
+                                    <!--产品部-->
+                                <div class="affiliatedperson affiliatedperson_2">
+                                    <h3>产品部</h3>
+                                </div>
+                                <ul class="affiliatedperson_cp clearfix">
+                         
+                                </ul>
+          
+                                
+                                    <!--运营部-->
+                                <div class="affiliatedperson affiliatedperson_2">
+                                    <h3>运营部</h3>
+                                </div>
+                                <ul class="affiliatedperson_yy clearfix">
+
+                                </ul>
+                        
+                              
+                                
+                                
+                            </div>
+                        
+                        
+                    </li>
+                      <li class="main_nav_li"><a href="javascript:void(0)" title="链接" class="a_links extends">链接
+                                <i class="links"></i>
+                                <span><i class="links_span"></i></span>
+                          </a>
+                          <div class="share_info scrollbar" style="display:none">
+                              <div class="links_info">
+                                  <p>快速创建一个链接，将链接复制到邮件或即时通讯工具中，用于分享给的朋友或工作伙伴</p>    
+                              </div>
+                              <div class="links_update">
+                              <!--div class="links_type">
+                                  <div>选择链接类型</div>
+                                  <div class="extend_button yl_links">预览链接</div>
+                              </div>
+                              <div class="links_type">
+                                  <div class="extend_button fontcolor_blue">获取链接</div>
+                                  <div class="extend_button fontcolor_blue">创建高级链接</div>
+                                
+                              </div-->
+                              </div>
+                               <!--div class="links_info">
+                                  <p>该文件拥有者已经关闭了该分享</p>    
+                              </div-->
+                            </div>
+                      </li>
+                          
+                      <li class="main_nav_li"><a href="javascript:void(0)" title="更新动态" class="a_updates extends">更新动态
+     <i class="updates"></i>
+                                <span><i class="updates_span"></i></span>
+                          </a>
+                          <div class="share_info scrollbar share_info_update" style="display:none">
+                            
+                                <div class="share_gx">
+                                    <button>查看动态</button> 
+                                </div>
+                              <div class="blank5"></div>
+       
+                            </div>
+                      </li>
                 </ul>
             </div>
         </div>
-
+ 
         <script id="sideMenuList" type="text/x-jquery-tmpl">
             <ul class="side_menu_list scrollbar">
-                {{each(k,v) menus}}
-                <li class="{{if typeof(v.classes)!=='undefined' && v.classes.length}}${v.classes}{{/if}}{{if typeof(v.tip)==='undefined' || !v.tip.length}} no_tip_item{{/if}}" data-folder_enable="${v.folder}" data-file_enable="${v.file}">
-                    <div class="icon"></div>
-                    <div class="desc">
-                        <div class="name">${v.name}</div>
-                        {{if typeof(v.tip)!=='undefined' && !!v.tip.length}}
-                        <div class="tip">${v.tip}</div>
-                        {{/if}}
-                    </div>
-                </li>
-                {{/each}}
+            {{each(k,v) menus}}
+            <li class="{{if typeof(v.classes)!=='undefined' && v.classes.length}}${v.classes}{{/if}}{{if typeof(v.tip)==='undefined' || !v.tip.length}} no_tip_item{{/if}}" data-folder_enable="${v.folder}" data-file_enable="${v.file}">
+            <div class="icon"></div>
+            <div class="desc">
+            <div class="name">${v.name}</div>
+            {{if typeof(v.tip)!=='undefined' && !!v.tip.length}}
+            <div class="tip">${v.tip}</div>
+            {{/if}}
+            </div>
+            </li>
+            {{/each}}
             </ul>
 
         </script>
         <script id="sideMenuHeader" type="text/x-jquery-tmpl">
-            <div class="member">
-                <div class="logo_wrapper">
-                    {{if typeof(orgLogo)!=='undefined'}}
-                    <img class="logo" src="${orgLogo}" alt="" />
-                    {{else}}
-                    <img class="logo" src="${gkLogo}" alt="" />
-                    {{/if}}
-                </div>
-                <div class="attrs">
-                    <div class="member_name">${memberName}</div>
-                    {{if typeof(orgName)!=='undefined'}}
-                    <div class="org_name">${orgName}</div>
-                    {{/if}}
-                    <div class="size">已使用${Util.Number.bitSize(size)}</div>
-                </div>
-            </div>
+           <div class="member member_2013">
+               <div class="logo_wrapper logo_wrapper_2013">
+                 {{if typeof(orgLogo)!=='undefined'}}
+                <img src="../common/images/images_2013/logo.png" class="logo" />
+                 {{else}}
+               <img src="../common/images/images_2013/logo.png" class="logo" />
+                 {{/if}}
+               </div>
+               <div class="attrs attrs_2013">
+                  <div class="member_name ${tmptop}">${memberName}</div>
+                     {{if typeof orgName!=='undefined'}}
+         
+                      <div class="org_name">${orgName}</div>
+                     
+                     {{/if}}
+               </div>
+           </div>
+      
         </script>
+           <!--公司信息-->
+ <script type="text/x-jquery-tmpl" id="compary_list">
+            <div class="compart_file_img f_l">
+                 <img src=${photoUrl} width="30" height="35" />
+            </div>
+            <div>
+                <h3>公司财务报表</h3>
+                由<span><b>徐海浩</b></span>最后修改
+            </div>
+            <div class="blank5"></div>
+            <i>独占修改</i>
+ </script>
     </body>
 </html>

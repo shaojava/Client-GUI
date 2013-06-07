@@ -1,4 +1,14 @@
 var gkClientLaunchPad = {
+    init_2013:function(){
+     
+            $('.launth_pad_left li').click(function(){
+            var url = $(this).attr('data-url');
+            var params = {};
+            var _iframe = $("iframe");
+            _iframe.attr("src",url);
+            
+        });
+    },
     init:function(){
         //disable浏览器的默认事件
         gkClientCommon.disableDefaultEvent();
@@ -33,10 +43,8 @@ var gkClientLaunchPad = {
             return;
         });
         
-        $('.menus li').click(function(){
-            var url = $(this).attr('data-url');
-            var params = {};
-            if(!url.length){
+  
+         /*   if(!url.length){
                 gkClientInterface.openSyncDir();
             }
             //若是消息，重新设置弹窗的大小
@@ -61,7 +69,7 @@ var gkClientLaunchPad = {
                 gkClientInterface.openWindow(params);
             }
                  
-        });
+        });*/
         //最新消息
 //        this.showMessage();
     }

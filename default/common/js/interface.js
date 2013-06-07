@@ -6,7 +6,11 @@ var gkClientFileState = {
     LOCAL_STATE: 4,
     EDIT_STATE: 5
 };
-
+var gkClientFileLock = {
+    UNLOCK: 0,
+    LOCK_BY_OTHER: 1,
+    LOCK_BY_ME: 2
+};
 var gkClientInterface = {
     setFileStatus: function(path, dir, state) {
         var params = JSON.stringify({
@@ -301,4 +305,5 @@ function initWebHref() {
             return false;
         }
     });
-};
+}
+;
