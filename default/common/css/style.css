@@ -83,7 +83,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .select_radius {
     height:30px;
     line-height:10px;
-    width:95px;
+    width:88px;
     background:#F3F7F9;
 }
 
@@ -1057,21 +1057,22 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 /**2013年侧边栏改版**/
 
 /*公司信息*/
-.compary_finance{width:100%;background:#f3f7f9;padding:20px 0 10px;color:#999}
-.compary_finance div:nth-child(2){padding-left: 55px}
-.compary_finance div.tmpbottom{position:relative;top:8px}
-.compary_finance .compart_file_img{margin-left:15px;_display:inline}
-.compary_finance h3,.compary_finance span{color:#434343;font-weight: 700;line-height: 16px}
+.compary_finance{width:100%;background:#FFF;padding:15px 0 10px;color:#999;height: 98px}
+.compary_finance div.compary_file:nth-child(2){padding-left: 55px;height:52px}
+.compary_finance div.tmpbottom{position:relative;top:8px;height:34px}
+.compary_finance .compart_file_img{margin-left:15px;_display:inline;height:32px}
+.compary_finance h3,.compary_finance span{color:#64727C;font-weight: 700;line-height: 16px}
+.compary_finance h3{width:130px;overflow:hidden;text-overflow: ellipsis;white-space:nowrap}
 .compary_finance span{margin:0 3px}
-.compary_finance i{cursor:pointer;margin-left:55px;display:block;width:50px;height:16px;background:url('../images/images_2013/slide_icon_2013.png') no-repeat 0 -66px;color:#6185bc;padding-left:20px;font-family:"Microsoft Yahei"}
+.compary_finance i{border-radius:2px;cursor:pointer;margin:5px auto;display:block;width:70px;background:url('../images/images_2013/333_03.png') no-repeat 0 0;color:#FFF;padding:8px 0 8px 48px;font:14px "Microsoft Yahei"}
 /*头部*/
-
-
+.compary_finance i.dzupdate{background-position: 15px -62px;background-color:#ff944d;}
+.compary_finance i.nodzupdate{background-position: 15px -28px;background-color:#56bdff;}
 #sider_page .header{padding:0;background:#6185bc;height:40px}
 #sider_page .header:hover{background:#486ea9}
 #sider_page .header .member_2013{padding-left:20px}
-#sider_page .header .attrs_2013{color:#fff;width:125px;margin-top:3px;font-size:12px;font-family:"Microsoft Yahei"}
-#sider_page .header .logo_wrapper_2013{width:auto;height:auto;margin-right:18px}
+#sider_page .header .attrs_2013{color:#fff;width:auto;margin-top:3px;font-size:12px;font-family:"Microsoft Yahei"}
+#sider_page .header .logo_wrapper_2013{width:auto;height:auto;margin-left:15px}
 #sider_page .header .logo_wrapper_2013 img{margin-top: 8px}
 
 
@@ -1087,29 +1088,30 @@ i.share_i{background-position:0 -125px}
 .toolbar .main_nav li.main_nav_li i,.toolbar .main_nav li.main_nav_li a span i,.toolbar .main_nav li .share_info .links_type div.yl_links:after{background:url("../images/images_2013/slide_icon_2013.png") no-repeat 0 0}
 .toolbar .main_nav li.main_nav_li a>span{position:absolute;display:block;background-color:#c1cdd8;right:0;top:0;height:25px;width:25px}
 .toolbar .main_nav li.main_nav_li a>span.changeBlue{background-color:#6185bc}
-.toolbar .main_nav li.main_nav_li a>span i{position:absolute;height:12px;width:16px;top:8px}
+.toolbar .main_nav li.main_nav_li a>span i{position:absolute;height:12px;width:16px;top:8px;cursor:pointer}
 .toolbar .main_nav li.main_nav_li a>span i.share_span{background-position:center -185px}
-.toolbar .main_nav li.main_nav_li .links_update{font-size:12px!important;color:#64727C;margin-top:20px;padding-left:10px}
+.toolbar .main_nav li.main_nav_li .links_update{font-size:12px!important;color:#64727C;margin-top:5px;padding-left:10px}
 .toolbar .main_nav li.main_nav_li .links_update select{font-size:12px!important;margin-left:4px}
+.toolbar .main_nav li.main_nav_li .links_update a{color: #6185BC}
 
 
 /*链接*/
 
 
-.toolbar .main_nav li.main_nav_li a>span i.links_span{background-position:center -185px}
+.toolbar .main_nav li.main_nav_li a>span i.links_span{background-position:center -270px}
 .toolbar .main_nav li.main_nav_li a>span i.updates_span{background-position:center -255px}/*-255*/
 .toolbar .main_nav li.main_nav_li a>span i.updates_span_slide{background-position:center -195px}
-.toolbar .main_nav li .share_info{width:100%;background:#fff;overflow-y:auto;overflow-x:hidden;height:100%;}
-.toolbar .main_nav li .share_info .share_gx{height:32px;background:#f3f7f9;padding-top:8px}
-.toolbar .main_nav li .share_info .share_gx button{display: block;cursor:pointer;width:75px;height:25px;line-height:20px;border:1px solid #ccc;border-radius: 5px;text-align: center;margin:0 auto;color:#666;font-weight:bold}
+.toolbar .main_nav li .share_info{width:100%;background:#fff;overflow-y:auto;overflow-x:hidden;height:100%;padding:5px 0}
+/*.toolbar .main_nav li .share_info .share_gx{height:32px;background:#f3f7f9;padding-top:8px}
+.toolbar .main_nav li .share_info .share_gx button{display: block;cursor:pointer;width:75px;height:25px;line-height:20px;border:1px solid #ccc;border-radius: 5px;text-align: center;margin:0 auto;color:#666;font-weight:bold}*/
 .toolbar .main_nav li .share_info .affiliatedperson{margin-top:5px;position:relative;}
-.toolbar .main_nav li .share_info .affiliatedperson h3{font-size:12px;margin-left:16px;line-height:12px;color:#6185bc;margin-bottom:5px;cursor:pointer}
+.toolbar .main_nav li .share_info .affiliatedperson h3{font-size:12px;margin-left:5px;line-height:12px;color:#6185bc;margin-bottom:12px;cursor:pointer}
 .toolbar .main_nav li .share_info .affiliatedperson:before,.toolbar .main_nav li .share_info .affiliatedperson:after{position:absolute;content:"";display:block;background:url('../images/images_2013/slide_icon_2013.png') no-repeat 0 0}
-.toolbar .main_nav li .share_info .affiliatedperson:before{width:16px;background-position:0 -235px;height:10px;top:2px}
-.toolbar .main_nav li .share_info .affiliatedperson:after{width:120px;height:1px;background:#ccc;top:6px}
+/*.toolbar .main_nav li .share_info .affiliatedperson:before{width:16px;background-position:0 -235px;height:10px;top:2px}*/
+/*.toolbar .main_nav li .share_info .affiliatedperson:after{width:120px;height:1px;background:#ccc;top:6px}
 .toolbar .main_nav li .share_info .affiliatedperson_2:after{width:150px;height:1px;background:#ccc;top:6px}
 .toolbar .main_nav li .share_info .affiliatedperson_1:after{left:75px}
-.toolbar .main_nav li .share_info .affiliatedperson_2:after{left:53px}
+.toolbar .main_nav li .share_info .affiliatedperson_2:after{left:53px}*/
 .toolbar .main_nav li .share_info ul{padding:0 0 0 2px}
 .toolbar .main_nav li .share_info  li{float:left;margin-right:3px;margin-bottom: 4px}
 .toolbar .main_nav li .share_info  li a{display:block;float:left;padding:0 5px;text-align:center;color:#64727C;line-height:16px;height:16px}
@@ -1123,15 +1125,17 @@ i.share_i{background-position:0 -125px}
 .viewer{background-position:2px -40px!important;border:1px solid #73aac8!important;color:#73aac8!important}
 .toolbar .main_nav li .share_info .links_info{padding:20px 10px 0;color:#999;font-family: "Microsoft Yahei";line-height:20px;}
 .toolbar .main_nav li .share_info .links_info p{padding-bottom: 10px}
-.toolbar .main_nav li .share_info .links_type{text-align:center;line-height:24px;padding-bottom: 10px;margin-top: 10px}
+.toolbar .main_nav li .share_info .links_type{line-height:24px;padding-bottom: 10px;margin-top: 10px;text-align:center}
 .toolbar .main_nav li .share_info .links_type a{display:inline-block;color:#999;font-family: "Microsoft Yahei";font-weight: 700}
 .toolbar .main_nav li .share_info .links_type div.yl_links{margin-left: 6px;width:65px;position:relative;cursor:pointer;}
 .toolbar .main_nav li .share_info .links_type div.yl_links:after{background-position:right -232px;content:"";display:block;right:5px;width:16px;height:10px;position:absolute;top:5px}
-.extend_button{border-radius:3px;padding:0 10px;border:1px solid #c1cdd8;background:#f3f7f9;cursor:pointer}
-.toolbar .main_nav li .share_info .links_type a.fontcolor_blue{color:#6185bc;margin-right: 5px}
-.toolbar .main_nav li.main_nav_li .date_time_file{color:#64727c;padding-left:5px}
-.toolbar .main_nav li.main_nav_li .date_time_file div:first-child{line-height:18px;width:30px;word-break:break-all;}
-.toolbar .main_nav li.main_nav_li .date_time_file div:last-child{margin-left:5px;width:136px;line-height:18px}
+.extend_button{border-radius:3px;padding:0 12px;border:1px solid #c1cdd8;background:#f3f7f9;cursor:pointer}
+.toolbar .main_nav li .share_info .links_type a.fontcolor_blue{color:#6185bc;margin-right: 14px}
+.toolbar .main_nav li .share_info .links_type a.fontcolor_blue:nth-child(2){margin-right: 0}
+.toolbar .main_nav li.main_nav_li .date_time_file{color:#64727c;padding: 0 0 5px 5px}
+.toolbar .main_nav li.main_nav_li .date_time_file div:first-child{line-height:18px;width:30px;word-break:break-all;background:#eaf0f5}
+.toolbar .main_nav li.main_nav_li .date_time_file div:last-child{margin-left:5px;width:136px;line-height:18px;word-break:break-all}
+.toolbar .main_nav li.main_nav_li .date_time_file a{color:#6185bc}
 
 
 /*动态更新*
@@ -1148,11 +1152,50 @@ i.share_i{background-position:0 -125px}
 .launth_pad .launth_pad_left li a{color:#fff;display:block;_zoom:1;width:100%;text-align:center;padding:5px 0}
 .launth_pad .launth_pad_left li a i{display:block;background:url('../images/images_2013/vertical_nav_icons32x32.png') no-repeat 0 0;width:32px;height:32px;margin:0 auto}
 .launth_pad .launth_pad_left li a:hover{background-color:#486EA9}
-.launth_pad .launth_pad_left li a i.share{background-position:-32px 0;}
-.launth_pad .launth_pad_left li a i.favorite{background-position:-32px -64px;}
-.launth_pad .launth_pad_left li a i.linkman{background-position:-32px -96px;}
-.launth_pad .launth_pad_left li a i.recyclebin{background-position:-32px -96px;}
+.launth_pad .launth_pad_left li a i.share{background-position:0 0;}
+.launth_pad .launth_pad_left li a i.favorite{background-position:0 -64px;}
+.launth_pad .launth_pad_left li a i.linkman{background-position:0 -96px;}compary_storage_imgcompary_storage_img
+.launth_pad .launth_pad_left li a i.recyclebin{background-position:0 -96px;}
 .launth_pad .launth_pad_right{margin-left:62px;width:750px;background:#fff;height:100%}
+.compary_finance .compary_storage{padding:0 10px;font:13px "微软雅黑";color:#64727C}
+.compary_finance .compary_storage .compary_storage_img{padding:3px 3px 0;border:1px solid #eee}
+.compary_finance .compary_storage .compary_storage_info{padding-left:70px;line-height:18px}
+.compary_finance .compary_storage .compary_storage_info h4{font-weight: bold;color:#6185BC;font-size:14px}
+/**定义存储条**/
+.compary_finance .progress{ background-color: #F7F7F7;
+    background-image: linear-gradient(to bottom, #F5F5F5, #F9F9F9);
+    background-repeat: repeat-x;
+    border-radius: 4px 4px 4px 4px;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1) inset;
+    height: 20px;
+    overflow: hidden;
+   border: 1px solid #C4C4C5;
+    height: 12px;
+    margin: 5px 0;
+    
+}
+.progress .bar{ 
+-moz-box-sizing: border-box;
+    background-color: #0E90D2;
+    background-image: linear-gradient(to bottom, #149BDF, #0480BE);
+    background-repeat: repeat-x;
+    box-shadow: 0 -1px 0 rgba(0, 0, 0, 0.15) inset;
+    color: #FFFFFF;
+    float: left;
+    font-size: 12px;
+    height: 100%;
+    text-align: center;
+    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+    transition: width 0.6s ease 0s;
+    width: 0;
+
+}
+.progress_striped .bar {
+    background-color: #149BDF;
+    background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
+    background-size: 40px 40px;
+}
+
 /*辅助函数*/
 .clearfix{display:block}
 .clearfix:after{clear:both;content:"";display:block;height:0;visibility:hidden;font-size:0}

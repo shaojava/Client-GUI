@@ -16,8 +16,12 @@ function bind_logo_click(){
             };
             gkClientInterface.openSingleWindow(params);
      });
-  
-
+    //创建高级链接
+   $(".links_span").click(function(){
+      create_gj_links();  
+    })
+   //默认共享状态
+   $("<span style='color:#999;margin-left:5px'>未与任何人共享</span>").appendTo($(".share_info_parent"));
    
 
 }
@@ -35,15 +39,14 @@ var gkClientMenu = {
 
         _context._fetchHeader();
         
-        _context._setCompary();
+        _context._setCompary("init");
        
         _context._setMenu_2013(gkClientMenu.menuList_2013);
         bind_logo_click();
-       // _context._setMenus(gkClientMenu.menuList_2013);
     },
     _setMenu_2013:function(menus){
-            $(".share_gx").each(function(i,v){
-                  $(this).children("button").on('click', function() {
+            $(".main_nav_li span").each(function(i,v){
+                  $(this).on('click', function(e) {
                
                 var _self = $(this);
                  if (_self.hasClass('disable_item') || _self.hasClass('hide_item')) {
@@ -54,14 +57,26 @@ var gkClientMenu = {
                 if (callback && typeof callback === 'function') {
                      callback(PAGE_CONFIG.path);
                 }
+               e.stopPropagation();
             });
             })
          
     },
-    _setCompary:function(){
+    _setCompary:function(identify){
+        //获取小数点后三位的正则
+        var _dottedReg = /\d+\.(\d{3})?/;
         var user = gkClientInterface.getUserInfo();
-       var _compartyList = $("#compary_list").tmpl({photoUrl:user.photourl}).appendTo($(".compary_finance"));
-    },
+        var size = +_dottedReg.exec(parseInt(user.size)/1024/1024)[0];
+        var capacity = parseInt(user.capacity)/(1024*1024);
+        var username = user.username || user.org_username;
+        var userimage = user.photourl;
+        
+        if(identify == "init"){
+            $("#compary_list_storage").tmpl({width:(size/capacity * 100)+"%",capacity:capacity,size:size,username:username,userimage:userimage}).appendTo($(".compary_finance"));
+        }else{
+            $("#compary_list").tmpl({photoUrl:user.photourl}).appendTo($(".compary_finance"));
+        }
+   },
     /*最新加上的menuList*/
     menuList_2013:[
         //共享
@@ -90,7 +105,7 @@ var gkClientMenu = {
             }
             return optState;
         }
-         },
+         },{},
         //动态更新
         {
              /*classes: 'history',
@@ -187,15 +202,17 @@ var gkClientMenu = {
     _fetchHeader: function() {
         var user = gkClientInterface.getUserInfo();
         var meta = {
-            memberName: user.username,
+           /* memberName: user.username,*/
             memberPhoto: user.photourl,
             size: user.size
         };
         if (user.org_id != 0) {
-            meta.orgName = user.org_name;
+            //如果是团队版
+            meta.orgName = "够快网络科技有限公司";
             meta.orgSize = user.org_size;
+            
         }else{
-            meta.tmptop = "tmptop";
+            meta.orgName = "够快网盘";
         }
         meta.orgLogo = '../common/images/logo48x48.png';
         $('#sideMenuHeader').tmpl(meta).appendTo($('.header'));
@@ -381,17 +398,15 @@ gkClientMenu.menuList = [
 ];
 /*2013新版修改文件*/
 function change_file_info($ele,path){
-     $ele.text(path);
-     
+     $ele.text(path); 
 }
 function change_comparty_class(path){
-     if(path === "")$(".compary_finance>div").eq(1).addClass("tmpbottom");
-     else $(".compary_finance>div").eq(1).removeClass("tmpbottom"); 
+     if(path === "")$(".compary_finance .file_info>div").eq(1).addClass("tmpbottom");
+     else $(".compary_finance .file_info>div").eq(1).removeClass("tmpbottom"); 
 }
 function gShellSelect(re) {
     var arr = re.split(',');
     var path = decodeURIComponent(arr[0]), state = arr[1];
-    change_file_info($(".compary_finance").find("h3"),path);
     console.log(path);
     console.log(state);
     if (path === PAGE_CONFIG.path && state == PAGE_CONFIG.state) {
@@ -407,10 +422,44 @@ function gShellSelect(re) {
     if (dir) {
         fullpath = Util.String.rtrim(fullpath, '/')
     }
+   
+
+    if(path != "" && path != "/"){
+         share_ajax_load_data("fullpath="+path+"",path);
+    }
+  
+    if(!$(".file_info").get(0)){
+      gkClientMenu._setCompary();
+    }
+     $(".compary_finance b").html(arr[2]);
     change_comparty_class(fullpath);
-    link_ajax_load_data("fullpath="+path+"",""+path+"");
+    link_ajax_load_data("fullpath="+path+"",path);
     var _image_url = select_file_dir(fullpath);
     $(".compart_file_img > img").attr("src",_image_url);
+     if($(".compary_storage").get(0))$(".compary_storage").empty();
+    var _menu_toggle = gkClientMenu.menuList[3].toggleState;
+    var _open_state =  _menu_toggle(fullpath,dir,state);
+   change_file_info($(".compary_finance").find("h3"),path);
+    if(path === ""){ 
+        if($(".file_info").get(0) && $(".file_info").siblings("i").get(0)){
+             $(".file_info").siblings("i").remove();
+             $(".file_info").remove();
+       }
+        gkClientMenu._setCompary("init");
+        return;
+    }    
+    var _dl_i = $(".file_info").siblings("i");
+    if(_open_state == 1){
+         //显示独占修改
+         _dl_i.text("独占修改").removeClass("nodzupdate").addClass("dzupdate");
+         
+    }else if(_open_state == 0){
+          //取消独占修改
+         _dl_i.text("取消独占").removeClass("dzupdate").addClass("nodzupdate"); 
+    }
+    
+    
+  
     menu_items.each(function(i, n) {
         var _self = $(this);
         //_self.removeClass('disable_item');

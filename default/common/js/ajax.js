@@ -2,14 +2,15 @@
          *选择链接类型
          * **/  
          function get_link_type(linkObj){
+             
              ajax({
-                  url:"http://localhost:8888/api/check_publish_closed",
+                  url:"http://localhost:8888/api/link_publish",
                   data:"fullpath="+PAGE_CONFIG.path+"&auth="+linkObj.options[linkObj.selectedIndex].value+"",
                   success:function(data){
-                  
-                      alert($(".get_links").attr("href"));
+                     $(".get_links").attr("href",data.link);
                   }
              })
+             
          }
        
         
@@ -17,18 +18,25 @@
          * 元素清除数据
          * **/  
          function tag_clear(idenity){
-           if(idenity == 1){affiliatedperson_dl.empty();affiliatedperson_yy.empty();}
-           else if(idenity == 2){$(".affiliatedperson_update").remove()}
-           else{$(".url_links").remove();}
+           if(idenity == 1){$(".share_info_parent").empty()}
+           else if(idenity == 2){$(".share_info_update").empty()}
+           else{
+               $(".links_update").empty();
+           }
           
          }
           /**
          * ajax共享请求数据
          * **/ 
         function share_ajax_load_data(dataJson){
+            
             ajax({data:dataJson,
                   success:function(data){
                     tag_clear(1);
+                    if(data == ""){
+                        $("<span style='color:#999;margin-left:5px'>未与任何人共享</span>").appendTo($(".share_info_parent"));
+                        return;
+                    }
                   //添加模板到html上
                   $("#affiliatedperson_dl").tmpl({"d":data["share_members"]}).appendTo(affiliatedperson_dl);
                   $.each(data["share_groups"],function(k,v){
@@ -54,18 +62,25 @@
              
               ajax({data:dataJson,
                                  success:function(data){
-                                       tag_clear(3);
+                                       tag_clear(2);
+                                       if(data == null){
+                                           $("<span style='color:#999;margin-left:5px'>该文件或者文件夹最近没有更新</span>").appendTo($(".share_info_update"));
+                                       }
                                        $.each(data,function(k,v){
                                          
                                             var _tmp_dateline = getLocalTime(v["dateline"]).match(/(\d{1,2}):(\d{1,2})/);
-                                            v["dateline"] = _tmp_dateline[0]
+                                            v["dateline"] = _tmp_dateline[0];
+                                            v["date"] = v["date"].replace(/-/g,".");
                                        })
     
                                    $("#updates").tmpl({"d":data}).appendTo($(".share_info_update"));
                                       
                                       tag_hover_title();
                                        
-                                 }
+                                 },
+                                         error:function(){
+                                          
+                                         }
                             });
         }
     
@@ -73,24 +88,37 @@
          /**
          * ajax请求链接数据
          * **/
-          function link_ajax_load_data(dataJson,fullpath){  
- 
+          function link_ajax_load_data(dataJson,fullpath){
+               
                    ajax({
                          url:"http://localhost:8888/api/check_publish_closed",
                          data:dataJson,
-                          success:function(data){
-                               
-                              tag_clear(3);
-                              if(data.isclosed === false){
+                          success:function(data){  
+                            
+                              if(data.isclosed === 0){
                                   ajax({
                                          url:"http://localhost:8888/api/link_publish",
                                          data:"fullpath="+fullpath+"&auth=1000",
                                          success:function(data){
-                                              create_file_tag(data.link);
+                                              tag_clear(3);
+                                              if(fullpath.indexOf("/") > 0){
+                                                    create_dir_tag(data.link);
+                                              }else{
+                                                   create_file_tag(data.link);
+                                              }
+                                             
                                          }
                                   })
-                              }else{
-                                  $("<div class='links_update'>"+data.msg+"</div>").appendTo($(".links_update").parent());
+                              }else{           
+                                 ajax({
+                                         url:"http://localhost:8888/api/link_publish",
+                                         data:"fullpath="+fullpath+"&auth=1000",
+                                         success:function(data){
+                                              tag_clear(3);
+                                                $(".links_update").html("为<a href='"+data.link+"'>新东方合同.docx</a>创建一个链接，然后将链接通过邮件或QQ发给您的工作伙伴。他和她就能访问 <a href='"+data.link+"'>新东方合同.docx</a>了。");   
+                                         }
+                                  })
+                                
                               }
                               
                           }
@@ -117,8 +145,9 @@
          * 建立文件标签
          * **/ 
         function create_file_tag(fileurl){
-                      var _file_tag_url = '选择链接类型 <select class="select select_radius" onchange="get_link_type(this)"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option><option value="0100" data-type="unknownUpload" data-tip="允许链接访问者上传/更新文件，但无法查看文件夹内的文件">匿名上传链接</option></select><div class="links_type"><a class="extend_button fontcolor_blue get_links" href="'+fileurl+'">获取链接</a><a class="extend_button fontcolor_blue" href="javascript:void(0)" onclick="create_gj_links()">创建高级链接</a></div>';
+                      var _file_tag_url = '选择链接类型 <select class="select select_radius" onchange="get_link_type(this)"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option><option value="0100" data-type="unknownUpload" data-tip="允许链接访问者上传/更新文件，但无法查看文件夹内的文件">匿名上传链接</option></select><div class="links_type"><a class="extend_button fontcolor_blue get_links" href="'+fileurl+'">获取链接</a></div>';
                       $(".links_update").html(_file_tag_url);
+                      
         }
         
           /**
@@ -126,7 +155,7 @@
          * **/ 
         function create_dir_tag(fileurl){
             
-            var _file_tag_url = '选择链接类型 <select class="select select_radius" onchange="get_link_type(this)"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option></select><div class="links_type"><a class="extend_button fontcolor_blue get_links" href="'+fileurl+'">获取链接</div><a href="javascript:void(0)" class="extend_button fontcolor_blue" onclick="create_gj_links()">创建高级链接</a></div>';
+            var _file_tag_url = '选择链接类型 <select class="select select_radius" onchange="get_link_type(this)"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option></select><div class="links_type"><a class="extend_button fontcolor_blue get_links" href="'+fileurl+'">获取链接</div></div>';
             $(".links_update").html(_file_tag_url);
         }
               
@@ -134,14 +163,14 @@
          * 显示独立参与人
          * **/  
         function show_dl_person(){
-            $(".affiliatedperson_1").show();
+            $(".affiliatedperson_share").show();
         }
         
          /**
          * 隐藏独立参与人
          * **/ 
          function hide_dl_person(){
-            $(".affiliatedperson_1").hide();
+            $(".affiliatedperson_share").hide();
          }
         
           /**
@@ -175,7 +204,7 @@
          * 元素高度自适应浏览器缩小
          * **/ 
           function slideBottom(){ 
-              $(".share_info").height($(window).height() - 210); 
+              $(".share_info").height($(window).height() - 252); 
           }
            /**
          * 页面一系列的ajax操作
@@ -217,29 +246,7 @@
             };
             gkClientInterface.openSingleWindow(params);
         }
-        /**
-         * 创建链接
-         * **/ 
-        function create_pt_links(){
-            if(!PAGE_CONFIG.path) {
-                 tag_clear(3);
-            }           
-            var fullpath = PAGE_CONFIG.path;
-           
-            var authvalue = $(".select_radius").get(0).options[$(".select_radius").get(0).selectedIndex].value;
-       $.ajax({
-                 url:"http://localhost:8888/api/link_publish",
-                 data:"fullpath="+fullpath+"&auth="+authvalue+"",
-                 dataType:"json",
-                 type:"post",
-                 success:function(data){
-                     tag_clear(3);
-                     $("<div class='url_links' style='text-align:center'><a href='"+data.link+"' title='"+fullpath+"'>"+fullpath+"</a></div>").appendTo($(".links_update").parent());
-                 }
-            })
-        }
-        
-              
+          
          //一些后缀名数据
          var extensions = {
                'SORT_MOVIE' :['mp4', 'mkv', 'rm', 'rmvb', 'avi', '3gp', 'flv', 'wmv', 'asf', 'mpeg', 'mpg', 'mov', 'ts', 'm4v'],
@@ -255,7 +262,7 @@
            function select_file_dir(fullpath){
                 
                  if(fullpath == "")fullpath = "/";        
-                   share_ajax_load_data("type=share&fullpath="+fullpath+"");
+                   //share_ajax_load_data("type=share&fullpath="+fullpath+"");
                    update_ajax_load_data("type=history&fullpath="+fullpath+"");
                    
                    return get_image_url(fullpath);

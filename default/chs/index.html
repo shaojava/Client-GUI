@@ -40,13 +40,10 @@
                  slideBottom();
                  initWebHref();
                  //加载数据
-                 share_ajax_load_data("type=share&fullpath=/");
                  update_ajax_load_data("type=history&fullpath=/");
                  link_ajax_load_data("fullpath=/","/");
                  $(window).resize(function(){slideBottom();})
-                 hide_dl_person();
                  $(".main_nav").slideBar({"child_tag_name":"li..a","child_two_tag_name":"div"})(function(){
-                    
                $(this).click(function(e){
       
                         if($(this).attr("class").indexOf("a_updates") >= 0){
@@ -57,23 +54,22 @@
                                localStorage["app_runtime_time"] = +new Date;
                              }
                             
-                        }else if($(this).attr("class").indexOf("a_links") >= 0){
-                             //链接
-                            
                         }
-                        else{
-                          
+                        else if($(this).attr("class").indexOf("a_share") >= 0){
+                         
                             //检查缓存过期时间
-                            if(check_cache_expire()) {          
+                            if(check_cache_expire()) {       
                                share_ajax_load_data("type=share&fullpath=/");
                                localStorage["app_runtime_time"] = +new Date;
                               }
                                //检查共享是否有数据
-                             if($(".affiliatedperson_dl").children().length == 0){
+                            if($(".affiliatedperson_dl").children().length == 0){
+                             
                                 hide_dl_person();
                            }else{
+                    
                                 show_dl_person();
-                           }
+                           } 
                              
                  
                         }
@@ -121,7 +117,10 @@
                                                 {{each(k,v) d}}
                                            <div class="affiliatedperson affiliatedperson_1 affiliatedperson_update ">
                                                   <div> 
-                                    <h3>${v.date}</h3>
+                                    <h3 class="clearfix">
+                                     <span class="f_l"><b>${v.date}</b></span>
+                                     <span class="f_l" style="margin-left:10px"><b>${v.date_txt}</b></span>
+                                    </h3>
                                     <div class="date_time_file clearfix">
                                         
                                                 <div class="f_l">${v.dateline}</div>
@@ -133,6 +132,9 @@
                                                 {{/each}}
                                              
                                  </script>
+                                 
+                                 <!--弹出对话框-->
+                                 
                                   
                 <ul class="main_nav">
                     <li class="main_nav_li">
@@ -140,13 +142,14 @@
                                <i class="share"></i>
                                 <span><i class="share_span"></i></span>
                         </a>
-                            <div class="share_info scrollbar">
+                            <div class="share_info scrollbar share_info_parent">
                               
-                                <div class="share_gx">
+                                <!--div class="share_gx">
                                      <button>共享关系</button>
-                                </div>
+                                </div-->
                                 <!--独立参与人-->
-                                <div class="affiliatedperson affiliatedperson_1 ">
+                                <div class="share_info_to" style="display:none">
+                                <div class="affiliatedperson affiliatedperson_1 affiliatedperson_share ">
                                     <h3>独立参与人</h3>
                                 </div>
                                 <ul class="affiliatedperson_dl clearfix">
@@ -154,51 +157,34 @@
                                 </ul>
        
                                     <!--产品部-->
-                                <div class="affiliatedperson affiliatedperson_2">
+                                <div class="affiliatedperson affiliatedperson_2 affiliatedperson_share">
                                     <h3>产品部</h3>
                                 </div>
                                 <ul class="affiliatedperson_cp clearfix">
                          
-                                </ul>
-          
-                                
+                                </ul>                    
                                     <!--运营部-->
-                                <div class="affiliatedperson affiliatedperson_2">
+                                <div class="affiliatedperson affiliatedperson_2 affiliatedperson_share">
                                     <h3>运营部</h3>
                                 </div>
                                 <ul class="affiliatedperson_yy clearfix">
 
-                                </ul>
-                        
-                              
-                                
-                                
+                                </ul>       
                             </div>
-                        
+                            </div>
                         
                     </li>
                       <li class="main_nav_li"><a href="javascript:void(0)" title="链接" class="a_links extends">链接
                                 <i class="links"></i>
-                                <span><i class="links_span"></i></span>
+                                <span><i class="links_span" title="创建高级链接"></i></span>
                           </a>
                           <div class="share_info scrollbar" style="display:none">
                               <div class="links_info">
                                   <p>快速创建一个链接，将链接复制到邮件或即时通讯工具中，用于分享给的朋友或工作伙伴</p>    
                               </div>
                               <div class="links_update">
-                              <!--div class="links_type">
-                                  <div>选择链接类型</div>
-                                  <div class="extend_button yl_links">预览链接</div>
+                            
                               </div>
-                              <div class="links_type">
-                                  <div class="extend_button fontcolor_blue">获取链接</div>
-                                  <div class="extend_button fontcolor_blue">创建高级链接</div>
-                                
-                              </div-->
-                              </div>
-                               <!--div class="links_info">
-                                  <p>该文件拥有者已经关闭了该分享</p>    
-                              </div-->
                             </div>
                       </li>
                           
@@ -206,13 +192,7 @@
      <i class="updates"></i>
                                 <span><i class="updates_span"></i></span>
                           </a>
-                          <div class="share_info scrollbar share_info_update" style="display:none">
-                            
-                                <div class="share_gx">
-                                    <button>查看动态</button> 
-                                </div>
-                              <div class="blank5"></div>
-       
+                          <div class="share_info scrollbar share_info_update" style="display:none">       
                             </div>
                       </li>
                 </ul>
@@ -245,27 +225,44 @@
                  {{/if}}
                </div>
                <div class="attrs attrs_2013">
-                  <div class="member_name ${tmptop}">${memberName}</div>
-                     {{if typeof orgName!=='undefined'}}
-         
-                      <div class="org_name">${orgName}</div>
-                     
-                     {{/if}}
+                  <!--div class="member_name tmptop">${memberName}</div-->
+                      <div class="org_name tmptop">${orgName}</div>
                </div>
            </div>
       
         </script>
-           <!--公司信息-->
+           <!--公司信息1-->
  <script type="text/x-jquery-tmpl" id="compary_list">
+      <div class="file_info">
             <div class="compart_file_img f_l">
                  <img src=${photoUrl} width="30" height="35" />
             </div>
-            <div>
+            <div class="compary_file">
                 <h3>公司财务报表</h3>
                 由<span><b>徐海浩</b></span>最后修改
+                <div class="last_mofile_time">
+            2013.06.12 17:58
+               </div>
             </div>
-            <div class="blank5"></div>
+           
+       </div>
             <i>独占修改</i>
+ </script>
+ <!--公司信息2-->
+ <script type="text/x-jquery-tmpl" id="compary_list_storage">
+   <div class="compary_storage clearfix">
+    <div class="compary_storage_img f_l">
+                 <img src="${userimage}" width="55" height="55" />
+    </div>
+    <div class="compary_storage_info">
+          <h4>${username}</h4>
+          <div>空间使用情况：</div>
+          <div class="progress progress_striped">
+             <div class="slidebar_bar bar" style="width:${width}"></div>
+          </div>
+          <div class="f_r" style="font-size:12px">${size}GB/${capacity}GB</div>
+    </div>
+   </div>
  </script>
     </body>
 </html>
