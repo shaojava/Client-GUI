@@ -660,10 +660,11 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     background-position: 0 -288px;
 }
 .side_menu_list .link .icon{
-    background-position: 0 -320px;
+  
+      background-position: 0 -416px;
 }
 .side_menu_list .link.disable_item .icon{
-    background-position: 0 -352px;
+    background-position: 0 -448px;
 }
 .side_menu_list li .desc{
     float: left;

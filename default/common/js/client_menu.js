@@ -29,7 +29,7 @@ var gkClientMenu = {
                 name: '链接',
                 folder: true,
                 file: true,
-                tip: '为文件或文件夹创建分享链接',
+                tip: '创建分享链接',
                 click: function() {
                     if (!PAGE_CONFIG.path.length) {
                         return;
