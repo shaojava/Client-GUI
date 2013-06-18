@@ -1,12 +1,9 @@
 var gkClientLaunchPad = {
     init_2013:function(){
-     
             $('.launth_pad_left li').click(function(){
-            var url = $(this).attr('data-url');
-            var params = {};
+            var url = $(this).data('url');
             var _iframe = $("iframe");
             _iframe.attr("src",url);
-            
         });
     },
     init:function(){

@@ -23,14 +23,16 @@
 
         <script type="text/javascript">
             PAGE_CONFIG.state = '0';
+            
+            var _isShare = false;
             var _gk_share_info = null;
             var affiliatedperson_dl = null,
                 affiliatedperson_cp = null,
                 affiliatedperson_yy = null;
         $(function(){
-                 affiliatedperson_dl = $(".affiliatedperson_dl");
-                 affiliatedperson_cp = $(".affiliatedperson_cp");
-                 affiliatedperson_yy = $(".affiliatedperson_yy");
+                 affiliatedperson_dl = $(".share_info_parent");
+                // affiliatedperson_cp = $(".affiliatedperson_cp");
+                 //affiliatedperson_yy = $(".affiliatedperson_yy");
                  
                  //创建记录当前时间戳的，表示缓存时间
                  localStorage["app_runtime_time"] = +new Date;
@@ -38,45 +40,28 @@
                  localStorage.setItem("share_groups",{});
                  gkClientMenu.init();
                  slideBottom();
-                 initWebHref();
+                 //initWebHref();
                  //加载数据
-                 update_ajax_load_data("type=history&fullpath=/");
-                 link_ajax_load_data("fullpath=/","/");
+                 update_ajax_load_data("token="+gkClient.gGetToken()+"&type=history&fullpath=/");
                  $(window).resize(function(){slideBottom();})
                  $(".main_nav").slideBar({"child_tag_name":"li..a","child_two_tag_name":"div"})(function(){
                $(this).click(function(e){
       
                         if($(this).attr("class").indexOf("a_updates") >= 0){
                             //更新
+                           
                              if(check_cache_expire()){
                               
-                               update_ajax_load_data("type=history&fullpath=/");
+                               update_ajax_load_data("token="+gkClient.gGetToken()+"&type=history&fullpath=/");
                                localStorage["app_runtime_time"] = +new Date;
                              }
                             
                         }
-                        else if($(this).attr("class").indexOf("a_share") >= 0){
-                         
-                            //检查缓存过期时间
-                            if(check_cache_expire()) {       
-                               share_ajax_load_data("type=share&fullpath=/");
-                               localStorage["app_runtime_time"] = +new Date;
-                              }
-                               //检查共享是否有数据
-                            if($(".affiliatedperson_dl").children().length == 0){
-                             
-                                hide_dl_person();
-                           }else{
-                    
-                                show_dl_person();
-                           } 
-                             
-                 
-                        }
-                      })
+                       });
+                  
                  });
-                 
-        });
+               });  
+     
            
            
         </script>
@@ -97,12 +82,12 @@
                     <li class="help gktooltip" data-placement="top" title="支持"><i></i></li>
                     <!--                    <li class="task"><i></i></li>-->
                 <!--/ul-->
-                <script type="text/x-jquery-tmpl" id="affiliatedperson_dl">
+                <script type="text/x-jquery-tmpl" id="affiliatedperson">
                                        {{each(k,v) d}}
-                                           <li data-auth=${v.auth}><a href="#">${v.username}</a></li>
+                                           <a href="#" class="dl_gx" title="${v.auth}">${v.username}</a>
                                        {{/each}}
                                     </script>
-                 <script type="text/x-jquery-tmpl" id="affiliatedperson_cp">
+                 <!--script type="text/x-jquery-tmpl" id="affiliatedperson_cp">
                                        {{each(k,v) d}}
                                            <li data-auth=${v.auth}><a href="#" title=${v.username}>${v.username}</a></li>
                                        {{/each}}
@@ -111,7 +96,7 @@
                                        {{each(k,v) d}}
                                            <li data-auth=${v.auth}><a href="#" title=${v.username}>${v.username}</a></li>
                                        {{/each}}
-                                    </script>
+                                    </script-->
                                 <!--动态更新-->
                                 <script type="text/x-jquery-tmpl" id="updates">
                                                 {{each(k,v) d}}
@@ -148,7 +133,7 @@
                                      <button>共享关系</button>
                                 </div-->
                                 <!--独立参与人-->
-                                <div class="share_info_to" style="display:none">
+                                <!--div class="share_info_to" style="display:none">
                                 <div class="affiliatedperson affiliatedperson_1 affiliatedperson_share ">
                                     <h3>独立参与人</h3>
                                 </div>
@@ -157,21 +142,21 @@
                                 </ul>
        
                                     <!--产品部-->
-                                <div class="affiliatedperson affiliatedperson_2 affiliatedperson_share">
+                                <!--div class="affiliatedperson affiliatedperson_2 affiliatedperson_share">
                                     <h3>产品部</h3>
                                 </div>
                                 <ul class="affiliatedperson_cp clearfix">
                          
                                 </ul>                    
                                     <!--运营部-->
-                                <div class="affiliatedperson affiliatedperson_2 affiliatedperson_share">
+                                <!--div class="affiliatedperson affiliatedperson_2 affiliatedperson_share">
                                     <h3>运营部</h3>
                                 </div>
                                 <ul class="affiliatedperson_yy clearfix">
 
-                                </ul>       
+                                </ul-->       
                             </div>
-                            </div>
+                        
                         
                     </li>
                       <li class="main_nav_li"><a href="javascript:void(0)" title="链接" class="a_links extends">链接
@@ -183,7 +168,7 @@
                                   <p>快速创建一个链接，将链接复制到邮件或即时通讯工具中，用于分享给的朋友或工作伙伴</p>    
                               </div>
                               <div class="links_update">
-                            
+                              选择链接类型 ：<div class="links_type"><select class="select select_radius"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option></select><a class="extend_button fontcolor_blue get_links" href='javascript:void(0)'>获取链接</a></div>
                               </div>
                             </div>
                       </li>
@@ -236,6 +221,7 @@
       <div class="file_info">
             <div class="compart_file_img f_l">
                  <img src=${photoUrl} width="30" height="35" />
+                 <s class="nosc"></s>
             </div>
             <div class="compary_file">
                 <h3>公司财务报表</h3>
@@ -246,7 +232,7 @@
             </div>
            
        </div>
-            <i>独占修改</i>
+            <i style="display:none">独占修改</i>
  </script>
  <!--公司信息2-->
  <script type="text/x-jquery-tmpl" id="compary_list_storage">

@@ -1060,7 +1060,10 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .compary_finance{width:100%;background:#FFF;padding:15px 0 10px;color:#999;height: 98px}
 .compary_finance div.compary_file:nth-child(2){padding-left: 55px;height:52px}
 .compary_finance div.tmpbottom{position:relative;top:8px;height:34px}
-.compary_finance .compart_file_img{margin-left:15px;_display:inline;height:32px}
+.compary_finance .compart_file_img{margin-left:15px;_display:inline;height:32px;position:relative}
+.compary_finance .compart_file_img s{display: block;position:absolute;width:16px;height:20px;background:url('../images/images_2013/slide_icon_2013.png') no-repeat 0 0;left:15px;top:-10px}
+.compary_finance .compart_file_img s.nosc{background-position: 0 0}
+.compary_finance .compart_file_img s.sc{background-position: 0 -20px}
 .compary_finance h3,.compary_finance span{color:#64727C;font-weight: 700;line-height: 16px}
 .compary_finance h3{width:130px;overflow:hidden;text-overflow: ellipsis;white-space:nowrap}
 .compary_finance span{margin:0 3px}
@@ -1091,7 +1094,7 @@ i.share_i{background-position:0 -125px}
 .toolbar .main_nav li.main_nav_li a>span i{position:absolute;height:12px;width:16px;top:8px;cursor:pointer}
 .toolbar .main_nav li.main_nav_li a>span i.share_span{background-position:center -185px}
 .toolbar .main_nav li.main_nav_li .links_update{font-size:12px!important;color:#64727C;margin-top:5px;padding-left:10px}
-.toolbar .main_nav li.main_nav_li .links_update select{font-size:12px!important;margin-left:4px}
+.toolbar .main_nav li.main_nav_li .links_update select{font-size:12px!important;margin:0 10px 0 -24px}
 .toolbar .main_nav li.main_nav_li .links_update a{color: #6185BC}
 
 
@@ -1113,11 +1116,10 @@ i.share_i{background-position:0 -125px}
 .toolbar .main_nav li .share_info .affiliatedperson_1:after{left:75px}
 .toolbar .main_nav li .share_info .affiliatedperson_2:after{left:53px}*/
 .toolbar .main_nav li .share_info ul{padding:0 0 0 2px}
-.toolbar .main_nav li .share_info  li{float:left;margin-right:3px;margin-bottom: 4px}
-.toolbar .main_nav li .share_info  li a{display:block;float:left;padding:0 5px;text-align:center;color:#64727C;line-height:16px;height:16px}
-.toolbar .main_nav li .share_info  li a.green{border-left-color:#6cbc61;border-left-width:2px}
-.toolbar .main_nav li .share_info  li a.orange{border-left-color:#f4b271;border-left-width:2px}
-.toolbar .main_nav li .share_info  li a.blue{border-left-color:#73aac8;border-left-width:2px}
+.toolbar .main_nav li .share_info   a.dl_gx{display:block;margin-right:3px;margin-bottom: 4px;float:left;padding:0 5px;text-align:center;color:#64727C;line-height:16px;height:16px}
+.toolbar .main_nav li .share_info   a.green{border-left-color:#6cbc61;border-left-width:2px}
+.toolbar .main_nav li .share_info   a.orange{border-left-color:#f4b271;border-left-width:2px}
+.toolbar .main_nav li .share_info   a.blue{border-left-color:#73aac8;border-left-width:2px}
 .toolbar .main_nav li .share_info .person_permission{padding-left:6px}
 .viewer,.compiler,.owner{display:inline-block!important;margin:0 3px!important;padding-left:18px!important;line-height:18px!important;height:18px!important;background:url('../images/images_2013/permission.png') no-repeat 0 0!important}
 .owner{background-position:2px -2px!important;border:1px solid #f4b271!important;color:#f4b271!important}
@@ -1125,7 +1127,7 @@ i.share_i{background-position:0 -125px}
 .viewer{background-position:2px -40px!important;border:1px solid #73aac8!important;color:#73aac8!important}
 .toolbar .main_nav li .share_info .links_info{padding:20px 10px 0;color:#999;font-family: "Microsoft Yahei";line-height:20px;}
 .toolbar .main_nav li .share_info .links_info p{padding-bottom: 10px}
-.toolbar .main_nav li .share_info .links_type{line-height:24px;padding-bottom: 10px;margin-top: 10px;text-align:center}
+.toolbar .main_nav li .share_info .links_type{line-height:24px;padding-bottom: 10px;text-align:center}
 .toolbar .main_nav li .share_info .links_type a{display:inline-block;color:#999;font-family: "Microsoft Yahei";font-weight: 700}
 .toolbar .main_nav li .share_info .links_type div.yl_links{margin-left: 6px;width:65px;position:relative;cursor:pointer;}
 .toolbar .main_nav li .share_info .links_type div.yl_links:after{background-position:right -232px;content:"";display:block;right:5px;width:16px;height:10px;position:absolute;top:5px}
@@ -1146,7 +1148,7 @@ i.share_i{background-position:0 -125px}
 .toolbar .main_nav li .share_info .date_time_file li div:nth-child(2){padding-left:5px;width:113px;word-break: break-all;word-wrap:break-word}
 
 /**lauchpad**/
-.launth_pad{width:100%;height:500px;background:#6185BC}
+/*.launth_pad{width:100%;height:500px;background:#6185BC}
 .launth_pad .launth_pad_left{width:62px;padding-top:28px;height:100%}
 .launth_pad .launth_pad_left li{margin:0 auto;}
 .launth_pad .launth_pad_left li a{color:#fff;display:block;_zoom:1;width:100%;text-align:center;padding:5px 0}
@@ -1156,7 +1158,7 @@ i.share_i{background-position:0 -125px}
 .launth_pad .launth_pad_left li a i.favorite{background-position:0 -64px;}
 .launth_pad .launth_pad_left li a i.linkman{background-position:0 -96px;}compary_storage_imgcompary_storage_img
 .launth_pad .launth_pad_left li a i.recyclebin{background-position:0 -96px;}
-.launth_pad .launth_pad_right{margin-left:62px;width:750px;background:#fff;height:100%}
+.launth_pad .launth_pad_right{margin-left:62px;width:750px;background:#fff;height:100%}*/
 .compary_finance .compary_storage{padding:0 10px;font:13px "微软雅黑";color:#64727C}
 .compary_finance .compary_storage .compary_storage_img{padding:3px 3px 0;border:1px solid #eee}
 .compary_finance .compary_storage .compary_storage_info{padding-left:70px;line-height:18px}
@@ -1195,6 +1197,15 @@ i.share_i{background-position:0 -125px}
     background-image: -webkit-linear-gradient(45deg, rgba(255, 255, 255, 0.15) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.15) 50%, rgba(255, 255, 255, 0.15) 75%, transparent 75%, transparent);
     background-size: 40px 40px;
 }
+/**弹出消息框**/
+   .new_tqframe{width:295px;height:310px;overflow:scroll;overflow:scroll;padding:0 6px 0 12px;font:bold 13px "微软雅黑";color:#64727C;background:#FFF;}
+   .new_tqframe .new_tqframe_header{height:30px;line-height:30px;border-bottom: 1px solid #DDD;}
+   .new_tqframe .new_tqframe_header span:nth-child(1){margin:0 7px 0 14px;}
+   .new_tqframe .new_tqframe_header span:nth-child(2){color:#6185BC;cursor: pointer;}
+   .new_tqframe .new_tqframe_body li{padding:12px 0;border-bottom: 1px solid #DDD;}
+   .new_tqframe .new_tqframe_body li .update_item_date{display:block;color:#999;font-weight: normal;margin-bottom:5px}
+   .new_tqframe .new_tqframe_body li .member_photo img{border-radius:5px;display:block}
+   .new_tqframe .new_tqframe_body li .update_item_content{width:220px;word-break: break-all;}
 
 /*辅助函数*/
 .clearfix{display:block}

@@ -1,9 +1,17 @@
 /**2013年改版代码**/
 function bind_logo_click(){
-     
+    
+    
      //首页logo点击
      $(".logo_wrapper").click(function(){
-         gkClientInterface.launchpad();
+            var params = {
+                url: '/client/launchpad',
+                sso: 1,
+                resize: 0,
+                width: 800,
+                height: 478
+            };
+         gkClientInterface.openWindow(params);
      })
      //独占修改
      $(".compary_finance i").click(function(){
@@ -15,14 +23,31 @@ function bind_logo_click(){
                 height: 175
             };
             gkClientInterface.openSingleWindow(params);
-     });
+     }); 
     //创建高级链接
    $(".links_span").click(function(){
       create_gj_links();  
     })
    //默认共享状态
    $("<span style='color:#999;margin-left:5px'>未与任何人共享</span>").appendTo($(".share_info_parent"));
+   //获取链接
+   $(".get_links").on("click",function(){
    
+      link_ajax_load_data("token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"",PAGE_CONFIG.path,$(".select_radius").get(0).options[$(".select_radius").get(0).selectedIndex].value,function(link){
+          var params = {
+                url: link,
+                sso: 1,
+                resize: 0,
+                width: 490,
+                height: 175
+            };
+          gkClientInterface.openURL(params);
+      });
+      
+    
+ 
+       
+   })
 
 }
 var gkClientMenu = {
@@ -66,7 +91,12 @@ var gkClientMenu = {
         //获取小数点后三位的正则
         var _dottedReg = /\d+\.(\d{3})?/;
         var user = gkClientInterface.getUserInfo();
-        var size = +_dottedReg.exec(parseInt(user.size)/1024/1024)[0];
+        user.size = user.size||0;
+        var totalUserSize = _dottedReg.exec(parseInt(user.size)/1024/1024);
+       var size = 0;
+        if(totalUserSize){
+             size = +totalUserSize[0];
+        }
         var capacity = parseInt(user.capacity)/(1024*1024);
         var username = user.username || user.org_username;
         var userimage = user.photourl;
@@ -398,7 +428,8 @@ gkClientMenu.menuList = [
 ];
 /*2013新版修改文件*/
 function change_file_info($ele,path){
-     $ele.text(path); 
+     $ele.text(path);
+     //增加收藏按钮
 }
 function change_comparty_class(path){
      if(path === "")$(".compary_finance .file_info>div").eq(1).addClass("tmpbottom");
@@ -414,6 +445,7 @@ function gShellSelect(re) {
     }
     PAGE_CONFIG.state = state;
     PAGE_CONFIG.path = path;
+    
     var menu_items = $('.side_menu_list li');
     var dir = 0, fullpath = PAGE_CONFIG.path;
     if (Util.String.lastChar(path) === '/') {
@@ -422,41 +454,43 @@ function gShellSelect(re) {
     if (dir) {
         fullpath = Util.String.rtrim(fullpath, '/')
     }
-   
+    var _menu_toggle = gkClientMenu.menuList[3].toggleState;
+    var _open_state =  _menu_toggle(path,dir,state);
+    var _dl_i = $(".file_info").siblings("i");
 
     if(path != "" && path != "/"){
-         share_ajax_load_data("fullpath="+path+"",path);
+        //目录或者文件
+        share_ajax_load_data("token="+gkClient.gGetToken()+"&fullpath="+path+"&type=share",function(){
+          check_is_dl(_dl_i,_open_state);
+        });
+        if(path.indexOf("/") > 0 ){
+             $($(".select_radius").get(0).options[3]).remove();
+              $(".select_radius").append('<option value="0100" data-type="unknownUpload" data-tip="允许链接访问者上传/更新文件，但无法查看文件夹内的文件">匿名上传链接</option>');  
+        }else{
+             $($(".select_radius").get(0).options[3]).remove();
+        }
     }
   
     if(!$(".file_info").get(0)){
       gkClientMenu._setCompary();
     }
      $(".compary_finance b").html(arr[2]);
-    change_comparty_class(fullpath);
-    link_ajax_load_data("fullpath="+path+"",path);
-    var _image_url = select_file_dir(fullpath);
+    change_comparty_class(path);
+    update_ajax_load_data("token="+gkClient.gGetToken()+"&type=history&fullpath="+path+"");
+    var _image_url = select_file_dir(path);
     $(".compart_file_img > img").attr("src",_image_url);
      if($(".compary_storage").get(0))$(".compary_storage").empty();
-    var _menu_toggle = gkClientMenu.menuList[3].toggleState;
-    var _open_state =  _menu_toggle(fullpath,dir,state);
+  
    change_file_info($(".compary_finance").find("h3"),path);
-    if(path === ""){ 
+    if(path === ""){  
         if($(".file_info").get(0) && $(".file_info").siblings("i").get(0)){
              $(".file_info").siblings("i").remove();
              $(".file_info").remove();
        }
         gkClientMenu._setCompary("init");
         return;
-    }    
-    var _dl_i = $(".file_info").siblings("i");
-    if(_open_state == 1){
-         //显示独占修改
-         _dl_i.text("独占修改").removeClass("nodzupdate").addClass("dzupdate");
-         
-    }else if(_open_state == 0){
-          //取消独占修改
-         _dl_i.text("取消独占").removeClass("dzupdate").addClass("nodzupdate"); 
-    }
+    }  
+ 
     
     
   

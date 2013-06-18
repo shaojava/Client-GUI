@@ -4,8 +4,8 @@
          function get_link_type(linkObj){
              
              ajax({
-                  url:"http://localhost:8888/api/link_publish",
-                  data:"fullpath="+PAGE_CONFIG.path+"&auth="+linkObj.options[linkObj.selectedIndex].value+"",
+                  url:"http://gktest.gokuai.com/api/link_publish",
+                  data:"token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+linkObj.options[linkObj.selectedIndex].value+"",
                   success:function(data){
                      $(".get_links").attr("href",data.link);
                   }
@@ -25,30 +25,40 @@
            }
           
          }
+        
+         /**
+         * ajax共享请求数据
+         * **/ 
+         function check_is_dl(ele,openState){
+                 if(openState == 1){
+                    ele.text("独占修改").show().removeClass("nodzupdate").addClass("dzupdate");
+          
+                 }else if(openState < 1){
+          //取消独占修改
+                   ele.text("取消修改").show().removeClass("dzupdate").addClass("nodzupdate"); 
+                  }
+            
+         }
           /**
          * ajax共享请求数据
          * **/ 
-        function share_ajax_load_data(dataJson){
-            
-            ajax({data:dataJson,
+        function share_ajax_load_data(dataJson,callback){
+         
+            ajax({
+                data:dataJson,
                   success:function(data){
-                    tag_clear(1);
-                    if(data == ""){
-                        $("<span style='color:#999;margin-left:5px'>未与任何人共享</span>").appendTo($(".share_info_parent"));
+                      tag_clear(1);
+                    if(!data["dateline"]){
+                        $("<span style='color:#999;margin-left:5px'>未与任何人共享</span>").appendTo(affiliatedperson_dl);
+                       $(".compary_finance i").hide();
                         return;
                     }
-                  //添加模板到html上
-                  $("#affiliatedperson_dl").tmpl({"d":data["share_members"]}).appendTo(affiliatedperson_dl);
-                  $.each(data["share_groups"],function(k,v){
-                  if(v["group_name"] === "开发组"){ //产品
-                  localStorage["share_groups"][v["group_name"]] = {data:v["member_list"],share_members_identity:1};
-                  $("#affiliatedperson_cp").tmpl({"d":v["member_list"]}).appendTo(affiliatedperson_cp);
-                                                  }else{ //运营
-                                                          localStorage["share_groups"][v["group_name"]] = {data:v["member_list"],share_members_identity:2};
-                                                          $("#affiliatedperson_yy").tmpl({"d":v["member_list"]}).appendTo(affiliatedperson_yy);
-                                                  }
-                                                      })
-                                                          tag_hover_title();
+                    $.each(data["share_members"],function(k,v){
+                       v["auth"] = v["auth"] == 0 ? "查看者":v["auth"] == 1 ? "编辑者" : "拥有者";  
+                    })
+                    callback();
+                    $("#affiliatedperson").tmpl({"d":data["share_members"]}).appendTo(affiliatedperson_dl);
+                                                  
                                          
                                                           }
                                                        });
@@ -88,36 +98,34 @@
          /**
          * ajax请求链接数据
          * **/
-          function link_ajax_load_data(dataJson,fullpath){
-               
+          function link_ajax_load_data(dataJson,fullpath,auth,callback){
+              
                    ajax({
-                         url:"http://localhost:8888/api/check_publish_closed",
+                         url:"http://gktest.gokuai.com/api/check_publish_closed",
                          data:dataJson,
                           success:function(data){  
-                            
+               
                               if(data.isclosed === 0){
+                                  
                                   ajax({
+                                         url:"http://gktest.gokuai.com/api/link_publish",
+                                         data:"token="+gkClient.gGetToken()+"&fullpath="+fullpath+"&auth="+auth+"",
+                                         success:function(data){
+      
+                                               callback(data.link);
+                                              
+                                         }
+                                  })
+                              }else{   
+                                    
+                                /* ajax({
                                          url:"http://localhost:8888/api/link_publish",
                                          data:"fullpath="+fullpath+"&auth=1000",
                                          success:function(data){
                                               tag_clear(3);
-                                              if(fullpath.indexOf("/") > 0){
-                                                    create_dir_tag(data.link);
-                                              }else{
-                                                   create_file_tag(data.link);
-                                              }
-                                             
+                                                $(".links_update").html("为<a href='"+data.link+"'>"+fullpath+"</a>创建一个链接，然后将链接通过邮件或QQ发给您的工作伙伴。他和她就能访问 <a href='"+data.link+"'>"+fullpath+"</a>了。");   
                                          }
-                                  })
-                              }else{           
-                                 ajax({
-                                         url:"http://localhost:8888/api/link_publish",
-                                         data:"fullpath="+fullpath+"&auth=1000",
-                                         success:function(data){
-                                              tag_clear(3);
-                                                $(".links_update").html("为<a href='"+data.link+"'>新东方合同.docx</a>创建一个链接，然后将链接通过邮件或QQ发给您的工作伙伴。他和她就能访问 <a href='"+data.link+"'>新东方合同.docx</a>了。");   
-                                         }
-                                  })
+                                  })*/
                                 
                               }
                               
@@ -142,18 +150,18 @@
          }  
         
          /**
-         * 建立文件标签
-         * **/ 
-        function create_file_tag(fileurl){
-                      var _file_tag_url = '选择链接类型 <select class="select select_radius" onchange="get_link_type(this)"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option><option value="0100" data-type="unknownUpload" data-tip="允许链接访问者上传/更新文件，但无法查看文件夹内的文件">匿名上传链接</option></select><div class="links_type"><a class="extend_button fontcolor_blue get_links" href="'+fileurl+'">获取链接</a></div>';
-                      $(".links_update").html(_file_tag_url);
-                      
-        }
-        
-          /**
          * 建立文件夹标签
          * **/ 
         function create_dir_tag(fileurl){
+                      var _file_tag_url = '选择链接类型 <select class="select select_radius" onchange="get_link_type(this)"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option><option value="0100" data-type="unknownUpload" data-tip="允许链接访问者上传/更新文件，但无法查看文件夹内的文件">匿名上传链接</option></select><div class="links_type"><a class="extend_button fontcolor_blue get_links" href="'+fileurl+'">获取链接</a></div>';
+                      $(".links_update").html(_file_tag_url);
+                        
+        }
+        
+          /**
+         * 建立文件标签
+         * **/ 
+        function create_file_tag(fileurl){
             
             var _file_tag_url = '选择链接类型 <select class="select select_radius" onchange="get_link_type(this)"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option></select><div class="links_type"><a class="extend_button fontcolor_blue get_links" href="'+fileurl+'">获取链接</div></div>';
             $(".links_update").html(_file_tag_url);
@@ -211,7 +219,7 @@
          * **/ 
         function ajax(options){
              var _defaults = {
-                  "url":"http://localhost:8888/api/client_sidebar",
+                  "url":"http://gktest.gokuai.com/api/client_sidebar",
                    "dataType":"json",
                    "type":"POST",
                    "success":function(data){}      
@@ -263,7 +271,7 @@
                 
                  if(fullpath == "")fullpath = "/";        
                    //share_ajax_load_data("type=share&fullpath="+fullpath+"");
-                   update_ajax_load_data("type=history&fullpath="+fullpath+"");
+                   update_ajax_load_data("token="+gkClient.gGetToken()+"&type=history&fullpath="+fullpath+"");
                    
                    return get_image_url(fullpath);
                    
@@ -316,7 +324,23 @@
                          _image_url = "../common/images/images_2013/fileicon/文件夹32.png";   
                           break;
                 }
-                
+               is_get_sc();
                 return _image_url;
            }
+            //获取是否收藏
+            function is_get_sc(){
+                 ajax({
+                      url:"http://gktest.gokuai.com/api/get_file",
+                      data:"token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path,
+                      success:function(data){
+                           if(data.favorite == 0){
+                                //没有收藏
+                                $(".compart_file_img s").removeClass("sc").addClass("nosc");
+                           }else{
+                                //收藏
+                                $(".compart_file_img s").removeClass("nosc").addClass("sc");
+                           }
+                      }
+                 })
+            }
 
