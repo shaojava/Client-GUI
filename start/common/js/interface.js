@@ -8,6 +8,14 @@ var gkClientFileState = {
 };
 
 var gkClientInterface = {
+    getClientInfo:function(){
+        try {
+            return JSON.parse(gkClient.gGetClientInfo(params));
+        } catch (e) {
+            throw e;
+        }
+
+    },
     setFileStatus: function(path, dir, state) {
         var params = JSON.stringify({
             webpath: path,
