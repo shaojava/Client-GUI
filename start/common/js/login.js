@@ -108,8 +108,8 @@ var gkClientLogin = {
                 sso: 0
             };
             gkClientInterface.openURL(param);
-            return false;
             //gkClientLogin.setHash('login_p9');
+            return false;
         });
 
         //找回密码
@@ -146,11 +146,6 @@ var gkClientLogin = {
         //注册
         $('.login_page #regist_form').on('submit', function() {
             var email = $.trim($(this).find('input[name="email"]').val());
-            var password = $.trim($(this).find('input[name="password"]').val());
-            var repassword = $.trim($(this).find('input[name="repassword"]').val());
-            var agreement = $(this).find('input[name="agreement"]:checked').size();
-            var verify_code_input = $(this).find('input[name="verify_code"]');
-            var verify_code = verify_code_input.size() ? $.trim(verify_code_input.val()) : '';
             if (!email.length) {
                 alert('请输入您的邮箱地址');
                 return false;
@@ -159,49 +154,32 @@ var gkClientLogin = {
                 alert('请输入正确格式的邮箱地址');
                 return false;
             }
-            if (!password.length) {
-                alert('请输入您的密码');
-                return false;
-            }
-            if (password.length < 6) {
-                alert('密码长度不能少于6个字符');
-                return false;
-            }
-            if (!repassword.length) {
-                alert('请确认您的密码');
-                return false;
-            }
-            if (password !== repassword) {
-                alert('两次输入的密码不一致');
-                return false;
-            }
-            if (verify_code_input.size() && verify_code_input.is(':visible')) {
-                if (!verify_code.length) {
-                    alert('请输入验证码');
-                    return false;
+            var flag = {};
+            $.gkAjax({
+                url: gkClientInterface.getSiteDomain() + '/account/regist_email_check',
+                data: {
+                    email: email
+                },
+                async: false,
+                callSuccess: function(data) {
+                    flag = data;
                 }
+            });
+            if (flag.state) {
+                alert('该邮箱已经被注册过');
+                return false;
             }
             var registBtn = $('#regist_form button[type="submit"]');
             var spinner = new Spinner(loadingIcon).spin(registBtn);
             registBtn.append(spinner.el);
-            registBtn.attr('disabled', 'disabled');
             $.ajax({
-                url: gkClientInterface.getSiteDomain() + '/regist/member',
+                url: gkClientInterface.getSiteDomain() + '/regist/regist_by_email',
                 data: {
-                    email: email,
-                    password: password,
-                    repassword: repassword,
-                    user_license_chk: agreement,
-                    verify_code: verify_code
+                    email: email
                 },
                 dataType: 'json',
-                type: 'POST',
                 success: function() {
-                    var param = {
-                        username: email,
-                        password: MD5(password)
-                    };
-                    gkClientInterface.login(param);
+                    alert('已经向您的邮箱发送激活邮件，请前往查收');
                     registBtn.find('.spinner').remove();
                     registBtn.removeAttr('disabled');
                 },
