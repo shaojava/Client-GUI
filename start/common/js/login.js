@@ -458,42 +458,17 @@ var gkClientLogin = {
     },
     //绑定UI事件
     bindUI: function() {
-        var banner = $('.slide_banner');
-        if (!banner.size()) {
-            return;
-        }
-
-        //幻灯片实例化
-        banner.xslider({
-            timeout: 5000,
-            effect: 'fade',
-            speed: 500,
-            navigation: true,
-            pauseOnHover: true
-        });
-
         //slide效果
-        var flag = false;
         var slide = function(scope) {
-            $('h1', scope).on('click', function() {
-                if (!$('i', $(this)).hasClass('fold')) {
+            $('h1', scope).on('click', function(){
+                if (!$(this).hasClass('fold')) {
                     return;
                 }
                 $(this).parent().siblings().find('.content').slideUp('fast', function() {
-                    $('i', $(this).prev()).addClass('fold');
-                    if ($(this).hasClass('qr_login') && flag) {
-                        banner.xslider('stop');
-                        banner.xslider('play');
-                        flag = false;
-                    }
+                    $(this).prev().addClass('fold');
                 });
                 $(this).next('.content').slideDown('fast', function() {
-                    $('i', $(this).prev()).removeClass('fold');
-                    if ($(this).hasClass('qr_login')) {
-                        banner.xslider('goto', 3);
-                        banner.xslider('stop');
-                        flag = true;
-                    }
+                    $(this).prev().removeClass('fold');
                 });
             });
         };

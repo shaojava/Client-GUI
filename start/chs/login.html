@@ -7,7 +7,6 @@
         <script type="text/javascript" src="../common/js/util.js"></script>
         <script type="text/javascript" src="../common/js/config.js"></script>
         <script type="text/javascript" src="../common/js/jquery.js"></script>
-        <script type="text/javascript" src="../common/js/jquery.xslider.js"></script>
         <script type="text/javascript" src="../common/js/jsMD5.js"></script>
         <script type="text/javascript" src="../common/js/interface.js"></script>
         <script type="text/javascript" src="../common/js/login.js"></script>
@@ -20,54 +19,31 @@
     </head>
     <body id="login">
         <div>
-            <div class="container" id="idContainer">
-                <ul class="slide_banner" >
-                    <li>
-                        <div class="banner_img"><img src="../common/images/slide1.png" alt="" /></div>
-                        <div class="banner_title">运筹帷幄之中，协同千里之外。</div>
-                        <div class="banner_desc">够快桌面客户端，领先的不仅仅是同步。</div>
-                    </li>
-                    <li>
-                        <div class="banner_img"><img src="../common/images/slide2.png" alt="" /></div>
-                        <div class="banner_title">我们的传递，就在彼此相遇的瞬间。</div>
-                        <div class="banner_desc">够快全新移动客户端，“码”上分享，谁有我精彩？</div>
-                    </li>
-                    <li>
-                        <div class="banner_img"><img src="../common/images/slide3.png" alt="" /></div>
-                        <div class="banner_title banner_title_middle">简单部署，友好兼容，灵活定制，服务百分百。</div>
-                        <div class="banner_desc">够快企业套件，提供一站式可自主定制的混合云解决方案。</div>
-                    </li>
-<!--                    <li>
-                        <div class="banner_img qr_img"></div>
-                        <div class="banner_title">扫描二维码即可登录</div>
-                        <div class="banner_desc">使用够快移动客户端的“够快发现”功能扫描上方二维码</div>
-                    </li>-->
-                </ul>
-                <ul id="idNum"></ul>
-            </div>
-            <div class="grid">
-                <div></div>
-            </div>        
             <div id="login_p2" class="login_page">
                 <form id="form_login" class="form-horizontal">
-                    <h1 id="loginTab"><i class=""></i>登录</h1>
+                    <h1 id="loginTab"><i></i>登录</h1>
                     <div class="content" style="display: block">
                         <div class="from_raw">
+                            <label id="email">帐号:</label>
                             <input type="text" placeholder="请输入帐号" id="email" name="email" class="input_text" />
                         </div>
                         <div class="from_raw">
+                            <label id="password">密码:</label>
                             <input type="password" placeholder="请输入密码" id="password" name="password" class="input_text" />
+                        </div>
+                        <div class="form_raw">
+                            <a id="btn_findpassword" href="javascript:;">忘记密码?</a>
                         </div>
                         <div class="from_raw">
                             <button class="btn blue_btn login_btn" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
                         </div>
-                        <div id="btn_findpassword">忘记密码?</div>
                     </div>
                 </form>
                 <form id="ent_login_form" class="form-horizontal">
-                    <h1 id="entTab"><i class="fold"></i>企业用户登录</h1>
+                    <h1 id="entTab" class="fold"><i></i>企业用户登录</h1>
                     <div class="content">
                         <div class="from_raw">
+                            <label id="ent_id">企业代码:</label>
                             <input type="text" placeholder="请输入企业代码" id="ent_id" name="ent_id" class="input_text" />
                         </div>
                         <div class="from_raw">
@@ -76,7 +52,7 @@
                     </div>
                 </form>
                 <form id="oauth_login_form">
-                    <h1 id="oauthTab"><i class="fold"></i>合作帐号登录</h1>
+                    <h1 id="oauthTab" class="fold"><i></i>合作帐号登录</h1>
                     <div class="content scrollbar">
                         <a class="btn" href="javascript:;" name="sina"><i class="sina_logo"></i>新浪微博</a>
                         <a class="btn" href="javascript:;" name="qq"><i class="qq_logo"></i>腾讯QQ</a>
@@ -85,23 +61,19 @@
                         <a class="btn" href="javascript:;" name="shedu"><i class="shedu_logo"></i>上海教育跨校认证</a>
 						<a class="btn" href="javascript:;" name="shnu"><i class="shnu_logo"></i>上海师范大学</a>
                         <a class="btn" href="javascript:;" name="shisu"><i class="shisu_logo"></i>上海外国语大学</a>
-                        <a class="btn" href="javascript:;" name="sbs" style="display:none"><i class="sbs_logo"></i>上海商学院</a>                        
+                        <a class="btn" href="javascript:;" name="sbs" style="display:none"><i class="sbs_logo"></i>上海商学院</a>
                     </div>
                 </form>
 <!--                <form id="mobile_login_form">
-                    <h1 id="mobileTab"><i class="fold"></i>二维码登录</h1>
+                    <h1 id="mobileTab" class="fold"><i></i>二维码登录</h1>
                     <div class="content qr_login">
                         <img src="../common/images/qrcode_login.png" alt="" />
                         <p>使用够快移动客户端的“发现”功能扫描左侧二维码，即刻轻松登录。</p>
                     </div>
                 </form>-->
                 <div class="dialog_bottom">
-                    <div class="left">
-                        <button type="button" class="network_settings"><i class="setting_icon"></i>网络设置</button>
-                    </div>
-                    <div class="right">
-                        <button type="button" class="go2regist"><i class="regist_icon"></i>注册帐号</button>
-                    </div>
+                    <button type="button" class="network_settings"><i class="setting_icon"></i>网络设置</button>
+                    <button type="button" class="go2regist"><i class="regist_icon"></i>注册帐号</button>
                 </div>
             </div>
             <div id="login_p_ent" class="login_page">
@@ -144,9 +116,8 @@
 
             <div id="login_p9" class="login_page">
                 <form id="regist_form">
-                    <h1 id="registTab"><i class="unfold"></i>注册</h1>
+                    <h1 id="registTab"><i></i>注册</h1>
                     <div class="content">
-
                         <div class="from_raw">
                             <input type="text" value="" class="input_text" placeholder="请输入您的邮箱，将作为您的帐号" id="email" name="email" />
                         </div>
@@ -168,13 +139,8 @@
 
                     </div>
                     <div class="dialog_bottom">
-                        <div class="left">
-                            <button class="network_settings" type="button"><i class="setting_icon"></i>网络设置</button>
-                        </div>
-                        <div class="right">
-                            <button class="btn_prev" type="button"><i class="go_back_icon"></i>返回登录</button>
-
-                        </div>
+                        <button class="network_settings" type="button"><i class="setting_icon"></i>网络设置</button>
+                        <button class="btn_prev" type="button"><i class="go_back_icon"></i>返回登录</button>
                     </div>
                 </form>
             </div>
@@ -184,7 +150,7 @@
                     <h1>请选择同步文件夹路径</h1>
                     <div class="content">
                         <dl class="from_raw">
-                            <dt> 
+                            <dt>
                             <label>
                                 <input type="radio" name="sync_dir" checked="checked" value="0" />
                                 默认本地同步文件夹路径
@@ -192,7 +158,7 @@
                             <dd>“<span id="default_gk_sync_dir"></span>”</dd>
                         </dl>
                         <dl class="from_raw">
-                            <dt> 
+                            <dt>
                             <label>
                                 <input type="radio" name="sync_dir" value="1" />
                                 我想选择的本地同步文件夹路径</label>
@@ -207,10 +173,8 @@
 
                     </div>
                     <div class="dialog_bottom">
-                        <div class="right">
-                            <button type="button" class="btn_prev">上一步</button>
-                            <button type="submit">下一步</button>
-                        </div>
+                        <button type="button" class="btn_prev">上一步</button>
+                        <button type="submit">下一步</button>
                     </div>
                 </form>
             </div>
@@ -220,23 +184,19 @@
                     <h1>选择性同步</h1>
                     <div class="content">
                         <dl class="from_raw">
-                            <dt> <label>
-                                <input type="radio" name="chose_dir" checked="checked" value="0" />
-                                同步所有文件夹到我的电脑</label></dt>
-
+                            <dt>
+                                <label><input type="radio" name="chose_dir" checked="checked" value="0" />同步所有文件夹到我的电脑</label>
+                            </dt>
                         </dl>
                         <dl class="from_raw">
-                            <dt>  <label>
-                                <input type="radio" name="chose_dir" value="1" />
-                                选择文件夹同步到我的电脑</label></dt>
+                            <dt>
+                                <label><input type="radio" name="chose_dir" value="1" />选择文件夹同步到我的电脑</label></dt>
                             <dd><button id="select_sync_dirs">选择同步文件夹</button></dd>
                         </dl>
                     </div>
                     <div class="dialog_bottom">
-                        <div class="right">
-                            <button type="button" class="btn_prev">上一步</button>
-                            <button type="submit">完成</button>
-                        </div>
+                        <button type="button" class="btn_prev">上一步</button>
+                        <button type="submit">完成</button>
                     </div>
                 </form>
             </div>
@@ -256,13 +216,11 @@
                         </div>
                     </div>
                     <div class="dialog_bottom">
-                        <div class="right">
-                            <button type="submit">完成</button>
-                        </div>
+                        <button type="submit" style="width: 100%; border: 0;">完成</button>
                     </div>
                 </form>
             </div>
+            <div class="login_page_wrp" ></div>
         </div>
-
     </body>
 </html>
