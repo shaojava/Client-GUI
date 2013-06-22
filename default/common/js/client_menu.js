@@ -4,15 +4,8 @@ function bind_logo_click(){
     
      //首页logo点击
      $(".logo_wrapper").click(function(){
-            var params = {
-                url: '/client/launchpad',
-                sso: 1,
-                resize: 0,
-                width: 800,
-                height: 478
-            };
-         gkClientInterface.openWindow(params);
-     })
+         gkClientInterface.launchpad();
+     });
      //独占修改
      $(".compary_finance i").click(function(){
          var params = {

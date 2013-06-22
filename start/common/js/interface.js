@@ -123,9 +123,10 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getSelectPaths: function() {
+    getSelectPaths: function(path) {
+        path = typeof arguments[0]==='undefined'?'':path;
         try {
-            return gkClient.gSelectSyncPath();
+            return gkClient.gSelectSyncPath(path);
         } catch (e) {
             throw e;
         }

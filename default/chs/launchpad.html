@@ -1,166 +1,50 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>开始够快</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-        <style type="text/css">
-            
-            *{margin:0;padding:0}
-            .f_l{float:left}
-            .f_r{float:right}
-            ul,ol,li{list-style:none;margin:0;padding:0}
-             /**lauchpad**/
-.launth_pad{width:100%;height:500px;background:#6185BC}
-.launth_pad .launth_pad_left{width:62px;padding-top:28px;}
-.launth_pad .launth_pad_left li{margin:0 auto;}
-.launth_pad .launth_pad_left li a{color:#fff;display:block;_zoom:1;width:100%;text-align:center;padding:5px 0;font-size:13px;text-decoration: none}
-.launth_pad .launth_pad_left li a i{display:block;background:url('../common/images/images_2013/vertical_nav_icons32x32.png') no-repeat 0 0;width:32px;height:32px;margin:0 auto}
-.launth_pad .launth_pad_left li a:hover{background-color:#486EA9}
-.launth_pad .launth_pad_left li a i.share{background-position:0 0;}
-.launth_pad .launth_pad_left li a i.favorite{background-position:0 -64px;}
-.launth_pad .launth_pad_left li a i.linkman{background-position:0 -96px;}compary_storage_imgcompary_storage_img
-.launth_pad .launth_pad_left li a i.recyclebin{background-position:0 -96px;}
-.launth_pad .launth_pad_right{margin-left:62px;width:750px;background:#fff;height:100%}
-         
-            </style>
-        <!--        <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/util.js"></script>-->
-        <script type="text/javascript" src="../common/js/util.js"></script>
-        <script type="text/javascript" src="../common/js/jquery.js"></script>
-        <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
-        <script type="text/javascript" src="../common/js/config.js"></script>
-        <!--       <script type="text/javascript" src="http://gv6.gokuai.com/Common/js/interface.js"></script>-->
-        <script type="text/javascript" src="../common/js/interface.js"></script>
-        <script type="text/javascript" src="../common/js/launchpad.js"></script>
-        <script type="text/javascript">
-             $(function(){
-                  gkClientLaunchPad.init_2013();
-             })
-            </script>
-    </head>
+<head>
+    <title>开始够快</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
+    <script type="text/javascript" src="../common/js/util.js"></script>
+    <script type="text/javascript" src="../common/js/config.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/interface.js"></script>
+    <script type="text/javascript">
+        $(function(){
+            $(".launth_pad_left li").on("click",function(){
+                var url = $(this).data("url");
+                var sso =  $(this).data("sso");
+                if(sso==1){
+                    url  = gkClientInterface.openWindow({
+                        url:url,
+                        sso:1,
+                        opentype:1
+                    });
+                }
+                $("iframe").attr("src",url);
+            })
+            $(".launth_pad_left li").eq(0).trigger('click');
+        })
+    </script>
+</head>
 
-    <body id="lanchpad_page">
-        <div class="wrapper">
-            <!--div class="header">
-
-            </div-->
-            <div class="content">
-                <div class="launth_pad clearfix">
-                    <div class="launth_pad_left f_l">
-                        <ul>
-                            <li data-url="http://127.0.0.1:8888/client/client_file_detail?ac=updates"><a href="javascript:void(0)" data-url="http://127.0.0.1:8888/client/client_file_detail?ac=updates" title="更新"><i class="share"></i>更新</a></li>
-                             <li data-url="http://127.0.0.1:8888/client/client_file_detail?ac=favorites"><a href="javascript:void(0)" title="收藏夹" data-url="http://127.0.0.1:8888/client/client_file_detail?ac=updates"><i class="favorite"></i>收藏夹</a></li>
-                              <li data-url="http://127.0.0.1:8888/client/client_file_detail?ac=contacts"><a href="javascript:void(0)" title="联系人" data-url="http://127.0.0.1:8888/client/client_file_detail?ac=updates"><i class="linkman"></i>联系人</a></li>
-                               <li data-url="http://127.0.0.1:8888/client/client_file_detail?ac=recyclebin"><a href="javascript:void(0)" title="回收站" data-url="http://127.0.0.1:8888/client/client_file_detail?ac=updates"><i class="recyclebin"></i>回收站</a></li>
-                        </ul>
-                    </div>
-                    <div class="launth_pad_right">
-                        <iframe frameborder="0"  src="http://127.0.0.1:8888/client/client?ac=updates" width="100%" height="100%"></iframe>
-                    </div>
-                </div>
-                <!--ul class="menus">
-                    <li class="menu_item" data-url="/client/client?ac=updates">
-                        <div class="menu_icon">
-                            <img src="../common/images/update64x64.png" alt="" />
-                            <span class="news_num coner_news"></span>
-                        </div>
-                        <div class="menu_name">更新</div>
-                    </li>
-                    <li class="menu_item" data-url="">
-                        <div class="menu_icon">
-                            <img src="../common/images/file64x64.png" alt="" /> 
-                        </div>
-                        <div class="menu_name">我的文件</div>
-                    </li>
-                    <!-- 隐藏我的共享 <li class="menu_item" data-url="/client/client?ac=shares">
-                        <div class="menu_icon">
-                            <img src="../common/images/share64x64.png" alt="" />
-                        </div>
-                        <div class="menu_name">我的共享</div>
-                    </li> -->
-                    <!--li class="menu_item" data-url="/client/client?ac=contacts">
-                        <div class="menu_icon">
-                            <img src="../common/images/contact64x64.png" alt="" /> 
-                        </div>
-                        <div class="menu_name">联系人</div>
-                    </li>
-                    <li class="menu_item" data-url="/client/client?ac=favorites">
-                        <div class="menu_icon">
-                            <img src="../common/images/favorites64x64.png" alt="" /> 
-                        </div>
-                        <div class="menu_name">收藏夹</div>
-                    </li>
-                    <li class="menu_item" data-url="/client/app?ac=apps">
-                        <div class="menu_icon">
-                            <img src="../common/images/app64x64.png" alt="" /> 
-                        </div>
-                        <div class="menu_name">应用</div>
-                    </li>
-                    <li class="menu_item" data-url="/client/notice">
-                        <div class="menu_icon">
-                            <img src="../common/images/msg64x64.png" alt="" /> 
-                        </div>
-                        <div class="menu_name">新消息</div>
-                    </li>
-                    <!-- 隐藏资料库 2013-2-19                    <li class="menu_item" data-url="/client/library">
-                                            <div class="menu_icon">
-                                                <img src="../common/images/library64x64.png" alt="" /> 
-                                            </div>
-                                            <div class="menu_name">资料库</div>
-                                        </li> -->
-
-                    <!--li class="menu_item" data-url="/client/client?ac=recyclebin">
-                        <div class="menu_icon">
-                            <img src="../common/images/recyclebin64x64.png" alt="" /> 
-                        </div>
-                        <div class="menu_name">回收站</div>
-                    </li>
-                </ul-->
-            <!--/div>
-                </div-->
-        <!--script id="lanchpadHeader" type="text/x-jquery-tmpl">
-            <div class="header_left">
-                {{if typeof(org)!=='undefined'}}
-                <div class="org">
-                    <img class="logo" src="${org.logo}" alt="" />
-                    <span class="name">${org.name}</span>
-                </div>
-                {{else}}
-                <div class="gokuai">
-                    <img class="logo" src="${gkLogo}" alt="" />
-                    <span class="name">我的够快</span>
-                </div>
-                {{/if}}
+<body id="lanchpad_page" class="launth_pad">
+<div class="wrapper">
+    <div class="content">
+        <div class="launth_pad">
+            <div class="launth_pad_left f_l">
+                <ul>
+                    <li data-url="sync.html"><a href="javascript:void(0)" title="同步"><i class="share"></i>同步</a></li>
+                    <li data-url="/client/client?ac=updates" data-sso="1"><a href="javascript:void(0)" title="更新"><i class="share"></i>更新</a></li>
+                    <li data-url="/client/client?ac=favorites" data-sso="1"><a href="javascript:void(0)" title="收藏夹"><i class="favorite"></i>收藏夹</a></li>
+                    <li data-url="/client/client?ac=contacts" data-sso="1"><a href="javascript:void(0)" title="联系人"><i class="linkman"></i>联系人</a></li>
+                    <li data-url="/client/client?ac=recyclebin" data-sso="1"><a href="javascript:void(0)" title="回收站"><i class="recyclebin"></i>回收站</a></li>
+                </ul>
             </div>
-            <div class="header_right">
-                <div class="member">
-                    <img class="photo_radus photo" src="${member.photo}" alt="" />
-                    <div class="attrs">
-                        <div class="name">${member.name}</div>
-                        <div class="size">已使用${Util.Number.bitSize(member.size)}</div>
-                    </div>
-                </div>
+            <div class="launth_pad_right">
+                <iframe frameborder="0"  src="javascript:void(0)" width="100%" height="100%"></iframe>
             </div>
-        </script>
-        <!-- <script id="messageBanner" type="text/x-jquery-tmpl">
-            <div class="message_banner">
-                <div class="message_banner_left">
-                    <i class="type_icon"></i>
-                    <span class="member_name">${member_name}</span>
-                    <span class="message_content">${text}</span>
-                    <span class="timeago">${timeago}</span>
-                </div>
-                <div class="message_banner_right">
-                    <i class="message_icon"></i>
-                    <span class="message_num coner_news {{if count==0}}no_message{{/if}}">
-                        {{if count>99}}
-                        99+
-                        {{else}}
-                        ${count}
-                        {{/if}}
-                    </span>
-                </div>    
-            </div>
-        </script> -->
-    </body>
+        </div>
+    </div>
+</div>
+</body>
 </html>

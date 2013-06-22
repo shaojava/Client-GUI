@@ -166,9 +166,10 @@ var gkClientInterface = {
             throw e;
         }
     },
-    selectSyncFile: function() {
+    selectSyncFile: function(path) {
+        path = typeof arguments[0] ==='undefined'?'':path;
         try {
-            gkClient.gSelectSyncPath();
+            gkClient.gSelectSyncPath(path);
         } catch (e) {
             throw e;
         }
@@ -229,6 +230,24 @@ var gkClientInterface = {
     },
     setClipboardData: function(text) {
         gkClient.gSetClipboardData(text);
+    },
+    getLinkPath:function(){
+        return JSON.parse(gkClient.gGetLinkPaths());
+    },
+    selectFile:function(path){
+        return gkClient.gSelectPath(path);
+    },
+    setLinkPath:function(paths){
+        var params = {
+            'list':paths
+        };
+        gkClient.gSetLinkPaths(JSON.stringify(params));
+    },
+    removeLinks:function(links){
+        var params = {
+            'list':links
+        };
+        gkClient.gRemoveLinkPaths(JSON.stringify(params));
     }
 };
 var gkClientAjax = {};
@@ -268,7 +287,8 @@ gkClientAjax.Exception = {
 function initWebHref() {
     $('body').on('click', 'a', function(e) {
         var href = $(this).attr('href');
-        if (/\/storage#!files:(0|1):(.*?)(:(.*):.*)??$/.test(href)) {
+        var targetElem = $(e.target);
+        if (!targetElem.hasClass('gk_blank') && /\/storage#!files:(0|1):(.*?)(:(.*):.*)??$/.test(href)) {
             if (!RegExp.$2 && !RegExp.$2.length && !RegExp.$4 && !RegExp.$4.length) {
                 gkClientInterface.openSyncDir();
             } else {
@@ -298,7 +318,7 @@ function initWebHref() {
                 url: href,
                 sso: 0
             };
-            if (parseInt(PAGE_CONFIG.memberId)) {
+            if (parseInt(PAGE_CONFIG.memberId) || targetElem.data('sso')==1) {
                 param.sso = 1;
             }
             gkClientInterface.openURL(param);
