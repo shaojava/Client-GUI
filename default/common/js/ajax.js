@@ -4,7 +4,7 @@
          function get_link_type(linkObj){
              
              ajax({
-                  url:"http://gktest.gokuai.com/api/link_publish",
+                  url:"http://gkdev.gokuai.com/api/link_publish",
                   data:"token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+linkObj.options[linkObj.selectedIndex].value+"",
                   success:function(data){
                      $(".get_links").attr("href",data.link);
@@ -49,7 +49,7 @@
                   success:function(data){
                       tag_clear(1);
                     if(!data["dateline"]){
-                        $("<span style='color:#999;margin-left:5px'>未与任何人共享</span>").appendTo(affiliatedperson_dl);
+                        $("<span style='color:#999;margin-left:5px;display:block;text-align:center'>未与任何人共享</span>").appendTo(affiliatedperson_dl);
                        $(".compary_finance i").hide();
                         return;
                     }
@@ -74,19 +74,57 @@
                                  success:function(data){
                                        tag_clear(2);
                                        if(data == null){
-                                           $("<span style='color:#999;margin-left:5px'>该文件或者文件夹最近没有更新</span>").appendTo($(".share_info_update"));
+                                           $("<span style='color:#999;margin-left:5px;text-align:center;display:block'>该文件或者文件夹最近没有更新</span>").appendTo($(".share_info_update"));
                                        }
-                                       $.each(data,function(k,v){
-                                         
-                                            var _tmp_dateline = getLocalTime(v["dateline"]).match(/(\d{1,2}):(\d{1,2})/);
-                                            v["dateline"] = _tmp_dateline[0];
-                                            v["date"] = v["date"].replace(/-/g,".");
-                                       })
-    
-                                   $("#updates").tmpl({"d":data}).appendTo($(".share_info_update"));
-                                      
-                                      tag_hover_title();
+                                       var v = null;
+                                     
+                                       for(var i = 0,l = data.length - 1;i<l;i++){         
+                                          v = data[i];
+                                         var nextHour = getLocalTime(data[i+1]["dateline"]).match(/(\d{1,2}):(\d{1,2})/)[0].split(":")[0];
                                        
+                                         var _tmp_dateline = getLocalTime(v["dateline"]).match(/(\d{1,2}):(\d{1,2})/);
+                                         
+                                          v["dateline"] = _tmp_dateline[0].split(":")[0];   
+                                          
+                                     
+                                          v["date"] = v["date"].replace(/-/g,".");
+                                         var nextDate = data[i+1]["date_txt"];
+                                         //让他不显示
+                                         if(nextHour == v["dateline"] && v["date_txt"] == data[i+1]["date_txt"]){
+                                              data[i+1]["status"] = true;//true为不显示
+                                         }
+                                         else{
+                                             v[i]["status"] = false;
+                                              v["hour"] = v["dateline"]+"点";
+                                              if(parseInt(v["hour"]) >= 8 && parseInt(v["hour"]) <= 17){
+                                                   v["issxw"] = "白天";
+                                              } else{
+                                                    v["issxw"] = "晚上";
+                                              }
+                                         }
+                                         
+                                           
+                                            
+                                                
+        
+                                     
+                                           
+                                            
+                                           
+                                          
+                              
+   
+                                       }
+                                      
+                                       /*data[data.length - 1]["date_txt"]["identify"] = true;
+                                         data[data.length - 1]["hour"] = data[data.length - 1]["dateline"].split(":")[0];
+                                                 if(parseInt(data[data.length - 1]["hour"]) <= 17 && parseInt(data[data.length - 1]["hour"]) >= 8){
+                                                    data[data.length - 1]["issxw"] = "上午";
+                                                  }else{
+                                                    data[data.length - 1]["isswx"] = "晚上";
+                                                  }*/
+   
+                                   $("#updates").tmpl({"d":data}).appendTo($(".share_info_update"));
                                  },
                                          error:function(){
                                           
@@ -98,42 +136,8 @@
          /**
          * ajax请求链接数据
          * **/
-          function link_ajax_load_data(dataJson,fullpath,auth,callback){
-              
-                   ajax({
-                         url:"http://gktest.gokuai.com/api/check_publish_closed",
-                         data:dataJson,
-                          success:function(data){  
-               
-                              if(data.isclosed === 0){
-                                  
-                                  ajax({
-                                         url:"http://gktest.gokuai.com/api/link_publish",
-                                         data:"token="+gkClient.gGetToken()+"&fullpath="+fullpath+"&auth="+auth+"",
-                                         success:function(data){
-      
-                                               callback(data.link);
-                                              
-                                         }
-                                  })
-                              }else{   
-                                    
-                                /* ajax({
-                                         url:"http://localhost:8888/api/link_publish",
-                                         data:"fullpath="+fullpath+"&auth=1000",
-                                         success:function(data){
-                                              tag_clear(3);
-                                                $(".links_update").html("为<a href='"+data.link+"'>"+fullpath+"</a>创建一个链接，然后将链接通过邮件或QQ发给您的工作伙伴。他和她就能访问 <a href='"+data.link+"'>"+fullpath+"</a>了。");   
-                                         }
-                                  })*/
-                                
-                              }
-                              
-                          }
-                       
-                   })
-            
-                    
+          function link_ajax_load_data(url,dataJson,callback){
+                  ajax({url:url,data:dataJson,success:callback});         
         }
         
         
@@ -212,14 +216,15 @@
          * 元素高度自适应浏览器缩小
          * **/ 
           function slideBottom(){ 
-              $(".share_info").height($(window).height() - 252); 
+              //alert($(".compary_finance").get(0).offsetHeight + $(".header").get(0).offsetHeight);
+              $(".share_info").height($(window).height() - 222); 
           }
            /**
          * 页面一系列的ajax操作
          * **/ 
         function ajax(options){
              var _defaults = {
-                  "url":"http://gktest.gokuai.com/api/client_sidebar",
+                  "url":"http://gkdev.gokuai.com/api/client_sidebar",
                    "dataType":"json",
                    "type":"POST",
                    "success":function(data){}      
@@ -330,9 +335,32 @@
             //获取是否收藏
             function is_get_sc(){
                  ajax({
-                      url:"http://gktest.gokuai.com/api/get_file",
+                      url:"http://gkdev.gokuai.com/api/get_file",
                       data:"token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path,
                       success:function(data){
+                         var last_dateline = getLocalTime(data["last_dateline"])
+                         var date = new Date(last_dateline);
+                         //改变最后修改日期
+                         var year = date.getFullYear();
+                         var month = date.getMonth()+1;
+                         var dates = date.getDate();
+                         var hour = date.getHours();
+                         var minutes = date.getMinutes();
+                         if((""+month).length == 1){
+                              month="0"+month;
+                         }
+                         if((""+dates).length == 1){
+                              dates="0"+dates;
+                         }
+                         if((""+hour).length == 1){
+                              hour="0"+hour;
+                         }
+                         if((""+minutes).length == 1){
+                              minutes="0"+minutes;
+                         }
+                         var last_date = year+"."+month+"."+dates+" "+hour+":"+minutes;
+            
+                $(".last_mofile_time").html(last_date);
                            if(data.favorite == 0){
                                 //没有收藏
                                 $(".compart_file_img s").removeClass("sc").addClass("nosc");
