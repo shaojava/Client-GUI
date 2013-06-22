@@ -466,11 +466,14 @@ input[type="password"] {
 dl.from_raw{
     padding: 8px;
     font-size: 14px;
+    color: #5E656D;
+    border: 1px solid transparent;
 }
-.from_raw.selected{
-    background:#DFDFDF;
-    box-shadow:  inset 0 1px 0 0 #A1A1A1,0 1px 0 0 #fff;
+dl.from_raw.selected{
+    background: #F4F4F4;
+    box-shadow: inset 0 2px 5px -2px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
+    border-color: #D4D6D5;
 }
 .from_raw label {
     color: #ACB4BF;
