@@ -79,6 +79,9 @@ input[type="radio"]{
     line-height: 18px;
     vertical-align: middle;
 }
+input[type="password"] {
+    font-family: Verdana, Arial, Helvetica;
+}
 .select,
 .select_radius {
     height:30px;
@@ -464,7 +467,7 @@ input[type="radio"]{
 
     border-radius: 4px;
 }
-#login_p2 .from_raw label {
+.from_raw label {
     color: #ACB4BF;
     font-size: 14px;
     display: block;
@@ -728,11 +731,10 @@ input[type="radio"]{
 .regist_btn{
     width: 240px;
     font-size: 15px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding: 10px 0;
     display: block;
     margin: 0 auto;
-    font-weight: 700;
+    font-weight: 600;
 }
 .login_btn .spinner{
     left:50%;
@@ -745,7 +747,7 @@ input[type="radio"]{
 
 /*选择同步目录*/
 #select_sync_dir #gk_sync_dir{
-    width: 100%;
+    width: 95%;
     border-radius: 0;
     margin-top: 6px;
 

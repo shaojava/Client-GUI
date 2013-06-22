@@ -24,18 +24,18 @@
                     <h1 id="loginTab"><i></i>登录</h1>
                     <div class="content" style="display: block">
                         <div class="from_raw">
-                            <label id="email">帐号:</label>
+                            <label for="email">帐号：</label>
                             <input type="text" placeholder="请输入帐号" id="email" name="email" class="input_text" />
                         </div>
                         <div class="from_raw">
-                            <label id="password">密码:</label>
+                            <label for="password">密码：</label>
                             <input type="password" placeholder="请输入密码" id="password" name="password" class="input_text" />
-                        </div>
-                        <div class="form_raw">
-                            <a id="btn_findpassword" href="javascript:;">忘记密码?</a>
                         </div>
                         <div class="from_raw">
                             <button class="btn blue_btn login_btn" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+                        </div>
+                        <div class="form_raw">
+                            <a id="btn_findpassword" href="javascript:;">忘记密码?</a>
                         </div>
                     </div>
                 </form>
@@ -43,7 +43,7 @@
                     <h1 id="entTab" class="fold"><i></i>企业用户登录</h1>
                     <div class="content">
                         <div class="from_raw">
-                            <label id="ent_id">企业代码:</label>
+                            <label for="ent_id">企业代码：</label>
                             <input type="text" placeholder="请输入企业代码" id="ent_id" name="ent_id" class="input_text" />
                         </div>
                         <div class="from_raw">
@@ -86,9 +86,8 @@
                     <div class="content">
                         <dl class="from_raw">
                             <dt>
-                            <label>
                                 <input name="chose_settings" type="radio" name="gk_settings_type" checked="checked" value="0" />
-                                默认设置</label>
+                                默认设置
                             </dt>
                             <dd>
                                 使用默认的同步目录和同步设置
@@ -96,10 +95,8 @@
                         </dl>
                         <dl class="from_raw">
                             <dt>
-                            <label>
                                 <input name="chose_settings" type="radio" name="gk_settings_type" value="1" />
                                 自定义设置
-                            </label>
                             </dt>
                             <dd>
                                 手动设置同步目录和同步设置
@@ -107,9 +104,7 @@
                         </dl>
                     </div>
                     <div class="dialog_bottom">
-                        <div class="right">
-                            <button type="submit" class="btn_next">完成</button>
-                        </div>
+                        <button type="submit" class="btn_next" style="width: 100%; border: 0">完成</button>
                     </div>
                 </form>
             </div>
@@ -119,24 +114,12 @@
                     <h1 id="registTab"><i></i>注册</h1>
                     <div class="content">
                         <div class="from_raw">
-                            <input type="text" value="" class="input_text" placeholder="请输入您的邮箱，将作为您的帐号" id="email" name="email" />
+                            <label for="email">请输入您的常用邮箱：</label>
+                            <input type="text" value="" class="input_text" id="email" name="email" />
                         </div>
                         <div class="from_raw">
-                            <input type="password" value="" class="input_text" placeholder="请输入密码" id="password" name="password" />
+                            <button type="submit" class="btn green_btn regist_btn">立即注册</button>
                         </div>
-                        <div class="from_raw">
-                            <input type="password" value="" class="input_text" placeholder="请再次输入密码" id="repassword" name="repassword" />
-                        </div>
-                        <div class="from_raw">
-                            <button type="submit" class="btn green_btn regist_btn">注册并登录</button>
-                        </div>
-                        <div class="from_raw">
-                            <input type="checkbox" value="" id="agreement" name="agreement" />
-                            <label for="agreement">
-                                我已阅读并同意 <a class="gk_agreement" href="javascript:void(gkClientInterface.openURL({url:'help.gokuai.com/?page_id=773',sso:0}));">够快服务协议</a> 的各项条款
-                            </label>
-                        </div>
-
                     </div>
                     <div class="dialog_bottom">
                         <button class="network_settings" type="button"><i class="setting_icon"></i>网络设置</button>
@@ -151,17 +134,15 @@
                     <div class="content">
                         <dl class="from_raw">
                             <dt>
-                            <label>
                                 <input type="radio" name="sync_dir" checked="checked" value="0" />
                                 默认本地同步文件夹路径
-                            </label></dt>
-                            <dd>“<span id="default_gk_sync_dir"></span>”</dd>
+                            </dt>
+                            <dd>"<span id="default_gk_sync_dir"></span>"</dd>
                         </dl>
                         <dl class="from_raw">
                             <dt>
-                            <label>
                                 <input type="radio" name="sync_dir" value="1" />
-                                我想选择的本地同步文件夹路径</label>
+                                我想选择的本地同步文件夹路径
                             </dt>
                             <dd>
                                 <div>
@@ -185,12 +166,12 @@
                     <div class="content">
                         <dl class="from_raw">
                             <dt>
-                                <label><input type="radio" name="chose_dir" checked="checked" value="0" />同步所有文件夹到我的电脑</label>
+                                <input type="radio" name="chose_dir" checked="checked" value="0" />同步所有文件夹到我的电脑
                             </dt>
                         </dl>
                         <dl class="from_raw">
                             <dt>
-                                <label><input type="radio" name="chose_dir" value="1" />选择文件夹同步到我的电脑</label></dt>
+                                <input type="radio" name="chose_dir" value="1" />选择文件夹同步到我的电脑</dt>
                             <dd><button id="select_sync_dirs">选择同步文件夹</button></dd>
                         </dl>
                     </div>
@@ -205,14 +186,12 @@
                     <h1>是否使用上一次同步设置？</h1>
                     <div class="content">
                         <div class="from_raw selected">
-                            <label>
                                 <input type="radio" name="use_old_settings" checked="checked" value="1" />
-                                使用上一次的同步设置</label>
+                                使用上一次的同步设置
                         </div>
                         <div class="from_raw">
-                            <label>
                                 <input type="radio" name="use_old_settings" value="0" />
-                                重新设置</label>
+                                重新设置
                         </div>
                     </div>
                     <div class="dialog_bottom">

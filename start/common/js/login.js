@@ -79,7 +79,6 @@ var gkClientLogin = {
             };
             var spinner = new Spinner(loadingIcon).spin(loginBtn);
             loginBtn.append(spinner.el);
-            loginBtn.attr('disabled', 'disabled');
             gkClientInterface.login(param);
             return false;
         });
@@ -104,13 +103,19 @@ var gkClientLogin = {
 
         //注册帐号
         $('.go2regist').on('click', function() {
-            gkClientLogin.setHash('login_p9');
+            var param = {
+                url: gkClientInterface.getSiteDomain() + '/regist',
+                sso: 0
+            };
+            gkClientInterface.openURL(param);
+            return false;
+            //gkClientLogin.setHash('login_p9');
         });
 
         //找回密码
         $('#btn_findpassword').on('click', function() {
             var param = {
-                url: 'www.gokuai.com/findpassword',
+                url: gkClientInterface.getSiteDomain() + '/findpassword',
                 sso: 0
             };
             gkClientInterface.openURL(param);
