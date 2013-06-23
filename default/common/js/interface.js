@@ -248,6 +248,14 @@ var gkClientInterface = {
             'list':links
         };
         gkClient.gRemoveLinkPaths(JSON.stringify(params));
+    },
+    getAuthorization:function(ver,webpath,date){
+            var params = {
+                ver:ver,
+                webpath:webpath,
+                date:date
+            };
+            return gkClient.gGetAuthorization(JSON.stringify(params));
     }
 };
 var gkClientAjax = {};
