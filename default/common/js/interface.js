@@ -132,7 +132,7 @@ var gkClientInterface = {
                 params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
             }
             params = JSON.stringify(params);
-            gkClient.gMain(params);
+            return gkClient.gMain(params);
         } catch (e) {
             throw e;
         }
@@ -166,10 +166,10 @@ var gkClientInterface = {
             throw e;
         }
     },
-    selectSyncFile: function(path) {
-        path = typeof arguments[0] ==='undefined'?'':path;
+    selectSyncFile: function(params) {
+        params = typeof arguments[0] ==='undefined'?'':params;
         try {
-            gkClient.gSelectSyncPath(path);
+            gkClient.gSelectSyncPath(JSON.stringify(params));
         } catch (e) {
             throw e;
         }
@@ -256,6 +256,15 @@ var gkClientInterface = {
                 date:date
             };
             return gkClient.gGetAuthorization(JSON.stringify(params));
+    },
+    getToken:function(){
+        return gkClient.gGetToken()
+    },
+    getApiDomain:function(){
+      return 'http://a2.gokuai.com';
+    },
+    getRestDomain:function(){
+        return 'http://r2.gokuai.com';
     }
 };
 var gkClientAjax = {};

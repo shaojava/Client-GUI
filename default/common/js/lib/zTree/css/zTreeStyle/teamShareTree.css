@@ -1,0 +1,233 @@
+.team_share_tree {
+    margin:0; 
+    color:#333
+}
+.team_share_tree li{
+    outline: 0;
+}
+.team_share_tree li ul{
+    margin:0; 
+    padding:0 0 0 0;
+    clear:both;    
+}
+
+.team_share_tree li ul li .file_item{
+   
+}
+.team_share_tree li ul.line{
+    /*background:url(./img/line_conn.gif) 0 0 repeat-y;*/
+}
+
+.team_share_tree li .level_name {
+    padding: 1px 3px 0 0;
+    margin: 0;
+    /*    cursor: pointer;*/
+    cursor: default;
+    height: 32px;
+    color: #333;
+    background-color: transparent;
+    text-decoration: none;
+    vertical-align: middle;
+    display: inline-block;
+}
+.team_share_tree li a:hover {
+    text-decoration:underline
+}
+.team_share_tree li a.curSelectedNode {
+    padding-top:0px; 
+    background-color:#FFE6B0; 
+    color:black; 
+    height:16px; 
+    border:1px #FFB951 solid; 
+    opacity:0.8;
+}
+.team_share_tree li a.curSelectedNode_Edit {
+    padding-top:0px;
+    background-color:#FFE6B0; 
+    color:black; 
+    height:16px;
+    border:1px #FFB951 solid; 
+    opacity:0.8;
+}
+.team_share_tree li a.tmpTargetNode_inner {
+    padding-top:0px;
+    background-color:#316AC5; 
+    color:white; 
+    height:16px; 
+    border:1px #316AC5 solid;
+    opacity:0.8; 
+    filter:alpha(opacity=80)
+}
+.team_share_tree li a.tmpTargetNode_prev {}
+.team_share_tree li a.tmpTargetNode_next {}
+.team_share_tree li a input.rename {
+    height:14px;
+    width:80px;
+    padding:0;
+    margin:0;
+    font-size:12px;
+    border:1px #7EC4CC solid;
+    *border:0px}
+.team_share_tree li span {
+    line-height:32px; 
+    margin-right:2px;
+    vertical-align: middle;
+}
+.team_share_tree li .switch {
+    line-height: 0;
+    margin: 0 0 0 5px;
+    width: 16px;
+    height: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    border: 0 none;
+    cursor: pointer;
+    outline: none;
+    background-color: transparent;
+    background-repeat: no-repeat;
+    background-image: url("./img/gk/tree_arrow.png");
+}
+
+.team_share_tree li span.button.chk {
+    width:13px; 
+    height:13px;
+    margin:0 3px 0 0; 
+    cursor: auto
+}
+.team_share_tree li span.button.chk.checkbox_false_full {
+    background-position:0 0
+}
+.team_share_tree li span.button.chk.checkbox_false_full_focus {
+    background-position:0 -14px
+}
+.team_share_tree li span.button.chk.checkbox_false_part {
+    background-position:0 -28px
+}
+.team_share_tree li span.button.chk.checkbox_false_part_focus {
+    background-position:0 -42px}
+.team_share_tree li span.button.chk.checkbox_false_disable {
+    background-position:0 -56px
+}
+.team_share_tree li span.button.chk.checkbox_true_full {background-position:-14px 0}
+.team_share_tree li span.button.chk.checkbox_true_full_focus {background-position:-14px -14px}
+.team_share_tree li span.button.chk.checkbox_true_part {background-position:-14px -28px}
+.team_share_tree li span.button.chk.checkbox_true_part_focus {background-position:-14px -42px}
+.team_share_tree li span.button.chk.checkbox_true_disable {background-position:-14px -56px}
+.team_share_tree li span.button.chk.radio_false_full {background-position:-28px 0}
+.team_share_tree li span.button.chk.radio_false_full_focus {background-position:-28px -14px}
+.team_share_tree li span.button.chk.radio_false_part {background-position:-28px -28px}
+.team_share_tree li span.button.chk.radio_false_part_focus {background-position:-28px -42px}
+.team_share_tree li span.button.chk.radio_false_disable {background-position:-28px -56px}
+.team_share_tree li span.button.chk.radio_true_full {background-position:-42px 0}
+.team_share_tree li span.button.chk.radio_true_full_focus {background-position:-42px -14px}
+.team_share_tree li span.button.chk.radio_true_part {background-position:-42px -28px}
+.team_share_tree li span.button.chk.radio_true_part_focus {background-position:-42px -42px}
+.team_share_tree li span.button.chk.radio_true_disable {background-position:-42px -56px}
+
+.team_share_tree li span.button.switch {width:16px; height:16px}
+.team_share_tree li span.button.root_open{background-position:0 -16px}
+.team_share_tree li span.button.root_close{background-position:0 0}
+.team_share_tree li span.button.roots_open{background-position:0 -16px}
+.team_share_tree li span.button.roots_close{background-position:0 0}
+.team_share_tree li span.button.center_open{background-position:0 -16px}
+.team_share_tree li span.button.center_close{background-position:0 0}
+.team_share_tree li span.button.bottom_open{background-position:0 -16px}
+.team_share_tree li span.button.bottom_close{background-position:0 0}
+.team_share_tree li span.button.noline_open{background-position:0 -16px}
+.team_share_tree li span.button.noline_close{background-position:0 0}
+
+.team_share_tree li span.button.ico_open{margin-right:2px; background-position:-110px -16px; vertical-align:top; *vertical-align:middle}
+.team_share_tree li span.button.ico_close{margin-right:2px; background-position:-110px 0; vertical-align:top; *vertical-align:middle}
+.team_share_tree li span.button.ico_docu{margin-right:2px; background-position:-110px -32px; vertical-align:top; *vertical-align:middle}
+.team_share_tree li span.button.edit {margin-right:2px; background-position:-110px -48px; vertical-align:top; *vertical-align:middle}
+.team_share_tree li span.button.remove {margin-right:2px; background-position:-110px -64px; vertical-align:top; *vertical-align:middle}
+
+.team_share_tree li span.ico_loading{
+    background:url(./img/gk/loading32x32.gif) no-repeat scroll 0 0;
+    float: left;
+    display: block;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin: 2px 10px 0 10px;
+    position: relative;
+    _position: static;
+
+}
+
+ul.tmpTargetzTree {background-color:#FFE6B0; opacity:0.8; filter:alpha(opacity=80)}
+
+span.tmpzTreeMove_arrow {
+    width:16px;
+    height:16px; 
+    display: inline-block; 
+    padding:0; 
+    margin:2px 0 0 1px;
+    border:0 none; 
+    position:absolute;
+    background-color:transparent; 
+    background-repeat:no-repeat;
+    background-attachment: scroll;
+    background-position:-110px -80px; 
+    background-image:url("./img/zTreeStandard.png"); 
+    *background-image:url("./img/zTreeStandard.gif")}
+
+ul.team_share_tree.zTreeDragUL {
+    margin:0;
+    padding:0;
+    position:absolute;
+    width:auto;
+    height:auto;
+    overflow:hidden; 
+    background-color:#cfcfcf; 
+    border:1px #00B83F dotted; 
+    opacity:0.8;
+    filter:alpha(opacity=80)
+}
+.zTreeMask {
+    z-index:10000; 
+    background-color:#cfcfcf; 
+    opacity:0.0; 
+    filter:alpha(opacity=0);
+    position:absolute
+}
+.team_share_tree li{
+    white-space: nowrap;
+    zoom:1;
+    padding-left: 0;
+    padding-right: 0;
+}
+.team_share_tree li .file_icon{
+    display: inline-block;
+    float: none;
+    vertical-align: middle;
+    margin-top: 0;
+    width: 32px;
+    height: 32px;
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin: 0 10px 0 0;
+    position: relative;
+}
+.team_share_tree li .name{
+    font-size: 14px;
+color:#434343;
+    }
+
+
+.team_share_tree li .storage_node,
+.team_share_tree li .server_state{
+    display: inline-block;
+    font-size: 14px;
+    color:#999;
+    margin: 0 5px;
+}
+
+.team_share_tree ul li:last-child,
+.team_share_tree ul li.last_file_item{
+    border-bottom: 0 none;
+}
+.team_share_tree .file_item.selected{
+    background: #E8F0FB;
+}

@@ -1,106 +1,85 @@
 var gkClientLaunchPad = {
-    init_2013:function(){
-            $('.launth_pad_left li').click(function(){
-            var url = $(this).data('url');
-            var _iframe = $("iframe");
-            _iframe.attr("src",url);
-        });
-    },
     init:function(){
         //disable浏览器的默认事件
         gkClientCommon.disableDefaultEvent();
-        var user = gkClientInterface.getUserInfo();
-        var meta ={
-            gkLogo:'../common/images/logo32x32.png'
-        };
-        if(user){
-            meta.member ={
-                    name:user.username,
-                    photo:user.photourl,
-                    size:user.size
-            
-            };  
-            
-            if(user.org_id!=0){
-                meta.org = {
-                    name:user.org_name||'',
-                    logo:'../common/images/logo32x32.png'
-                };
-            }
-        }
-        
-        $('#lanchpadHeader').tmpl(meta).appendTo($('.header'));
-        
-        $('.header .header_left,.header .header_right').click(function(){
-            var params = {
-                url:'/storage',
+        var menus = [
+            {
+            url:'sync.html',
+            name:'同步',
+            icon:'',
+            classes:'sync',
+            sso:0
+        },
+            {
+                url:'/client/client?ac=updates',
+                name:'更新',
+                icon:'',
+                classes:'updates',
                 sso:1
-            };
-            gkClientInterface.openURL(params);
-            return;
+            }, {
+                url:'/client/client?ac=favorites',
+                name:'收藏夹',
+                icon:'',
+                classes:'favorite',
+                sso:1
+            },
+            {
+                url:'/client/client?ac=contacts',
+                name:'联系人',
+                icon:'',
+                classes:'contacts',
+                sso:1
+            },
+            {
+                url:'/client/client?ac=recyclebin',
+                name:'回收站',
+                icon:'',
+                classes:'recyclebin',
+                sso:1
+            }
+        ];
+        var localMenus = [];
+        $.ajax({
+            url:gkClientInterface.getApiDomain()+'/left_extended_menu',
+            data:{
+              token:gkClientInterface.getToken()
+            },
+            type:'GET',
+            async:false,
+            dataType:'json',
+            success:function(data){
+                $.each(data,function(i,n){
+                    localMenus.push({
+                        url: n.url,
+                        name:n.name,
+                        icon:n.pic,
+                        classes:'',
+                        sso:0
+                    });
+                });
+
+                $.merge(menus, localMenus )
+            }
         });
-        
-  
-         /*   if(!url.length){
-                gkClientInterface.openSyncDir();
-            }
-            //若是消息，重新设置弹窗的大小
-            else if(url=='/client/notice'){
-                params = {
+        var menulist = $('#leftMenuList').tmpl({
+            menus:menus
+        }).appendTo($('.launth_pad_left'));
+
+        $(".launth_pad_left li").on("click",function(){
+            var url = $(this).data("url");
+            var sso =  $(this).data("sso");
+            if(sso==1){
+                url  = gkClientInterface.openWindow({
                     url:url,
-                    width:500,
-                    height:485,
                     sso:1,
-                    resize:0
-                };
-                gkClientInterface.openWindow(params);
+                    opentype:1
+                });
             }
-            else{
-                params = {
-                    url:url,
-                    width:800,
-                    height:600,
-                    sso:1,
-                    resize:1
-                };
-                gkClientInterface.openWindow(params);
-            }
-                 
-        });*/
-        //最新消息
-//        this.showMessage();
+            $("iframe").attr("src",url);
+            $(".launth_pad_left li").removeClass('selected');
+            $(this).addClass('selected');
+        })
+        $(".launth_pad_left li").eq(0).trigger('click');
+
     }
-//    showMessage:function(){
-//        var re  =  gkClientInterface.getMessage();
-//       
-//        var msg = re.message[0]||{};
-//        //        if(!msg){
-//        //            return;
-//        //        }
-//        //console.log(msg);
-//        msg.count = re.message_count;
-//        var text = msg.message + msg.msg;
-//        if(msg.count==0){
-//            text = '没有新消息';
-//        }
-//        var msg = {
-//            count:re.message_count,
-//            member_name:msg.member_name,
-//            text:text,
-//            timeago:msg.timeago
-//        }
-//        var msgBanner = $('#messageBanner').tmpl(msg).appendTo($('body'));
-//        
-//        var msg_icon = $('.message_banner').find('.message_icon')
-//        msg_icon.on('click',function(){
-//            var param = {
-//                url:'/client/notice',
-//                sso:1,
-//                resize:0,
-//                width:500,
-//                height:485
-//            };
-//            gkClientInterface.openWindow(param);
-//        })
-//    }
 };

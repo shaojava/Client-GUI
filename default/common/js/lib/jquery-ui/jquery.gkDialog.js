@@ -10,7 +10,7 @@ $.fn.gkDialog = function(arg) {
         var defaults = {
             resizable: false,
             draggable: false,
-            modal: true,
+            modal: false,
             closeText: '×',
             close: function() {
                 $(this).remove();
