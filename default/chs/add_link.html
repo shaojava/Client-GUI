@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>添加一对新的同步文件夹</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/jquery-ui/jquery-ui.css"/>
@@ -26,49 +26,19 @@
             $('body').tooltip({
                 selector: '.gktooltip'
             });
-            gkClientSync.init();
-
+            gkClientSync.initAddLink();
         })
     </script>
 </head>
 
 <body id="sync_page">
-<div class="wrapper">
-    <h1>设置文件夹的同步</h1>
-
-    <div class="list_wrapper">
-        <div class="list_header">
-            <div class="td cloud_uri">
-                <i></i>
-                <span>云端位置</span>
-            </div>
-            <div class="td local_uri">
-                <i></i>
-                <span>本地位置</span>
-            </div>
-            <div class="td opts">
-                <button class="btn blue_btn add_new_sync">+ 添加</button>
-            </div>
-        </div>
-    </div>
-</div>
-<script type="text/x-jquery-tmpl" id="startSyncDialog">
-     <div class="start_sync_dialog_content">
-         将云端文件夹 ${filename} 同步到 ${local_path}
-     </div>
-</script>
-
-
-<script type="text/x-jquery-tmpl" id="addLinkDialogTmpl">
+<div class="wrapper add_link_dialog">
     <div class="add_link_content">
         <div class="cloud_set_wrapper">
             <div class="d_title"><i></i>选择云端文件夹</div>
             <div class="d_content select_file_wrapper">
-                <div class="f_l scrollbar file_tree_wrapper">
+                <div class="scrollbar file_tree_wrapper">
                     <div class="team_share_tree"></div>
-                </div>
-                <div class="f_l selected_cloud_file_wrapper">
-
                 </div>
             </div>
 
@@ -85,42 +55,19 @@
             </div>
         </div>
     </div>
-</script>
-<script type="text/x-jquery-tmpl" id="fileListTmpl">
-    <div class="list scrollbar">
-        {{each(i,v) files}}
-        <div class="sync_item c_f_after"
-        {{each(key,n) v}}data-${key}="${n}" {{/each}}>
-        <div class="td cloud_uri">
-            <i class="icon ${v.icon}"></i>
-            <a href="${v.cloud_url}" data-sso="1" title="${v.cloud_uri}" class="gktooltip gk_blank name">${v.cloud_filename}</a>
-        </div>
-        <div class="td local_uri">
-            <i class="icon"></i>
-            <a href="${v.local_url}" title="${v.local_uri}" class="gktooltip name">${v.local_filename}</a>
-            <button class="btn edit_local_uri">修改</button>
-        </div>
-        <div class="td opts">
-            <a href="javascript:void(0)" class="set"></a>
-            <ul class="dropdown_menu dropdown_main dropdown_menu_set_sync">
-                <li>
-                    <a href="javascript:void(0)" title="取消同步该文件夹下的部分文件" data-placement="left"
-                       class="gktooltip select_to_sync">
-                        选择性同步
-                    </a>
-                </li>
-                {{if v.removeAvaiable}}
-                <li>
-                    <a href="javascript:void(0)" title="停止与云端文件夹的同步" data-placement="left"
-                       class="gktooltip remove_sync">取消同步</a>
-                </li>
-                {{/if}}
-            </ul>
-        </div>
+    <div class="dialog_bottom">
+        <button class="btn blue_btn start_sync">开始同步</button>
+        <button class="btn cancel">取消</button>
     </div>
-    {{/each}}
-    </div>
+</div>
+<script type="text/x-jquery-tmpl" id="startSyncDialog">
+     <div class="start_sync_dialog_content">
+         将云端文件夹 ${filename} 同步到 ${local_path}
+     </div>
 </script>
+
+
+
 </body>
 
 </html>

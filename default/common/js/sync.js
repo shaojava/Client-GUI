@@ -4,7 +4,11 @@ var gkClientSync = {
          _context.showLinkedFile();
         //添加新的同步位置
         $('.add_new_sync').click(function(){
-            _context.showAddSyncDialog();
+            gkClientInterface.openChildWindow({
+                url:'chs/add_link.html',
+                width:700,
+                height:470
+            });
             return;
         });
 
@@ -21,6 +25,13 @@ var gkClientSync = {
         sync_items.each(function(){
             $(this).find('.set').droplist([4,-144,0,0]);
         });
+
+        sync_items.find('.local_uri a,.cloud_uri a').click(function(){
+            var item = $(this).parents('.sync_item');
+            var local_uri = item.data('local_uri');
+            gkClientInterface.openDiskPath(local_uri);
+            return false;
+        })
         //设置新的本地同步位置
         $('.edit_local_uri').click(function(){
             var item = $(this).parents('.sync_item');
@@ -28,7 +39,7 @@ var gkClientSync = {
             var cloud_uri = item.data('cloud_uri');
             var type = item.data('type');
             var new_local_uri = gkClientInterface.selectFile(local_uri);
-            if(local_uri != new_local_uri){
+            if(new_local_uri && local_uri != new_local_uri){
                 var path = [
                     {
                         webpath:cloud_uri,
@@ -79,16 +90,15 @@ var gkClientSync = {
         var setCloudFile = function(path,icon,type){
             var filename =Util.String.baseName(path);
             dialog.find('.selected_cloud_file').remove();
-            var html = '<div class="d_content selected_cloud_file">';
+            var html = '<div class="d_content selected_cloud_file" style="display: none">';
             html +='<div><i class="'+icon+'"></i><span>'+filename+'</span></div>';
             html +='<div>';
             html +='<div>云端位置</div>';
             html +='<div><span id="select_cloud_file_path" data-type="'+type+'">'+path+'</span></div>';
             html += '</div>';
             html +='</div>';
-            dialog.find('.cloud_set_wrapper .selected_cloud_file_wrapper').append(html);
+            dialog.append(html);
         };
-
         var _context = this;
         var setting = {
             treeId: 'gk_cloud_file_list',
@@ -99,7 +109,7 @@ var gkClientSync = {
                     if(treeNode){
                         path = treeNode['data-fullpath'];
                     }
-                    return 'http://r2.gokuai.com/'+path;
+                    return gkClientInterface.getRestDomain()+'/'+path;
                 },
                 dataType: "json",
                 type: "LIST",
@@ -113,26 +123,58 @@ var gkClientSync = {
                    var headers = {
                        'x-gk-mount':mount_id,
                        'x-gk-dir':1,
+                       'x-gk-bool':1,
                        'Date':dateStr,
                        'Authorization':sign
                    };
                     return headers;
                 },
                 dataFilter: function(treeId, parentNode, data) {
-                    var treeData = null;
-                    if (data && data.list) {
-                        treeData = _context.rendFileList(data.list, parentNode);
+                    var treeData = [];
+                    if(parentNode === undefined){
+                        var teamFiles = data.team_files;
+                        var myFiles = data.my_files;
+                        var teamTree = {
+                            'tId': '1',
+                            'name': '团队的文件',
+                            'iconSkin': 'file_icon icon_team_root ',
+                            'className': '',
+                            'fullpath': '',
+                            'open':true,
+                            'isParent':true,
+                            'data-hash': '',
+                            'data-fullpath':'',
+                            'data-filename': '团队的文件',
+                            'data-icon': 'icon_team_root',
+                            'data-type':2,
+                            'children': _context.rendFileList(teamFiles, parentNode)
+                        };
+                        var myTree={
+                            'tId': '2',
+                            'name': '我的文件',
+                            'iconSkin': 'file_icon icon_my_root ',
+                            'className': '',
+                            'open':true,
+                            'fullpath': '',
+                            'isParent':true,
+                            'data-hash': '',
+                            'data-fullpath':'',
+                            'data-filename': '我的文件',
+                            'data-icon': 'icon_my_root',
+                            'data-type':2,
+                            'children':_context.rendFileList(myFiles, parentNode)
+                        };
+                        treeData.push(teamTree);
+                        treeData.push(myTree);
+                    }else{
+                     if (data && data.list) {
+                      treeData = _context.rendFileList(data.list, parentNode);
+                    }
                     }
                     return treeData;
                 }
             },
             callback: {
-                beforeAsync: function() {
-
-                },
-                onAsyncError: function() {
-
-                },
                 onAsyncSuccess: function(event, treeId, treeNode, msg) {
                     var items;
                     if(!treeNode){
@@ -202,7 +244,8 @@ var gkClientSync = {
             'iconSkin': icon,
             'className': '',
             'fullpath': n.fullpath,
-            'isParent':true,
+            'isParent': n.has_child==1?true:false,
+            //'isParent':true,
             'data-hash': n.hash,
             'data-dir': n.dir,
             'data-fullpath': n.fullpath,
@@ -259,92 +302,18 @@ var gkClientSync = {
                         }];
                         gkClientInterface.setLinkPath(paths);
                         $(this).dialog('close');
-                        if(parentDialog){
-                            parentDialog.dialog('close');
+                        if(parentDialog.size()){
+                            //window.parent.showLinkedFile();
+                            gkClientInterface.closeWindow();
+
+                        }else{
+                            _context.showLinkedFile();
                         }
-                        _context.showLinkedFile();
+
                         return;
                     }
                 }
             ]
-        });
-    },
-    showAddSyncDialog:function(){
-        var _context = this;
-        var html = $('#addLinkDialogTmpl').tmpl();
-        html.gkDialog({
-            width:700,
-            height:515,
-            title:'请添加一对同步文件夹',
-            dialogClass:'add_link_dialog',
-            buttons:[
-                {
-                    "text": '取消',
-                    'class':'btn',
-                    "click": function() {
-                        $(this).dialog("close");
-                    }
-                },
-                {
-                    "text": '开始同步',
-                    'class':'btn blue_btn',
-                    "click": function() {
-                        var local_path = $('#selected_local_path').val();
-                        var webpath = $('#select_cloud_file_path').text();
-                        var type = $('#select_cloud_file_path').data('type');
-                        if(!type){
-                            type = 0;
-                        }
-                        if(!local_path){
-                               alert('请选择本地位置');
-                            return;
-                        }
-                        var cloudSet = {
-                            filename:Util.String.baseName(webpath),
-                            type:type,
-                            webpath:webpath
-                        };
-                        _context.showStartSyncDialog(cloudSet,local_path,$(this));
-                    }
-                }
-            ],
-            open:function(){
-                var dialog = $(this);
-                var setSelectFile = function(path){
-                    var filename =_context.getLocalFilename(path);
-                    dialog.find('.selected_local_file').remove();
-                    if(!path){
-                        dialog.find('.goto_select_file').show();
-                        return;
-                    };
-                    dialog.find('.goto_select_file').hide();
-
-                    var html = '<div class="d_content selected_local_file">';
-                    html +='<div><i></i><span>'+filename+'</span></div>';
-                    html +='<div>';
-                    html +='<div>本地位置</div>';
-                    html +='<div><input type="text" class="input_text input_text_readonly input_text_radius" value="'+path+'" id="selected_local_path" readonly /><button class="btn select_local_file">修改位置</button></div>';
-                    html += '</div>';
-                    html +='</div>';
-                    dialog.find('.local_set_wrapper').append(html);
-                };
-                $(this).find('.local_set_wrapper').on('click','.select_local_file',function(){
-                      var old_path ='';
-                    var input = dialog.find('#selected_local_path');
-                        if(input.size()){
-                            old_path = $.trim(input.val());
-                        }
-                    var new_path = gkClientInterface.selectFile(old_path);
-                    if(new_path != old_path){
-                        setSelectFile(new_path);
-                    }
-                    return;
-                });
-
-
-                var mount_id = gkClientInterface.getUserInfo().mount_id;
-                _context.showFileTree($(this),mount_id);
-            }
         });
     },
     getLocalFilename:function(local_path){
@@ -407,5 +376,69 @@ var gkClientSync = {
             location += encodeURIComponent(up_fullpath) + ':' + encodeURIComponent(filename) + ':';
                 return location;
 
+    },
+    initAddLink:function(){
+        var _context = this;
+        var dialog = $('.wrapper');
+        var setSelectFile = function(path){
+            var filename =_context.getLocalFilename(path);
+            dialog.find('.selected_local_file').remove();
+            if(!path){
+                dialog.find('.goto_select_file').show();
+                return;
+            };
+            dialog.find('.goto_select_file').hide();
+
+            var html = '<div class="d_content selected_local_file">';
+            html +='<div><i></i><span>'+filename+'</span><button class="btn select_local_file">修改位置</button></div>';
+            html +='<div>';
+            html +='<div>本地位置</div>';
+            html +='<div><span class="user_select_enable" id="selected_local_path" >'+path+'</span></div>';
+            html += '</div>';
+            html +='</div>';
+            dialog.find('.local_set_wrapper').append(html);
+        };
+        dialog.find('.local_set_wrapper').on('click','.select_local_file',function(){
+            var old_path ='';
+            var input = dialog.find('#selected_local_path');
+            if(input.size()){
+                old_path = $.trim(input.val());
+            }
+            var new_path = gkClientInterface.selectFile(old_path);
+            if(new_path != old_path){
+                setSelectFile(new_path);
+            }
+            return;
+        });
+
+
+        var mount_id = gkClientInterface.getUserInfo().mount_id;
+        _context.showFileTree(dialog,mount_id);
+
+        dialog.find('.start_sync').click(function(){
+            var local_path = $.trim($('#selected_local_path').text());
+            var webpath = $.trim($('#select_cloud_file_path').text());
+            var type = $('#select_cloud_file_path').data('type');
+            if(!type){
+                type = 0;
+            }
+            if(!local_path){
+                alert('请选择本地位置');
+                return;
+            }
+            var cloudSet = {
+                filename:Util.String.baseName(webpath),
+                type:type,
+                webpath:webpath
+            };
+
+            _context.showStartSyncDialog(cloudSet,local_path,dialog);
+            return;
+        });
+        dialog.find('.cancel').click(function(){
+            gkClientInterface.closeWindow();
+            return;
+        });
     }
+
 };

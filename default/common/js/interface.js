@@ -265,6 +265,12 @@ var gkClientInterface = {
     },
     getRestDomain:function(){
         return 'http://r2.gokuai.com';
+    },
+    openDiskPath:function(path){
+        gkClient.gOpenDiskPath(path);
+    },
+    openChildWindow:function(params){
+        gkClient.gChildMain(JSON.stringify(params));
     }
 };
 var gkClientAjax = {};

@@ -229,7 +229,6 @@
         // event to node
         if (tId.length > 0) {
             node = data.getNodeCache(setting, tId);
-            console.log(nodeEventType);
             switch (nodeEventType) {
                 case "switchNode" :
 
@@ -866,7 +865,6 @@
                     childHtml = view.appendNodes(setting, level + 1, node[childKey], node, initFlag, openFlag && node.open);
                 }
                 if (openFlag) {
-
                     view.makeDOMNodeMainBefore(html, setting, node);
                     view.makeDOMNodeLine(html, setting, node);
                     data.getBeforeA(setting, node, html);
@@ -876,10 +874,12 @@
                     data.getInnerAfterA(setting, node, html);
                     view.makeDOMNodeNameAfter(html, setting, node);
                     data.getAfterA(setting, node, html);
+
+                    view.makeDOMNodeMainAfter(html, setting, node);
                     if (node.isParent && node.open) {
                         view.makeUlHtml(setting, node, html, childHtml.join(''));
                     }
-                    view.makeDOMNodeMainAfter(html, setting, node);
+                    view.makeDOMNodeMainLineAfter(html, setting, node);
                     data.addCreatedNode(setting, node);
                 }
             }
@@ -1159,6 +1159,9 @@
         },
         makeDOMNodeMainAfter: function(html, setting, node) {
             html.push("</div>");
+
+        },
+        makeDOMNodeMainLineAfter:function(html, setting, node){
             html.push("</li>");
         },
         makeDOMNodeMainBefore: function(html, setting, node) {

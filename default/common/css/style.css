@@ -10,6 +10,9 @@ html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, fo
 html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, form, fieldset, legend, button,th,td{
     -webkit-user-select: none;
 }
+.user_select_enable{
+    -webkit-user-select:auto;
+}
 h1, h2, h3, h4, h5, h6{
     font-weight:normal;
 }
@@ -1348,12 +1351,11 @@ color:#fff;
    border:1px solid #CDD4DB;
     margin: 0 auto;
     background: #fff;
-    border-bottom: 0;
     position: absolute;
     top:62px;
     left:10px;
     right:10px;
-    bottom: 0;
+    bottom: 15px;
 }
 
 #sync_page .list_wrapper .list_header{
@@ -1515,7 +1517,6 @@ padding: 4px 6px;
 .add_link_dialog .file_tree_wrapper{
 border:1px solid #D0D6DB;
     height: 200px;
-    width: 288px;
     background: #fff;
     overflow: auto;
 }
@@ -1528,4 +1529,13 @@ border:1px solid #D0D6DB;
 
 .start_sync_dialog .start_sync_dialog_content{
     padding: 20px 12px;
+}
+.add_link_dialog .dialog_bottom{
+    text-align: right;
+}
+.add_link_dialog .dialog_bottom .btn{
+    margin: 0 5px;
+}
+.add_link_dialog .select_local_file{
+    margin-left: 15px;
 }
