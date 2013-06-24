@@ -17,7 +17,10 @@
 
         function gUpdateLinkPath(){
            var iframe = $('iframe');
-    
+            if(iframe.attr('src') == 'sync.html'){
+                window.frames["cframe"].showLinkedFile();
+            }
+
         }
     </script>
 </head>
@@ -29,7 +32,7 @@
             <div class="launth_pad_left f_l">
             </div>
             <div class="launth_pad_right">
-                <iframe frameborder="0"  src="javascript:void(0)" width="100%" height="100%"></iframe>
+                <iframe frameborder="0" id="cframe" name="cframe"  src="javascript:void(0)" width="100%" height="100%"></iframe>
             </div>
         </div>
     </div>
