@@ -169,7 +169,8 @@ var gkClientInterface = {
     selectSyncFile: function(params) {
         params = typeof arguments[0] ==='undefined'?'':params;
         try {
-            gkClient.gSelectSyncPath(JSON.stringify(params));
+            var JSONparams = JSON.stringify(params)
+            gkClient.gSelectSyncPath(JSONparams);
         } catch (e) {
             throw e;
         }
@@ -235,7 +236,20 @@ var gkClientInterface = {
         return JSON.parse(gkClient.gGetLinkPaths());
     },
     selectFile:function(path){
-        return gkClient.gSelectPath(path);
+        var params = {
+            path:'',
+            disable_root:0
+        };
+        if(typeof path ==='string'){
+             params = {
+                path:path,
+                disable_root:0
+            };
+        }else if(typeof path ==='object'){
+            params = path;
+        }
+        var JSONparams = JSON.stringify(params);
+        return gkClient.gSelectPath(JSONparams);
     },
     setLinkPath:function(paths){
         var params = {
@@ -271,6 +285,10 @@ var gkClientInterface = {
     },
     openChildWindow:function(params){
         gkClient.gChildMain(JSON.stringify(params));
+    },
+    checkLinkPath:function(path){
+        var re = gkClient.gCheckLinkPath(path);
+       return JSON.parse(re)
     }
 };
 var gkClientAjax = {};

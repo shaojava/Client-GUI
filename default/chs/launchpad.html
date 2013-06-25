@@ -15,10 +15,10 @@
               gkClientLaunchPad.init();
         })
 
-        function gUpdateLinkPath(){
+        function gUpdateLinkPaths(){
            var iframe = $('iframe');
             if(iframe.attr('src') == 'sync.html'){
-                window.frames["cframe"].showLinkedFile();
+                window.frames["cframe"].gkClientSync.showLinkedFile();
             }
 
         }
