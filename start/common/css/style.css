@@ -14,7 +14,7 @@ h1, h2, h3, h4, h5, h6{
     font-weight:normal;
 }
 body,button, input, select, textarea{
-    font: 12px/1.5 "Lucida Grande", "Segoe UI", "Arial", "Lucida Sans Unicode", "宋体", "simsun", "sans-serif";
+    font: 12px/1.5 "hiragino sans gb","Helvetica Neue","Helvetica","Arial","Microsoft Yahei","宋体", "simsun","sans-serif";
 }
 address, cite, dfn, em, var { font-style: normal; }
 small { font-size: 12px; }
@@ -31,6 +31,11 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 button {
     padding:3px 10px;
 }
+/** base.css **/
+.default_font,
+#login .content{
+    font: 12px/1.5 "hiragino sans gb","Helvetica Neue","Helvetica","Arial","宋体", "simsun","sans-serif";
+}
 .input_text_radius,
 .input_text,
 .input_text_readonly,
@@ -45,21 +50,15 @@ button {
     line-height: 20px;
     color: #555555;
     background-color: #ffffff;
-    border: 1px solid #cccccc;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    border: 1px solid #A7B3C4;
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
     -webkit-transition: border linear 0.2s, box-shadow linear 0.2s;
-    -moz-transition: border linear 0.2s, box-shadow linear 0.2s;
-    -o-transition: border linear 0.2s, box-shadow linear 0.2s;
     transition: border linear 0.2s, box-shadow linear 0.2s;
 }
 .input_text_radius,
 .textarea_radius,
 .select_radius{
     border-radius: 3px;
-    -webkit-border-radius: 3px;
-    -moz-border-radius: 3px;
 }
 .input_text_radius:focus,
 .input_text:focus,
@@ -68,11 +67,6 @@ button {
 .select_radius:focus{
     border-color: rgba(82, 168, 236, 0.8);
     outline: 0;
-    outline: thin dotted \9;
-    /* IE6-9 */
-
-    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
-    -moz-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
     box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(82, 168, 236, 0.6);
 }
 .input_text_readonly{
@@ -80,57 +74,49 @@ button {
     border-color: #C8C8C8;
     background-color: #F1F1F1;
 }
-
 input[type="radio"]{
     height: 18px;
     line-height: 18px;
     vertical-align: middle;
+}
+input[type="password"] {
+    font-family: Verdana, Arial, Helvetica;
 }
 .select,
 .select_radius {
     height:30px;
     line-height:30px;
 }
-
 .btn {
     display: inline-block;
     padding: 4px 14px;
     margin-bottom: 0;
     font-size: 12px;
     line-height: 16px;
-    color: #646464;
+    color: #738291;
     text-align: center;
     vertical-align: middle;
     cursor: pointer;
-    background-color: #f5f5f5;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#ffffff), to(#e6e6e6));
-    background-repeat: repeat-x;
-    border: 1px solid #BFBFBF;
-    border-color: #BFBFBF;
-    border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
+    background-color: #F6F7F7;
+    border: 1px solid #C2CBD3;
     border-radius: 4px;
-    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2), 0 1px 2px rgba(0, 0, 0, 0.025);
+    box-shadow: inset 0 1px rgba(255,255,255,.25);
 }
-
 .btn:hover,
 .btn:active,
 .btn.active,
 .btn.disabled,
 .btn[disabled] {
-    color: #333333;
-    background-color: #e6e6e6;
-
+    background-color: #E9ECF0;
 }
 .btn:hover {
     color: #333333;
     text-decoration: none;
     background-color: #e6e6e6;
-
     background-position: 0 -15px;
     -webkit-transition: background-position 0.1s linear;
     transition: background-position 0.1s linear;
 }
-
 .btn.active,
 .btn:active{
     background-color: #e6e6e6;
@@ -140,7 +126,6 @@ input[type="radio"]{
 
     box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.15), 0 1px 2px rgba(0, 0, 0, 0.05);
 }
-
 .btn.disabled,
 .btn[disabled] {
     cursor: default;
@@ -150,7 +135,6 @@ input[type="radio"]{
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-
 .btn s{
     display: inline-block;
     width: 0;
@@ -163,7 +147,6 @@ input[type="radio"]{
     border-top: 4px solid #989898;
     margin: 2px 0 0 5px;
 }
-
 .btn i{
     height: 16px;
     width: 16px;
@@ -172,6 +155,13 @@ input[type="radio"]{
     background-repeat: no-repeat;
     margin-top: -2px;
 }
+.f_l{
+    float: left;
+}
+.f_r{
+    float: right;
+}
+/* components.css */
 /* 滚动条样式 */
 .scrollbar::-webkit-scrollbar {
     height:16px;
@@ -230,110 +220,86 @@ input[type="radio"]{
 .green_btn{
     color: #FFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #5bb75b;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#62c462), to(#51a351));
-    background-image: -webkit-linear-gradient(top, #62c462, #51a351);
-    background-image: linear-gradient(top, #62c462, #51a351);
-    background-repeat: repeat-x;
-    border-color: #51a351 #51a351 #387038;
+    background-color: #52AE75;
+    border-color: #489967;
+    box-shadow: inset 0 1px #5DC786;
 }
 .green_btn:hover,
-.green_btn:active{
-    background-color: #51A351;
+.green_btn:active,
+.green_btn.active{
+    background-color: #5FBE81;
     color: #FFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 .blue_btn{
     color: #FFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #0193E1;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#009FF5), to(#0281CA));
-    background-image: -webkit-linear-gradient(top, #009FF5, #0281CA);
-    background-image: linear-gradient(top, #009FF5, #0281CA);
-    background-repeat: repeat-x;
-    border-color: #78A6CD #2471AC #005BA1;
-
+    background-color: #6185BC;
+    border-color: #4C6FA5;
+    box-shadow: inset 0 1px #80A5CE;
 }
 .blue_btn:hover,
-.blue_btn:active{
-    background-color: #0281CA;
+.blue_btn:active,
+.blue_btn.active{
+    background-color: #6D92CA;
     color: #FFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
 .orange_btn{
     color: #FFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #F9A226;
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#FBAE42), to(#F6960C));
-    background-image: -webkit-linear-gradient(top, #FBAE42, #F6960C);
-    background-image: linear-gradient(top, #FBAE42, #F6960C);
-    background-repeat: repeat-x;
-    border-color: #E7B166 #CC8829 #C77705;
-
+    background-color: #F6960C;
+    border-color: #C77705;
 }
 .orange_btn:hover,
-.orange_btn:active{
-    background-color: #F6960C;
+.orange_btn:active,
+.orange_btn.active{
+    background-color: #F9A226;
     color: #FFF;
     text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
 }
-.red_btn{
-    color: #FFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-    background-color: #D54B46;   
-    background-image: -webkit-gradient(linear, 0 0, 0 100%, from(#E95854), to(#C03932));
-    background-image: -webkit-linear-gradient(top, #E95854, #C03932);
-    background-image: linear-gradient(top, #E95854, #C03932);
-    background-repeat: repeat-x;
-    border-color: #CF746F #B1403B #A2251F;
-
+.blue_btn s,
+.green_btn s,
+.orange_btn s{
+    border-top-color: #FFF;
 }
-.red_btn:hover,
-.red_btn:active{
-    background-color: #C03932;
-    color: #FFF;
-    text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
-}
-
-
-.f_l{
-    float: left;
-}
-.f_r{
-    float: right;
-}
+/* login.css */
 .dialog_bottom {
-    padding:11px 20px 10px 20px;
-    border-top:1px solid #CECECE;
-    box-shadow: inset 0px 1px 0 0 #fff;
-    overflow:hidden;
+    overflow: hidden;
     position: absolute;
     bottom: 0;
-    left:0;
+    left: 0;
     right: 0;
-    z-index: 1;
-    background: url("../images/content_bg.png") repeat 0 0;
+    z-index: 3;
+    background: #A9B6CA;
 }
-.dialog_bottom .left {
-    float:left;
+.dialog_bottom button{
+    background: none;
+    border: 0;
+    color: white;
+    width: 49%;
+    display: inline-block;
+    padding: 8px 0;
+    font-size: 14px;
+    text-align: center;
+    cursor: pointer;
 }
-.dialog_bottom .right {
-    float:right;
+.dialog_bottom button:first-child{
+    border-right: 1px solid #FFF;
 }
 .dialog_bottom i{
-    margin: 1px 3px 0 0;
-    float:left;
+    margin: -2px 4px 0 0;
+    display: inline-block;
     width:15px;
     height:15px;
+    vertical-align: middle;
+    background: url("../images/icon.png?v=1") no-repeat 0 0;
 }
 .dialog_bottom .setting_icon{
-    background: url("../images/icon.png") no-repeat 0 -50px;
-}
-.dialog_bottom .go_back_icon{
-    background: url("../images/icon.png") no-repeat 0 0;
+    background-position: 0 -30px;
 }
 .dialog_bottom .regist_icon{
-    background: url("../images/icon.png") no-repeat 0 -25px;
+    background-position: 0 -15px;
 }
 .form-horizontal .control-group {
     margin-bottom: 12px;
@@ -380,14 +346,13 @@ input[type="radio"]{
     line-height:28px;
 }
 #login {
-    background:url("../images/body_bg_blue.png") repeat 0 0;
+    background:#F0F3F8 url("../images/login_bg.png?v=1") no-repeat;
 }
 #login .container {
     width: 518px;
 }
 #login form{
     width:280px;
-    background: url("../images/content_bg.png") repeat 0 0;
 }
 #mobile_login_form img{
     margin:15px 0 15px 31px;
@@ -438,76 +403,59 @@ input[type="radio"]{
 #oauth_login_form .shedu_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat -128px 0;
 }
-#login .grid{
-    position: absolute;
-    top:0;
-    right:280px;
-    bottom: 0;
-    border-left: 1px dashed #32353B;
-    border-right: 1px solid #32353B;
-}
-#login .grid div{
-    border-left: 1px dashed #5B6A82;
-    border-right: 1px solid #656B75;
-    width: 2px;
-    height: 100%;
-}
 #login .content {
-    border-top:1px #FFF solid;
     padding:5px 0 5px 0;
+    height: 330px;
+    overflow: auto;
 }
-.login_page{
+#login_p2 .content{
+    display: none;
+}
+#oauth_login_form .content{
+    padding: 3px 0;
+    height: 334px;
+}
+.login_page,
+.login_page_wrp{
     width: 280px;
     position: absolute;
-    top:0;
-    right:0;
-    bottom:0;
-    background: url("../images/content_bg.png") repeat 0 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    box-shadow: -2px 0px 10px rgba(0, 0, 0, 0.03);
+}
+.login_page{
+    z-index: 2;
+}
+.login_page_wrp{
+    background-color: #FFF;
+    opacity: .6;
+    filter:alpha(opacity=60);
+    z-index: 1;
 }
 .login_page h1{
-    font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3";
     height: 40px;
     line-height: 40px;
     font-size:14px;
     padding:0 10px;
-    border-bottom:1px solid #cecece;
-    background:-webkit-gradient(linear,0 0,0 100%,from(#F9F9F9),to(#E7E7E7));
+    border-bottom:1px solid #FFF;
+    background:#6185BC;
     cursor:pointer;
-}
-#login_p2 .content {
-    display: none;
-    height: 350px;
-	overflow: auto;
-}
-#login_p2 h1, #login_p9 h1{
-    font-family: "ff-tisa-web-pro-1","ff-tisa-web-pro-2","Lucida Grande","Hiragino Sans GB","Hiragino Sans GB W3";
-    height: 29px;
-    line-height: 29px;
-    font-size:14px;
-    padding:0 10px;
-    border-bottom:1px solid #cecece;
-    background:-webkit-gradient(linear,0 0,0 100%,from(#F9F9F9),to(#E7E7E7));
-}
-#login_p2 h1:hover{
-    background:-webkit-gradient(linear,0 0,0 100%,from(#FEFEFE),to(#F0F0F0));
-    cursor:pointer;
-}
-#login_p2 h1:active{
-    background:-webkit-gradient(linear,0 0,0 100%,from(#F0F0F0),to(#FEFEFE));
-    box-shadow: inset 0 5px 5px #DDD;
+    color: #FFF;
 }
 .login_page h1 i{
-    float:left;
-    margin:8px 6px 0 0;
+    display: inline-block;
+    vertical-align: middle;
+    margin: -2px 6px 0 0;
     width:16px;
     height:16px;
-    background: url("../images/arrow_unfold.png") no-repeat 0 0;
+    background: url("../images/arrow_unfold.png?v=1") no-repeat 0 0;
 }
-.login_page h1 i.fold{
-    float:left;
-    width:16px;
-    height:16px;
-    background: url("../images/arrow_fold.png") no-repeat 0 0;
+.login_page h1.fold{
+    background-color: #A9B6CA;
+}
+.login_page h1.fold i{
+    background: url("../images/arrow_fold.png?v=1") no-repeat 0 0;
 }
 .from_raw {
     margin: 10px auto;
@@ -515,43 +463,41 @@ input[type="radio"]{
     cursor: default;
     width: 240px;
 }
-.from_raw.selected{
-    background:#DFDFDF;
-    box-shadow:  inset 0 1px 0 0 #A1A1A1,0 1px 0 0 #fff;
-
+dl.from_raw{
+    padding: 8px;
+    font-size: 14px;
+    color: #5E656D;
+    border: 1px solid transparent;
+}
+dl.from_raw.selected{
+    background: #F4F4F4;
+    box-shadow: inset 0 2px 5px -2px rgba(0, 0, 0, 0.25);
     border-radius: 4px;
+    border-color: #D4D6D5;
 }
 .from_raw label {
-
+    color: #ACB4BF;
+    font-size: 14px;
+    display: block;
+    margin-bottom: 5px;
 }
-
 .from_raw dd{
-    margin-left: 23px;
+    margin:3px 0 0 23px;
     color:#666;
-}
-#login_p2 .control-label {
-    font-size:16px;
-}
-#login_p2 .controls {
-    padding-top:3px;
 }
 .login_page input[type="text"],
 .login_page input[type="password"]{
     width:226px;
     line-height:24px;
+    height: 24px;
     font-size:15px;
     border-radius: 4px;
 }
 #btn_findpassword {
-    color:#06a;
-    margin-left: 22px;
+    color: #7F8999;
     cursor:pointer;
-    width:55px;
 }
 #btn_findpassword:hover {
-    color:#06a;
-    margin-left: 22px;
-    cursor:pointer;
     text-decoration: underline;
 }
 .login_page{
@@ -792,11 +738,10 @@ input[type="radio"]{
 .regist_btn{
     width: 240px;
     font-size: 15px;
-    padding-top: 8px;
-    padding-bottom: 8px;
+    padding: 10px 0;
     display: block;
     margin: 0 auto;
-    font-weight: 700;
+    font-weight: 600;
 }
 .login_btn .spinner{
     left:50%;
@@ -809,7 +754,7 @@ input[type="radio"]{
 
 /*选择同步目录*/
 #select_sync_dir #gk_sync_dir{
-    width: 100%;
+    width: 95%;
     border-radius: 0;
     margin-top: 6px;
 

@@ -79,7 +79,6 @@ var gkClientLogin = {
             };
             var spinner = new Spinner(loadingIcon).spin(loginBtn);
             loginBtn.append(spinner.el);
-            loginBtn.attr('disabled', 'disabled');
             gkClientInterface.login(param);
             return false;
         });
@@ -104,13 +103,19 @@ var gkClientLogin = {
 
         //注册帐号
         $('.go2regist').on('click', function() {
-            gkClientLogin.setHash('login_p9');
+            var param = {
+                url: gkClientInterface.getSiteDomain() + '/regist',
+                sso: 0
+            };
+            gkClientInterface.openURL(param);
+            //gkClientLogin.setHash('login_p9');
+            return false;
         });
 
         //找回密码
         $('#btn_findpassword').on('click', function() {
             var param = {
-                url: 'www.gokuai.com/findpassword',
+                url: gkClientInterface.getSiteDomain() + '/findpassword',
                 sso: 0
             };
             gkClientInterface.openURL(param);
@@ -141,11 +146,6 @@ var gkClientLogin = {
         //注册
         $('.login_page #regist_form').on('submit', function() {
             var email = $.trim($(this).find('input[name="email"]').val());
-            var password = $.trim($(this).find('input[name="password"]').val());
-            var repassword = $.trim($(this).find('input[name="repassword"]').val());
-            var agreement = $(this).find('input[name="agreement"]:checked').size();
-            var verify_code_input = $(this).find('input[name="verify_code"]');
-            var verify_code = verify_code_input.size() ? $.trim(verify_code_input.val()) : '';
             if (!email.length) {
                 alert('请输入您的邮箱地址');
                 return false;
@@ -154,49 +154,32 @@ var gkClientLogin = {
                 alert('请输入正确格式的邮箱地址');
                 return false;
             }
-            if (!password.length) {
-                alert('请输入您的密码');
-                return false;
-            }
-            if (password.length < 6) {
-                alert('密码长度不能少于6个字符');
-                return false;
-            }
-            if (!repassword.length) {
-                alert('请确认您的密码');
-                return false;
-            }
-            if (password !== repassword) {
-                alert('两次输入的密码不一致');
-                return false;
-            }
-            if (verify_code_input.size() && verify_code_input.is(':visible')) {
-                if (!verify_code.length) {
-                    alert('请输入验证码');
-                    return false;
+            var flag = {};
+            $.gkAjax({
+                url: gkClientInterface.getSiteDomain() + '/account/regist_email_check',
+                data: {
+                    email: email
+                },
+                async: false,
+                callSuccess: function(data) {
+                    flag = data;
                 }
+            });
+            if (flag.state) {
+                alert('该邮箱已经被注册过');
+                return false;
             }
             var registBtn = $('#regist_form button[type="submit"]');
             var spinner = new Spinner(loadingIcon).spin(registBtn);
             registBtn.append(spinner.el);
-            registBtn.attr('disabled', 'disabled');
             $.ajax({
-                url: gkClientInterface.getSiteDomain() + '/regist/member',
+                url: gkClientInterface.getSiteDomain() + '/regist/regist_by_email',
                 data: {
-                    email: email,
-                    password: password,
-                    repassword: repassword,
-                    user_license_chk: agreement,
-                    verify_code: verify_code
+                    email: email
                 },
                 dataType: 'json',
-                type: 'POST',
                 success: function() {
-                    var param = {
-                        username: email,
-                        password: MD5(password)
-                    };
-                    gkClientInterface.login(param);
+                    alert('已经向您的邮箱发送激活邮件，请前往查收');
                     registBtn.find('.spinner').remove();
                     registBtn.removeAttr('disabled');
                 },
@@ -458,42 +441,17 @@ var gkClientLogin = {
     },
     //绑定UI事件
     bindUI: function() {
-        var banner = $('.slide_banner');
-        if (!banner.size()) {
-            return;
-        }
-
-        //幻灯片实例化
-        banner.xslider({
-            timeout: 5000,
-            effect: 'fade',
-            speed: 500,
-            navigation: true,
-            pauseOnHover: true
-        });
-
         //slide效果
-        var flag = false;
         var slide = function(scope) {
-            $('h1', scope).on('click', function() {
-                if (!$('i', $(this)).hasClass('fold')) {
+            $('h1', scope).on('click', function(){
+                if (!$(this).hasClass('fold')) {
                     return;
                 }
                 $(this).parent().siblings().find('.content').slideUp('fast', function() {
-                    $('i', $(this).prev()).addClass('fold');
-                    if ($(this).hasClass('qr_login') && flag) {
-                        banner.xslider('stop');
-                        banner.xslider('play');
-                        flag = false;
-                    }
+                    $(this).prev().addClass('fold');
                 });
                 $(this).next('.content').slideDown('fast', function() {
-                    $('i', $(this).prev()).removeClass('fold');
-                    if ($(this).hasClass('qr_login')) {
-                        banner.xslider('goto', 3);
-                        banner.xslider('stop');
-                        flag = true;
-                    }
+                    $(this).prev().removeClass('fold');
                 });
             });
         };
