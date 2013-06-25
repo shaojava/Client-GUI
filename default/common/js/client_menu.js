@@ -5,41 +5,125 @@ function bind_logo_click(){
      //首页logo点击
      $(".logo_wrapper").click(function(){
          gkClientInterface.launchpad();
-     });
+     })
      //独占修改
-     $(".compary_finance i").click(function(){
-         var params = {
-                url: '/client/file_edit?ac=lock&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
+     $(".dzupdate").live("click",function(){
+      gkClientMenu.menuList[3].click(PAGE_CONFIG.path);  
+     }); 
+    $(".nodzupdate").live("click",function(){
+        gkClientMenu.menuList[5].click(PAGE_CONFIG.path);  
+        
+    });
+   
+    //滑动链接
+    $(".preview_links").find(".ss").click(function(){
+        if($(".position_links").children().length > 0){
+          $(".position_links").slideDown();
+        }
+
+    })
+    $(".position_links").live("click",function(e){
+       // var d = e.target;
+         var children = $(this).children();
+         var preview_links_mes = $(".preview_links_mes"); 
+         preview_links_mes.find("h2").html(children.find("h2").html());//.siblings("div").html(children.find("h2").siblings("duv").html()+"ad");
+         preview_links_mes.find("h2").siblings("div").html(children.find("h2").siblings("div").html());
+         $(this).slideUp();
+    })
+    
+    $(".links_permission li").click(function(e){
+      //在浏览器打开
+        if($(this).find("div").html() === "在浏览器打开"){
+            link_ajax_load_data("http://gkdev.gokuai.com/api/link_publish","token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+$(".preview_links_mes h2").data("auth")+"",function(link){
+                var params = {
+                url: link.link,
+                sso: 1
+            };
+             gkClientInterface.openURL(params);
+            })
+        }
+        else if($(this).find("div").html() === "复制到剪贴板"){
+          //gkClientInterface.setClipboardData   
+           link_ajax_load_data("http://gkdev.gokuai.com/api/link_publish","token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+$(".preview_links_mes h2").data("auth")+"",function(link){
+             if(confirm("确定要复制到剪切板")){
+                  gkClientInterface.setClipboardData(link.link); 
+             }
+           
+            })
+        }
+        else if($(this).find("div").html() === "分享到腾讯微博"){
+            var params = {
+                url:"http://v.t.qq.com/share/share.php?title='fsdfsd'&url='"+window.location.href+"'&appkey='801277274'&site=''",
+                sso:1         
+            }
+          gkClientInterface.openURL(params);
+        }
+        else if($(this).find("div").html() === "分享到新浪微博"){
+             var params = {
+                url:"http://v.t.sina.com.cn/share/share.php?title='fsdfsdfd'&url='"+window.location.href+"'&content=utf-8&sourceUrl='"+window.location.href+"'&pic=''",
+                sso:1         
+            }
+          gkClientInterface.openURL(params);
+            
+        }
+        else if($(this).find("div").html() === "用邮件发送"){
+     
+            var user = gkClientInterface.getUserInfo();
+            var userEmail = user.email;
+             link_ajax_load_data("http://gkdev.gokuai.com/api/link_publish","token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+$(".preview_links_mes h2").data("auth")+"",function(link){
+             var body = link.link;
+             var a = document.createElement("a");
+             a.href = "http://www.baidu.com";
+             a.click();
+           
+            })
+            
+       }
+        e.stopPropagation();
+    })
+   
+    
+    $(".share_mes_info").live("mouseover",function(){
+         $(".talk").show();  
+    }).live("mouseout",function(){
+         $(".talk").hide();  
+    })
+ 
+    
+    //@讨论
+   $(".share_mes_info").live("click",function(e){
+       if(e.target.className === "talk"){
+              if (!PAGE_CONFIG.path.length) {
+                return;
+            }
+            var params = {
+                url: '/client/file_remark?username='+$(this).find("h3").text()+'&ac=remark&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
                 sso: 1,
                 resize: 0,
-                width: 490,
-                height: 175
-            };
-            gkClientInterface.openSingleWindow(params);
-     }); 
+                width: 660,
+                height: 150
+        };
+         gkClientInterface.openSingleWindow(params);
+       }
+       e.stopPropagation();
+   })
+
     //创建高级链接
-   $(".links_span").click(function(){
+   $(".linkss_span").click(function(){
       create_gj_links();  
     })
    //默认共享状态
-   $("<span style='color:#999;margin-left:5px'>未与任何人共享</span>").appendTo($(".share_info_parent"));
+   $("<span style='color:#999;margin-left:5px;display:block;text-align:center'>未与任何人共享</span>").appendTo($(".share_info_parent"));
    //获取链接
    $(".get_links").on("click",function(){
-   
-      link_ajax_load_data("token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"",PAGE_CONFIG.path,$(".select_radius").get(0).options[$(".select_radius").get(0).selectedIndex].value,function(link){
+  
+      link_ajax_load_data("http://gkdev.gokuai.com/api/link_publish","token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+$(".select_radius").get(0).options[$(".select_radius").get(0).selectedIndex].value+"",function(link){
           var params = {
-                url: link,
-                sso: 1,
-                resize: 0,
-                width: 490,
-                height: 175
+                url: link.link,
+                sso: 1
             };
           gkClientInterface.openURL(params);
-      });
-      
-    
- 
-       
+      });   
    })
 
 }
@@ -85,17 +169,17 @@ var gkClientMenu = {
         var _dottedReg = /\d+\.(\d{3})?/;
         var user = gkClientInterface.getUserInfo();
         user.size = user.size||0;
-        var totalUserSize = _dottedReg.exec(parseInt(user.size)/1024/1024);
-       var size = 0;
-        if(totalUserSize){
-             size = +totalUserSize[0];
-        }
-        var capacity = parseInt(user.capacity)/(1024*1024);
+        Util.Number.bitSize(user.size);
+        var totalUserSize = Util.Number.bitSize(user.size);
+        var capacity = Util.Number.bitSize(user.capacity);
         var username = user.username || user.org_username;
         var userimage = user.photourl;
-        
+        $(".compary_finance").empty();
         if(identify == "init"){
-            $("#compary_list_storage").tmpl({width:(size/capacity * 100)+"%",capacity:capacity,size:size,username:username,userimage:userimage}).appendTo($(".compary_finance"));
+          //刚开始的团队和个人
+          
+          $("#person_message").tmpl({username:user.username,photourl:user.photourl,size:totalUserSize,capacity:capacity}).appendTo($(".compary_finance"));
+//$("#compary_list_storage").tmpl({width:(totalUserSize/capacity * 100)+"%",capacity:capacity,size:totalUserSize,username:username,userimage:userimage}).appendTo($(".compary_finance"));
         }else{
             $("#compary_list").tmpl({photoUrl:user.photourl}).appendTo($(".compary_finance"));
         }
@@ -326,6 +410,7 @@ gkClientMenu.menuList = [
         name: '独占修改',
         tip: '独占文件的修改权',
         click: function(path) {
+     
             if (!path.length) {
                 return;
             }
@@ -421,6 +506,17 @@ gkClientMenu.menuList = [
 ];
 /*2013新版修改文件*/
 function change_file_info($ele,path){
+     //如果是文件
+     if(path.charAt(path.length - 1)!=="/"){
+          path = path.substr(path.lastIndexOf("/")+1); 
+     }else{
+          //先获取到最后一个位置
+          var lastP = path.lastIndexOf("/");
+          path = path.substring(0,lastP);
+          path = path.substr(path.lastIndexOf("/")+1);
+         
+     }
+    //path = path.replace(/\//,"");
      $ele.text(path);
      //增加收藏按钮
 }
@@ -456,12 +552,51 @@ function gShellSelect(re) {
         share_ajax_load_data("token="+gkClient.gGetToken()+"&fullpath="+path+"&type=share",function(){
           check_is_dl(_dl_i,_open_state);
         });
-        if(path.indexOf("/") > 0 ){
-             $($(".select_radius").get(0).options[3]).remove();
-              $(".select_radius").append('<option value="0100" data-type="unknownUpload" data-tip="允许链接访问者上传/更新文件，但无法查看文件夹内的文件">匿名上传链接</option>');  
-        }else{
-             $($(".select_radius").get(0).options[3]).remove();
-        }
+        link_ajax_load_data("http://gkdev.gokuai.com/api/check_publish_closed","token="+gkClient.gGetToken()+"&fullpath="+path+"",function(data){
+              if(data.isclosed === 0){
+                   $(".position_links").children().remove();
+                   $.each(data.link_type,function(k,v){
+                   
+                       if(v.name === "下载链接"){
+                            v["link_type_mes"] = "允许链接访问者预览、下载";
+                            v["link_type_style"] = "download_links_mes";
+                            v["link_img_type"] = "download_links_img";
+                            v["link_type"] = "download_links";
+                            
+                       }
+                       else if(v.name === "预览链接"){
+                           v["link_type_mes"] = "允许链接访问者预览";
+                           v["link_type_style"] = "preview_links_mes";
+                           v["link_img_type"] = "preview_links_img";
+                           v["link_type"] = "preview_links";
+                       }
+                       else if(v.name === "协作链接"){
+                           v["link_type_mes"] = "访问者可以预览、下载、上传";
+                           v["link_type_style"] = "cooperate_links_mes";
+                           v["link_img_type"] = "cooperate_links_img";
+                           v["link_type"] = "cooperate_links";
+                       }
+                    
+                   })
+
+                 $(".preview_links_mes").find("h2").attr("data-auth",data.link_type[0].value).html(data.link_type[0].name).siblings("div").text(data.link_type[0].link_type_mes);
+                 var Class = $(".preview_links_mes").siblings(".preview_links_img").attr("class").replace(/preview_links_img/,data.link_type[0].link_img_type);
+                 $(".preview_links_mes").siblings(".preview_links_img").attr("class",Class);
+                 if(data.length > 1){
+                    if($(".preview_links_mes").get(0)){
+                         alert("is");
+                    }else{
+                         alert("no");
+                    }
+                  $(".preview_links_mes").siblings("p").show();
+                       $(".position_links").append($("#links").tmpl({data:data.link_type}));
+                 }else{
+                  $(".preview_links_mes").siblings("p").hide();
+                 }
+                  
+              }
+        })
+     
     }
   
     if(!$(".file_info").get(0)){
