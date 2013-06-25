@@ -35,7 +35,7 @@
           
                  }else if(openState < 1){
           //取消独占修改
-                   ele.text("取消修改").show().removeClass("dzupdate").addClass("nodzupdate"); 
+                   ele.text("取消独占").show().removeClass("dzupdate").addClass("nodzupdate"); 
                   }
             
          }
@@ -47,8 +47,10 @@
             ajax({
                 data:dataJson,
                   success:function(data){
+        
+                     
                       tag_clear(1);
-                    if(!data["dateline"]){
+                    if(!data["share_members"].length){
                         $("<span style='color:#999;margin-left:5px;display:block;text-align:center'>未与任何人共享</span>").appendTo(affiliatedperson_dl);
                        $(".compary_finance i").hide();
                         return;
@@ -57,9 +59,7 @@
                        v["auth"] = v["auth"] == 0 ? "查看者":v["auth"] == 1 ? "编辑者" : "拥有者";  
                     })
                     callback();
-                    $("#affiliatedperson").tmpl({"d":data["share_members"]}).appendTo(affiliatedperson_dl);
-                                                  
-                                         
+                    $("#affiliatedperson").tmpl({"d":data["share_members"]}).appendTo(affiliatedperson_dl);                                
                                                           }
                                                        });
                         
@@ -69,69 +69,130 @@
          * **/ 
         
          function update_ajax_load_data(dataJson){
-             
               ajax({data:dataJson,
+                   
                                  success:function(data){
-                                       tag_clear(2);
-                                       if(data == null){
+                                   
+                                     tag_clear(2);
+                                       if(data["history"] == null){
                                            $("<span style='color:#999;margin-left:5px;text-align:center;display:block'>该文件或者文件夹最近没有更新</span>").appendTo($(".share_info_update"));
                                        }
-                                       var v = null;
-                                     
-                                       for(var i = 0,l = data.length - 1;i<l;i++){         
-                                          v = data[i];
-                                         var nextHour = getLocalTime(data[i+1]["dateline"]).match(/(\d{1,2}):(\d{1,2})/)[0].split(":")[0];
                                        
-                                         var _tmp_dateline = getLocalTime(v["dateline"]).match(/(\d{1,2}):(\d{1,2})/);
-                                         
-                                          v["dateline"] = _tmp_dateline[0].split(":")[0];   
-                                          
+                                       var v = null;
+                          
+                                       for(var i = 0,l = data["history"].length - 1;i<l;i++){
+                                          v = data["history"][i];
                                      
-                                          v["date"] = v["date"].replace(/-/g,".");
-                                         var nextDate = data[i+1]["date_txt"];
-                                         //让他不显示
-                                         if(nextHour == v["dateline"] && v["date_txt"] == data[i+1]["date_txt"]){
-                                              data[i+1]["status"] = true;//true为不显示
-                                         }
-                                         else{
-                                             v[i]["status"] = false;
-                                              v["hour"] = v["dateline"]+"点";
-                                              if(parseInt(v["hour"]) >= 8 && parseInt(v["hour"]) <= 17){
-                                                   v["issxw"] = "白天";
-                                              } else{
-                                                    v["issxw"] = "晚上";
+                                         //  alert(getLocalTime(data["history"][i+1]["dateline"]));
+                                         var nextHour = getLocalTime(data["history"][i+1]["dateline"]).match(/(\d+):(\d+)/)[0].split(":")[0];
+                                      var _tmp_dateline =  getLocalTime(v["dateline"]).match(/(\d+):(\d+)/); 
+                                 
+                                         v["dateline"] = _tmp_dateline[0].split(":")[0]; 
+                                      
+                                         v["minutes"] = v["minutes"];
+                                         var nextDate = data["history"][i+1]["date_txt"];
+                                         if(v["date_txt"] != nextDate){
+                                              data["history"][i+1]["status"] = true;//为true的时候不一样
+                                             
+                                              //显示小时
+                                              v["hour"] = v["dateline"] + "点";
+                                            
+                                              if(+v["dateline"] > 12){
+                                                 
+                                                  v["hdeg"] = ((+v["dateline"]) - 12) * 30;
+                                              }else{
+                                                  v["hdeg"] = (+v["dateline"]) * 30;
                                               }
+                                              v["mdeg"] = +v["minutes"] * 6;
+                                              if(+v["dateline"] >= 8 && +v["dateline"] <= 17){
+                                                   v["issxw"] = "白天";
+                                                   v["sxwicon"] = "sun";
+                                                   
+                                              }else{
+                                                   v["issxw"] = "晚上";
+                                                   v["sxwicon"] = "moon";
+                                              }
+                                             
                                          }
-                                         
-                                           
+                                         if(v["date_txt"] == nextDate){
                                             
-                                                
-        
-                                     
-                                           
+                                              if(v["dateline"] == nextHour){
+                                                  
+                                                    data["history"][i+1]["status"] = false;
+                                              }else{
+                                                    
+                                                    data["history"][i+1]["status"] = true;
+                                              }
+                                             if(typeof v["status"] === "undefined"){
+                                                 v["status"] = true;
+                                             }
+                                              
+                                              v["hour"] = v["dateline"] + "点";
+                                             
+                                               if(+v["dateline"] > 12){
+                                                  v["hdeg"] = ((+v["dateline"]) - 12) * 30;
+                                                  
+                                              }else{
+                                                  v["hdeg"] = (+v["dateline"]) * 30;
+                                              }
+                                             
+                                              v["mdeg"] = +v["minutes"] * 6;
+                                              if(+v["dateline"] >= 8 && +v["dateline"] <= 17){
+                                                   v["issxw"] = "白天";
+                                                   v["sxwicon"] = "sun";
+                                              }else{
+                                                   v["issxw"] = "晚上";
+                                                   v["sxwicon"] = "moon";
+                                              }
                                             
-                                           
-                                          
-                              
+                                         }                          
    
                                        }
+                                    
+                                     // alert(data["history"][data.length - 1].constructor);
                                       
-                                       /*data[data.length - 1]["date_txt"]["identify"] = true;
-                                         data[data.length - 1]["hour"] = data[data.length - 1]["dateline"].split(":")[0];
-                                                 if(parseInt(data[data.length - 1]["hour"]) <= 17 && parseInt(data[data.length - 1]["hour"]) >= 8){
-                                                    data[data.length - 1]["issxw"] = "上午";
-                                                  }else{
-                                                    data[data.length - 1]["isswx"] = "晚上";
-                                                  }*/
+     
+                                      
+                                        data["history"][data["history"].length - 1]["date"] = data["history"][data["history"].length - 1]["date"].replace(/[^\d+]/g,".");
+                                        if(data["history"][data["history"].length - 1]["status"] === true){
+                                               var _tmp_dateline = getLocalTime(data["history"][data["history"].length - 1]["dateline"]);
+                                         
+                                          data["history"][data["history"].length - 1]["dateline"] = _tmp_dateline; 
+                                              data["history"][data["history"].length - 1]["hour"] = data["history"][data["history"].length - 1]["dateline"] + "点";
+              
+                                               if(+data["history"][data["history"].length - 1]["hour"] > 12){
+                                                  data["history"][data["history"].length - 1]["hdeg"] = ((+data["history"][data["history"].length - 1]["dateline"]) - 12) * 30;
+                                                  
+                                              }else{
+                                                  data["history"][data["history"].length - 1]["hdeg"] = (+data["history"][data["history"].length - 1]["dateline"]) * 30;
+                                              }
+                                             
+                                              data["history"][data["history"].length - 1]["mdeg"] = +data["history"][data["history"].length - 1]["minutes"] * 6;
+                                              if(+data["history"][data["history"].length - 1]["dateline"] >= 8 && +data["history"][data["history"].length - 1]["dateline"] <= 17){
+                                                   data["history"][data["history"].length - 1]["issxw"] = "白天";
+                                                   data["history"][data["history"].length - 1]["sxwicon"] = "sun";
+                                              }else{
+                                                   data["history"][data["history"].length - 1]["issxw"] = "晚上";
+                                                   data["history"][data["history"].length - 1]["sxwicon"] = "moon";
+                                              }
+                                            
+                                          } 
    
-                                   $("#updates").tmpl({"d":data}).appendTo($(".share_info_update"));
+                                   $("#updates").tmpl({"d":data["history"]}).appendTo($(".share_info_update"));
                                  },
                                          error:function(){
                                           
                                          }
                             });
         }
-    
+       
+       /**
+         * 生成带刻度的时钟
+         * **/
+        
+        function create_time_clock(hour,minutes){
+            
+        }
         
          /**
          * ajax请求链接数据
@@ -217,7 +278,7 @@
          * **/ 
           function slideBottom(){ 
               //alert($(".compary_finance").get(0).offsetHeight + $(".header").get(0).offsetHeight);
-              $(".share_info").height($(window).height() - 222); 
+              $(".share_info").height($(window).height() - 294); 
           }
            /**
          * 页面一系列的ajax操作
@@ -226,7 +287,7 @@
              var _defaults = {
                   "url":"http://gkdev.gokuai.com/api/client_sidebar",
                    "dataType":"json",
-                   "type":"POST",
+                   "type":"GET",
                    "success":function(data){}      
              };
              options = $.extend({},_defaults,options);

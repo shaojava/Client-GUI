@@ -14,8 +14,102 @@ function bind_logo_click(){
         gkClientMenu.menuList[5].click(PAGE_CONFIG.path);  
         
     });
+   
+    //滑动链接
+    $(".preview_links").find(".ss").click(function(){
+        if($(".position_links").children().length > 0){
+          $(".position_links").slideDown();
+        }
+
+    })
+    $(".position_links").live("click",function(e){
+       // var d = e.target;
+         var children = $(this).children();
+         var preview_links_mes = $(".preview_links_mes"); 
+         preview_links_mes.find("h2").html(children.find("h2").html());//.siblings("div").html(children.find("h2").siblings("duv").html()+"ad");
+         preview_links_mes.find("h2").siblings("div").html(children.find("h2").siblings("div").html());
+         $(this).slideUp();
+    })
+    
+    $(".links_permission li").click(function(e){
+      //在浏览器打开
+        if($(this).find("div").html() === "在浏览器打开"){
+            link_ajax_load_data("http://gkdev.gokuai.com/api/link_publish","token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+$(".preview_links_mes h2").data("auth")+"",function(link){
+                var params = {
+                url: link.link,
+                sso: 1
+            };
+             gkClientInterface.openURL(params);
+            })
+        }
+        else if($(this).find("div").html() === "复制到剪贴板"){
+          //gkClientInterface.setClipboardData   
+           link_ajax_load_data("http://gkdev.gokuai.com/api/link_publish","token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+$(".preview_links_mes h2").data("auth")+"",function(link){
+             if(confirm("确定要复制到剪切板")){
+                  gkClientInterface.setClipboardData(link.link); 
+             }
+           
+            })
+        }
+        else if($(this).find("div").html() === "分享到腾讯微博"){
+            var params = {
+                url:"http://v.t.qq.com/share/share.php?title='fsdfsd'&url='"+window.location.href+"'&appkey='801277274'&site=''",
+                sso:1         
+            }
+          gkClientInterface.openURL(params);
+        }
+        else if($(this).find("div").html() === "分享到新浪微博"){
+             var params = {
+                url:"http://v.t.sina.com.cn/share/share.php?title='fsdfsdfd'&url='"+window.location.href+"'&content=utf-8&sourceUrl='"+window.location.href+"'&pic=''",
+                sso:1         
+            }
+          gkClientInterface.openURL(params);
+            
+        }
+        else if($(this).find("div").html() === "用邮件发送"){
+     
+            var user = gkClientInterface.getUserInfo();
+            var userEmail = user.email;
+             link_ajax_load_data("http://gkdev.gokuai.com/api/link_publish","token="+gkClient.gGetToken()+"&fullpath="+PAGE_CONFIG.path+"&auth="+$(".preview_links_mes h2").data("auth")+"",function(link){
+             var body = link.link;
+             var a = document.createElement("a");
+             a.href = "http://www.baidu.com";
+             a.click();
+           
+            })
+            
+       }
+        e.stopPropagation();
+    })
+   
+    
+    $(".share_mes_info").live("mouseover",function(){
+         $(".talk").show();  
+    }).live("mouseout",function(){
+         $(".talk").hide();  
+    })
+ 
+    
+    //@讨论
+   $(".share_mes_info").live("click",function(e){
+       if(e.target.className === "talk"){
+              if (!PAGE_CONFIG.path.length) {
+                return;
+            }
+            var params = {
+                url: '/client/file_remark?username='+$(this).find("h3").text()+'&ac=remark&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
+                sso: 1,
+                resize: 0,
+                width: 660,
+                height: 150
+        };
+         gkClientInterface.openSingleWindow(params);
+       }
+       e.stopPropagation();
+   })
+
     //创建高级链接
-   $(".links_span").click(function(){
+   $(".linkss_span").click(function(){
       create_gj_links();  
     })
    //默认共享状态
@@ -80,10 +174,11 @@ var gkClientMenu = {
         var capacity = Util.Number.bitSize(user.capacity);
         var username = user.username || user.org_username;
         var userimage = user.photourl;
-        
+        $(".compary_finance").empty();
         if(identify == "init"){
           //刚开始的团队和个人
-           $("#person_message").tmpl({username:user.username,photourl:user.photourl,size:totalUserSize,capacity:capacity}).appendTo($(".compary_finance"));
+          
+          $("#person_message").tmpl({username:user.username,photourl:user.photourl,size:totalUserSize,capacity:capacity}).appendTo($(".compary_finance"));
 //$("#compary_list_storage").tmpl({width:(totalUserSize/capacity * 100)+"%",capacity:capacity,size:totalUserSize,username:username,userimage:userimage}).appendTo($(".compary_finance"));
         }else{
             $("#compary_list").tmpl({photoUrl:user.photourl}).appendTo($(".compary_finance"));
@@ -459,13 +554,46 @@ function gShellSelect(re) {
         });
         link_ajax_load_data("http://gkdev.gokuai.com/api/check_publish_closed","token="+gkClient.gGetToken()+"&fullpath="+path+"",function(data){
               if(data.isclosed === 0){
-                   //表示可以创建链接
+                   $(".position_links").children().remove();
+                   $.each(data.link_type,function(k,v){
+                   
+                       if(v.name === "下载链接"){
+                            v["link_type_mes"] = "允许链接访问者预览、下载";
+                            v["link_type_style"] = "download_links_mes";
+                            v["link_img_type"] = "download_links_img";
+                            v["link_type"] = "download_links";
+                            
+                       }
+                       else if(v.name === "预览链接"){
+                           v["link_type_mes"] = "允许链接访问者预览";
+                           v["link_type_style"] = "preview_links_mes";
+                           v["link_img_type"] = "preview_links_img";
+                           v["link_type"] = "preview_links";
+                       }
+                       else if(v.name === "协作链接"){
+                           v["link_type_mes"] = "访问者可以预览、下载、上传";
+                           v["link_type_style"] = "cooperate_links_mes";
+                           v["link_img_type"] = "cooperate_links_img";
+                           v["link_type"] = "cooperate_links";
+                       }
+                    
+                   })
+
+                 $(".preview_links_mes").find("h2").attr("data-auth",data.link_type[0].value).html(data.link_type[0].name).siblings("div").text(data.link_type[0].link_type_mes);
+                 var Class = $(".preview_links_mes").siblings(".preview_links_img").attr("class").replace(/preview_links_img/,data.link_type[0].link_img_type);
+                 $(".preview_links_mes").siblings(".preview_links_img").attr("class",Class);
+                 if(data.length > 1){
+                    if($(".preview_links_mes").get(0)){
+                         alert("is");
+                    }else{
+                         alert("no");
+                    }
+                  $(".preview_links_mes").siblings("p").show();
+                       $(".position_links").append($("#links").tmpl({data:data.link_type}));
+                 }else{
+                  $(".preview_links_mes").siblings("p").hide();
+                 }
                   
-                   $($(".select_radius").get(0)).empty();
-                   for(var i = 0,len=data["link_type"].length;i<len;i++){
-                       $(".select_radius").append('<option value="'+data["link_type"][i].value+'">'+data["link_type"][i].name+'</option>');
-                   }
-                
               }
         })
      

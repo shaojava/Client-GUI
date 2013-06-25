@@ -69,46 +69,69 @@
             <div class="header"></div>
             <div class="compary_finance"></div>
             <div class="toolbar">
-                <script type="text/x-jquery-tmpl" id="affiliatedperson">
+                                <!--共享-->
+                                     <script type="text/x-jquery-tmpl" id="affiliatedperson">
+                                        <dl>
                                        {{each(k,v) d}}
-                                           <a href="#" class="dl_gx" title="${v.auth}">${v.username}</a>
+                                        <dt class="share_mes_info clearfix">
+                                           <div class="share_mes_img f_l"><img src="${v.photourl}" width="32" height="32" /></div>
+                                           <div>
+                                             <h3>${v.username}</h3>
+                                             <span>${v.auth}</span>
+                                           </div>
+                                          <i class="talk" onclick="c()"></i>
+                                       </dt>
                                        {{/each}}
+                                       </dl>
                                     </script>
                                 <!--动态更新-->
                                 <script type="text/x-jquery-tmpl" id="updates">
                                                 {{each(k,v) d}}
                                            <div class="affiliatedperson affiliatedperson_1 affiliatedperson_update ">
                                                   <div> 
-                                               {{if v.identify != false || v.hour != false}}
+                                               {{if v.status === true}}
                                                   <h3 class="clearfix">
-                                                  <span>-----</span>
+                                                  <span class="heng_1"></span>
                                                     <div style="display:inline-block">
-                                                    
-                                                           <span class="f_l" style="margin-left:10px"><b>${v.date_txt}</b></span>
-                                                   
-                                                                 <span>${v.issxw}</span>
-                                                                 <span>${v.hour}</span>
-                                            
-                                                  
+                                                           <div class="${v.sxwicon} f_l"></div>
+                                                           <span class="f_l" style="margin-left:5px">${v.date}</span>
+                                                           <span>${v.issxw}</span><span>${v.hour}</span>
                                                     </div>
-                                             <span>-----</span>
+                                             <span class="heng_2"></span>
                                                   </h3>
                                                {{/if}}
                                     <div class="date_time_file clearfix">
                                         
-                                                <div class="f_l">${v.dateline}</div>
-                                                <div class="f_l">${v.member_name}{{html v.render_text}}</div>
+                                                <div class="clock f_l">
+                                                 <div class="hour" style="-webkit-transform:rotate(${v.hdeg}deg)"></div>
+                                                 <div class="minutes" style="-webkit-transform:rotate(${v.mdeg}deg)"></div>
+                                                </div>
+                                                <div class="f_l mes">${v.member_name}{{html v.render_text}}</div>
      
                                     </div>
                                     </div>    
                             </div>
                                    {{/each}}    
                                  </script>
+                                 <!--链接-->
+                                 <script type="text/x-jquery-tmpl" id="links">
+                                     {{each(k,v) data}}
+                                       <div class='${v.link_type}'>
+                                            <div class="ss">
+                                               <div class='links_img ${v.link_img_type} f_l'></div>
+                                               <div class="${v.link_type_style}">
+                                                   <h2 data-auth="${v.value}">${v.name}</h2>
+                                                   <div>${v.link_type_mes}</div>
+                                               </div>
+                                            </div>
+                                     </div>
+                                     {{/each}}
+                                 </script>
                 <ul class="main_nav">
-                    <li class="main_nav_li" style="display:none">
+                    <li class="main_nav_li">
                         <a href="javascript:void(0)" title="共享" class="a_share extends">共享
                                <i class="share"></i>
-                                <span><i class="share_span"></i></span>
+                                <span><i class="shares_span"></i></span>
                         </a>
                             <div class="share_info scrollbar share_info_parent">
                                   
@@ -116,24 +139,53 @@
                         
                         
                     </li>
-                      <li class="main_nav_li" style="display:none">
+                      <li class="main_nav_li">
                           <a href="javascript:void(0)" title="链接" class="a_links extends">链接
                                 <i class="links"></i>
-                                <span><i class="links_span" title="创建高级链接"></i></span>
+                                <span><i class="linkss_span" title="创建高级链接"></i></span>
                           </a>
-                          <div class="share_info scrollbar" style="display:none">
-                              <div class="links_info">
-                                  <p>快速创建一个链接，将链接复制到邮件或即时通讯工具中，用于分享给的朋友或工作伙伴</p>    
+                          <div class="share_info scrollbar linkss_info" style="display:none">   
+                              <div class='preview_links'>
+                               <div class="ss">
+                                  <div class='links_img preview_links_img  f_l'></div>
+                                  <div class="preview_links_mes" style="">
+                                      <h2 data-auth="1000">预览链接</h2>
+                                      <div>允许链接访问者预览</div>
+                                  </div>
+                                  <p></p>
+                               </div>
+                              <div class="position_links" style="display: none"></div>
+                              <ul class="links_permission">
+                                  <li class='clearfix'>
+                                      <b class="brower f_l"></b>
+                                      <div>在浏览器打开</div>
+                                  </li>
+                                  <li class='clearfix'>
+                                      <b class="clip f_l"></b>
+                                      <div>复制到剪贴板</div>
+                                  </li>
+                                  <li class='clearfix'>
+                                      <b class="trident f_l"></b>
+                                      <div>分享到腾讯微博</div>
+                                  </li>
+                                  <li class='clearfix'>
+                                      <b class="sina f_l"></b>
+                                      <div>分享到新浪微博</div>
+                                  </li>
+                                  <li class='clearfix'>
+                                      <b class="email f_l"></b>
+                                      <div>用邮件发送</div>
+                                  </li>
+                              </ul>
                               </div>
-                              <div class="links_update">
-                              选择链接类型 ：<div class="links_type"><select class="select select_radius"><option value="1000" data-type="preview" data-tip="允许链接访问者预览">预览链接</option><option value="1011" data-type="download" data-tip="允许链接访问者预览、下载">下载链接</option><option value="1111" data-type="cooperate" data-tip="允许链接访问者预览、下载、上传">协作链接</option></select><a class="extend_button fontcolor_blue get_links" href='javascript:void(0)'>获取链接</a></div>
-                              </div>
+                               
                             </div>
                       </li>
                           
-                      <li class="main_nav_li"><a href="javascript:void(0)" title="更新动态" class="a_updates extends">更新动态
+                      <li class="main_nav_li">
+                          <a href="javascript:void(0)" title="更新动态" class="a_updates extends">更新动态
      <i class="updates"></i>
-                                <span><i class="updates_span"></i></span>
+                                <span>更多</span>
                           </a>
                           <div class="share_info scrollbar share_info_update" style="display:none">       
                             </div>
