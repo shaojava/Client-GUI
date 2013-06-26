@@ -1349,6 +1349,7 @@ color:#fff;
 }
 
 .launth_pad .launth_pad_left li:hover{background-color:#486EA9}
+.launth_pad .launth_pad_left li.sync i{background-position:0 -320px;}
 .launth_pad .launth_pad_left li.share i{background-position:0 0;}
 .launth_pad .launth_pad_left li.favorite i{background-position:0 -64px;}
 .launth_pad .launth_pad_left li.updates i{background-position:0 0;}
