@@ -1564,3 +1564,110 @@ border:1px solid #D0D6DB;
 .add_link_dialog .select_local_file{
     margin-left: 15px;
 }
+#sidebar .wrapper{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 0;
+    border-left:1px solid #C5CED8;
+}
+#sidebar #header{
+    background: #F3F7F9;
+}
+#sidebar .header_nav{
+    background: #6185BC;
+    color:#fff;
+    border-bottom: 1px solid #BACBE3;
+    height: 52px;
+    line-height: 52px;
+    font-size: 18px;
+    padding:0 17px;
+    cursor: pointer;
+}
+#sidebar .header_nav i{
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url(../images/tool_icons.png);
+    background-repeat: no-repeat;
+    background-position: 0 0;
+    margin: -3px 0 0 0;
+}
+#sidebar .account_info{
+   color:#666;
+    height: 116px;
+}
+
+#sidebar .account_info >div{
+    display: none;
+}
+#sidebar .user_info{
+    overflow: hidden;
+    padding: 20px 10px 0 35px;
+}
+#sidebar .user_info img{
+    height: 72px;
+    width: 72px;
+    border-radius: 72px;
+    float: left;
+    border:none;
+    margin: 0 15px 0 0;
+}
+#sidebar .user_info .attrs{
+float: left;
+    margin:5px 0 0 0;
+}
+#sidebar .user_info .attrs .name,
+#sidebar .org_info .org_name{
+color:#6185BC;
+ font-size: 18px;
+font-weight: 600;
+}
+#main{
+position: absolute;
+    top:169px;
+    bottom: 0;
+    left:0;
+    right: 0;
+    color:#606D7F;
+}
+.slide_list .slide_item{
+
+}
+.slide_list .slide_item .slide_title{
+    background:#D4E2FA;
+    height: 42px;
+    line-height: 42px;
+    font-size: 14px;
+    padding: 0 7px;
+}
+.slide_list .slide_item .slide_title i{
+    height: 16px;
+    width: 16px;
+    display: inline-block;
+    vertical-align: middle;
+    background-image: url(../images/icon/slide_icon_2013.png);
+    background-repeat: no-repeat;
+    margin: -3px 3px 0 0;
+}
+.slide_list .slide_item.slide_item_share .slide_title i{
+    background-position: 0 -126px;
+}
+.slide_list .slide_item.slide_item_update .slide_title i{
+    background-position: 0 -168px;
+}
+.slide_list .slide_item.slide_item_link .slide_title i{
+    background-position: 0 -147px;
+}
+.slide_list .slide_item .slide_title span{
+    position: absolute;
+    top:13px;
+    left:7px;
+    background: url(../images/icon/slide_icon_2013.png) no-repeat ;
+}
+.slide_list .slide_item .slide_title span.icon
+.slide_list .slide_item .slide_title span.icon{
+
+}
