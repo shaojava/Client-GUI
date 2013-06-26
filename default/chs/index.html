@@ -1,271 +1,71 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-        <!--        <script type="text/javascript" src="http://127.0.0.1/Common/js/util.js"></script>-->
-        <script type="text/javascript" src="../common/js/util.js"></script>
-        <script type="text/javascript" src="../common/js/config.js"></script>
-        <script type="text/javascript" src="../common/js/jquery.js"></script>
-        <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
-        <!--        <script type="text/javascript" src="http://127.0.0.1/Common/js/interface.js"></script>-->
-        <script type="text/javascript" src="../common/js/interface.js"></script>
-        <script type="text/javascript" src="../common/js/client_menu.js"></script>
-        <script type="text/javascript" src="../common/js/bootstrap_customize.min.js"></script>
-        <!--侧边栏2013版-->
-         <!--script type="text/javascript" src="../common/js/client_slide_2013.js"></script-->
-          <script type="text/javascript" src="../common/js/jquery.slidebar.js"></script>
-                     <!--script type="text/javascript" src="../common/js/jquery.indexdb.js"></script>
-          <script type="text/javascript" src="../common/js/jquery_indexdb_shim.js"></script>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
+    <script type="text/javascript" src="../common/js/util.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="../common/js/interface.js"></script>
+    <script type="text/javascript" src="../common/js/bootstrap_customize.min.js"></script>
+    <script type="text/javascript" src="../common/js/client_menu.js"></script>
+    <script type="text/javascript" src="../common/js/ajax.js"></script>
 
-          <script type="text/javascript" src="../common/js/jquery.indexdb_process.js"></script-->
-          <script type="text/javascript" src="../common/js/ajax.js"></script>
+    <script type="text/javascript">
 
-        <script type="text/javascript">
-            PAGE_CONFIG.state = '0';
-            
-            var _isShare = false;
-            var _gk_share_info = null;
-            var affiliatedperson_dl = null,
-                affiliatedperson_cp = null,
-                affiliatedperson_yy = null;
-        $(function(){
-                 affiliatedperson_dl = $(".share_info_parent");                 
-                 //创建记录当前时间戳的，表示缓存时间
-                 localStorage["app_runtime_time"] = +new Date;
-                 localStorage.setItem("share_member",{});
-                 localStorage.setItem("share_groups",{});
-                 gkClientMenu.init();
-                 slideBottom();
-                 initWebHref();
-                 //加载数据
-                 update_ajax_load_data("token="+gkClient.gGetToken()+"&type=history&fullpath=/");
-                 $(window).resize(function(){slideBottom();})
-                 $(".main_nav").slideBar({"child_tag_name":"li..a","child_two_tag_name":"div"})(function(){
-               $(this).click(function(e){
-      
-                        if($(this).attr("class").indexOf("a_updates") >= 0){
-                            //更新
-                           
-                             if(check_cache_expire()){
-                              
-                               update_ajax_load_data("token="+gkClient.gGetToken()+"&type=history&fullpath=/");
-                               localStorage["app_runtime_time"] = +new Date;
-                             }
-                            
-                        }
-                       });
-                  
-                 });
-               });  
-     
-           
-           
-        </script>
-    </head>
 
-    <body id="sider_page">
-        <div class="wrapper">
-            <div class="header"></div>
-            <div class="compary_finance"></div>
-            <div class="toolbar">
-                                <!--共享-->
-                                     <script type="text/x-jquery-tmpl" id="affiliatedperson">
-                                        <dl>
-                                       {{each(k,v) d}}
-                                        <dt class="share_mes_info clearfix">
-                                           <div class="share_mes_img f_l"><img src="${v.photourl}" width="32" height="32" /></div>
-                                           <div>
-                                             <h3>${v.username}</h3>
-                                             <span>${v.auth}</span>
-                                           </div>
-                                          <i class="talk" onclick="c()"></i>
-                                       </dt>
-                                       {{/each}}
-                                       </dl>
-                                    </script>
-                                <!--动态更新-->
-                                <script type="text/x-jquery-tmpl" id="updates">
-                                                {{each(k,v) d}}
-                                           <div class="affiliatedperson affiliatedperson_1 affiliatedperson_update ">
-                                                  <div> 
-                                               {{if v.status === true}}
-                                                  <h3 class="clearfix">
-                                                  <span class="heng_1"></span>
-                                                    <div style="display:inline-block">
-                                                           <div class="${v.sxwicon} f_l"></div>
-                                                           <span class="f_l" style="margin-left:5px">${v.date}</span>
-                                                           <span>${v.issxw}</span><span>${v.hour}</span>
-                                                    </div>
-                                             <span class="heng_2"></span>
-                                                  </h3>
-                                               {{/if}}
-                                    <div class="date_time_file clearfix">
-                                        
-                                                <div class="clock f_l">
-                                                 <div class="hour" style="-webkit-transform:rotate(${v.hdeg}deg)"></div>
-                                                 <div class="minutes" style="-webkit-transform:rotate(${v.mdeg}deg)"></div>
-                                                </div>
-                                                <div class="f_l mes">${v.member_name}{{html v.render_text}}</div>
-     
-                                    </div>
-                                    </div>    
-                            </div>
-                                   {{/each}}    
-                                 </script>
-                                 <!--链接-->
-                                 <script type="text/x-jquery-tmpl" id="links">
-                                     {{each(k,v) data}}
-                                       <div class='${v.link_type}'>
-                                            <div class="ss">
-                                               <div class='links_img ${v.link_img_type} f_l'></div>
-                                               <div class="${v.link_type_style}">
-                                                   <h2 data-auth="${v.value}">${v.name}</h2>
-                                                   <div>${v.link_type_mes}</div>
-                                               </div>
-                                            </div>
-                                     </div>
-                                     {{/each}}
-                                 </script>
-                <ul class="main_nav">
-                    <li class="main_nav_li">
-                        <a href="javascript:void(0)" title="共享" class="a_share extends">共享
-                               <i class="share"></i>
-                                <span><i class="shares_span"></i></span>
-                        </a>
-                            <div class="share_info scrollbar share_info_parent">
-                                  
-                            </div>
-                        
-                        
-                    </li>
-                      <li class="main_nav_li">
-                          <a href="javascript:void(0)" title="链接" class="a_links extends">链接
-                                <i class="links"></i>
-                                <span><i class="linkss_span" title="创建高级链接"></i></span>
-                          </a>
-                          <div class="share_info scrollbar linkss_info" style="display:none">   
-                              <div class='preview_links'>
-                               <div class="ss">
-                                  <div class='links_img preview_links_img  f_l'></div>
-                                  <div class="preview_links_mes" style="">
-                                      <h2 data-auth="1000">预览链接</h2>
-                                      <div>允许链接访问者预览</div>
-                                  </div>
-                                  <p></p>
-                               </div>
-                              <div class="position_links" style="display: none"></div>
-                              <ul class="links_permission">
-                                  <li class='clearfix'>
-                                      <b class="brower f_l"></b>
-                                      <div>在浏览器打开</div>
-                                  </li>
-                                  <li class='clearfix'>
-                                      <b class="clip f_l"></b>
-                                      <div>复制到剪贴板</div>
-                                  </li>
-                                  <li class='clearfix'>
-                                      <b class="trident f_l"></b>
-                                      <div>分享到腾讯微博</div>
-                                  </li>
-                                  <li class='clearfix'>
-                                      <b class="sina f_l"></b>
-                                      <div>分享到新浪微博</div>
-                                  </li>
-                                  <li class='clearfix'>
-                                      <b class="email f_l"></b>
-                                      <div>用邮件发送</div>
-                                  </li>
-                              </ul>
-                              </div>
-                               
-                            </div>
-                      </li>
-                          
-                      <li class="main_nav_li">
-                          <a href="javascript:void(0)" title="更新动态" class="a_updates extends">更新动态
-     <i class="updates"></i>
-                                <span>更多</span>
-                          </a>
-                          <div class="share_info scrollbar share_info_update" style="display:none">       
-                            </div>
-                      </li>
-                </ul>
-            </div>
-        </div>
- 
-        <script id="sideMenuList" type="text/x-jquery-tmpl">
-            <ul class="side_menu_list scrollbar">
-            {{each(k,v) menus}}
-            <li class="{{if typeof(v.classes)!=='undefined' && v.classes.length}}${v.classes}{{/if}}{{if typeof(v.tip)==='undefined' || !v.tip.length}} no_tip_item{{/if}}" data-folder_enable="${v.folder}" data-file_enable="${v.file}">
-            <div class="icon"></div>
-            <div class="desc">
-            <div class="name">${v.name}</div>
-            {{if typeof(v.tip)!=='undefined' && !!v.tip.length}}
-            <div class="tip">${v.tip}</div>
-            {{/if}}
-            </div>
-            </li>
-            {{/each}}
-            </ul>
-
-        </script>
-        <script id="sideMenuHeader" type="text/x-jquery-tmpl">
-           <div class="member member_2013">
-               <div class="logo_wrapper logo_wrapper_2013">
-                 {{if typeof(orgLogo)!=='undefined'}}
-                <img src="../common/images/images_2013/logo.png" class="logo" />
-                 {{else}}
-               <img src="../common/images/images_2013/logo.png" class="logo" />
-                 {{/if}}
-               </div>
-               <div class="attrs attrs_2013">
-                  <!--div class="member_name tmptop">${memberName}</div-->
-                      <!--div class="org_name tmptop">${orgName}</div-->
-              开始够快
-                 
-               </div>
-           </div>
-      
-        </script>
-           <!--公司信息1-->
- <script type="text/x-jquery-tmpl" id="compary_list">
-      <div class="file_info">
-            <div class="compart_file_img f_l">
-                 <img src=${photoUrl} width="32" height="32" />
-                 <s class="nosc"></s>
-            </div>
-            <div class="compary_file">
-                <h3>公司财务报表</h3>
-                由<span><b>徐海浩</b></span>最后修改
-                <div class="last_mofile_time">
-            2013.06.12 17:58
-               </div>
-            </div>
-           
-       </div>
-            <i style="display:none">独占修改</i>
- 
- </script>
- <!--公司信息2-->
- <script type="text/x-jquery-tmpl" id="compary_list_storage">
-     <div class="team">
-      <h2>够快科技有限公司</h2>
-      团队空间使用情况 ：${size}/${capacity}
-    </div>
- </script>
- <!--个人信息-->
-  <script type="text/x-jquery-tmpl" id="person_message">
-        <div class="person_message">
-          <div class="person_message_img f_l">
-            <img src="${photourl}" width="69" height="69" />   
+    </script>
+</head>
+<body id="sidebar">
+<div class="wrapper">
+      <div id="header">
+          <div class="header_nav">
+              <i></i>
+              <span>开始够快</span>
           </div>
-            <div class="person_info">
-               <h2>${username}</h2>
-               <span>空间使用情况：</span>
-               <span>${size}/${capacity}</span>
-            </div>
-        </div>
-   </script>
-    </body>
+          <div class="account_info">
+              <div class="user_info">
+                  <img src="${photourl}" class="user_photo" alt="" />
+                  <div class="attrs">
+                     <div>${username}</div>
+                      <div>
+                            <span>空间使用情况：</span>
+                          <br />
+                          <span>${used_size}/${capacity}</span>
+                      </div>
+                  </div>
+              </div>
+              <div class="org_info">
+                      <div>${org_name}</div>
+                  <div>团队空间使用情况：${org_used_size}/${org_capacity}</div>
+              </div>
+          </div>
+      </div>
+      <div id="main">
+           <ul class="slide_list">
+               <li class="slide_item slide_item_update">
+                   <div class="slide_title">
+                       <i></i>
+                       更新动态
+                       <span>更多</span>
+                   </div>
+                   <div class="slide_content">
+                        {{each(i,update) updates}}
+                       <div class="grid">
+                           <span><i></i>${update.datestr}</span>
+                       </div>
+                       {{each(k,item) update.list}}
+                       <div class="update_item">
+                        <i class="time"></i>
+                        <div>{{}}</div>
+                       </div>
+                       {{/each}}
+                       {{/each}}
+                   </div>
+               </li>
+           </ul>
+      </div>
+</div>
+
+</body>
 </html>
