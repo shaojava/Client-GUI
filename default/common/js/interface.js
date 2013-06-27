@@ -269,7 +269,8 @@ var gkClientInterface = {
                 webpath:webpath,
                 date:date
             };
-            return gkClient.gGetAuthorization(JSON.stringify(params));
+        var JSONParams = JSON.stringify(params);
+        return gkClient.gGetAuthorization(JSONParams);
     },
     getToken:function(){
         return gkClient.gGetToken()
@@ -367,4 +368,15 @@ function initWebHref() {
         }
     });
 }
+
+var PAGE_CONFIG = {};
+//获取当前登录用户的信息
+(function(){
+    var account = gkClientInterface.getUserInfo();
+    if(account){
+        PAGE_CONFIG.memberId = account.id;
+        PAGE_CONFIG.email = account.email;
+        PAGE_CONFIG.mountId = account.mount_id;
+    }
+})();
 ;

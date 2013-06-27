@@ -8,14 +8,14 @@
     <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="../common/js/interface.js"></script>
     <script type="text/javascript" src="../common/js/bootstrap_customize.min.js"></script>
-    <script type="text/javascript" src="../common/js/sidebar.js"></script>
+    <script type="text/javascript" src="../common/js/droplist.js"></script>
     <script type="text/javascript" src="../common/js/ajax.js"></script>
-
+    <script type="text/javascript" src="../common/js/rest.js"></script>
+    <script type="text/javascript" src="../common/js/sidebar.js"></script>
     <script type="text/javascript">
            $(function(){
                gkClientSidebar.init();
            })
-
     </script>
 </head>
 <body id="sidebar">
@@ -25,102 +25,110 @@
               <i></i>
               <span>开始够快</span>
           </div>
-
-
       </div>
       <div id="main">
-           <ul class="slide_list">
 
-               <li class="slide_item slide_item_share">
-                   <div class="slide_title">
-                       <i></i>
-                       共享
-                       <span>更多</span>
-                   </div>
-                   <div class="slide_content">
-                      <ul class="share_members">
-                          {{each(i,member) share_members}}
-                          <img src="${member.photourl}" alt="" />
-                          <div>
-                             <div class="member_name">${member.name}</div>
-                              <div class="auth" data-auth="${member.auth}">
-                                  ${member.auth_name}
-                              </div>
-                          </div>
-                          <a href="javascript:void(0)" class="at" ></a>
-                          {{/each}}
-                      </ul>
-                   </div>
-               </li>
-               <li class="slide_item slide_item_update">
-                   <div class="slide_title">
-                       <i></i>
-                       更新动态
-                       <span>更多</span>
-                   </div>
-                   <div class="slide_content">
-                        {{each(i,update) updates}}
-                       <div class="grid">
-                           <span><i></i>${update.datestr}</span>
-                       </div>
-                       {{each(k,item) update.list}}
-                       <div class="update_item">
-                        <i class="time"></i>
-                        <div>{{html item.text}}</div>
-                       </div>
-                       {{/each}}
-                       {{/each}}
-                   </div>
-               </li>
-               <li class="slide_item slide_item_link">
-                   <div class="slide_title">
-                       <i></i>
-                       链接
-                       <span>更多</span>
-                   </div>
-                   <div class="slide_content">
-                         <div class="select_wrapper">
-                             <ul class="dropdown_menu">
-                                 {{each(i,mode) modes}}
-                                 {{if mode.avaiable}}
-                                 <li ><a href="javascript:;" class="btn c_f ${i}" data-auth="${mode.auth}">
-                                     <div class="f_l"><i></i></div>
-                                     <div class="f_l t_l">
-                                         <p class="select_name">${mode.name}</p>
-                                         <p class="select_tip">${mode.tip}</p>
-                                     </div>
-                                 </a></li>
-                                 {{/if}}
-                                 {{/each}}
-                             </ul>
-                         </div>
-                           <ul class="share_types">
-                               <li><a href="javascript:;" class="link_browser">
-                                   <i></i>
-                                   在浏览器中打开
-                               </a></li>
-                               <li><a href="javascript:;" class="link_clipboard">
-                                   <i></i>
-                                   复制到剪切板
-                               </a></li>
-                               <li><a href="javascript:;" class="link_sina">
-                                   <i></i>
-                                   分享到新浪微博
-                               </a></li>
-                               <li><a href="javascript:;" class="link_qq">
-                                   <i></i>
-                                   分享到腾讯微博
-                               </a></li>
-                               <li><a href="javascript:;" class="link_mail">
-                                   <i></i>
-                                   用邮件发送
-                               </a></li>
-                           </ul>
-                   </div>
-               </li>
-           </ul>
+
       </div>
 </div>
+<script type="text/x-jquery-tmpl" id="rootMainTmpl">
+<div class="root_content">
+<ul class="quick_link_list">
+{{each(i,link) links}}
+    <li class="${link.key}"><i></i><a href="${link.url}" data-sso="${link.sso}" target="_blank">${link.name}</a></li>
+{{/each}}
+</ul>
+ {{if typeof tip !=='undefined' && tip}}
+    <div class="tip">${tip}</div>
+ {{/if}}
+
+</div>
+</script>
+<script type="text/x-jquery-tmpl" id="fileMainTmpl">
+    <ul class="tab_list">
+        <li class="share" data-target="tab_content_share"><i></i></li>
+        <li class="link" data-target="tab_content_link"><i></i></li>
+        <li class="remark" data-target="tab_content_remark"><i></i></li>
+    </ul>
+    <div class="tab_content_wrapper">
+        <div class="tab_content_share">
+
+        </div>
+        <div class="tab_content_link">
+
+            <ul class="share_types">
+                <li><a href="javascript:;" class="link_browser">
+                    <i></i>
+                    在浏览器中打开
+                </a></li>
+                <li><a href="javascript:;" class="link_clipboard">
+                    <i></i>
+                    复制到剪切板
+                </a></li>
+                <li><a href="javascript:;" class="link_sina">
+                    <i></i>
+                    分享到新浪微博
+                </a></li>
+                <li><a href="javascript:;" class="link_qq">
+                    <i></i>
+                    分享到腾讯微博
+                </a></li>
+                <li><a href="javascript:;" class="link_mail">
+                    <i></i>
+                    用邮件发送
+                </a></li>
+            </ul>
+        </div>
+        <div class="tab_content_remark">
+        </div>
+    </div>
+</script>
+<script type="text/x-jquery-tmpl" id="remarkListTmpl">
+    <ul class="remark_list">
+        {{each(i,remark) remarks}}
+        <li>
+            <img src="${remark.member_photourl}" alt="${remark.member_name}" title="${remark.member_name}" />
+            <div>
+                <span class="text">${remark.text}</span>
+                <span class="datetime">(${remark.datetime})</span>
+            </div>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<script type="text/x-jquery-tmpl" id="linkModeTmpl">
+<div class="select_wrapper">
+    <ul class="dropdown_menu">
+        {{each(i,mode) modes}}
+        <li ><a href="javascript:;" class="btn c_f ${mode.key}" data-auth="${mode.auth}">
+            <div class="f_l"><i></i></div>
+            <div class="f_l t_l">
+                <p class="select_name">${mode.name}</p>
+                <p class="select_tip">${mode.tip}</p>
+            </div>
+        </a></li>
+        {{/each}}
+    </ul>
+</div>
+</script>
+<script type="text/x-jquery-tmpl" id="shareMembersTmpl">
+    <ul class="share_members">
+        {{each(i,member) share_members}}
+        <li>
+        <img src="${member.photourl}" alt="" />
+        <div class="member_info">
+            <div class="member_name">${member.username}</div>
+            <div class="auth" data-auth="${member.auth}">
+                ${member.auth_name}
+            </div>
+        </div>
+        {{if member.member_id!=PAGE_CONFIG.memberId}}
+        <a href="javascript:;"  class="at" ></a>
+        {{/if}}
+        </li>
+        {{/each}}
+    </ul>
+</script>
 <script type="text/x-jquery-tmpl" id="accountInfoTmpl">
     <div class="account_info">
         <div class="user_info">
@@ -128,15 +136,13 @@
             <div class="attrs">
                 <div class="name">${username}</div>
                 <div>
-                    <span>空间使用情况：</span>
-                    <br />
-                    <span>${used_size}/${capacity}</span>
+                    <span>个人空间使用：</span><span>${used_size}/${capacity}</span>
                 </div>
             </div>
         </div>
         <div class="org_info">
             <div class="org_name">${org_name}</div>
-            <div>团队空间使用情况：${org_used_size}/${org_capacity}</div>
+            <div>团队空间使用：${org_used_size}/${org_capacity}</div>
         </div>
     </div>
 </script>
@@ -151,8 +157,7 @@
             </i>
             <div class="file_attrs">
                 <div class="filename">${filename}</div>
-                <div>由 <span class="">${last_member_name}</span> 最后修改</div>
-                <div>${last_datetime}</div>
+                <div>由<span class=""> ${last_member_name} </span>修改于${last_datetime}</div>
             </div>
         </div>
         <div class="opts">
