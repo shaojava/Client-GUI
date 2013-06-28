@@ -494,6 +494,10 @@ var gkClientSidebar = {
         var remarkList = $('#remarkListTmpl').tmpl({
             remarks: remarks
         }).appendTo(slideItemShare);
+        $('textarea#post_value').blur(function(){
+            var val = $.trim($(this).val());
+              localStorage.setItem('remark_'+PAGE_CONFIG.path,val);
+        });
         $('.post_now').click(function () {
             var _self = $(this);
             if (_self.hasClass('disabled')) {
@@ -508,6 +512,7 @@ var gkClientSidebar = {
             gkRest.fileRemind(PAGE_CONFIG.mountId, PAGE_CONFIG.path, text, function () {
                 _self.removeClass('disabled').addClass('blue_btn');
                 _context.getFileMain(PAGE_CONFIG.path,'history');
+                localStorage.removeItem('remark_'+PAGE_CONFIG.path);
             }, function () {
                 _self.removeClass('disabled').addClass('blue_btn');
             });

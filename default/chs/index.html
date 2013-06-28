@@ -173,7 +173,7 @@
             </i>
             <div class="file_attrs">
                 <div class="filename" title="${filename}">${filename}</div>
-                <div class="last_edit">
+                <div class="last_edit" title="由${last_member_name}修改于${last_datetime}">
                     {{if typeof(last_member_name)!=='undefined' && last_member_name&&typeof(last_datetime)!=='undefined'&&last_datetime}}
                     由<span class=""> ${last_member_name} </span>修改于${last_datetime}
                     {{/if}}

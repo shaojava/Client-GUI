@@ -1812,7 +1812,6 @@ background: none;
     left:0;
     right: 0;
     color:#606D7F;
-    background: #F9FAFB;
 }
 #sidebar #main.main_3.main_root{
     top:38px;
@@ -1987,7 +1986,6 @@ color:#B8BFC8;
     width: 232px;
 }
 #main .select_wrapper ul{
-    background-color: #F6F7F7;
     padding: 10px 0;
 }
 #main .select_wrapper .t_l{
