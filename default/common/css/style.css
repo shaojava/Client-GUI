@@ -27,7 +27,7 @@ li{
     margin: 0;
     padding: 0;
 }
-a { text-decoration: none;outline:none;color:#0099FF; }
+a { text-decoration: none;outline:none;color:#6185bc; }
 legend { color: #000; }
 fieldset, img { border: 0; }
 button, input, select, textarea { font-size: 100%; outline: 0;}
@@ -201,7 +201,11 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     margin-top: -2px;
     margin-right: 4px;
 }
-
+.empty{
+    color:#ACB4BF;
+    text-align:center;
+    padding-top: 20%;
+}
 /*有色按钮*/
 
 .green_btn{
@@ -310,6 +314,67 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     visibility: hidden;
     clear: both;
     font-size:0;
+}
+
+/*********文件图标 32*32*******/
+/*视频文件*/
+.icon_64_movie{
+    background-image:url(../images/icon/movie64x64.png);
+}
+
+/*声音文件*/
+.icon_64_music{
+    background-image:url(../images/icon/music64x64.png);
+}
+
+/*图片文件*/
+.icon_64_image,
+{
+    background-image:url(../images/icon/image64x64.png);
+}
+/*文档文件*/
+.icon_64_document{
+    background-image:url(../images/icon/txt64x64.png);
+}
+.icon_64_doc,
+.icon_64_docx{
+    background-image:url(../images/icon/doc64x64.png);
+}
+
+.icon_64_xls,
+.icon_64_xlsx{
+    background-image:url(../images/icon/xls64x64.png);
+}
+
+.icon_64_ppt,
+.icon_64_pptx{
+    background-image:url(../images/icon/ppt64x64.png);
+}
+.icon_64_pptx{
+    background-image:url(../images/icon/ppt64x64.png);
+}
+
+/*压缩文件*/
+.icon_64_compress{
+    background-image:url(../images/icon/compress64x64.png);
+}
+
+/*可执行文件*/
+.icon_64_execute{
+    background-image:url(../images/icon/exe64x64.png);
+}
+/*文件夹*/
+.icon_64_folder{
+    background-image:url(../images/icon/folder64x64.png);
+}
+.icon_64_local_folder{
+    background-image:url(../images/icon/local_folder64x64.png);
+}
+.icon_64_shared_folder{
+    background-image:url(../images/icon/shared_folder64x64.png);
+}
+.icon_64_other{
+    background-image: url(../images/icon/other64x64.png);
 }
 /*文件夹*/
 .icon_folder{
@@ -1643,19 +1708,95 @@ padding: 10px 10px 0 0;
     height: 48px;
     background-repeat: no-repeat;
     background-position: 0 0;
-    margin: 2px 5px 0 10px;
+    margin: 2px 4px 0 8px;
     position: relative;
-    background-image: url(../images/icon/64_folder.png);
     background-size: 48px 48px;
+}
+#header .file_info .file_icon s{
+    position: absolute;
+    width: 16px;
+    height: 16px;
+    background-position: 0 0;
+    background-repeat: no-repeat;
+}
+#header .file_info .file_icon s.top_left{
+    top:-6px;
+    left:-4px;
+}
+#header .file_info .file_icon s.top_right{
+    top:-2px;
+    right:-5px;
+}
+
+#header .file_info .file_icon s.bottom_left{
+    bottom:1px;
+    left:-1px;
+}
+#header .file_info .file_icon s.bottom_right{
+    bottom:0;
+    left:0;
+}
+#header .file_info .file_icon s.state{
+    background-image: url(../images/icon/silde_icons.png);
+    background-position: 0 -9999px;
+}
+#header .file_info .file_icon s.state_0{
+background: none;
+}
+#header .file_info .file_icon s.state_1{
+    background-position: 0 -112px;
+ }
+#header .file_info .file_icon s.state_2{
+    background-position: 0 -64px;
+}
+#header .file_info .file_icon s.state_3{
+    background-position: 0 -80px;
+}
+#header .file_info .file_icon s.state_4{
+
+}
+#header .file_info .file_icon s.state_5{
+    background-position: 0 -95px;
+}
+#header .file_info .file_icon s.state_6{
+    background-position: 0 -48px;
 }
 #header .file_info .file_attrs{
     color:#ACB4BF;
-
+    float: left;
+    width: 170px;
+}
+#header .file_info .file_attrs .last_edit{
+    height: 18px;
+}
+#header .file_info .file_opts span{
+    float: left;
+    margin-right: 6px;
+    cursor: pointer;
+}
+#header .file_info .file_opts span i{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background-image: url(../images/icon/slide_icon_2013.png);
+    background-repeat: no-repeat;
+}
+#header .file_info .file_attrs span.favorite i{
+    background-position: 0 -5px;
+}
+#header .file_info .file_attrs span.favorite.on i{
+    background-position: 0 -25px;
+}
+#header .file_info .file_attrs span.version i{
+    background-position: 0 -168px;
+}
+#header .file_info .file_attrs span.edit i{
+  background: none;
 }
 #header .file_info .file_attrs > div{
     white-space: nowrap;
     overflow: hidden;
-    -webkit-text-overflow: ellipsis;
+   text-overflow:ellipsis;
 }
 #header .file_info .filename{
     color:#606D7F;
@@ -1673,7 +1814,7 @@ padding: 10px 10px 0 0;
     color:#606D7F;
     background: #F9FAFB;
 }
-#sidebar #main.main_3{
+#sidebar #main.main_3.main_root{
     top:38px;
 }
 #main .tab_list{
@@ -1697,18 +1838,23 @@ overflow: hidden;
     width: 16px;
     display: inline-block;
     vertical-align: middle;
-    background-image: url(../images/icon/slide_icon_2013.png);
+    background-image: url(../images/icon/nav_icon.png);
     background-repeat: no-repeat;
     margin: -3px 3px 0 0;
 }
 #main .tab_list li.share i{
-    background-position: 0 -126px;
+    background-position: 0 0;
 }
+
 #main .tab_list li.link i{
-    background-position: 0 -147px;
+    background-position: 0 -16px;
 }
 #main .tab_list li.remark i{
-    background-position: 0 -168px;
+    background-position: 0 -32px;
+}
+#main .tab_list li:hover i,
+#main .tab_list li.selected i{
+    background-position-x:-16px;
 }
 #main .tab_content_wrapper{
 position: absolute;
@@ -1748,12 +1894,13 @@ float: right;
 #main .share_members li:hover .at{
     display: block;
 }
+#main .remark_list li img,
 #main .share_members li img{
     width: 32px;
     height: 32px;
     border-radius: 32px;
     float: left;
-    margin: 0px 5px 0 10px;
+    margin: 0px 7px 0 10px;
 }
 #main .share_members li .member_name{
     color:#64727C;
@@ -1761,7 +1908,80 @@ float: right;
 #main .share_members li .auth{
 color:#B8BFC8;
 }
-
+#main .remark_list,
+#main .share_members{
+    position: absolute;
+    top:0;
+    left:0;
+    right: 0;
+    bottom: 120px;
+    overflow: auto;
+}
+#main .share_members{
+    bottom: 80px;
+}
+#main .remark_list li{
+    word-break: break-all;
+    word-wrap: break-word;
+    margin: 20px 0 0 0;
+    overflow: hidden;
+    line-height: 22px;
+}
+#main .remark_list li >div{
+    float: left;
+    width: 170px;
+}
+#main .remark_list li .datetime{
+    color:#ACB4BF;
+}
+#main .post_wrapper,
+#main .manage_share_wrapper{
+    background: #F3F7F9;
+    position: absolute;
+    bottom:0;
+    left:0;
+    right: 0;
+    height: 120px;
+}
+#main .manage_share_wrapper{
+    height: 80px;
+}
+#main .manage_share_wrapper a i{
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    vertical-align: middle;
+    background: url(../images/icon/slide_icons2.png) no-repeat 0 -192px;
+    margin: -5px 5px 0 0;
+}
+#main .manage_share_wrapper a{
+    height: 32px;
+    display: block;
+    line-height: 32px;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 24px;
+}
+#main .post_wrapper .textarea_wrapper{
+    background: #fff;
+    margin: 10px auto;
+}
+#main .post_wrapper textarea{
+    border:1px solid #A7B3C4 ;
+    height: 47px;
+    display: block;
+    width: 90%;
+    padding: 3px;
+}
+#main .post_wrapper .btn_wrapper{
+    text-align: center;
+}
+#main .post_wrapper .btn_wrapper .btn{
+    text-align: center;
+    padding-left:0;
+   padding-right: 0;
+        width: 224px;
+}
 #main .select_wrapper{
     margin: 8px auto 0;
     width: 232px;
@@ -1843,6 +2063,7 @@ margin: 15px 0;
     vertical-align: middle;
     margin: -4px 10px 0 0;
 }
+
 #main .share_types li .link_clipboard i{
     background-position: 0 -32px;
 }
@@ -1855,7 +2076,9 @@ margin: 15px 0;
 #main .share_types li .link_mail i{
     background-position: 0 -128px;
 }
-
+#main .share_types li:hover i{
+    background-position-x:-32px;
+}
 #main .root_content{
     position: absolute;
     top:0;

@@ -290,6 +290,14 @@ var gkClientInterface = {
     checkLinkPath:function(path){
         var re = gkClient.gCheckLinkPath(path);
        return JSON.parse(re)
+    },
+    mailTo:function(to,subject,content){
+        var params = {
+             to:to,
+            subject:subject,
+            content:content
+        };
+      gkClient.gMailTo(JSON.stringify(params));
     }
 };
 var gkClientAjax = {};

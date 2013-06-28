@@ -85,7 +85,6 @@ Util.String = {
         return request_uri;
     }
     var arr_uri = request_uri.split("/");
-    console.log(arr_uri);
     var uri = '';
     for (var i=0;i<arr_uri.length;i++) {
         var v = arr_uri[i];

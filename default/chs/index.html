@@ -56,45 +56,36 @@
         </div>
         <div class="tab_content_link">
 
-            <ul class="share_types">
-                <li><a href="javascript:;" class="link_browser">
-                    <i></i>
-                    在浏览器中打开
-                </a></li>
-                <li><a href="javascript:;" class="link_clipboard">
-                    <i></i>
-                    复制到剪切板
-                </a></li>
-                <li><a href="javascript:;" class="link_sina">
-                    <i></i>
-                    分享到新浪微博
-                </a></li>
-                <li><a href="javascript:;" class="link_qq">
-                    <i></i>
-                    分享到腾讯微博
-                </a></li>
-                <li><a href="javascript:;" class="link_mail">
-                    <i></i>
-                    用邮件发送
-                </a></li>
-            </ul>
         </div>
         <div class="tab_content_remark">
         </div>
     </div>
 </script>
 <script type="text/x-jquery-tmpl" id="remarkListTmpl">
-    <ul class="remark_list">
+    {{if remarks && remarks.length}}
+    <ul class="remark_list scrollbar">
         {{each(i,remark) remarks}}
         <li>
-            <img src="${remark.member_photourl}" alt="${remark.member_name}" title="${remark.member_name}" />
+            <img src="${remark.member_photo}" alt="${remark.member_name}" title="${remark.member_name}" />
             <div>
-                <span class="text">${remark.text}</span>
-                <span class="datetime">(${remark.datetime})</span>
+                <span class="text">{{html remark.render_text}}</span>
+                <span class="datetime">( ${remark.timeago} )</span>
             </div>
         </li>
         {{/each}}
     </ul>
+    {{else}}
+    <div class="empty">没有讨论</div>
+    {{/if}}
+
+    <div class="post_wrapper">
+        <div class="">
+            <textarea class="textarea_wrapper textarea textarea_radius" name="post_value" id="post_value"></textarea>
+        </div>
+        <div class="btn_wrapper">
+            <button class="btn blue_btn post_now">发表讨论</button>
+        </div>
+    </div>
 </script>
 <script type="text/x-jquery-tmpl" id="linkModeTmpl">
 <div class="select_wrapper">
@@ -109,6 +100,28 @@
         </a></li>
         {{/each}}
     </ul>
+    <ul class="share_types">
+        <li><a href="javascript:;" class="link_browser">
+            <i></i>
+            在浏览器中打开
+        </a></li>
+        <li><a href="javascript:;" class="link_clipboard">
+            <i></i>
+            复制到剪切板
+        </a></li>
+        <li><a href="javascript:;" class="link_sina">
+            <i></i>
+            分享到新浪微博
+        </a></li>
+        <li><a href="javascript:;" class="link_qq">
+            <i></i>
+            分享到腾讯微博
+        </a></li>
+        <li><a href="javascript:;" class="link_mail">
+            <i></i>
+            用邮件发送
+        </a></li>
+    </ul>
 </div>
 </script>
 <script type="text/x-jquery-tmpl" id="shareMembersTmpl">
@@ -117,7 +130,7 @@
         <li>
         <img src="${member.photourl}" alt="" />
         <div class="member_info">
-            <div class="member_name">${member.username}</div>
+            <div class="member_name">${gkClientSidebar.getScreenName(PAGE_CONFIG.memberId,member.member_id,member.username)}</div>
             <div class="auth" data-auth="${member.auth}">
                 ${member.auth_name}
             </div>
@@ -128,6 +141,9 @@
         </li>
         {{/each}}
     </ul>
+    <div class="manage_share_wrapper">
+        <a class="manage_share" href="javascript:void(0);"><i></i><span>管理共享</span></a>
+    </div>
 </script>
 <script type="text/x-jquery-tmpl" id="accountInfoTmpl">
     <div class="account_info">
@@ -150,14 +166,25 @@
     <div class="file_info_wrapper">
         <div class="file_info">
             <i class="file_icon ${icon}">
-                <s class="left_bottom"></s>
+                <s class="bottom_left state state_${state}"></s>
                 {{if favorite}}
-                <s class="right_top favorite"></s>
+                <s class="top_right favorite"></s>
                 {{/if}}
             </i>
             <div class="file_attrs">
-                <div class="filename">${filename}</div>
-                <div>由<span class=""> ${last_member_name} </span>修改于${last_datetime}</div>
+                <div class="filename" title="${filename}">${filename}</div>
+                <div class="last_edit">
+                    {{if typeof(last_member_name)!=='undefined' && last_member_name&&typeof(last_datetime)!=='undefined'&&last_datetime}}
+                    由<span class=""> ${last_member_name} </span>修改于${last_datetime}
+                    {{/if}}
+                </div>
+                <div class="file_opts">
+                    <span class="favorite{{if favorite}} on{{/if}}"><i></i></span>
+                    {{if dir==0}}
+                    <span class="version"><i></i></span>
+                    {{/if}}
+                    <span class="edit"><i></i></span>
+                </div>
             </div>
         </div>
         <div class="opts">
