@@ -2105,10 +2105,28 @@ margin: 15px 0;
     vertical-align: middle;
 }
 #main .tip{
-color:#B2B9C4;
+    color:#B2B9C4;
     padding:0 20px;
     position: absolute;
     font-size: 14px;
     top:50%;
     margin-top:-31px;
+}
+.tc_frame .update_item{
+    position:relative;
+}
+.tc_frame .update_item .member_photo img{
+    float:left;
+    margin-right:5px;
+}
+.tc_frame .update_item .member_photo .member_name{
+    float:left;
+    display:block
+}
+.tc_frame .new_tqframe_body .update_item_content{
+    margin-left:10px;
+    font-weight:normal
+}
+.tc_frame .new_tqframe_body .update_item_date{
+    font-size:12px
 }

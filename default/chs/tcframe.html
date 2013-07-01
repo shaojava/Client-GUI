@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title></title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
+        <script type="text/javascript" src="../common/js/jquery.js"></script>
+        <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
+        <script type="text/javascript" src="../common/js/interface.js"></script>
+        <script type="text/javascript">
+            function fetchUpdate(){
+                var new_tqframe_body = $(".new_tqframe_body");
+                var data = gkClientInterface.getMessage();
+                new_tqframe_body.empty();
+                $("#update_mes").tmpl({data:data.updates}).appendTo(new_tqframe_body);
+            }
+            $(function(){
+                initWebHref();
+                var update_me = $("#update_me"),
+                     update_all = $("#update_all");
+                update_all.on("click",function(){
+                    var   params = {
+                        url: '/client/client?ac=updates',
+                        sso: 1,
+                        resize: 1,
+                        width: 800,
+                        height: 500
+                    };
+                    gkClientInterface.openWindow(params);
+                })
+
+                setInterval(function(){
+                    fetchUpdate();
+                },5000);
+                fetchUpdate();
+            })
+        </script>
+    </head>
+    <body class="tc_frame">
+
+        <!--滚动条紧挨着边框-->
+        <div class="new_tqframe scrollbar">
+            <div class="new_tqframe_header">
+                <span id="update_me">提到我的更新</span>
+                <a id="update_all" href="javascript:void(0)">查看全部</a>
+            </div>
+            <div class="new_tqframe_body">
+
+                
+            </div>
+        </div>
+        <!--消息视图-->
+        <script id="update_mes" type="text/x-jquery-tmpl">
+            <ul>
+                {{each(k,v) data}}
+                <li class="clearfix">
+                    <div class="update_item_date">${v.date_txt}</div>
+                    <div class="member_photo f_l">
+                        <img src="${v.member_photo}" width="40" height="40" />
+                    </div>
+                    <div class="update_item_content f_l">${v.member_name} ${v.render_text}</div>
+
+                </li>
+
+                {{/each}}
+            </ul>
+        </script>
+    </body>
+</html>
