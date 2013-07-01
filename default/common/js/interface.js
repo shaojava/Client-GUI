@@ -177,6 +177,9 @@ var gkClientInterface = {
     },
     getUserInfo: function() {
         try {
+            if(!gkClient.gUserInfo()){
+                return '';
+            }
             return JSON.parse(gkClient.gUserInfo());
         } catch (e) {
             throw e;

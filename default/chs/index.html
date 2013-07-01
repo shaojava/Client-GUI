@@ -68,6 +68,7 @@
         <li>
             <img src="${remark.member_photo}" alt="${remark.member_name}" title="${remark.member_name}" />
             <div>
+                <a href="javascript:void(0)" usercard="id=${remark.member_id}">${gkClientSidebar.getScreenName(PAGE_CONFIG.memberId,remark.member_id,remark.member_name)}</a>
                 <span class="text">{{html remark.render_text}}</span>
                 <span class="datetime">( ${remark.timeago} )</span>
             </div>
@@ -80,7 +81,7 @@
 
     <div class="post_wrapper">
         <div class="">
-            <textarea class="textarea_wrapper textarea textarea_radius" name="post_value" id="post_value"></textarea>
+            <textarea class="textarea_wrapper textarea textarea_radius" name="post_value" id="post_value">{{if typeof(old_remark)!=='undefined'&&old_remark}}${old_remark}{{/if}}</textarea>
         </div>
         <div class="btn_wrapper">
             <button class="btn blue_btn post_now">发表讨论</button>
@@ -173,11 +174,20 @@
             </i>
             <div class="file_attrs">
                 <div class="filename" title="${filename}">${filename}</div>
+                {{if state==0 || state==1 ||state==6}}
+                {{if state==1}}
+                <div>该文件{{if dir==1}}夹{{/if}}正与云端进行同步</div>
+                {{else}}
+                <div>该文件{{if dir==1}}夹{{/if}}未同步到云端</div>
+                {{/if}}
+                {{else}}
                 <div class="last_edit" title="由${last_member_name}修改于${last_datetime}">
                     {{if typeof(last_member_name)!=='undefined' && last_member_name&&typeof(last_datetime)!=='undefined'&&last_datetime}}
                     由<span class=""> ${last_member_name} </span>修改于${last_datetime}
                     {{/if}}
                 </div>
+                {{/if}}
+                {{if state>1 && state < 6}}
                 <div class="file_opts">
                     <span class="favorite{{if favorite}} on{{/if}}"><i></i></span>
                     {{if dir==0}}
@@ -185,6 +195,7 @@
                     {{/if}}
                     <span class="edit"><i></i></span>
                 </div>
+                {{/if}}
             </div>
         </div>
         <div class="opts">

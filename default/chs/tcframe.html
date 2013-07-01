@@ -29,9 +29,9 @@
                     gkClientInterface.openWindow(params);
                 })
 
-                setInterval(function(){
-                    fetchUpdate();
-                },5000);
+               setInterval(function(){
+                   fetchUpdate();
+               },5000);
                 fetchUpdate();
             })
         </script>
@@ -41,7 +41,6 @@
         <!--滚动条紧挨着边框-->
         <div class="new_tqframe scrollbar">
             <div class="new_tqframe_header">
-                <span id="update_me">提到我的更新</span>
                 <a id="update_all" href="javascript:void(0)">查看全部</a>
             </div>
             <div class="new_tqframe_body">
@@ -54,11 +53,15 @@
             <ul>
                 {{each(k,v) data}}
                 <li class="clearfix">
-                    <div class="update_item_date">${v.date_txt}</div>
                     <div class="member_photo f_l">
                         <img src="${v.member_photo}" width="40" height="40" />
                     </div>
-                    <div class="update_item_content f_l">${v.member_name} ${v.render_text}</div>
+                    <div class="update_item_content f_l">
+                        ${v.member_name} ${v.render_text}
+                        <span class="update_item_date">
+                            ( ${v.date_txt} )
+                        </span>
+                    </div>
 
                 </li>
 

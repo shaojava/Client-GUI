@@ -13,7 +13,6 @@ var gkClientSidebar = {
         var _context = this;
         initWebHref();
         _context.fetchAccountInfo();
-
         $(".header_nav").click(function () {
             gkClientInterface.launchpad();
         })
@@ -205,7 +204,7 @@ var gkClientSidebar = {
             });
         }
     },
-   fetchFileHeader:function(localData){
+    fetchFileHeader:function(localData){
        var _context = this;
        var header = $('#header');
        header.find('.file_info_wrapper').remove();
@@ -259,7 +258,7 @@ var gkClientSidebar = {
             filename = Util.String.baseName(fullpath);
             var icon ='icon_64_'+ _context.getFileIconSuffix(filename, dir,file.share,file.local);
             localData = {
-                'icon':icon,
+               'icon':icon,
                 filename: filename,
                 dir: dir,
                 state: file.state,
@@ -271,7 +270,7 @@ var gkClientSidebar = {
             };
         }
         _context.fetchFileHeader(localData);
-        var exprired = 2*60*1000; //120秒
+        var exprired = 1*60*1000; //60秒
         if(!localData.dateline || (new Date().getTime() - localData.dateline>exprired)){
             gkRest.getFileInfo(PAGE_CONFIG.mountId, file.fullpath, '', function (data) {
                 var newData = {
@@ -295,9 +294,6 @@ var gkClientSidebar = {
     },
     removeLocalData: function (fullpath) {
         return localStorage.removeItem(fullpath);
-    },
-    getShellDataFormat: function () {
-        return ['path', 'state', 'last_member_name', 'type'];
     },
     fetchHeader: function () {
         var _context = this;
@@ -441,19 +437,21 @@ var gkClientSidebar = {
         var _context = this;
         var main = $('#main');
         main.empty();
-       $('#fileMainTmpl').tmpl().appendTo(main);
-        $('.tab_list li').click(function () {
-            var target = $(this).data('target');
-            var tab_content_wrapper = $('.tab_content_wrapper');
-            var tab_content = tab_content_wrapper.find('>div');
-            $(this).siblings().removeClass('selected');
-            $(this).addClass('selected');
-            tab_content.hide();
-            tab_content_wrapper.find('.' + target).show();
-        });
-        _context.getFileMain(PAGE_CONFIG.path);
+        if(PAGE_CONFIG.state>1 && PAGE_CONFIG.state<6){
+            $('#fileMainTmpl').tmpl().appendTo(main);
+            $('.tab_list li').click(function () {
+                var target = $(this).data('target');
+                var tab_content_wrapper = $('.tab_content_wrapper');
+                var tab_content = tab_content_wrapper.find('>div');
+                $(this).siblings().removeClass('selected');
+                $(this).addClass('selected');
+                tab_content.hide();
+                tab_content_wrapper.find('.' + target).show();
+            });
+            _context.getFileMain(PAGE_CONFIG.path);
+            $('.tab_list li').eq(2).trigger('click');
+        }
 
-        $('.tab_list li').eq(0).trigger('click');
     },
     getLocalLink: function (fullpath, auth) {
         var links = localStorage.getItem('gk_links');
@@ -491,12 +489,23 @@ var gkClientSidebar = {
         var _context = this;
         var slideItemShare = $('.tab_content_remark');
         slideItemShare.empty();
+        var old_remark =  localStorage.getItem('remark_'+PAGE_CONFIG.path);
         var remarkList = $('#remarkListTmpl').tmpl({
-            remarks: remarks
+            remarks: remarks,
+            old_remark:old_remark?old_remark:''
         }).appendTo(slideItemShare);
         $('textarea#post_value').blur(function(){
             var val = $.trim($(this).val());
               localStorage.setItem('remark_'+PAGE_CONFIG.path,val);
+        });
+        $('a[usercard]').click(function(){
+            var u = $(this).attr('usercard');
+            if(u != 'id='+PAGE_CONFIG.memberId){
+                var a = $.trim($(this).text()).replace('@','');
+              $('textarea#post_value').focus();
+              $('textarea#post_value').val('@'+a+' ');
+            }
+            return;
         });
         $('.post_now').click(function () {
             var _self = $(this);
@@ -526,9 +535,9 @@ var gkClientSidebar = {
             var links = [], tip = '';
             tip = '这是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
             if (PAGE_CONFIG.type == 1) {
-                tip = '这是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
+                tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
             } else if (PAGE_CONFIG.type == 2) {
-                tip = '这是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
+                tip = '这里是团队文件夹，你可以将团队的文件存在在这里，已方便与同事进行共享和协作';
             }
             links = [
                 {
@@ -537,14 +546,12 @@ var gkClientSidebar = {
                     sso: 1,
                     name: '在网页上查看你的文件'
                 }
-
             ];
             var data = {
                 type: PAGE_CONFIG.type,
                 tip: tip,
                 links: links
             };
-            //console.log(1);
             $('#rootMainTmpl').tmpl(data).appendTo(main);
         } else {
             _context.fetchFileMain();
