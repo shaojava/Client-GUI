@@ -328,7 +328,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 
 /*图片文件*/
-.icon_64_image,
+.icon_64_image
 {
     background-image:url(../images/icon/image64x64.png);
 }
@@ -1756,7 +1756,7 @@ background: none;
 
 }
 #header .file_info .file_icon s.state_5{
-    background-position: 0 -95px;
+    background-position: 0 -96px;
 }
 #header .file_info .file_icon s.state_6{
     background-position: 0 -48px;
@@ -1766,9 +1766,7 @@ background: none;
     float: left;
     width: 170px;
 }
-#header .file_info .file_attrs .last_edit{
-    height: 18px;
-}
+
 #header .file_info .file_opts span{
     float: left;
     margin-right: 6px;
