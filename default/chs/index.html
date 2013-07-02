@@ -171,9 +171,16 @@
                 {{if favorite}}
                 <s class="top_right favorite"></s>
                 {{/if}}
+				{{if state>1 && state < 6}}
+				  <span class="favorite{{if favorite}} on{{/if}}"><i></i></span>
+				{{/if}}
             </i>
             <div class="file_attrs">
-                <div class="filename" title="${filename}">${filename}</div>
+                <div class="filename" title="${filename}">${filename}
+				   {{if dir==0}}
+                    <span class="version"><i></i></span>
+                    {{/if}}
+				</div>
                 {{if state==0 || state==1 ||state==6}}
                 {{if state==1}}
                 <div>该文件{{if dir==1}}夹{{/if}}正与云端进行同步</div>
@@ -187,15 +194,12 @@
                     {{/if}}
                 </div>
                 {{/if}}
-                {{if state>1 && state < 6}}
-                <div class="file_opts">
-                    <span class="favorite{{if favorite}} on{{/if}}"><i></i></span>
-                    {{if dir==0}}
-                    <span class="version"><i></i></span>
-                    {{/if}}
-                    <span class="edit"><i></i></span>
-                </div>
-                {{/if}}
+                {{if state>1 && state < 6}}             
+                <div>
+				  <p></p>
+				</div>
+				{{/if}}
+				
             </div>
         </div>
         <div class="opts">

@@ -16,6 +16,37 @@ var gkClientSidebar = {
         $(".header_nav").click(function () {
             gkClientInterface.launchpad();
         })
+		 //独占修改
+      $(".dzupdate").live("click",function(){
+	    var path = PAGE_CONFIG.path;
+         if (!path.length) {
+                return;
+            }
+            var params = {
+                url: '/client/file_edit?ac=lock&fullpath=' + encodeURIComponent(path),
+                sso: 1,
+                resize: 0,
+                width: 490,
+                height: 175
+            };
+            gkClientInterface.openSingleWindow(params);
+     });
+	 //取消独占
+     $(".nodzupdate").live("click",function(){
+         var path = PAGE_CONFIG.path;
+         if (!path.length) {
+                return;
+            }
+            var params = {
+                url: '/client/file_edit?ac=transfer&fullpath=' + encodeURIComponent(path),
+                sso: 1,
+                resize: 0,
+                width: 490,
+                height: 175
+            };
+            gkClientInterface.openSingleWindow(params);  
+        
+    });
 
     },
     fetchAccountInfo: function (type) {
@@ -576,13 +607,27 @@ var gkClientSidebar = {
             return '我';
         }
         return member_name;
-    }
+    },
+	getToggleState:function(fullpath, dir, state){
+	        var optState = -1;
+			//取消独占
+              if (fullpath && state == 5 && dir == 0) {
+                optState = 0;
+              }
+			//独占修改
+			  else if (fullpath && state >= 2 && dir == 0) {
+                optState = 1;
+              }
+            return optState;
+	}
 };
+
 
 function gShellSelect(re) {
     if (re === PAGE_CONFIG.re) {
         return;
     }
+	
     PAGE_CONFIG.re = re;
     var arr = JSON.parse(re);
     console.log('-----------file-------------');
@@ -592,4 +637,23 @@ function gShellSelect(re) {
     arr.last_member_name= arr.membername;
     $.extend(PAGE_CONFIG,arr);
     gkClientSidebar.fetch();
+	var fileStatus = "no",fileEle = $(".file_attrs").find("p");
+	//只点击文件
+	if(arr.path.lastIndexOf("/") < 0 && arr.path){
+	   //假如不在共享
+	     if(PAGE_CONFIG.isshare == 1){
+		 fileStatus = gkClientSidebar.getToggleState(arr.path);
+		 switch(fileStatus){
+		     case 1:
+			    //显示独占修改
+				fileEle.attr("class","dzupdate").text("独占修改");
+				break;
+		     case 0:
+			    //显示取消独占
+				 fileEle.attr("class","nodzupdate").text("取消独占");
+				break;
+		 }	
+		 }
+		 	 
+	}
 }

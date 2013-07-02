@@ -1221,10 +1221,10 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .compary_finance h3,.compary_finance span{color:#64727C;font-weight: 700;height:20px;line-height:20px}
 .compary_finance h3{width:130px;overflow:hidden;text-overflow: ellipsis;white-space:nowrap;font-size:18px;font-weight:normal;height:22px;line-height:22px}
 .compary_finance span{margin:0 3px;display:inline-block;height:18px;line-height:18px}
-.compary_finance i{border-radius:5px;cursor:pointer;margin:10px auto;display:block;width:106px;/*background:url('../images/images_2013/333_03.png') no-repeat 0 0;*/color:#FFF;font:14px "Microsoft Yahei";text-align:center;height:25px;line-height:25px}
-/*头部*/
-.compary_finance i.dzupdate{/*background-position: 15px -62px;*/background-color:#ff944d;}
-.compary_finance i.nodzupdate{/*background-position: 15px -28px;*/background-color:#6185BC;}
+.compary_finance i,.file_attrs p{border-radius:5px;cursor:pointer;margin:10px auto;display:block;width:106px;/*background:url('../images/images_2013/333_03.png') no-repeat 0 0;*/color:#FFF;font:14px "Microsoft Yahei";text-align:center;height:25px;line-height:25px}
+.file_attrs p{margin:5px auto;height:24px;line-height:22px}
+.file_attrs p.dzupdate{/*background-position: 15px -62px;*/background-color:#ff944d;}
+.file_attrs p.nodzupdate{/*background-position: 15px -28px;*/background-color:#6185BC;}
 #sider_page .header{padding:0;background:#6185bc;height:52px}
 #sider_page .header:hover{background:#486ea9}
 #sider_page .header .member_2013{padding-left:18px;height:100%}
@@ -1764,21 +1764,28 @@ background: none;
     margin-right: 6px;
     cursor: pointer;
 }
-#header .file_info .file_opts span i{
+#header .file_info .file_icon span i{    
+    position:absolute;
+	right:0;
+}
+#header .file_info .file_opts span i,#header .file_info .file_icon span.favorite i{
     display: inline-block;
     width: 16px;
     height: 16px;
     background-image: url(../images/icon/slide_icon_2013.png);
     background-repeat: no-repeat;
 }
-#header .file_info .file_attrs span.favorite i{
+#header .file_info .file_icon span.favorite i{
     background-position: 0 -5px;
 }
 #header .file_info .file_attrs span.favorite.on i{
     background-position: 0 -25px;
 }
-#header .file_info .file_attrs span.version i{
-    background-position: 0 -168px;
+#header .file_info .file_attrs .filename span.version i{ 
+     display:inline-block;
+    width:28px;
+	height:16px;
+    background:url(../images/icon/v.png) no-repeat 0 3px;
 }
 #header .file_info .file_attrs span.edit i{
   background: none;
