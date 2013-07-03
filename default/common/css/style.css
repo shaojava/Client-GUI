@@ -1795,6 +1795,7 @@ background: none;
     width:28px;
 	height:16px;
     background:url("../images/icon/v.png") no-repeat 0 3px;
+	cursor:pointer;
 }
 #header .file_info .file_attrs span.edit i{
   background: none;

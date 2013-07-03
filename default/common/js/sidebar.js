@@ -270,7 +270,6 @@ var gkClientSidebar = {
        fileInfoWrapper.show();
 	   var fileStatus = null
 	      ,fileEle = fileInfoWrapper.find(".file_attrs").find("p");
- 
 	    if(localData.dir == 0){
 		  if(localData.is_share == 1){
 		    fileStatus = gkClientSidebar.getToggleState(localData.filename,0,localData.state);
