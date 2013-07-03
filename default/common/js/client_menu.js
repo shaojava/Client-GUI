@@ -1,14 +1,17 @@
 /**2013年改版代码**/
 function bind_logo_click(){
-    
+    alert("fd")
     
      //首页logo点击
      $(".logo_wrapper").click(function(){
          gkClientInterface.launchpad();
      })
+	 
      //独占修改
+	 
      $(".dzupdate").live("click",function(){
-      gkClientMenu.menuList[3].click(PAGE_CONFIG.path);  
+        alert("sdf");
+		//gkClientMenu.menuList[3].click(PAGE_CONFIG.path);  
      }); 
     $(".nodzupdate").live("click",function(){
         gkClientMenu.menuList[5].click(PAGE_CONFIG.path);  
@@ -145,6 +148,7 @@ var gkClientMenu = {
        
         _context._setMenu_2013(gkClientMenu.menuList_2013);
         bind_logo_click();
+		alert("fsd");
     },
     _setMenu_2013:function(menus){
             $(".main_nav_li span").each(function(i,v){
