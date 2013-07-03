@@ -392,6 +392,7 @@ var PAGE_CONFIG = {};
         PAGE_CONFIG.memberId = account.id;
         PAGE_CONFIG.email = account.email;
         PAGE_CONFIG.mountId = account.mount_id;
+        PAGE_CONFIG.orgId = account.org_id;
     }
 })();
 ;
