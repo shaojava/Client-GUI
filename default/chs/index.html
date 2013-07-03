@@ -90,6 +90,7 @@
 </script>
 <script type="text/x-jquery-tmpl" id="linkModeTmpl">
 <div class="select_wrapper">
+    {{if modes && modes.length}}
     <ul class="dropdown_menu">
         {{each(i,mode) modes}}
         <li ><a href="javascript:;" class="btn c_f ${mode.key}" data-auth="${mode.auth}">
@@ -101,6 +102,7 @@
         </a></li>
         {{/each}}
     </ul>
+    {{/if}}
     <ul class="share_types">
         <li><a href="javascript:;" class="link_browser">
             <i></i>

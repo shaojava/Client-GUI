@@ -200,12 +200,12 @@ var gkClientSidebar = {
 				}else{
 				 cloneBtn.css("cursor","cursor").append("<s></s>"); 
 				}
-               // cloneBtn.append('<s></s>');
-               /* cloneBtn.droplist({
+                cloneBtn.append('<s></s>');
+               cloneBtn.droplist({
                     onClose: function (btn) {
                         selectWrp.children('a:first').removeClass('active');
                     }
-                }); */ 
+                });
 		
 				$(this).hide();
                // if($(".dropdown_menu"))
@@ -271,6 +271,7 @@ var gkClientSidebar = {
 	   var fileStatus = null
 	      ,fileEle = fileInfoWrapper.find(".file_attrs").find("p");
 	    if(localData.dir == 0){
+            //console.log(localData);
 		  if(localData.is_share == 1){
 		    fileStatus = gkClientSidebar.getToggleState(localData.filename,0,localData.state);
 			 switch(fileStatus){
@@ -329,8 +330,10 @@ var gkClientSidebar = {
     fetchFileInfo: function (file) {
         var _context = this;
         var localData = _context.getLocalData(file.fullpath);
-	   
-        if(!localData){
+        var exprired = 1*60*1000; //60秒
+        //var exprired =0;
+	   var clearCache = !localData || !localData.dateline || (new Date().getTime() - localData.dateline>exprired);
+        if(clearCache){
             var dir = 0, filename, fullpath;
             if (Util.String.lastChar(file.fullpath) === '/') {
                 dir = 1;
@@ -352,10 +355,9 @@ var gkClientSidebar = {
             };
         }
         _context.fetchFileHeader(localData);
-        var exprired = 1*60*1000; //60秒
-        if(!localData.dateline || (new Date().getTime() - localData.dateline>exprired)){
+
+        if(clearCache){
             gkRest.getFileInfo(PAGE_CONFIG.mountId, file.fullpath, '', function (data) {
-			
                 var newData = {
                     favorite: data.favorite,
                     last_datetime: data.last_datetime,
