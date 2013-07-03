@@ -549,10 +549,11 @@ var gkClientSidebar = {
             }
             var oldText = _self.text();
             _self.removeClass('.blue_btn').addClass('disabled');
-            gkRest.fileRemind(PAGE_CONFIG.mountId, PAGE_CONFIG.path, text, function () {
+            gkRest.fileRemind(PAGE_CONFIG.mountId, PAGE_CONFIG.path, text, function (data) {
                 _self.removeClass('disabled').addClass('blue_btn');
                 _context.getFileMain(PAGE_CONFIG.path,'history');
                 localStorage.removeItem('remark_'+PAGE_CONFIG.path);
+
             }, function () {
                 _self.removeClass('disabled').addClass('blue_btn');
             });

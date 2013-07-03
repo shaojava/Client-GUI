@@ -56,8 +56,6 @@
          将云端文件夹 ${filename} 同步到 ${local_path}
      </div>
 </script>
-
-
 <script type="text/x-jquery-tmpl" id="addLinkDialogTmpl">
     <div class="add_link_content">
         <div class="cloud_set_wrapper">
@@ -87,6 +85,9 @@
 </script>
 <script type="text/x-jquery-tmpl" id="fileListTmpl">
     <div class="list scrollbar">
+        {{if typeof(files)===undefined || !files || !files.length }}
+            <div class="empty">未设置文件夹同步</div>
+        {{else}}
         {{each(i,v) files}}
         <div class="sync_item c_f_after"
         {{each(key,n) v}}data-${key}="${n}" {{/each}}>
@@ -118,6 +119,7 @@
         </div>
     </div>
     {{/each}}
+        {{/if}}
     </div>
 </script>
 </body>

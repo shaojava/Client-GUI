@@ -1684,6 +1684,12 @@ border:1px solid #D0D6DB;
 width:160px;
 float: left;
     margin:0;
+    width:160px;
+}
+#sidebar .user_info .attrs > div{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
 }
 #sidebar .user_info .attrs .name,
 #sidebar .org_info .org_name{
@@ -1701,7 +1707,7 @@ padding: 10px 10px 0 0;
     height: 48px;
     background-repeat: no-repeat;
     background-position: 0 0;
-    margin: 2px 4px 0 8px;
+    margin: 2px 4px 0 7px;
     position: relative;
     background-size: 48px 48px;
 }
@@ -1836,7 +1842,9 @@ overflow: hidden;
     text-align: center;
     cursor: pointer;
 }
-#main .tab_list li:hover,
+#main .tab_list li:hover{
+background: #BFDEFF;
+}
 #main .tab_list li.selected{
     background: #83A9D6;
 }

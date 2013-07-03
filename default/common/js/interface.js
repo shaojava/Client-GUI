@@ -236,7 +236,11 @@ var gkClientInterface = {
         gkClient.gSetClipboardData(text);
     },
     getLinkPath:function(){
-        return JSON.parse(gkClient.gGetLinkPaths());
+        var re = gkClient.gGetLinkPaths();
+        if(!re){
+            return '';
+        }
+        return JSON.parse(re);
     },
     selectFile:function(path){
         var params = {
