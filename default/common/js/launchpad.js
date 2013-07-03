@@ -79,7 +79,11 @@ var gkClientLaunchPad = {
             $(".launth_pad_left li").removeClass('selected');
             $(this).addClass('selected');
         })
-        $(".launth_pad_left li").eq(0).trigger('click');
+		           //获取指定的样式
+		//$("."+location.hash.replace("#","")).addClass("selected").siblings("li").removeClass("selected");
+	    if($("."+location.hash.replace("#","")).get(0)){
+		  $("."+location.hash.replace("#","")).click();
+		}
 
     }
 };
