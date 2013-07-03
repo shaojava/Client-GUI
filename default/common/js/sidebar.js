@@ -11,6 +11,7 @@ var gkClientSidebar = {
     },
     init: function () {
         var _context = this;
+        localStorage.clear();
         initWebHref();
         _context.fetchAccountInfo();
         $(".header_nav").click(function () {
@@ -31,6 +32,7 @@ var gkClientSidebar = {
             };
             gkClientInterface.openSingleWindow(params);
      });
+
 	 //打开更多文件
 	/* $(".remark_list > li").find("a").eq(2).live("click",function(){
 	  var path = PAGE_CONFIG.path
@@ -59,7 +61,7 @@ var gkClientSidebar = {
                 sso: 1,
                 resize: 0,
                 width: 490,
-                height: 175
+                height: 230
             };
             gkClientInterface.openSingleWindow(params);  
         
@@ -328,12 +330,8 @@ var gkClientSidebar = {
        });
     },
     fetchFileInfo: function (file) {
+
         var _context = this;
-        var localData = _context.getLocalData(file.fullpath);
-        var exprired = 1*60*1000; //60秒
-        //var exprired =0;
-	   var clearCache = !localData || !localData.dateline || (new Date().getTime() - localData.dateline>exprired);
-        if(clearCache){
             var dir = 0, filename, fullpath;
             if (Util.String.lastChar(file.fullpath) === '/') {
                 dir = 1;
@@ -341,8 +339,8 @@ var gkClientSidebar = {
             fullpath = Util.String.rtrim(file.fullpath, '/');
             filename = Util.String.baseName(fullpath);
             var icon ='icon_64_'+ _context.getFileIconSuffix(filename, dir,file.share,file.local);
-            localData = {
-               'icon':icon,
+            var data = {
+                icon:icon,
                 filename: filename,
                 dir: dir,
                 state: file.state,
@@ -353,18 +351,24 @@ var gkClientSidebar = {
                 dateline:0,
 				is_share:0
             };
-        }
-        _context.fetchFileHeader(localData);
-
+          var localData = _context.getLocalData(file.fullpath) || {};
+          if(localData){
+              $.extend(data,localData);
+          }
+        var exprired = 1*60*1000; //60秒
+        //var exprired =0;
+        _context.fetchFileHeader(data);
+        var clearCache = !localData || !localData.dateline || (new Date().getTime() - localData.dateline>exprired);
         if(clearCache){
-            gkRest.getFileInfo(PAGE_CONFIG.mountId, file.fullpath, '', function (data) {
+            gkRest.getFileInfo(PAGE_CONFIG.mountId, file.fullpath, '', function (reData) {
                 var newData = {
-                    favorite: data.favorite,
-                    last_datetime: data.last_datetime,
-					is_share:data.share
+                    favorite: reData.favorite,
+                    last_datetime: reData.last_datetime,
+					is_share:reData.share
                 };
                 $.extend(localData,newData);
-                _context.fetchFileHeader(localData);
+                $.extend(data,localData);
+                _context.fetchFileHeader(data);
                 _context.setLocalData(file.fullpath, localData);
             });
         }
