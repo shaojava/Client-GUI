@@ -642,6 +642,7 @@ function gShellSelect(re) {
 	if(arr.path.lastIndexOf("/") < 0 && arr.path){
 	   //假如不在共享
 	     if(PAGE_CONFIG.isshare == 1){
+		  alert("共享了");
 		 fileStatus = gkClientSidebar.getToggleState(arr.path,0,arr.state);
 		 switch(fileStatus){
 		     case 1:
