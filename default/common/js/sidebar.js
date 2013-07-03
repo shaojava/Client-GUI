@@ -642,7 +642,7 @@ function gShellSelect(re) {
 	if(arr.path.lastIndexOf("/") < 0 && arr.path){
 	   //假如不在共享
 	     if(PAGE_CONFIG.isshare == 1){
-		 fileStatus = gkClientSidebar.getToggleState(arr.path);
+		 fileStatus = gkClientSidebar.getToggleState(arr.path,0,arr.state);
 		 switch(fileStatus){
 		     case 1:
 			    //显示独占修改
@@ -652,6 +652,10 @@ function gShellSelect(re) {
 			    //显示取消独占
 				 fileEle.attr("class","nodzupdate").text("取消独占");
 				break;
+			 default:
+                fileEle.attr("class","").text("");
+			    
+			    break;
 		 }	
 		 }
 		 	 
