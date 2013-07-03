@@ -12,11 +12,10 @@ var gkClientSync = {
             });
             return;
         });
-
     },
-
     showLinkedFile: function () {
         var _context = this;
+        console.log(gkClientInterface.getLinkPath());
         var files = _context.formatLinkData(gkClientInterface.getLinkPath().list);
         $('.list_wrapper .list').remove();
         var list = $('#fileListTmpl').tmpl({
@@ -130,7 +129,8 @@ var gkClientSync = {
                     if (treeNode) {
                         path = treeNode['data-fullpath'];
                     }
-                    var sign = gkClientInterface.getAuthorization('list', path, dateStr);
+                    var webpath = Util.String.encodeRequestUri(path);
+                    var sign = gkClientInterface.getAuthorization('list', webpath, dateStr);
                     var headers = {
                         'x-gk-mount': mount_id,
                         'x-gk-dir': 1,
@@ -316,7 +316,6 @@ var gkClientSync = {
                                 'type': type
                             }
                         ];
-                        console.log(paths);
                         gkClientInterface.setLinkPath(paths);
                         $(this).dialog('close');
                         if (parentDialog.size()) {
