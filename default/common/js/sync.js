@@ -28,7 +28,8 @@ var gkClientSync = {
 
         sync_items.find('.local_uri a,.cloud_uri a').click(function () {
             var item = $(this).parents('.sync_item');
-            var local_uri = item.data('local_uri');
+            var local_uri = item.attr('data-local_uri');
+            console.log(local_uri);
             gkClientInterface.openDiskPath(local_uri);
             return false;
         })
