@@ -1225,6 +1225,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .file_attrs p{margin:5px auto;height:24px;line-height:22px}
 .file_attrs p.dzupdate{/*background-position: 15px -62px;*/background-color:#ff944d;}
 .file_attrs p.nodzupdate{/*background-position: 15px -28px;*/background-color:#6185BC;}
+.file_attrs .filename .files{display:inline-block;letter-spacing:0;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #sider_page .header{padding:0;background:#6185bc;height:52px}
 #sider_page .header:hover{background:#486ea9}
 #sider_page .header .member_2013{padding-left:18px;height:100%}
@@ -1789,10 +1790,10 @@ background: none;
     background-position: 0 -25px;
 }
 #header .file_info .file_attrs .filename span.version i{ 
-     display:inline-block;
+    display:inline-block;
     width:28px;
 	height:16px;
-    background:url(../images/icon/v.png) no-repeat 0 3px;
+    background:url("../images/icon/v.png") no-repeat 0 3px;
 }
 #header .file_info .file_attrs span.edit i{
   background: none;

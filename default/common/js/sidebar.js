@@ -31,7 +31,24 @@ var gkClientSidebar = {
             };
             gkClientInterface.openSingleWindow(params);
      });
+	 //打开更多文件
+	/* $(".remark_list > li").find("a").eq(2).live("click",function(){
+	  var path = PAGE_CONFIG.path
+	     ,uuid = $(this).data("uuid");
+         if (!path.length) {
+                return;
+            }
+            var params = {
+                url: '/storage/update_detail?client=1&uuid='+uuid+'',
+                sso: 1,
+                resize: 0,
+                width: 490,
+                height: 175
+            };
+           gkClientInterface.openSingleWindow(params);
+	 }); */
 	 //取消独占
+	 
      $(".nodzupdate").live("click",function(){
          var path = PAGE_CONFIG.path;
          if (!path.length) {
@@ -348,6 +365,7 @@ var gkClientSidebar = {
                 local: PAGE_CONFIG.local,
                 share:PAGE_CONFIG.isshare
             }
+			//alert(file.share);
             gkClientSidebar.fetchFileInfo(file);
         }
     },
@@ -569,7 +587,7 @@ var gkClientSidebar = {
             if (PAGE_CONFIG.type == 1) {
                 tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
             } else if (PAGE_CONFIG.type == 2) {
-                tip = '这里是团队文件夹，你可以将团队的文件存在在这里，已方便与同事进行共享和协作';
+                tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
             }
             links = [
                 {
@@ -638,11 +656,15 @@ function gShellSelect(re) {
     arr.last_member_name= arr.membername;
     $.extend(PAGE_CONFIG,arr);
     gkClientSidebar.fetch();
-	var fileStatus = "no",fileEle = $(".file_attrs").find("p");
+	
+	/*var fileStatus = "no",fileEle = $(".file_attrs").find("p");
 	//只点击文件
+	
 	if(arr.path.lastIndexOf("/") < 0 && arr.path){
 	   //假如不在共享
+	   console.log(PAGE_CONFIG.isshare);
 	     if(PAGE_CONFIG.isshare == 1){
+		   
 		 fileStatus = gkClientSidebar.getToggleState(arr.path,0,arr.state);
 		 switch(fileStatus){
 		     case 1:
@@ -660,5 +682,5 @@ function gShellSelect(re) {
 		 }	
 		 }
 		 	 
-	}
+	}*/
 }

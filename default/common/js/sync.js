@@ -465,6 +465,7 @@ var gkClientSync = {
         _context.showFileTree(dialog, mount_id);
 
         dialog.find('.start_sync').click(function () {
+		   
             var local_path = $.trim($('#selected_local_path').text());
             var webpath = $.trim($('#select_cloud_file_path').text());
             var type = $('#select_cloud_file_path').data('type');
