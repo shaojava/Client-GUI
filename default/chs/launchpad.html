@@ -13,7 +13,12 @@
     <script type="text/javascript">
         $(function(){
               gkClientLaunchPad.init();
-        })
+           //获取指定的样式
+		     var classReg = /#(\w+)/i
+			    ,url = window.location.href
+				,selectedClass = url.match(classReg)[1];
+		        $("."+selectedClass).addClass("selected").siblings("li").removeClass("selected");
+		})
 
         function gUpdateLinkPaths(){
            var iframe = $('iframe');

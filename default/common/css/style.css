@@ -1784,9 +1784,10 @@ background: none;
     background-repeat: no-repeat;
 }
 #header .file_info .file_icon span.favorite i{
+    cursor:pointer;
     background-position: 0 -5px;
 }
-#header .file_info .file_attrs span.favorite.on i{
+#header .file_info  span.favorite.on i{
     background-position: 0 -25px;
 }
 #header .file_info .file_attrs .filename span.version i{ 

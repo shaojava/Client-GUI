@@ -179,30 +179,40 @@ var gkClientSidebar = {
                 };
                 modes.push(mode);
             })
-
+         
             var selectWrp = $('#linkModeTmpl').tmpl({
                 modes: modes
             }).prependTo(tab_content_wrapper);
-
-            //初始化
+		
             selectWrp.find('.dropdown_menu').on('click', 'a', function () {
-                var btn = selectWrp.children('a:first');
-                var cloneBtn = $(this).clone();
+			
+                var btn = selectWrp.children('a:first'); 
+                  	
+    			  var cloneBtn = $(this).clone();
                 if (btn.size()) {
-                    selectWrp.find('a:first').replaceWith(cloneBtn);
-                } else {
-                    selectWrp.prepend(cloneBtn)
-                }
-                cloneBtn.append('<s></s>');
-                cloneBtn.droplist({
+                    selectWrp.find('a:first').css("cursor","default").replaceWith(cloneBtn);
+					
+                } else {	 
+                    selectWrp.prepend(cloneBtn);
+				}
+				if(modes.length < 2){
+				  cloneBtn.css("cursor","default").removeClass("active").find("s").remove(); 
+				}else{
+				 cloneBtn.css("cursor","cursor").append("<s></s>"); 
+				}
+               // cloneBtn.append('<s></s>');
+               /* cloneBtn.droplist({
                     onClose: function (btn) {
                         selectWrp.children('a:first').removeClass('active');
                     }
-                });
-
-                selectWrp.find('ul a').show();
-                $(this).hide();
+                }); */ 
+		
+				$(this).hide();
+               // if($(".dropdown_menu"))
+               //selectWrp.find('ul a').show();
+                //$(this).parents(".dropdown_menu").hide();
             });
+			
             selectWrp.find('.dropdown_menu a:first').trigger('click');
 
             $('.share_types li a').click(function () {
@@ -239,7 +249,7 @@ var gkClientSidebar = {
                         dataType: 'json',
                         success: function (data) {
                             var url = data.link;
-                            callback();
+                            callback(url);
                             _context.setLocalLink(PAGE_CONFIG.path, auth, url);
                         },
                         error: function () {
@@ -258,12 +268,35 @@ var gkClientSidebar = {
        header.find('.file_info_wrapper').remove();
        var fileInfoWrapper = $('#fileInfoTmpl').tmpl(localData).appendTo(header);
        fileInfoWrapper.show();
+	   var fileStatus = null
+	      ,fileEle = fileInfoWrapper.find(".file_attrs").find("p");
+ 
+	    if(localData.dir == 0){
+		  if(localData.is_share == 1){
+		    fileStatus = gkClientSidebar.getToggleState(localData.filename,0,localData.state);
+			 switch(fileStatus){
+		     case 1:
+			    //显示独占修改
+				fileEle.attr("class","dzupdate").text("独占修改");
+				break;
+		     case 0:
+			    //显示取消独占
+				 fileEle.attr("class","nodzupdate").text("取消独占");
+				break;
+			 default:
+                fileEle.attr("class","").text("");  
+			    break;
+		     }
+		  }
+		}
+	
        //收藏，取消收藏
        fileInfoWrapper.find('.favorite').click(function(){
            var _self = $(this);
            if(_self.hasClass('loading')){
                return;
            }
+		   
            _self.addClass('loading');
            if(_self.hasClass('on')){
                gkRest.removeFileFromFav(PAGE_CONFIG.mountId,PAGE_CONFIG.path,function(){
@@ -297,6 +330,7 @@ var gkClientSidebar = {
     fetchFileInfo: function (file) {
         var _context = this;
         var localData = _context.getLocalData(file.fullpath);
+	   
         if(!localData){
             var dir = 0, filename, fullpath;
             if (Util.String.lastChar(file.fullpath) === '/') {
@@ -314,16 +348,19 @@ var gkClientSidebar = {
                 last_member_id: file.last_member_id,
                 favorite: 0,
                 last_datetime: '',
-                dateline:0
+                dateline:0,
+				is_share:0
             };
         }
         _context.fetchFileHeader(localData);
         var exprired = 1*60*1000; //60秒
         if(!localData.dateline || (new Date().getTime() - localData.dateline>exprired)){
             gkRest.getFileInfo(PAGE_CONFIG.mountId, file.fullpath, '', function (data) {
+			
                 var newData = {
                     favorite: data.favorite,
-                    last_datetime: data.last_datetime
+                    last_datetime: data.last_datetime,
+					is_share:data.share
                 };
                 $.extend(localData,newData);
                 _context.fetchFileHeader(localData);
@@ -365,7 +402,6 @@ var gkClientSidebar = {
                 local: PAGE_CONFIG.local,
                 share:PAGE_CONFIG.isshare
             }
-			//alert(file.share);
             gkClientSidebar.fetchFileInfo(file);
         }
     },
@@ -487,7 +523,8 @@ var gkClientSidebar = {
         var main = $('#main');
         main.empty();
         if(PAGE_CONFIG.state>1 && PAGE_CONFIG.state<6){
-            $('#fileMainTmpl').tmpl().appendTo(main);
+            var fileMainTmpl = $('#fileMainTmpl').tmpl().appendTo(main);
+		
             $('.tab_list li').click(function () {
                 var target = $(this).data('target');
                 var tab_content_wrapper = $('.tab_content_wrapper');
@@ -583,8 +620,7 @@ var gkClientSidebar = {
         var main = $('#main');
         if (!PAGE_CONFIG.path) {
             var links = [], tip = '';
-            tip = '这是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
-            if (PAGE_CONFIG.type == 1) {
+		if (PAGE_CONFIG.type == 1) {
                 tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
             } else if (PAGE_CONFIG.type == 2) {
                 tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
@@ -597,6 +633,7 @@ var gkClientSidebar = {
                     name: '在网页上查看你的文件'
                 }
             ];
+		
             var data = {
                 type: PAGE_CONFIG.type,
                 tip: tip,
@@ -656,31 +693,4 @@ function gShellSelect(re) {
     arr.last_member_name= arr.membername;
     $.extend(PAGE_CONFIG,arr);
     gkClientSidebar.fetch();
-	
-	/*var fileStatus = "no",fileEle = $(".file_attrs").find("p");
-	//只点击文件
-	
-	if(arr.path.lastIndexOf("/") < 0 && arr.path){
-	   //假如不在共享
-	   console.log(PAGE_CONFIG.isshare);
-	     if(PAGE_CONFIG.isshare == 1){
-		   
-		 fileStatus = gkClientSidebar.getToggleState(arr.path,0,arr.state);
-		 switch(fileStatus){
-		     case 1:
-			    //显示独占修改
-				fileEle.attr("class","dzupdate").text("独占修改");
-				break;
-		     case 0:
-			    //显示取消独占
-				 fileEle.attr("class","nodzupdate").text("取消独占");
-				break;
-			 default:
-                fileEle.attr("class","").text("");
-			    
-			    break;
-		 }	
-		 }
-		 	 
-	}*/
 }

@@ -412,7 +412,7 @@ var gkClientSync = {
             return false;
         }
         if(re.empty==0){
-            if(!confirm('你选择的文件夹不为空，同步后将被覆盖，请确认')){
+            if(!confirm('同步后同名文件将被覆盖，请确认')){
                 return false;
             }
         }
