@@ -15,7 +15,6 @@ var gkClientSync = {
     },
     showLinkedFile: function () {
         var _context = this;
-        console.log(gkClientInterface.getLinkPath());
         var files = _context.formatLinkData(gkClientInterface.getLinkPath().list);
         $('.list_wrapper .list').remove();
         var list = $('#fileListTmpl').tmpl({
@@ -148,36 +147,39 @@ var gkClientSync = {
                         var myFiles = data.my_files;
                         var teamTree = {
                             'tId': '1',
-                            'name': '团队文件',
+                            'name': '团队的文件',
                             'iconSkin': 'file_icon icon_team_root ',
                             'className': '',
                             'fullpath': '',
                             'open': true,
-                            'isParent': true,
+                            'isParent': teamFiles&&teamFiles.length,
                             'data-hash': '',
                             'data-fullpath': '',
-                            'data-filename': '团队文件',
+                            'data-filename': '团队的文件',
                             'data-icon': 'icon_team_root',
                             'data-type': 2,
                             'children': _context.rendFileList(teamFiles, parentNode)
                         };
                         var myTree = {
                             'tId': '2',
-                            'name': '我的文件',
+                            'name': '个人的文件',
                             'iconSkin': 'file_icon icon_my_root ',
                             'className': '',
                             'open': true,
                             'fullpath': '',
-                            'isParent': true,
+                            'isParent':myFiles && myFiles.length,
                             'data-hash': '',
                             'data-fullpath': '',
-                            'data-filename': '我的文件',
+                            'data-filename': '个人的文件',
                             'data-icon': 'icon_my_root',
                             'data-type': 2,
                             'children': _context.rendFileList(myFiles, parentNode)
                         };
                         treeData.push(myTree);
-                        treeData.push(teamTree);
+                        if(PAGE_CONFIG.orgId!=0){
+                            treeData.push(teamTree);
+                        }
+
                     } else {
                         if (data && data.list) {
                             treeData = _context.rendFileList(data.list, parentNode);
@@ -210,6 +212,9 @@ var gkClientSync = {
                         if (!$(e.target).is(jItem) && !nearFileItem.is(jItem)) {
                             return;
                         }
+                        if(!String(jItem.data('fullpath'))){
+                            return;
+                        }
                         if (!jItem.hasClass('selected')) {
                             dialog.find('.file_item.selected').removeClass("selected");
                             jItem.addClass("selected");
@@ -225,17 +230,16 @@ var gkClientSync = {
     rendFileList: function (files, parentNode) {
         var _context = this;
         var renderList = [];
-        var item = null;
-        var name = '';
-        var l = files.length || 0;
-        $.each(files, function (i, n) {
-            n.icon = 'icon_folder';
-            var node = _context.rendFileItem(n, parentNode);
-            if (i + 1 == files.length) {
-                node['className'] += ' last_file_item';
-            }
-            renderList.push(node);
-        });
+        if(files&&files.length){
+            $.each(files, function (i, n) {
+                n.icon = 'icon_folder';
+                var node = _context.rendFileItem(n, parentNode);
+                if (i + 1 == files.length) {
+                    node['className'] += ' last_file_item';
+                }
+                renderList.push(node);
+            });
+        }
         return renderList;
     },
     rendFileItem: function (n, parentNode) {
@@ -395,6 +399,7 @@ var gkClientSync = {
 
     },
     checkSelectPath:function(path,re){
+        console.log(re);
         if (re.disabled == 1) {
             var binded_path = re.path;
             var replace_path = path.replace(/\\/g, '/');
@@ -427,7 +432,6 @@ var gkClientSync = {
             if (!path) {
                 dialog.find('.goto_select_file').show();
             } else {
-
                 dialog.find('.goto_select_file').hide();
                 var html = '<div class="d_content selected_local_file">';
                 html += '<div><i></i><span>' + filename + '</span><button class="btn select_local_file">修改位置</button></div>';
@@ -472,6 +476,10 @@ var gkClientSync = {
             var type = $('#select_cloud_file_path').data('type');
             if (!type) {
                 type = 0;
+            }
+            if(!webpath){
+                alert('请选择云端文件夹');
+                return;
             }
             if (!local_path) {
                 alert('请选择本地位置');
