@@ -63,7 +63,9 @@
 </script>
 <script type="text/x-jquery-tmpl" id="remarkListTmpl">
     {{if remarks && remarks.length}}
+    {{if typeof(isItem)==='undefined' || !isItem}}
     <ul class="remark_list scrollbar">
+        {{/if}}
         {{each(i,remark) remarks}}
         <li>
             <img src="${remark.member_photo}" alt="${remark.member_name}" title="${remark.member_name}" />
@@ -74,11 +76,14 @@
             </div>
         </li>
         {{/each}}
+
+        {{if typeof(isItem)==='undefined' || !isItem}}
     </ul>
+    {{/if}}
     {{else}}
     <div class="empty">没有讨论</div>
     {{/if}}
-
+    {{if typeof(isItem)==='undefined' || !isItem}}
     <div class="post_wrapper">
         <div class="">
             <textarea class="textarea_wrapper textarea textarea_radius" name="post_value" id="post_value">{{if typeof(old_remark)!=='undefined'&&old_remark}}${old_remark}{{/if}}</textarea>
@@ -87,6 +92,7 @@
             <button class="btn blue_btn post_now">发表讨论</button>
         </div>
     </div>
+    {{/if}}
 </script>
 <script type="text/x-jquery-tmpl" id="linkModeTmpl">
 <div class="select_wrapper">

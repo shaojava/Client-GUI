@@ -607,7 +607,17 @@ var gkClientSidebar = {
             _self.removeClass('.blue_btn').addClass('disabled');
             gkRest.fileRemind(PAGE_CONFIG.mountId, PAGE_CONFIG.path, text, function (data) {
                 _self.removeClass('disabled').addClass('blue_btn');
-                _context.getFileMain(PAGE_CONFIG.path,'history');
+                if(data){
+                    var remarkItem = $('#remarkListTmpl').tmpl({
+                        remarks: data,
+                        isItem:true
+                    })
+                    var remarkListWrapper =  slideItemShare.find('.remark_list');
+                    remarkListWrapper.find('.empty').remove();
+                    remarkListWrapper.prepend(remarkItem);
+                    remarkItem.hide();
+                    remarkItem.fadeIn();
+                }
                 localStorage.removeItem('remark_'+PAGE_CONFIG.path);
 
             }, function () {
