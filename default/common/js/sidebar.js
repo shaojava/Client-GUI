@@ -351,7 +351,7 @@ var gkClientSidebar = {
           if(localData){
               $.extend(data,localData);
           }
-        var exprired = 1*60*1000; //60秒
+        var exprired = 15*1000; //15秒
         //var exprired =0;
         _context.fetchFileHeader(data);
         var clearCache = !localData || !localData.dateline || (new Date().getTime() - localData.dateline>exprired);
