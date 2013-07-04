@@ -8,6 +8,7 @@
         <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="../common/js/interface.js"></script>
         <script type="text/javascript">
+		
 		    function getLocalTime(nS) {     
                return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
             }
@@ -31,11 +32,8 @@
                 new_tqframe_body.empty();
                 $("#update_mes").tmpl({data:data.updates}).appendTo(new_tqframe_body);
             }
-            $(function(){
-			     
-					
+            $(function(){	
                 initWebHref();
-				
                 var update_me = $("#update_me"),
                      update_all = $("#update_all");
                 update_all.on("click",function(){
@@ -52,8 +50,9 @@
                setInterval(function(){
                    fetchUpdate();
                },5000);
+			 //  new_tqframe_body.empty();	
                 fetchUpdate();
-				new_tqframe_body.empty();	
+				
             })
         </script>
     </head>

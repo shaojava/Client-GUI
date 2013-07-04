@@ -2136,7 +2136,6 @@ margin: 15px 0;
 
 /**弹出消息框**/
 .tc_frame .new_tqframe{
-    width:295px;
     height:310px;overflow:scroll;overflow:scroll;padding:0 6px 0 12px;font:bold 13px "微软雅黑";color:#64727C;background:#FFF;}
 .tc_frame .new_tqframe_header{height:30px;line-height:30px;border-bottom: 1px solid #DDD;}
 .tc_frame .new_tqframe_header span:nth-child(1){margin:0 7px 0 14px;}
@@ -2144,7 +2143,7 @@ margin: 15px 0;
 .tc_frame .new_tqframe_body li{padding:12px 0;}
 
 .tc_frame .new_tqframe_body li .member_photo img{border-radius:32px;display:block}
-.tc_frame .new_tqframe_body li .update_item_content{width:220px;word-break: break-all;}
+.tc_frame .new_tqframe_body li .update_item_content{width:82%;word-break: break-all;}
 .tc_frame .update_item{
     position:relative;
 }
