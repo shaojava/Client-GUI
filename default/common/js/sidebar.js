@@ -11,6 +11,7 @@ var gkClientSidebar = {
     },
     init: function () {
         var _context = this;
+        localStorage.clear();
         initWebHref();
         _context.fetchAccountInfo();
         $(".header_nav").click(function () {
@@ -31,6 +32,7 @@ var gkClientSidebar = {
             };
             gkClientInterface.openSingleWindow(params);
      });
+
 	 //打开更多文件
 	/* $(".remark_list > li").find("a").eq(2).live("click",function(){
 	  var path = PAGE_CONFIG.path
@@ -59,7 +61,7 @@ var gkClientSidebar = {
                 sso: 1,
                 resize: 0,
                 width: 490,
-                height: 175
+                height: 230
             };
             gkClientInterface.openSingleWindow(params);  
         
@@ -199,13 +201,19 @@ var gkClientSidebar = {
 				  cloneBtn.css("cursor","default").removeClass("active").find("s").remove(); 
 				}else{
 				 cloneBtn.css("cursor","cursor").append("<s></s>"); 
+<<<<<<< HEAD
 				}*/
                // cloneBtn.append('<s></s>');
                /* cloneBtn.droplist({
+=======
+				}
+                cloneBtn.append('<s></s>');
+               cloneBtn.droplist({
+>>>>>>> 32c23560c5ac2c243ec465c885bc7eef35177050
                     onClose: function (btn) {
                         selectWrp.children('a:first').removeClass('active');
                     }
-                }); */ 
+                });
 		
 				//$(this).hide();
                // if($(".dropdown_menu"))
@@ -272,6 +280,7 @@ var gkClientSidebar = {
 	   var fileStatus = null
 	      ,fileEle = fileInfoWrapper.find(".file_attrs").find("p");
 	    if(localData.dir == 0){
+            //console.log(localData);
 		  if(localData.is_share == 1){
 		    fileStatus = gkClientSidebar.getToggleState(localData.filename,0,localData.state);
 			
@@ -329,10 +338,8 @@ var gkClientSidebar = {
        });
     },
     fetchFileInfo: function (file) {
+
         var _context = this;
-        var localData = _context.getLocalData(file.fullpath);
-	   
-        if(!localData){
             var dir = 0, filename, fullpath;
             if (Util.String.lastChar(file.fullpath) === '/') {
                 dir = 1;
@@ -340,8 +347,8 @@ var gkClientSidebar = {
             fullpath = Util.String.rtrim(file.fullpath, '/');
             filename = Util.String.baseName(fullpath);
             var icon ='icon_64_'+ _context.getFileIconSuffix(filename, dir,file.share,file.local);
-            localData = {
-               'icon':icon,
+            var data = {
+                icon:icon,
                 filename: filename,
                 dir: dir,
                 state: file.state,
@@ -352,19 +359,24 @@ var gkClientSidebar = {
                 dateline:0,
 				is_share:0
             };
-        }
-        _context.fetchFileHeader(localData);
+          var localData = _context.getLocalData(file.fullpath) || {};
+          if(localData){
+              $.extend(data,localData);
+          }
         var exprired = 1*60*1000; //60秒
-        if(!localData.dateline || (new Date().getTime() - localData.dateline>exprired)){
-            gkRest.getFileInfo(PAGE_CONFIG.mountId, file.fullpath, '', function (data) {
-			
+        //var exprired =0;
+        _context.fetchFileHeader(data);
+        var clearCache = !localData || !localData.dateline || (new Date().getTime() - localData.dateline>exprired);
+        if(clearCache){
+            gkRest.getFileInfo(PAGE_CONFIG.mountId, file.fullpath, '', function (reData) {
                 var newData = {
-                    favorite: data.favorite,
-                    last_datetime: data.last_datetime,
-					is_share:data.share
+                    favorite: reData.favorite,
+                    last_datetime: reData.last_datetime,
+					is_share:reData.share
                 };
                 $.extend(localData,newData);
-                _context.fetchFileHeader(localData);
+                $.extend(data,localData);
+                _context.fetchFileHeader(data);
                 _context.setLocalData(file.fullpath, localData);
             });
         }
