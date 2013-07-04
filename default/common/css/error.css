@@ -1,0 +1,112 @@
+@CHARSET "UTF-8";
+body{
+    overflow: hidden;
+	font-family:"微软雅黑","黑体","宋体";
+}
+h1,h2,a{
+    font-family:"微软雅黑","黑体","宋体";
+}
+#wrapper{
+    position: relative;
+    width: 1319px;
+    height: 780px;
+    margin: 0 auto;
+    background: url("../images/error_bg.png") center bottom no-repeat;
+}
+#footer{
+    margin-top: -40px;
+}
+.copyright{
+    text-align: center;
+    color: #96A8C6;
+    text-shadow: -1px -1px 2px  #FFF;
+}
+.error_wrp{
+    position: absolute;
+    right: 305px;
+    top: 155px;
+}
+.error_wrp h1{
+    color : #404241;
+    font-size: 26px;
+}
+.error_wrp h2{
+    color: #434544;
+    font-size: 18px;
+    line-height: 50px;
+    height: 45px;
+}
+.error_wrp ul li{
+    line-height: 24px;
+    padding-left: 20px;	
+    background: url("../images/error_link_bg.png") 0 center no-repeat;
+}
+.error_wrp ul li a{
+    color: #434544;
+    font-size: 14px;
+}
+.error_wrp ul li a:hover{
+    text-decoration: underline;
+} 
+
+#frame_error_page #wrapper{
+    background: none;
+    width: auto;
+    position: static;
+}
+#frame_error_page .center_form_content{
+    width: 150px;
+    margin:200px auto 0;
+}
+#frame_error_page .center_form_content .message{
+    font-size: 24px;
+    color:#ccc;
+}
+#frame_error_page .center_form_content .links{
+    margin-top: 20px;
+}
+#frame_error_page .center_form_content .links a:hover{
+    text-decoration: underline;
+}
+
+#error401 .main{
+	border:1px solid #fff;
+	height:246px;
+	width:700px;
+	margin:100px auto 0 auto;
+}
+
+#error401 .main .img{
+	float:left;
+}
+#error401 .main h1{
+	font-size:25px;
+	color:#606d7f;
+	margin-top:80px;
+	width:350px;
+	float:left;
+	text-align:center;
+}
+#error401 .main h1.client{
+	margin-top:80px;
+}
+#error401 .main h1.error503{
+	margin-top:100px;
+}
+#error401 .main .return{
+	font-size:17px;
+	color:#7f8999;
+	margin-top:20px;	
+		width:350px;
+			float:left;
+			text-align:center;
+}
+#error401 .main .return a{
+	margin-left:5px;
+}
+#error401 .main .return a.a{
+	margin-right:5px;
+}
+
+
+
