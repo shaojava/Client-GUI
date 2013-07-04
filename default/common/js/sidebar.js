@@ -168,9 +168,10 @@ var gkClientSidebar = {
                 gkClientInterface.openWindow(params);
             });
         } else {
-            var link_type = publish.link_type,
-                modes = [],
+            var link_type = publish.link_type,              
+			  modes = [],
                 mode = null;
+				console.log(link_type);
             $.each(link_type, function (i, n) {
                 var re = _context.getLinkKeyAndTipByAuth(n.value);
                 mode = {
