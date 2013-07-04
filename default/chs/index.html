@@ -103,7 +103,7 @@
             <div class="f_l"><i></i></div>
             <div class="f_l t_l">
                 <p class="select_name">${mode.name}</p>
-                <p class="select_tip">${mode.tip}</p>
+                <p class="select_tip" title="${mode.tip}">${mode.tip}</p>
             </div>
         </a></li>
         {{/each}}
@@ -185,7 +185,7 @@
             </i>
             <div class="file_attrs">
                 <div class="filename" title="${filename}"><span class="files">${filename}</span>
-				   {{if dir==0}}
+				   {{if dir==0 && state > 1 && state < 6}}
                     <span class="version"><i></i></span>
                     {{/if}}
 				</div>
