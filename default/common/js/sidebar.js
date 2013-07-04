@@ -98,11 +98,11 @@ var gkClientSidebar = {
             var item = $(this).parents('li');
             var username = $.trim(item.find('.member_name').text());
             var params = {
-                url: '/client/file_remark?username=' + encodeURIComponent(username) + '&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
-                sso: 1,
+                url: '/client/client_file_detail?fullpath='+encodeURIComponent(PAGE_CONFIG.path)+'&tab=dynamic&client=1&defaulttext=@'+username+'',
+    			sso: 1,
                 resize: 0,
-                width: 650,
-                height: 150
+                width: 800,
+                height: 600
             };
             gkClientInterface.openWindow(params);
             return;
@@ -197,29 +197,16 @@ var gkClientSidebar = {
                     selectWrp.prepend(cloneBtn);
 				}
 				
-				/*if(modes.length < 2){
-				  cloneBtn.css("cursor","default").removeClass("active").find("s").remove(); 
-				}else{
-				 cloneBtn.css("cursor","cursor").append("<s></s>"); 
-<<<<<<< HEAD
-				}*/
-               // cloneBtn.append('<s></s>');
-               /* cloneBtn.droplist({
-=======
-				}
+        
                 cloneBtn.append('<s></s>');
                cloneBtn.droplist({
->>>>>>> 32c23560c5ac2c243ec465c885bc7eef35177050
                     onClose: function (btn) {
                         selectWrp.children('a:first').removeClass('active');
                     }
                 });
 		
-				//$(this).hide();
-               // if($(".dropdown_menu"))
-			   cloneBtn.append("<s></s>");
+				$(this).hide();
                selectWrp.find('ul a').show();
-                //$(this).parents(".dropdown_menu").hide();
             });
 			
             selectWrp.find('.dropdown_menu a:first').trigger('click');
