@@ -263,12 +263,12 @@ var gkClientSidebar = {
        var _context = this;
        var header = $('#header');
        header.find('.file_info_wrapper').remove();
+	   //判断是否出现版本
        var fileInfoWrapper = $('#fileInfoTmpl').tmpl(localData).appendTo(header);
        fileInfoWrapper.show();
 	   var fileStatus = null
 	      ,fileEle = fileInfoWrapper.find(".file_attrs").find("p");
 	    if(localData.dir == 0){
-            //console.log(localData);
 		  if(localData.is_share == 1){
 		    fileStatus = gkClientSidebar.getToggleState(localData.filename,0,localData.state);
 			

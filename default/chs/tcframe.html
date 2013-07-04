@@ -11,6 +11,7 @@
             function fetchUpdate(){
                 var new_tqframe_body = $(".new_tqframe_body");
                 var data = gkClientInterface.getMessage();
+				console.log(data);
                 new_tqframe_body.empty();
                 $("#update_mes").tmpl({data:data.updates}).appendTo(new_tqframe_body);
             }
