@@ -35,8 +35,8 @@ var gkClientSync = {
         //设置新的本地同步位置
         $('.edit_local_uri').click(function () {
             var item = $(this).parents('.sync_item');
-            var local_uri = item.data('local_uri');
-            var cloud_uri = item.data('cloud_uri');
+            var local_uri = String(item.data('local_uri'));
+            var cloud_uri = String(item.data('cloud_uri'));
             var type = item.data('type');
             var new_local_uri = gkClientInterface.selectFile({
                 path:local_uri,
