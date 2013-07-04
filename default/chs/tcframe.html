@@ -8,15 +8,34 @@
         <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
         <script type="text/javascript" src="../common/js/interface.js"></script>
         <script type="text/javascript">
+		    function getLocalTime(nS) {     
+               return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
+            }
             function fetchUpdate(){
                 var new_tqframe_body = $(".new_tqframe_body");
                 var data = gkClientInterface.getMessage();
-				console.log(data);
+				//如果今天就显示时分，如果是今天以前就是月日
+				//hover显示年月日
+				var date = new Date(),currentDate = date.getFullYear()+"-"+((date.getMonth()+1 < 10) ? ("0"+(date.getMonth()+1)) : (date.getMonth()+1))+"-"+((date.getDate() < 10) ? ("0"+date.getDate()):date.getDate());
+                var HM = null;               
+			   $.each(data.updates,function(k,v){
+				     HM = new Date(getLocalTime(v["dateline"]));
+				     if(currentDate == v.date){
+					   
+					   v["date_txt"] = HM.getHours()+":"+HM.getMinutes(); 
+					 }else{
+					   v["date_txt"] = (HM.getMonth()+1)+"月"+HM.getDate()+"日";
+					 }
+					 v["hover_date_txt"] = v["date"] + " " + HM.getHours()+":"+HM.getMinutes();
+				})				
                 new_tqframe_body.empty();
                 $("#update_mes").tmpl({data:data.updates}).appendTo(new_tqframe_body);
             }
             $(function(){
+			     
+					
                 initWebHref();
+				
                 var update_me = $("#update_me"),
                      update_all = $("#update_all");
                 update_all.on("click",function(){
@@ -34,6 +53,7 @@
                    fetchUpdate();
                },5000);
                 fetchUpdate();
+				new_tqframe_body.empty();	
             })
         </script>
     </head>
@@ -59,7 +79,7 @@
                     </div>
                     <div class="update_item_content f_l">
                         ${v.member_name} ${v.render_text}
-                        <span class="update_item_date">
+                        <span class="update_item_date" title="${v.hover_date_txt}">
                             ( ${v.date_txt} )
                         </span>
                     </div>
