@@ -183,23 +183,23 @@ var gkClientSidebar = {
             var selectWrp = $('#linkModeTmpl').tmpl({
                 modes: modes
             }).prependTo(tab_content_wrapper);
-		
             selectWrp.find('.dropdown_menu').on('click', 'a', function () {
 			
                 var btn = selectWrp.children('a:first'); 
                   	
     			  var cloneBtn = $(this).clone();
                 if (btn.size()) {
-                    selectWrp.find('a:first').css("cursor","default").replaceWith(cloneBtn);
+                    selectWrp.find('a:first').replaceWith(cloneBtn);
 					
                 } else {	 
                     selectWrp.prepend(cloneBtn);
 				}
-				if(modes.length < 2){
+				
+				/*if(modes.length < 2){
 				  cloneBtn.css("cursor","default").removeClass("active").find("s").remove(); 
 				}else{
 				 cloneBtn.css("cursor","cursor").append("<s></s>"); 
-				}
+				}*/
                // cloneBtn.append('<s></s>');
                /* cloneBtn.droplist({
                     onClose: function (btn) {
@@ -207,9 +207,10 @@ var gkClientSidebar = {
                     }
                 }); */ 
 		
-				$(this).hide();
+				//$(this).hide();
                // if($(".dropdown_menu"))
-               //selectWrp.find('ul a').show();
+			   cloneBtn.append("<s></s>");
+               selectWrp.find('ul a').show();
                 //$(this).parents(".dropdown_menu").hide();
             });
 			
@@ -273,6 +274,7 @@ var gkClientSidebar = {
 	    if(localData.dir == 0){
 		  if(localData.is_share == 1){
 		    fileStatus = gkClientSidebar.getToggleState(localData.filename,0,localData.state);
+			
 			 switch(fileStatus){
 		     case 1:
 			    //显示独占修改
