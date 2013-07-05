@@ -776,7 +776,7 @@ var LANG = {
     pls_enter_your_email_address:'Please input your email address',
     next_step:'Next',
     prev_step:'Previous',
-    done:'Completed',
+    done:'Complete',
     synchronize_directory_will_be_overwrite:'The file in [$1] will cause overwriting, please choose to:',
     rechoose:'Rechoose',
     local_files_overwrite_cloud_files:'Local files overwrite cloud files',
