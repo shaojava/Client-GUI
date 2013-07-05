@@ -316,7 +316,7 @@ var gkClientSidebar = {
        //历史版本
        fileInfoWrapper.find('.version').click(function(){
            var params = {
-               url: '/client/client_file_detail?tab=dynamic&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
+               url: '/client/client_file_detail?tab=dynamic&flag=version&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
                sso: 1,
                resize: 0,
                width: 800,

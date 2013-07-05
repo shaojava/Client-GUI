@@ -14,6 +14,9 @@
             }
             function fetchUpdate(){
                 var new_tqframe_body = $(".new_tqframe_body");
+				 $(new_tqframe_body).on("click",function(){
+				  gkClientInterface.launchpad(JSON.stringify({tab:"notices"}));//notices
+				})
                 var data = gkClientInterface.getMessage();
 				//如果今天就显示时分，如果是今天以前就是月日
 				//hover显示年月日
@@ -36,6 +39,7 @@
                 initWebHref();
                 var update_me = $("#update_me"),
                      update_all = $("#update_all");
+			   
                 update_all.on("click",function(){
                     var   params = {
                         url: '/client/client?ac=updates',

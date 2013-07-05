@@ -205,9 +205,14 @@ var gkClientInterface = {
             throw e;
         }
     },
-    launchpad: function() {
+    launchpad: function(path) {
         try {
-            gkClient.gLaunchpad();
+		    if(path){
+             gkClient.gLaunchpad(path);
+			 return;
+			}
+			gkClient.gLaunchpad();
+			
         } catch (e) {
             throw e;
         }

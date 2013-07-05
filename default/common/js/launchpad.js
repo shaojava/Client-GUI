@@ -24,10 +24,10 @@ var gkClientLaunchPad = {
                 sso:1
             },
             {
-                url:'/client/client?ac=contacts',
-                name:'联系人',
+                url:'/client/client?ac=notices',
+                name:'消息',
                 icon:'',
-                classes:'contacts',
+                classes:'notices',
                 sso:1
             },
             {

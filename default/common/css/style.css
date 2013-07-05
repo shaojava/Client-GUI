@@ -1407,9 +1407,10 @@ color:#fff;
 }
 
 .launth_pad .launth_pad_left li:hover{background-color:#486EA9}
-.launth_pad .launth_pad_left li.sync i{background-position:0 -320px;}
+.launth_pad .launth_pad_left li.sync i{background-position:0 -352px;}
 .launth_pad .launth_pad_left li.share i{background-position:0 0;}
 .launth_pad .launth_pad_left li.favorite i{background-position:0 -64px;}
+.launth_pad .launth_pad_left li.notices i{background-position:0 -320px;}
 .launth_pad .launth_pad_left li.updates i{background-position:0 0;}
 .launth_pad .launth_pad_left li.contacts i{background-position:0 -96px;}
 .launth_pad .launth_pad_left li.recyclebin i{background-position:0 -160px;}
@@ -2136,6 +2137,7 @@ margin: 15px 0;
 
 /**弹出消息框**/
 .tc_frame .new_tqframe{
+   cursor:pointer;
     height:310px;overflow:scroll;overflow:scroll;padding:0 6px 0 12px;font:bold 13px "微软雅黑";color:#64727C;background:#FFF;}
 .tc_frame .new_tqframe_header{height:30px;line-height:30px;border-bottom: 1px solid #DDD;}
 .tc_frame .new_tqframe_header span:nth-child(1){margin:0 7px 0 14px;}
