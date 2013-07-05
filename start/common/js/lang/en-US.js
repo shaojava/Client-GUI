@@ -769,7 +769,7 @@ var LANG = {
     clear_cache_tip:'Clearing cache will release much space,but will decrease sync efficiency',
     set_proxy:'Proxies',
     enable_ie_proxy:'Enable IE proxy (Take effect after restarting Gokuai)',
-    gokuai_desktop_client:'Gokuai desktop client',
+    gokuai_desktop_client:'Gokuai Windows Client',
     gokuai_technology:'Gokuai technology',
 
     //login.js
