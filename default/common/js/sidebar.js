@@ -13,6 +13,9 @@ var gkClientSidebar = {
         var _context = this;
         localStorage.clear();
         initWebHref();
+        $('body').tooltip({
+            selector: '.gktooltip'
+        });
         _context.fetchAccountInfo();
         $(".header_nav").click(function () {
             gkClientInterface.launchpad();
