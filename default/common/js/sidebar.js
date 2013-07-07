@@ -366,8 +366,7 @@ var gkClientSidebar = {
                 var newData = {
                     favorite: reData.favorite,
                     last_datetime: reData.last_datetime,
-					is_share:reData.share,
-                    icon:'icon_64_'+ _context.getFileIconSuffix(filename,dir,reData.share,file.local)
+					is_share:reData.share
                 };
                 $.extend(localData,newData);
                 $.extend(data,localData);
@@ -660,7 +659,7 @@ var gkClientSidebar = {
             } else if (PAGE_CONFIG.type == 2) {
                 tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
 				links.push({
-				   url: '/client/create_share_folder?org_share=1',
+				   url: 'javascript:gkClientInterface.openWindow({url:"/client/create_share_folder?org_share=1",sso:1,resize:0,width:400,height:140})',
                    key:'',
 				   sso:1,
 				   name:"创建团队文件夹"
@@ -673,18 +672,8 @@ var gkClientSidebar = {
             };
 			  
             $('#rootMainTmpl').tmpl(data).appendTo(main);
-			$(".quick_link_list > li").eq(1).find("a").click(function(e){
-			  var param = {
-							url: '/client/create_share_folder?org_share=1',
-							sso: 1,
-							resize: 0,
-							width: 400,
-							height: 150
-						};
-               gkClientInterface.openWindow(param);
-
-			  return false;
-			})
+		
+			
         } else {
             _context.fetchFileMain();
         }
