@@ -1220,7 +1220,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .compary_finance h3{width:130px;overflow:hidden;text-overflow: ellipsis;white-space:nowrap;font-size:18px;font-weight:normal;height:22px;line-height:22px}
 .compary_finance span{margin:0 3px;display:inline-block;height:18px;line-height:18px}
 .compary_finance i,.file_attrs p{border-radius:5px;cursor:pointer;margin:10px auto;display:block;width:106px;/*background:url('../images/images_2013/333_03.png') no-repeat 0 0;*/color:#FFF;font:14px "Microsoft Yahei";text-align:center;height:25px;line-height:25px}
-.file_attrs p{margin:5px auto;height:24px;line-height:22px}
+.file_attrs p{margin:5px 0;height:24px;line-height:22px}
 .file_attrs p.dzupdate{/*background-position: 15px -62px;*/background-color:#ff944d;}
 .file_attrs p.nodzupdate{/*background-position: 15px -28px;*/background-color:#6185BC;}
 .file_attrs .filename .files{display:inline-block;letter-spacing:0;max-width:130px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -1621,6 +1621,7 @@ border:1px solid #D0D6DB;
 .add_link_dialog .select_local_file{
     margin-left: 15px;
 }
+
 #sidebar .wrapper{
     position: absolute;
     top:0;
@@ -1631,6 +1632,14 @@ border:1px solid #D0D6DB;
 }
 #sidebar #header{
     background: #fff;
+}
+#sidebar .version{
+    background: #66AEFF;
+    padding:0 3px;
+    border-radius: 3px;
+    color:#fff;
+    font-size: 12px;
+    cursor: pointer;
 }
 #sidebar .header_nav{
     background: #6185BC;
@@ -1809,8 +1818,8 @@ background: none;
     color:#606D7F;
     font-size: 13px;
 }
-#header .opts{
-    display: none;
+#header .opts .btn{
+    margin-top: 2px;
 }
 #sidebar #main{
    position: absolute;
@@ -1954,6 +1963,8 @@ color:#B8BFC8;
 #main .remark_list li .datetime{
     color:#ACB4BF;
 }
+
+
 #main .post_wrapper,
 #main .manage_share_wrapper{
     background: #F3F7F9;

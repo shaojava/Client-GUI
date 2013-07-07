@@ -20,55 +20,7 @@ var gkClientSidebar = {
         $(".header_nav").click(function () {
             gkClientInterface.launchpad();
         })
-		 //独占修改
-      $(".dzupdate").live("click",function(){
-	    var path = PAGE_CONFIG.path;
-         if (!path.length) {
-                return;
-            }
-            var params = {
-                url: '/client/file_edit?ac=lock&fullpath=' + encodeURIComponent(path),
-                sso: 1,
-                resize: 0,
-                width: 490,
-                height: 175
-            };
-            gkClientInterface.openSingleWindow(params);
-     });
 
-	 //打开更多文件
-	/* $(".remark_list > li").find("a").eq(2).live("click",function(){
-	  var path = PAGE_CONFIG.path
-	     ,uuid = $(this).data("uuid");
-         if (!path.length) {
-                return;
-            }
-            var params = {
-                url: '/storage/update_detail?client=1&uuid='+uuid+'',
-                sso: 1,
-                resize: 0,
-                width: 490,
-                height: 175
-            };
-           gkClientInterface.openSingleWindow(params);
-	 }); */
-	 //取消独占
-	 
-     $(".nodzupdate").live("click",function(){
-         var path = PAGE_CONFIG.path;
-         if (!path.length) {
-                return;
-            }
-            var params = {
-                url: '/client/file_edit?ac=transfer&fullpath=' + encodeURIComponent(path),
-                sso: 1,
-                resize: 0,
-                width: 490,
-                height: 230
-            };
-            gkClientInterface.openSingleWindow(params);  
-        
-    });
 
     },
     fetchAccountInfo: function (type) {
@@ -174,7 +126,6 @@ var gkClientSidebar = {
             var link_type = publish.link_type,              
 			  modes = [],
                 mode = null;
-				console.log(link_type);
             $.each(link_type, function (i, n) {
                 var re = _context.getLinkKeyAndTipByAuth(n.value);
                 mode = {
@@ -273,28 +224,40 @@ var gkClientSidebar = {
 	   //判断是否出现版本
        var fileInfoWrapper = $('#fileInfoTmpl').tmpl(localData).appendTo(header);
        fileInfoWrapper.show();
-	   var fileStatus = null
-	      ,fileEle = fileInfoWrapper.find(".file_attrs").find("p");
-	    if(localData.dir == 0){
-		  if(localData.is_share == 1){
-		    fileStatus = gkClientSidebar.getToggleState(localData.filename,0,localData.state);
-			
-			 switch(fileStatus){
-		     case 1:
-			    //显示独占修改
-				fileEle.attr("class","dzupdate").text("独占修改");
-				break;
-		     case 0:
-			    //显示取消独占
-				 fileEle.attr("class","nodzupdate").text("取消独占");
-				break;
-			 default:
-                fileEle.attr("class","").text("");  
-			    break;
-		     }
-		  }
-		}
-	
+
+        //独占修改
+        $(".lock_to_edit").click(function(){
+            var path = PAGE_CONFIG.path;
+            if (!path.length) {
+                return;
+            }
+            var params = {
+                url: '/client/file_edit?ac=lock&fullpath=' + encodeURIComponent(path),
+                sso: 1,
+                resize: 0,
+                width: 490,
+                height: 175
+            };
+            gkClientInterface.openSingleWindow(params);
+        });
+
+        //取消独占
+        $(".finish_edit").click(function(){
+            var path = PAGE_CONFIG.path;
+            if (!path.length) {
+                return;
+            }
+            var params = {
+                url: '/client/file_edit?ac=transfer&fullpath=' + encodeURIComponent(path),
+                sso: 1,
+                resize: 0,
+                width: 490,
+                height: 230
+            };
+            gkClientInterface.openSingleWindow(params);
+
+        });
+
        //收藏，取消收藏
        fileInfoWrapper.find('.favorite').click(function(){
            var _self = $(this);
@@ -351,7 +314,8 @@ var gkClientSidebar = {
                 favorite: 0,
                 last_datetime: '',
                 dateline:0,
-				is_share:0
+				is_share:0,
+                index:0
             };
           var localData = _context.getLocalData(file.fullpath) || {};
           if(localData){
@@ -367,7 +331,8 @@ var gkClientSidebar = {
                     favorite: reData.favorite,
                     last_datetime: reData.last_datetime,
 					is_share:reData.share,
-                    icon:'icon_64_'+ _context.getFileIconSuffix(filename,dir,reData.share,file.local)
+                    icon:'icon_64_'+ _context.getFileIconSuffix(filename,dir,reData.share,file.local),
+                    index:reData.index || 0
                 };
                 $.extend(localData,newData);
                 $.extend(data,localData);
@@ -519,7 +484,7 @@ var gkClientSidebar = {
                     if(!tab || tab =='history'){
                         var remarks = data.history;
 						$.each(remarks,function(k,v){
-						 v['version'] = gkClientInterface.getClientInfo().version;
+						    v['version'] = v['property']['index'];
 						})
                         _context.fetchRemark(remarks);
                     }
@@ -640,6 +605,20 @@ var gkClientSidebar = {
             });
         });
 
+
+        //历史版本
+        slideItemShare.find('.version').click(function(){
+            var item = $(this).parents('li');
+            var fullpath = item.data('fullpath');
+            var params = {
+                url: '/client/client_file_detail?tab=dynamic&select=history&fullpath=' + encodeURIComponent(fullpath),
+                sso: 1,
+                resize: 0,
+                width: 800,
+                height: 600
+            };
+            gkClientInterface.openWindow(params);
+        });
     },
     fetchMain: function () {
         var _context = this;

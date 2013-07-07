@@ -67,13 +67,15 @@
     <ul class="remark_list scrollbar">
         {{/if}}
         {{each(i,remark) remarks}}
-        <li>
+        <li data-fullpath="${remark.fullpath}">
             <img src="${remark.member_photo}" alt="${remark.member_name}" title="${remark.member_name}" />
             <div>
                 <a href="javascript:void(0)" usercard="id=${remark.member_id}">${gkClientSidebar.getScreenName(PAGE_CONFIG.memberId,remark.member_id,remark.member_name)}</a>
                 <span class="text">{{html remark.render_text}}</span>
                 <span class="datetime">( ${remark.timeago} )</span>
-				<span>${remark.version}</span>
+                {{if remark.dir==0 && remark.version>0}}
+				<span class="version">V{{if remark.version>0}}${remark.version}{{/if}}</span>
+                {{/if}}
             </div>
         </li>
         {{/each}}
@@ -187,7 +189,7 @@
             <div class="file_attrs">
                 <div class="filename" title="${filename}"><span class="files">${filename}</span>
 				   {{if dir==0 && state > 1 && state < 6}}
-                    <span class="version"><i></i></span>
+                    <a href="javascript:void(0)" title="查看历史版本" class="gktooltip version">V{{if index>0 }}${index}{{/if}}</a>
                     {{/if}}
 				</div>
                 {{if state==0 || state==1 ||state==6}}
@@ -203,17 +205,18 @@
                     {{/if}}
                 </div>
                 {{/if}}
-                {{if state>1 && state < 6}}             
-                <div>
-				  <p></p>
-				</div>
-				{{/if}}
-				
+
+
             </div>
         </div>
-        <div class="opts">
-            <button class="btn lock_to_edit">申请修改</button>
-            <button class="btn finish_edit">完成修改</button>
+        <div class="opts" state = "${state}">
+            {{if state>1 && state < 6 && is_share>0 && dir==0}}
+                {{if state == 5}}
+                <button class="btn orange_btn finish_edit">取消独占</button>
+                {{else}}
+                <button class="btn blue_btn lock_to_edit">独占修改</button>
+                {{/if}}
+            {{/if}}
         </div>
     </div>
 </script>
