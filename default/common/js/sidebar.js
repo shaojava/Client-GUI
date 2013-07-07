@@ -366,7 +366,8 @@ var gkClientSidebar = {
                 var newData = {
                     favorite: reData.favorite,
                     last_datetime: reData.last_datetime,
-					is_share:reData.share
+					is_share:reData.share,
+                    icon:'icon_64_'+ _context.getFileIconSuffix(filename,dir,reData.share,file.local)
                 };
                 $.extend(localData,newData);
                 $.extend(data,localData);
