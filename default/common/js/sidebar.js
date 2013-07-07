@@ -77,10 +77,10 @@ var gkClientSidebar = {
             used_size: Util.Number.bitSize(account.size),
             capacity: Util.Number.bitSize(account.capacity),
             org_used_size: Util.Number.bitSize(account.org_size),
-            org_capacity: Util.Number.bitSize(account.capacity)
+            org_capacity: Util.Number.bitSize(account.org_capacity)
         };
         var account_info = $('#accountInfoTmpl').tmpl(data).appendTo($('#header'));
-        if (type == 2) {
+        if (type == 2) { 
             account_info.find('.org_info').show();
         } else {
             account_info.find('.user_info').show();
@@ -144,7 +144,7 @@ var gkClientSidebar = {
             case '0100':
                 re = {
                     tip: '只允许访问者上传',
-                    key: 'cooperate'
+                    key: 'unknownUpload'
                 }
 
                 break;
@@ -326,7 +326,6 @@ var gkClientSidebar = {
        });
     },
     fetchFileInfo: function (file) {
-
         var _context = this;
             var dir = 0, filename, fullpath;
             if (Util.String.lastChar(file.fullpath) === '/') {
@@ -396,6 +395,7 @@ var gkClientSidebar = {
 
             }
         } else {
+	   
             var file = {
                 fullpath: PAGE_CONFIG.path,
                 state: PAGE_CONFIG.state,
@@ -510,6 +510,9 @@ var gkClientSidebar = {
                     }
                     if(!tab || tab =='history'){
                         var remarks = data.history;
+						$.each(remarks,function(k,v){
+						 v['version'] = gkClientInterface.getClientInfo().version;
+						})
                         _context.fetchRemark(remarks);
                     }
                 },
@@ -532,6 +535,7 @@ var gkClientSidebar = {
                 var tab_content = tab_content_wrapper.find('>div');
                 $(this).siblings().removeClass('selected');
                 $(this).addClass('selected');
+			
                 tab_content.hide();
                 tab_content_wrapper.find('.' + target).show();
             });
@@ -631,11 +635,7 @@ var gkClientSidebar = {
         var main = $('#main');
         if (!PAGE_CONFIG.path) {
             var links = [], tip = '';
-		if (PAGE_CONFIG.type == 1) {
-                tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
-            } else if (PAGE_CONFIG.type == 2) {
-                tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
-            }
+		
             links = [
                 {
                     key: '',
@@ -644,13 +644,36 @@ var gkClientSidebar = {
                     name: '在网页上查看你的文件'
                 }
             ];
-		
+		    if (PAGE_CONFIG.type == 1) {
+                tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
+            } else if (PAGE_CONFIG.type == 2) {
+                tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
+				links.push({
+				   url: '/client/create_share_folder?org_share=1',
+                   key:'',
+				   sso:1,
+				   name:"创建团队文件夹"
+				});
+            }
             var data = {
                 type: PAGE_CONFIG.type,
                 tip: tip,
                 links: links
             };
+			  
             $('#rootMainTmpl').tmpl(data).appendTo(main);
+			$(".quick_link_list > li").eq(1).find("a").click(function(e){
+			  var param = {
+							url: '/client/create_share_folder?org_share=1',
+							sso: 1,
+							resize: 0,
+							width: 400,
+							height: 150
+						};
+               gkClientInterface.openWindow(param);
+
+			  return false;
+			})
         } else {
             _context.fetchFileMain();
         }

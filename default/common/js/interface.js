@@ -195,6 +195,14 @@ var gkClientInterface = {
             throw e;
         }
     },
+	getClientInfo:function(){
+        try {
+            return JSON.parse(gkClient.gGetClientInfo());
+        } catch (e) {
+            throw e;
+        }
+
+    },
     add2Favorite: function(path) {
         try {
             if (!path.length) {

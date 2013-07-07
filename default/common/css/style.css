@@ -1709,7 +1709,7 @@ padding: 10px 10px 0 0;
     height: 48px;
     background-repeat: no-repeat;
     background-position: 0 0;
-    margin: 2px 4px 0 7px;
+    margin:0 4px 0 7px;
     position: relative;
     background-size: 48px 48px;
 }
@@ -1766,6 +1766,7 @@ background: none;
     color:#ACB4BF;
     float: left;
     width: 170px;
+	/*padding-top:6px;*/
 }
 
 #header .file_info .file_opts span{
@@ -1827,13 +1828,13 @@ background: none;
 #sidebar #main.main_1.main_root .root_content,
 #sidebar #main.main_2.main_root .root_content
 {
-    background-image:url(../images/sidebar_bg.jpg) ;
-     background-position: -40px 100%;
+    background-image:url(../images/icon/defaultSidebar.png) ;
+    background-position: center bottom;
     background-repeat: no-repeat;
 }
-#sidebar #main.main_2.main_root .root_content{
+/*#sidebar #main.main_2.main_root .root_content{
     background-position: -330px 100%;
-}
+}*/
 #main .tab_list{
 overflow: hidden;
     height: 42px;

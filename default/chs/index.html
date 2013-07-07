@@ -41,7 +41,7 @@
  {{if typeof tip !=='undefined' && tip}}
     <div class="tip">${tip}</div>
  {{/if}}
-
+ 
 </div>
 </script>
 <script type="text/x-jquery-tmpl" id="fileMainTmpl">
@@ -73,6 +73,7 @@
                 <a href="javascript:void(0)" usercard="id=${remark.member_id}">${gkClientSidebar.getScreenName(PAGE_CONFIG.memberId,remark.member_id,remark.member_name)}</a>
                 <span class="text">{{html remark.render_text}}</span>
                 <span class="datetime">( ${remark.timeago} )</span>
+				<span>${remark.version}</span>
             </div>
         </li>
         {{/each}}
