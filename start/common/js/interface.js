@@ -12,7 +12,7 @@ var gkClientFileLock = {
     LOCK_BY_ME: 2
 };
 var gkClientInterface = {
-    setFileStatus: function(path, dir, state) {
+    setFileStatus: function (path, dir, state) {
         var params = JSON.stringify({
             webpath: path,
             status: state,
@@ -20,14 +20,14 @@ var gkClientInterface = {
         });
         gkClient.gSetFileStatus(params);
     },
-    closeWindow: function() {
+    closeWindow: function () {
         try {
             gkClient.gClose();
         } catch (e) {
             throw e;
         }
     },
-    login: function(param) {
+    login: function (param) {
         try {
             param = JSON.stringify(param);
             gkClient.gLogin(param);
@@ -35,14 +35,14 @@ var gkClientInterface = {
             throw e;
         }
     },
-    loginByKey: function() {
+    loginByKey: function () {
         try {
             gkClient.gLoginByKey();
         } catch (e) {
             throw e;
         }
     },
-    openURL: function(param) {
+    openURL: function (param) {
         try {
             if (!param.sso && param.url && /^(http:\/\/|https:\/\/).+/.test(param.url)) {
                 param.url = param.url.replace(/^http:\/\/|^https:\/\//, '');
@@ -53,34 +53,34 @@ var gkClientInterface = {
             throw e;
         }
     },
-    settings: function() {
+    settings: function () {
         try {
             gkClient.gSettings();
         } catch (e) {
             throw e;
         }
     },
-    checkLastPath: function() {
+    checkLastPath: function () {
         try {
             return gkClient.gCheckLastPath();
         } catch (e) {
             throw e;
         }
     },
-    checkIsEmptyPath: function(path) {
+    checkIsEmptyPath: function (path) {
         try {
             return gkClient.gCheckEmpty(path);
         } catch (e) {
             throw e;
         }
     },
-    showError: function(errorMsg, errorCode) {
+    showError: function (errorMsg, errorCode) {
         if (!errorMsg.length) {
             return;
         }
         alert(errorMsg);
     },
-    finishSettings: function(param) {
+    finishSettings: function (param) {
         try {
             param = JSON.stringify(param);
             gkClient.gStart(param);
@@ -88,7 +88,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    toogleArrow: function(state) {
+    toogleArrow: function (state) {
         try {
             state = JSON.stringify(state);
             gkClient.gShowArrow(state);
@@ -97,7 +97,7 @@ var gkClientInterface = {
         }
 
     },
-    setMenus: function(menus) {
+    setMenus: function (menus) {
         try {
             menus = JSON.stringify(menus);
             gkClient.gSetMenu(menus);
@@ -105,29 +105,29 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getNormalPath: function() {
+    getNormalPath: function () {
         try {
             return gkClient.gNormalPath();
         } catch (e) {
             throw e;
         }
     },
-    getBindPath: function() {
+    getBindPath: function () {
         try {
             return gkClient.gBindPath();
         } catch (e) {
             throw e;
         }
     },
-    getSelectPaths: function(path) {
-        path = typeof arguments[0]==='undefined'?'':path;
+    getSelectPaths: function (path) {
+        path = typeof arguments[0] === 'undefined' ? '' : path;
         try {
             return gkClient.gSelectSyncPath(path);
         } catch (e) {
             throw e;
         }
     },
-    openWindow: function(params) {
+    openWindow: function (params) {
         try {
             if (!params.sso && params.url && /^(http:\/\/|https:\/\/).+/.test(params.url)) {
                 params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
@@ -138,7 +138,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    openSingleWindow: function(params) {
+    openSingleWindow: function (params) {
         try {
             params = JSON.stringify(params);
             gkClient.gSoleMain(params);
@@ -146,7 +146,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    openSyncDir: function(path) {
+    openSyncDir: function (path) {
         try {
             if (path !== undefined) {
                 gkClient.gOpenPath(path);
@@ -157,7 +157,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    openPathWithSelect: function(path) {
+    openPathWithSelect: function (path) {
         try {
             if (!path && !path.length) {
                 return;
@@ -167,8 +167,8 @@ var gkClientInterface = {
             throw e;
         }
     },
-    selectSyncFile: function(params) {
-        params = typeof arguments[0] ==='undefined'?'':params;
+    selectSyncFile: function (params) {
+        params = typeof arguments[0] === 'undefined' ? '' : params;
         try {
             var JSONparams = JSON.stringify(params)
             gkClient.gSelectSyncPath(JSONparams);
@@ -176,9 +176,9 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getUserInfo: function() {
+    getUserInfo: function () {
         try {
-            if(!gkClient.gUserInfo()){
+            if (!gkClient.gUserInfo()) {
                 return '';
             }
             return JSON.parse(gkClient.gUserInfo());
@@ -186,7 +186,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    toggleLock: function(path) {
+    toggleLock: function (path) {
         try {
             if (!path.length) {
                 return;
@@ -196,7 +196,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-	getClientInfo:function(){
+    getClientInfo: function () {
         try {
             return JSON.parse(gkClient.gGetClientInfo());
         } catch (e) {
@@ -204,13 +204,13 @@ var gkClientInterface = {
         }
 
     },
-	getShowTrans:function(){
-	  gkClient.gShowTrans();
-	},
-	getShowSettings:function(){
-	   gkClient.gShowSettings();
-	},
-    add2Favorite: function(path) {
+    getShowTrans: function () {
+        gkClient.gShowTrans();
+    },
+    getShowSettings: function () {
+        gkClient.gShowSettings();
+    },
+    add2Favorite: function (path) {
         try {
             if (!path.length) {
                 return;
@@ -220,116 +220,142 @@ var gkClientInterface = {
             throw e;
         }
     },
-    launchpad: function(path) {
+    launchpad: function (path) {
         try {
-		    if(path){
-             gkClient.gLaunchpad(path);
-			 return;
-			}
-			gkClient.gLaunchpad();
-			
+            if (path) {
+                gkClient.gLaunchpad(path);
+                return;
+            }
+            gkClient.gLaunchpad();
+
         } catch (e) {
             throw e;
         }
     },
-    getOauthKey: function() {
+    getOauthKey: function () {
         try {
             return gkClient.gOAuthKey();
         } catch (e) {
             throw e;
         }
     },
-    compareVersion: function(params) {
+    compareVersion: function (params) {
         params = JSON.stringify(params);
         gkClient.gCompare(params);
     },
-    getMessage: function() {
-        return JSON.parse(gkClient.gGetMessage());
+    getMessage: function () {
+        try {
+            var re= gkClient.gGetMessage();
+            if(!re){
+                return ''
+            }
+            return JSON.parse(re);
+        } catch (e) {
+            throw e;
+        }
+
     },
-    clearUpdateCount: function() {
-        gkClient.gClearUpdateCount();
+    clearUpdateCount: function () {
+        try {
+            gkClient.gClearUpdateCount();
+        } catch (e) {
+            throw e;
+        }
+
     },
-    getSiteDomain: function() {
-        return gkClient.gSiteDomain();
+    getSiteDomain: function () {
+        try {
+            return gkClient.gSiteDomain();
+        } catch (e) {
+            throw e;
+        }
     },
-    setClipboardData: function(text) {
-        gkClient.gSetClipboardData(text);
+    setClipboardData: function (text) {
+        try {
+            gkClient.gSetClipboardData(text);
+        } catch (e) {
+            throw e;
+        }
     },
-    getLinkPath:function(){
+    getLinkPath: function () {
         var re = gkClient.gGetLinkPaths();
-        if(!re){
+        if (!re) {
             return '';
         }
         return JSON.parse(re);
     },
-    selectFile:function(path){
+    selectFile: function (path) {
         var params = {
-            path:'',
-            disable_root:0
+            path: '',
+            disable_root: 0
         };
-        if(typeof path ==='string'){
-             params = {
-                path:path,
-                disable_root:0
+        if (typeof path === 'string') {
+            params = {
+                path: path,
+                disable_root: 0
             };
-        }else if(typeof path ==='object'){
+        } else if (typeof path === 'object') {
             params = path;
         }
         var JSONparams = JSON.stringify(params);
         return gkClient.gSelectPath(JSONparams);
     },
-    setLinkPath:function(paths){
+    setLinkPath: function (paths) {
         var params = {
-            'list':paths
+            'list': paths
         };
         gkClient.gSetLinkPaths(JSON.stringify(params));
     },
-    removeLinks:function(links){
+    removeLinks: function (links) {
         var params = {
-            'list':links
+            'list': links
         };
         gkClient.gRemoveLinkPaths(JSON.stringify(params));
     },
-    getAuthorization:function(ver,webpath,date){
-            var params = {
-                ver:ver,
-                webpath:webpath,
-                date:date
-            };
+    getAuthorization: function (ver, webpath, date) {
+        var params = {
+            ver: ver,
+            webpath: webpath,
+            date: date
+        };
         var JSONParams = JSON.stringify(params);
         return gkClient.gGetAuthorization(JSONParams);
     },
-    getToken:function(){
-        return gkClient.gGetToken()
+    getToken: function () {
+        try {
+            return gkClient.gGetToken();
+        } catch (e) {
+            throw e;
+        }
     },
-    getApiDomain:function(){
-      return 'http://a2.gokuai.com';
+    getApiDomain: function () {
+        return 'http://a.gokuai.com';
     },
-    getRestDomain:function(){
-        return 'http://r2.gokuai.com';
+    getRestDomain: function () {
+        return 'http://r.gokuai.com';
     },
-    openDiskPath:function(path){
+    openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);
     },
-    openChildWindow:function(params){
+    openChildWindow: function (params) {
         gkClient.gChildMain(JSON.stringify(params));
     },
-    checkLinkPath:function(path){
+    checkLinkPath: function (path) {
         var re = gkClient.gCheckLinkPath(path);
-       return JSON.parse(re)
+        return JSON.parse(re)
     },
-    mailTo:function(to,subject,content){
+    mailTo: function (to, subject, content) {
         var params = {
-             to:to,
-            subject:subject,
-            content:content
+            to: to,
+            subject: subject,
+            content: content
         };
-      gkClient.gMailTo(JSON.stringify(params));
+        gkClient.gMailTo(JSON.stringify(params));
     }
 };
 var gkClientAjax = {};
 gkClientAjax.Exception = {
-    getErrorMsg: function(request, textStatus, errorThrown) {
+    getErrorMsg: function (request, textStatus, errorThrown) {
         var errorMsg = '';
         if (request.responseText) {
             var result = $.parseJSON(request.responseText);
@@ -361,8 +387,9 @@ gkClientAjax.Exception = {
     }
 };
 
-function initWebHref() {
-    $('body').on('click', 'a', function(e) {
+function initWebHref(proxyElem) {
+    proxyElem = proxyElem === undefined ? $('body') : proxyElem;
+    proxyElem.on('click', 'a', function (e) {
         var href = $(this).attr('href');
         var targetElem = $(e.target);
         if (!targetElem.hasClass('gk_blank') && /\/storage#!files:(0|1):(.*?)(:(.*):.*)??$/.test(href)) {
@@ -395,7 +422,7 @@ function initWebHref() {
                 url: href,
                 sso: 0
             };
-            if (parseInt(PAGE_CONFIG.memberId) || targetElem.data('sso')==1) {
+            if (parseInt(PAGE_CONFIG.memberId) || targetElem.data('sso') == 1) {
                 param.sso = 1;
             }
             gkClientInterface.openURL(param);
@@ -405,10 +432,10 @@ function initWebHref() {
 }
 
 var PAGE_CONFIG = {};
-//ªÒ»°µ±«∞µ«¬º”√ªßµƒ–≈œ¢
-(function(){
+//Ëé∑ÂèñÂΩìÂâçÁôªÂΩïÁî®Êà∑ÁöÑ‰ø°ÊÅØ
+(function () {
     var account = gkClientInterface.getUserInfo();
-    if(account){
+    if (account) {
         PAGE_CONFIG.memberId = account.id;
         PAGE_CONFIG.email = account.email;
         PAGE_CONFIG.mountId = account.mount_id;
