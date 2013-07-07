@@ -1,78 +1,83 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title></title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-        <script type="text/javascript" src="../common/js/jquery.js"></script>
-        <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
-        <script type="text/javascript" src="../common/js/interface.js"></script>
-        <script type="text/javascript">
-		
-		    function getLocalTime(nS) {     
-               return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/,' ');     
+<head>
+    <title></title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
+    <script type="text/javascript" src="../common/js/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="../common/js/interface.js"></script>
+    <script type="text/javascript">
+        function getLocalTime(nS) {
+            return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+        }
+        function fetchUpdate() {
+            var member_id = 0;
+            $('body').find('.no_content,.new_tqframe').remove();
+            var account = gkClientInterface.getUserInfo();
+            if(account && account.id){
+                member_id =account.id;
             }
-            function fetchUpdate(){
-                var new_tqframe_body = $(".new_tqframe_body");
-				 $(new_tqframe_body).on("click",function(){
-				  gkClientInterface.launchpad(JSON.stringify({tab:"notices"}));//notices
-				})
+            if(member_id){
                 var data = gkClientInterface.getMessage();
-				//如果今天就显示时分，如果是今天以前就是月日
-				//hover显示年月日
-				var date = new Date(),currentDate = date.getFullYear()+"-"+((date.getMonth()+1 < 10) ? ("0"+(date.getMonth()+1)) : (date.getMonth()+1))+"-"+((date.getDate() < 10) ? ("0"+date.getDate()):date.getDate());
-                var HM = null;               
-			   $.each(data.updates,function(k,v){
-				     HM = new Date(getLocalTime(v["dateline"]));
-				     if(currentDate == v.date){
-					   
-					   v["date_txt"] = HM.getHours()+":"+HM.getMinutes(); 
-					 }else{
-					   v["date_txt"] = (HM.getMonth()+1)+"月"+HM.getDate()+"日";
-					 }
-					 v["hover_date_txt"] = v["date"] + " " + HM.getHours()+":"+HM.getMinutes();
-				})				
-                new_tqframe_body.empty();
-                $("#update_mes").tmpl({data:data.updates}).appendTo(new_tqframe_body);
+                //如果今天就显示时分，如果是今天以前就是月日
+                //hover显示年月日
+                var date = new Date(), currentDate = date.getFullYear() + "-" + ((date.getMonth() + 1 < 10) ? ("0" + (date.getMonth() + 1)) : (date.getMonth() + 1)) + "-" + ((date.getDate() < 10) ? ("0" + date.getDate()) : date.getDate());
+                var HM = null;
+                var updates = [];
+                if(data.updates){
+                    updates = data.updates;
+                    $.each(updates, function (k, v) {
+                        HM = new Date(getLocalTime(v["dateline"]));
+                        if (currentDate == v.date) {
+                            v["date_txt"] = HM.getHours() + ":" + HM.getMinutes();
+                        } else {
+                            v["date_txt"] = (HM.getMonth() + 1) + "月" + HM.getDate() + "日";
+                        }
+                        v["hover_date_txt"] = v["date"] + " " + HM.getHours() + ":" + HM.getMinutes();
+                    })
+                }
+
+                var updateMes =  $("#update_mes").tmpl({
+                    data: updates
+                });
+                updateMes.appendTo($('body'));
+                $('body').find('.new_tqframe').click(function () {
+                    gkClientInterface.launchpad(JSON.stringify({tab: "notices"}));//notices
+                });
+            }else{
+                var noContent =  $("#noContentTmpl").tmpl();
+                noContent.appendTo($('body'));
             }
-            $(function(){	
-                initWebHref();
-                var update_me = $("#update_me"),
-                     update_all = $("#update_all");
-			   
-                update_all.on("click",function(){
-                    gkClientInterface.launchpad(JSON.stringify({tab:"notices"}));
-                    return;
-                })
+        }
 
-               setInterval(function(){
-                   fetchUpdate();
-               },5000);
-			 //  new_tqframe_body.empty();	
+        $(function () {
+            initWebHref();
+            setInterval(function () {
                 fetchUpdate();
-				
-            })
-        </script>
-    </head>
-    <body class="tc_frame">
+            }, 3000);
+            fetchUpdate();
 
-        <!--滚动条紧挨着边框-->
-        <div class="new_tqframe scrollbar">
-            <div class="new_tqframe_header">
-                <a id="update_all" href="javascript:void(0)">查看全部</a>
-            </div>
-            <div class="new_tqframe_body">
-
-                
-            </div>
+        })
+    </script>
+</head>
+<body class="tc_frame">
+<script id="noContentTmpl" type="text/x-jquery-tmpl">
+    <div class="no_content" style="text-align:center;position:absolute;height:24px;top:50%;margin-top:-12px;color:#B8B8B8;line-height:24px;left:0;right:0;">
+        你还未登录
+    </div>
+</script>
+<script id="update_mes" type="text/x-jquery-tmpl">
+    <div class="new_tqframe scrollbar">
+        <div class="new_tqframe_header">
+            <a id="update_all" href="javascript:void(0)">查看全部</a>
         </div>
-        <!--消息视图-->
-        <script id="update_mes" type="text/x-jquery-tmpl">
+        <div class="new_tqframe_body">
             <ul>
                 {{each(k,v) data}}
                 <li class="clearfix">
                     <div class="member_photo f_l">
-                        <img src="${v.member_photo}" width="40" height="40" />
+                        <img src="${v.member_photo}" width="40" height="40"/>
                     </div>
                     <div class="update_item_content f_l">
                         ${v.member_name} ${v.render_text}
@@ -82,9 +87,11 @@
                     </div>
 
                 </li>
-
                 {{/each}}
             </ul>
-        </script>
-    </body>
+        </div>
+    </div>
+
+</script>
+</body>
 </html>
