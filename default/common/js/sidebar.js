@@ -52,7 +52,7 @@ var gkClientSidebar = {
             };
            gkClientInterface.openSingleWindow(params);
 	 }); */
-	 //取消独占
+	 //放弃独占
 	 
      $(".nodzupdate").live("click",function(){
          var path = PAGE_CONFIG.path;
@@ -285,8 +285,8 @@ var gkClientSidebar = {
 				fileEle.attr("class","dzupdate").text("独占修改");
 				break;
 		     case 0:
-			    //显示取消独占
-				 fileEle.attr("class","nodzupdate").text("取消独占");
+			    //显示放弃独占
+				 fileEle.attr("class","nodzupdate").text("放弃独占");
 				break;
 			 default:
                 fileEle.attr("class","").text("");  
@@ -735,7 +735,7 @@ var gkClientSidebar = {
     },
 	getToggleState:function(fullpath, dir, state){
 	        var optState = -1;
-			//取消独占
+			//放弃独占
               if (fullpath && state == 5 && dir == 0) {
                 optState = 0;
               }
