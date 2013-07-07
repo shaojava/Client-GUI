@@ -647,24 +647,33 @@ var gkClientSidebar = {
         if (!PAGE_CONFIG.path) {
             var links = [], tip = '';
 		
-            links = [
+            
+		    if (PAGE_CONFIG.type == 1) {
+                tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
+				links = [
+                {
+                    key: '',
+                    url: '/storage#!files',
+                    sso: 1,
+                    name: '在网页上查看你的文件'
+                }
+            ];
+            } else if (PAGE_CONFIG.type == 2) {
+                tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
+				links = [
                 {
                     key: '',
                     url: '/storage#!team_files',
                     sso: 1,
                     name: '在网页上查看你的文件'
-                }
-            ];
-		    if (PAGE_CONFIG.type == 1) {
-                tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
-            } else if (PAGE_CONFIG.type == 2) {
-                tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
-				links.push({
-				   url: 'javascript:gkClientInterface.openWindow({url:"/client/create_share_folder?org_share=1",sso:1,resize:0,width:400,height:140})',
+                },
+				{url: 'javascript:gkClientInterface.openWindow({url:"/client/create_share_folder?org_share=1",sso:1,resize:0,width:400,height:140})',
                    key:'',
 				   sso:1,
 				   name:"创建团队文件夹"
-				});
+				}
+            ];
+				 
             }
             var data = {
                 type: PAGE_CONFIG.type,
