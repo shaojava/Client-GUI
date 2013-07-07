@@ -2038,7 +2038,7 @@ color:#B8BFC8;
     background-position: 0 -128px;
 }
 #main .select_wrapper .btn.unknownUpload i{
-    background-position: 0 -160px;
+    background-position: 0 -224px;
 }
 #main .select_wrapper .btn.cooperate i{
     background-position: 0 -192px;
@@ -2085,10 +2085,10 @@ margin: 15px 0;
     background-position: 0 -32px;
 }
 #main .share_types li .link_sina i{
-    background-position: 0 -64px;
+    background-position: 0 -96px;
 }
 #main .share_types li .link_qq i{
-    background-position: 0 -96px;
+    background-position: 0 -64px;
 }
 #main .share_types li .link_mail i{
     background-position: 0 -128px;
