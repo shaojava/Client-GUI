@@ -266,6 +266,7 @@ var gkClientSidebar = {
         }
     },
     fetchFileHeader:function(localData){
+	  
        var _context = this;
        var header = $('#header');
        header.find('.file_info_wrapper').remove();
