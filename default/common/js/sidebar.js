@@ -661,8 +661,8 @@ var gkClientSidebar = {
                     name: '传输列表'
                 },
 				{
-                    key: 'javascript:gkClientInterface.getShowSettings()',
-                    url: '/storage',
+                    key: '',
+                    url: 'javascript:gkClientInterface.getShowSettings()',
                     sso: 1,
                     name: '软件设置'
                 },

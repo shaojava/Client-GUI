@@ -207,7 +207,7 @@ var gkClientInterface = {
 	  gkClient.gShowTrans();
 	},
 	getShowSettings:function(){
-	gkClient.gShowSettings();
+	   gkClient.gShowSettings();
 	},
     add2Favorite: function(path) {
         try {
