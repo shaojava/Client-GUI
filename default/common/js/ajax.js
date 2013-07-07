@@ -34,8 +34,8 @@
                     ele.text("独占修改").show().removeClass("nodzupdate").addClass("dzupdate");
           
                  }else if(openState < 1){
-          //取消独占修改
-                   ele.text("取消独占").show().removeClass("dzupdate").addClass("nodzupdate"); 
+          //放弃独占修改
+                   ele.text("放弃独占").show().removeClass("dzupdate").addClass("nodzupdate");
                   }
             
          }
