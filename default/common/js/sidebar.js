@@ -684,10 +684,8 @@ var gkClientSidebar = {
                 tip: tip,
                 links: links
             };
-		
+            main.find('.root_content').remove();
             $('#rootMainTmpl').tmpl(data).appendTo(main);
-		
-			
         } else {
             _context.fetchFileMain();
         }

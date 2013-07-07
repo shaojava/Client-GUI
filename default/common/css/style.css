@@ -1640,6 +1640,8 @@ border:1px solid #D0D6DB;
     color:#fff;
     font-size: 12px;
     cursor: pointer;
+    display: inline-block;
+    line-height: 18px;
 }
 #sidebar .header_nav{
     background: #6185BC;
