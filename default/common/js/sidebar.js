@@ -200,15 +200,17 @@ var gkClientSidebar = {
                 } else {	 
                     selectWrp.prepend(cloneBtn);
 				}
-				
-        
-                cloneBtn.append('<s></s>');
+
+                if ($(this).parents('ul').children().size() > 1) {
+
+                    cloneBtn.append('<s></s>');
                cloneBtn.droplist({
                     onClose: function (btn) {
                         selectWrp.children('a:first').removeClass('active');
                     }
                 });
-		
+
+                }
 				$(this).hide();
                selectWrp.find('ul a').show();
             });
@@ -252,8 +254,9 @@ var gkClientSidebar = {
                             callback(url);
                             _context.setLocalLink(PAGE_CONFIG.path, auth, url);
                         },
-                        error: function () {
-
+                        error: function (request, textStatus, errorThrown) {
+                            var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                            alert(errorMsg);
                         }
                     });
                 } else {
@@ -516,8 +519,11 @@ var gkClientSidebar = {
                         _context.fetchRemark(remarks);
                     }
                 },
-                error: function () {
+                error: function (request, textStatus, errorThrown) {
                     $('.tab_content_wrapper > div .loader').remove();
+                    var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                    alert(errorMsg);
+
                 }
             }
         );
