@@ -111,7 +111,7 @@ var gkClientSidebar = {
         var tab_content_wrapper = $('.tab_content_link');
         tab_content_wrapper.empty();
         if (publish.isclosed == 1) {
-            tab_content_wrapper.append('<div class="empty">链接分享功能已关闭&nbsp;&nbsp; <a class="open_link_share" href="javascript:;">开启</a></div>');
+            tab_content_wrapper.append('<div class="empty">链接分享功能已关闭</div>');
             tab_content_wrapper.find('.open_link_share').click(function(){
                 var params = {
                     url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
@@ -172,7 +172,12 @@ var gkClientSidebar = {
                 var _self = $(this);
                 var auth = $('.select_wrapper .btn').data('auth');
                 var exitLink = _context.getLocalLink(PAGE_CONFIG.path, auth);
-                var content = 'gg';
+                var dir = 0;
+                if(Util.String.lastChar(PAGE_CONFIG.path)==='/'){
+                    dir=1;
+                }
+                var filename = Util.String.baseName(Util.String.rtrim(PAGE_CONFIG.path,'/'));
+                var content = '我通过 @够快科技 共享了文件'+(dir?'夹':'')+' "'+filename+'"';
                 var callback = function (url) {
                     if (_self.hasClass('link_browser')) {
                         gkClientInterface.openURL({
@@ -449,14 +454,15 @@ var gkClientSidebar = {
     getFileMain:function(fullpath,tab){
         tab = tab === undefined?'':tab;
         var _context =this;
-
         var params = {
             fullpath: PAGE_CONFIG.path,
             token: gkClientInterface.getToken(),
             type:tab
         };
-        if(tab){
-            params['_'] = new Date().getTime();
+        var dateline = localStorage.getItem('cache_'+PAGE_CONFIG.path);
+        if(tab || dateline){
+            dateline = dateline || new Date().getTime();
+            params['_'] = dateline;
         }else{
             var loading = $('<div class="loader" style="position: absolute;left:0;right:0;color:#aaa;top:50%;text-align: center;margin-top: -9px">正在加载...</div>');
             $('.tab_content_wrapper > div').append(loading);
@@ -597,7 +603,9 @@ var gkClientSidebar = {
                     remarkListWrapper.prepend(remarkItem);
                     remarkItem.hide();
                     remarkItem.fadeIn();
+                    localStorage.setItem('cache_'+PAGE_CONFIG.path,new Date().getTime());
                 }
+                $('textarea#post_value').val('');
                 localStorage.removeItem('remark_'+PAGE_CONFIG.path);
 
             }, function () {
