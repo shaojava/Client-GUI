@@ -203,6 +203,12 @@ var gkClientInterface = {
         }
 
     },
+	getShowTrans:function(){
+	  gkClient.gShowTrans();
+	},
+	getShowSettings:function(){
+	gkClient.gShowSettings();
+	},
     add2Favorite: function(path) {
         try {
             if (!path.length) {

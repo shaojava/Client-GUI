@@ -647,7 +647,32 @@ var gkClientSidebar = {
         if (!PAGE_CONFIG.path) {
             var links = [], tip = '';
 		
-            
+            links = [
+                {
+                    key: '',
+                    url: '/storage',
+                    sso: 1,
+                    name: '在网页上查看你的文件'
+                },
+				{
+                    key: '',
+                    url: 'javascript:gkClientInterface.getShowTrans()',
+                    sso: 1,
+                    name: '传输列表'
+                },
+				{
+                    key: 'javascript:gkClientInterface.getShowSettings()',
+                    url: '/storage',
+                    sso: 1,
+                    name: '软件设置'
+                },
+				{
+                    key: '',
+                    url: 'http://help.gokuai.com',
+                    sso: 1,
+                    name: '在线帮助'
+                }
+				]
 		    if (PAGE_CONFIG.type == 1) {
                 tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
 				links = [
