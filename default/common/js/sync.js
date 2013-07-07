@@ -44,7 +44,7 @@ var gkClientSync = {
             });
             if (new_local_uri && local_uri != new_local_uri) {
                 var re = gkClientInterface.checkLinkPath(new_local_uri);
-                var enable = _context.checkSelectPath(new_local_uri,re);
+                var enable = _context.checkSelectPath(new_local_uri,re,cloud_uri);
                 if(!enable){
                     return;
                 }
@@ -398,11 +398,10 @@ var gkClientSync = {
         return location;
 
     },
-    checkSelectPath:function(path,re){
-        console.log(re);
+    checkSelectPath:function(path,re,cloud_path){
+        var replace_path = path.replace(/\\/g, '/');
         if (re.disabled == 1) {
             var binded_path = re.path;
-            var replace_path = path.replace(/\\/g, '/');
             var replace_bind_path = binded_path.replace(/\\/g, '/');
             var re = replace_path.replace(new RegExp(replace_bind_path), '');
             var msg = '';
@@ -417,7 +416,9 @@ var gkClientSync = {
             return false;
         }
         if(re.empty==0){
-            if(!confirm('同步后同名文件将被覆盖，请确认')){
+            var filename = Util.String.baseName(Util.String.rtrim(replace_path,'/'));
+            var cloud_filename = Util.String.baseName(cloud_path);
+            if(!confirm('确定将 "'+cloud_filename+'" 同步到本地的 "'+filename+'" 吗？如果 "'+filename+'" 中存在相同名称的文件将会被覆盖。')){
                 return false;
             }
         }
@@ -444,6 +445,11 @@ var gkClientSync = {
             }
         };
         dialog.find('.local_set_wrapper').on('click', '.select_local_file', function () {
+            var webpath = $.trim($('#select_cloud_file_path').text());
+            if(!webpath){
+                alert('请先选择云端文件夹');
+                return;
+            }
             var old_path = '';
             var input = dialog.find('#selected_local_path');
             if (input.size()) {
@@ -455,8 +461,9 @@ var gkClientSync = {
             });
             if (new_path != old_path) {
                 if(new_path){
+
                     var re = gkClientInterface.checkLinkPath(new_path);
-                    var enable = _context.checkSelectPath(new_path,re);
+                    var enable = _context.checkSelectPath(new_path,re,webpath);
                     if(!enable){
                        return;
                     }
