@@ -13,6 +13,9 @@ var gkClientSidebar = {
         var _context = this;
         localStorage.clear();
         initWebHref();
+        $('body').tooltip({
+            selector: '.gktooltip'
+        });
         _context.fetchAccountInfo();
         $(".header_nav").click(function () {
             gkClientInterface.launchpad();
@@ -197,15 +200,17 @@ var gkClientSidebar = {
                 } else {	 
                     selectWrp.prepend(cloneBtn);
 				}
-				
-        
-                cloneBtn.append('<s></s>');
+
+                if ($(this).parents('ul').children().size() > 1) {
+
+                    cloneBtn.append('<s></s>');
                cloneBtn.droplist({
                     onClose: function (btn) {
                         selectWrp.children('a:first').removeClass('active');
                     }
                 });
-		
+
+                }
 				$(this).hide();
                selectWrp.find('ul a').show();
             });
@@ -249,8 +254,9 @@ var gkClientSidebar = {
                             callback(url);
                             _context.setLocalLink(PAGE_CONFIG.path, auth, url);
                         },
-                        error: function () {
-
+                        error: function (request, textStatus, errorThrown) {
+                            var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                            alert(errorMsg);
                         }
                     });
                 } else {
@@ -316,7 +322,7 @@ var gkClientSidebar = {
        //历史版本
        fileInfoWrapper.find('.version').click(function(){
            var params = {
-               url: '/client/client_file_detail?tab=dynamic&flag=version&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
+               url: '/client/client_file_detail?tab=dynamic&select=history&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
                sso: 1,
                resize: 0,
                width: 800,
@@ -516,8 +522,11 @@ var gkClientSidebar = {
                         _context.fetchRemark(remarks);
                     }
                 },
-                error: function () {
+                error: function (request, textStatus, errorThrown) {
                     $('.tab_content_wrapper > div .loader').remove();
+                    var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                    alert(errorMsg);
+
                 }
             }
         );

@@ -1100,13 +1100,11 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     display: block;
     visibility: visible;
     padding: 5px;
-    font-size: 11px;
+    font-size: 12px;
     opacity: 0;
-    filter: alpha(opacity=0);
 }
 .tooltip.in {
     opacity: 0.8;
-    filter: alpha(opacity=80);
 }
 .tooltip.top {
     margin-top: 3px;
@@ -1122,12 +1120,12 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 }
 .tooltip-inner {
     max-width: 200px;
-    padding: 2px 2px;
+    padding: 3px 6px;
     color: #FFF;
     text-align: center;
     text-decoration: none;
     background-color:#000;
-    border-radius: 4px;
+    border-radius: 3px;
 }
 .tooltip-arrow {
     display: inline-block;
