@@ -41,14 +41,8 @@
                      update_all = $("#update_all");
 			   
                 update_all.on("click",function(){
-                    var   params = {
-                        url: '/client/client?ac=updates',
-                        sso: 1,
-                        resize: 1,
-                        width: 800,
-                        height: 500
-                    };
-                    gkClientInterface.openWindow(params);
+                    gkClientInterface.launchpad(JSON.stringify({tab:"notices"}));
+                    return;
                 })
 
                setInterval(function(){
