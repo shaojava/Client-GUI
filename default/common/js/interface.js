@@ -119,9 +119,10 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getSelectPaths: function() {
+    getSelectPaths: function(path) {
+        path = typeof arguments[0]==='undefined'?'':path;
         try {
-            return gkClient.gSelectSyncPath();
+            return gkClient.gSelectSyncPath(path);
         } catch (e) {
             throw e;
         }
@@ -243,16 +244,34 @@ var gkClientInterface = {
         gkClient.gCompare(params);
     },
     getMessage: function() {
-        return JSON.parse(gkClient.gGetMessage());
+        try {
+            return JSON.parse(gkClient.gGetMessage());
+        } catch (e) {
+            throw e;
+        }
+
     },
     clearUpdateCount: function() {
-        gkClient.gClearUpdateCount();
+        try {
+            gkClient.gClearUpdateCount();
+        } catch (e) {
+            throw e;
+        }
+
     },
     getSiteDomain: function() {
-        return gkClient.gSiteDomain();
+        try {
+            return gkClient.gSiteDomain();
+        } catch (e) {
+            throw e;
+        }
     },
     setClipboardData: function(text) {
-        gkClient.gSetClipboardData(text);
+      try {
+        gkClient.gSetClipboardData(text); 
+	} catch (e) {
+            throw e;
+        }
     },
     getLinkPath:function(){
         var re = gkClient.gGetLinkPaths();
@@ -299,7 +318,11 @@ var gkClientInterface = {
         return gkClient.gGetAuthorization(JSONParams);
     },
     getToken:function(){
-        return gkClient.gGetToken()
+         try {
+        return gkClient.gGetToken();
+	  } catch (e) {
+            throw e;
+        }
     },
     getApiDomain:function(){
       return 'http://a2.gokuai.com';
@@ -360,8 +383,9 @@ gkClientAjax.Exception = {
     }
 };
 
-function initWebHref() {
-    $('body').on('click', 'a', function(e) {
+function initWebHref(proxyElem) {
+	proxyElem = proxyElem === undefined? $('body'):proxyElem;
+   proxyElem.on('click', 'a', function(e) {
         var href = $(this).attr('href');
         var targetElem = $(e.target);
         if (!targetElem.hasClass('gk_blank') && /\/storage#!files:(0|1):(.*?)(:(.*):.*)??$/.test(href)) {

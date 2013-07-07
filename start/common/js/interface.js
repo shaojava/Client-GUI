@@ -6,16 +6,12 @@ var gkClientFileState = {
     LOCAL_STATE: 4,
     EDIT_STATE: 5
 };
-
+var gkClientFileLock = {
+    UNLOCK: 0,
+    LOCK_BY_OTHER: 1,
+    LOCK_BY_ME: 2
+};
 var gkClientInterface = {
-    getClientInfo:function(){
-        try {
-            return JSON.parse(gkClient.gGetClientInfo(params));
-        } catch (e) {
-            throw e;
-        }
-
-    },
     setFileStatus: function(path, dir, state) {
         var params = JSON.stringify({
             webpath: path,
@@ -137,7 +133,7 @@ var gkClientInterface = {
                 params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
             }
             params = JSON.stringify(params);
-            gkClient.gMain(params);
+            return gkClient.gMain(params);
         } catch (e) {
             throw e;
         }
@@ -171,15 +167,20 @@ var gkClientInterface = {
             throw e;
         }
     },
-    selectSyncFile: function() {
+    selectSyncFile: function(params) {
+        params = typeof arguments[0] ==='undefined'?'':params;
         try {
-            gkClient.gSelectSyncPath();
+            var JSONparams = JSON.stringify(params)
+            gkClient.gSelectSyncPath(JSONparams);
         } catch (e) {
             throw e;
         }
     },
     getUserInfo: function() {
         try {
+            if(!gkClient.gUserInfo()){
+                return '';
+            }
             return JSON.parse(gkClient.gUserInfo());
         } catch (e) {
             throw e;
@@ -195,6 +196,20 @@ var gkClientInterface = {
             throw e;
         }
     },
+	getClientInfo:function(){
+        try {
+            return JSON.parse(gkClient.gGetClientInfo());
+        } catch (e) {
+            throw e;
+        }
+
+    },
+	getShowTrans:function(){
+	  gkClient.gShowTrans();
+	},
+	getShowSettings:function(){
+	   gkClient.gShowSettings();
+	},
     add2Favorite: function(path) {
         try {
             if (!path.length) {
@@ -205,9 +220,14 @@ var gkClientInterface = {
             throw e;
         }
     },
-    launchpad: function() {
+    launchpad: function(path) {
         try {
-            gkClient.gLaunchpad();
+		    if(path){
+             gkClient.gLaunchpad(path);
+			 return;
+			}
+			gkClient.gLaunchpad();
+			
         } catch (e) {
             throw e;
         }
@@ -234,6 +254,77 @@ var gkClientInterface = {
     },
     setClipboardData: function(text) {
         gkClient.gSetClipboardData(text);
+    },
+    getLinkPath:function(){
+        var re = gkClient.gGetLinkPaths();
+        if(!re){
+            return '';
+        }
+        return JSON.parse(re);
+    },
+    selectFile:function(path){
+        var params = {
+            path:'',
+            disable_root:0
+        };
+        if(typeof path ==='string'){
+             params = {
+                path:path,
+                disable_root:0
+            };
+        }else if(typeof path ==='object'){
+            params = path;
+        }
+        var JSONparams = JSON.stringify(params);
+        return gkClient.gSelectPath(JSONparams);
+    },
+    setLinkPath:function(paths){
+        var params = {
+            'list':paths
+        };
+        gkClient.gSetLinkPaths(JSON.stringify(params));
+    },
+    removeLinks:function(links){
+        var params = {
+            'list':links
+        };
+        gkClient.gRemoveLinkPaths(JSON.stringify(params));
+    },
+    getAuthorization:function(ver,webpath,date){
+            var params = {
+                ver:ver,
+                webpath:webpath,
+                date:date
+            };
+        var JSONParams = JSON.stringify(params);
+        return gkClient.gGetAuthorization(JSONParams);
+    },
+    getToken:function(){
+        return gkClient.gGetToken()
+    },
+    getApiDomain:function(){
+      return 'http://a2.gokuai.com';
+    },
+    getRestDomain:function(){
+        return 'http://r2.gokuai.com';
+    },
+    openDiskPath:function(path){
+        gkClient.gOpenDiskPath(path);
+    },
+    openChildWindow:function(params){
+        gkClient.gChildMain(JSON.stringify(params));
+    },
+    checkLinkPath:function(path){
+        var re = gkClient.gCheckLinkPath(path);
+       return JSON.parse(re)
+    },
+    mailTo:function(to,subject,content){
+        var params = {
+             to:to,
+            subject:subject,
+            content:content
+        };
+      gkClient.gMailTo(JSON.stringify(params));
     }
 };
 var gkClientAjax = {};
@@ -273,7 +364,8 @@ gkClientAjax.Exception = {
 function initWebHref() {
     $('body').on('click', 'a', function(e) {
         var href = $(this).attr('href');
-        if (/\/storage#!files:(0|1):(.*?)(:(.*):.*)??$/.test(href)) {
+        var targetElem = $(e.target);
+        if (!targetElem.hasClass('gk_blank') && /\/storage#!files:(0|1):(.*?)(:(.*):.*)??$/.test(href)) {
             if (!RegExp.$2 && !RegExp.$2.length && !RegExp.$4 && !RegExp.$4.length) {
                 gkClientInterface.openSyncDir();
             } else {
@@ -303,11 +395,24 @@ function initWebHref() {
                 url: href,
                 sso: 0
             };
-            if (parseInt(PAGE_CONFIG.memberId)) {
+            if (parseInt(PAGE_CONFIG.memberId) || targetElem.data('sso')==1) {
                 param.sso = 1;
             }
             gkClientInterface.openURL(param);
             return false;
         }
     });
-};
+}
+
+var PAGE_CONFIG = {};
+//获取当前登录用户的信息
+(function(){
+    var account = gkClientInterface.getUserInfo();
+    if(account){
+        PAGE_CONFIG.memberId = account.id;
+        PAGE_CONFIG.email = account.email;
+        PAGE_CONFIG.mountId = account.mount_id;
+        PAGE_CONFIG.orgId = account.org_id;
+    }
+})();
+;
