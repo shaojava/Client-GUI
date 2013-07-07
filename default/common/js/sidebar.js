@@ -650,7 +650,7 @@ var gkClientSidebar = {
             links = [
                 {
                     key: '',
-                    url: '/storage',
+                    url: '/storage#!team_files',
                     sso: 1,
                     name: '在网页上查看你的文件'
                 }
@@ -671,14 +671,14 @@ var gkClientSidebar = {
                 tip: tip,
                 links: links
             };
-			  
+		
             $('#rootMainTmpl').tmpl(data).appendTo(main);
 		
 			
         } else {
             _context.fetchFileMain();
         }
-        _context.setMainStyle();
+         _context.setMainStyle();
 
     },
     fetch: function () {
