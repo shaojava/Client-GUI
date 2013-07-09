@@ -1659,8 +1659,8 @@ border:1px solid #D0D6DB;
 #sidebar .header_nav:hover{
  background: -webkit-linear-gradient(top,#8db6e9 25%,#7eaadc 45%,#6d9cce);
 }
-#sidebar .header_website{width:50px;height:38px;position:absolute;right:0;top:0;border-left:1px solid gb(97,127,181)  }
-#sidebar .header_website:before{display:block;content:"";border-left:1px solid rgb(164,195,233);height:40px}
+#sidebar .header_website{width:50px;height:38px;position:absolute;right:0;top:0;border-left:1px solid #617FB5  }
+#sidebar .header_website:before{display:block;content:"";background:#A4C3E9;height:38px;width:1px}
 #sidebar .header_nav i,#sidebar .header_website a{
     height: 16px;
     width: 16px;
