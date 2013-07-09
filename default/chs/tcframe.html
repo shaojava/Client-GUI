@@ -54,9 +54,12 @@
         $(function () {
             initWebHref();
             setInterval(function () {
-                fetchUpdate();
+                if($(".new_tqframe").scrollTop() == 0){
+				  fetchUpdate();
+				}
             }, 3000);
             fetchUpdate();
+		 
 
         })
     </script>

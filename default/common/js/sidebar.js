@@ -17,9 +17,17 @@ var gkClientSidebar = {
             selector: '.gktooltip'
         });
         _context.fetchAccountInfo();
-        $(".header_nav").click(function () {
+        $(".header_nav").click(function (e) {
+		
             gkClientInterface.launchpad();
         })
+		$(".header_website>a").click(function(e){
+		     gkClientInterface.openURL({
+                url: 'http://www.gokuai.com/storage',
+                sso: 0
+            })
+		    e.stopPropagation();
+		})
 
 
     },
