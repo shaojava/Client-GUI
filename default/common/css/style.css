@@ -1649,14 +1649,14 @@ border:1px solid #D0D6DB;
     height: 38px;
     line-height: 38px;
     font-size: 16px;
-    padding:0 17px;
     cursor: pointer;
     margin-left: -1px;
 	box-shadow:0 1px 5px #6387be;
 	position:relative;
 
 }
-#sidebar .header_nav:hover{
+#sidebar .header_nav .logo{width:175px;padding-left:17px}
+#sidebar .header_nav .logo:hover,#sidebar .header_website:hover{
  background: -webkit-linear-gradient(top,#8db6e9 25%,#7eaadc 45%,#6d9cce);
 }
 #sidebar .header_website{width:50px;height:38px;position:absolute;right:0;top:0;border-left:1px solid #617FB5  }
@@ -1671,7 +1671,7 @@ border:1px solid #D0D6DB;
     background-position: 0 0;
     margin: -3px 5px 0 0;
 }
-#sidebar .header_website a{position:absolute;background-position:0 -21px;right:10px;top:14px;width:16px;height:16px;}
+#sidebar .header_website a{position:absolute;background-position:0 -21px;right:11px;top:14px;width:16px;height:16px;}
 #sidebar .account_info,
 #sidebar .file_info_wrapper{
    color:#666;
@@ -1840,7 +1840,7 @@ background: none;
     color:#606D7F;
 }
 #sidebar #main.main_3.main_root{
-    top:38px;
+    top:42px;
 }
 #sidebar #main.main.main_root .root_content,
 #sidebar #main.main_1.main_root .root_content,
