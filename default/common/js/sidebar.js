@@ -21,7 +21,7 @@ var gkClientSidebar = {
 		
             gkClientInterface.launchpad();
         })
-		$(".header_website>a").click(function(e){
+		$(".header_website").click(function(e){
 		     gkClientInterface.openURL({
                 url: 'http://www.gokuai.com/storage',
                 sso: 0
@@ -512,25 +512,28 @@ var gkClientSidebar = {
             }
         );
     },
+	selectTabIndex:2,
     fetchFileMain: function () {
         var _context = this;
         var main = $('#main');
         main.empty();
         if(PAGE_CONFIG.state>1 && PAGE_CONFIG.state<6){
+            var _this = this;
             var fileMainTmpl = $('#fileMainTmpl').tmpl().appendTo(main);
-		
+		    
             $('.tab_list li').click(function () {
-                var target = $(this).data('target');
+                _this.selectTabIndex = $(this).index();
+				var target = $(this).data('target');
                 var tab_content_wrapper = $('.tab_content_wrapper');
                 var tab_content = tab_content_wrapper.find('>div');
                 $(this).siblings().removeClass('selected');
                 $(this).addClass('selected');
-			
                 tab_content.hide();
                 tab_content_wrapper.find('.' + target).show();
             });
+		    
             _context.getFileMain(PAGE_CONFIG.path);
-            $('.tab_list li').eq(2).trigger('click');
+            $('.tab_list li').eq(_this.selectTabIndex).trigger('click');
         }
 
     },
