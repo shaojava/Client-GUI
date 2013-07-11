@@ -32,8 +32,19 @@ var gkClientSidebar = {
 	  
 
     },
+	clearConfiect:function(arr){
+	  var i,results = [],len = arr.length,username = gkClientInterface.getUserInfo().username;
+	  for(i = 0;i<len;i++){
+	    
+		if(arr[i].hasOwnProperty("username") && arr[i]["username"] != username){
+		  results.push(arr[i]);
+		}
+		 
+	  }
+	  return results;
+	},
 	bindShares : function(shares){
-	$(".textarea_wrapper").inputTip(shares,$(".at_and_task"));
+	$(".textarea_wrapper").inputTip(this.clearConfiect(shares),$(".at_and_task"));
 	    $('body').tooltip({
             selector: '.gktooltip'
         });
@@ -86,7 +97,6 @@ var gkClientSidebar = {
         var _context = this;
 		
 		this.shareMembers = share_members;
-        console.log("cc"+this.shareMembers);
 		var slideItemShare = $('.tab_content_share');
         slideItemShare.empty();
         var shareMemberList = $('#shareMembersTmpl').tmpl({
