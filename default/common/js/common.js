@@ -3238,32 +3238,30 @@ var gkFile = {
         // 设置位置
         setPosition: function(jqTextarea, hintWrapper){
             var position = Util.Input.getInputPositon(jqTextarea[0]);
-           
-			if(jqTextarea.val().slice(jqTextarea.val().length - 1) != "@"){
-			 hintWrapper.css({
-                left: 20,
+			if(jqTextarea.val().slice(jqTextarea.val().length - 1) === "@"){
+            hintWrapper.css({
+                left: 10,
+                top: 370
+            });
+	        }
+			else if(jqTextarea.val().slice(jqTextarea.val().length - 1) === "#"){
+			   hintWrapper.css({
+                left: 10,
                 top: 220
-             });
-			}else{
-			 //是@
-			  if(position.left+hintWrapper.get(0).offsetWidth >= jqTextarea.get(0).offsetWidth){
-			    hintWrapper.css({
-                left: jqTextarea.get(0).offsetWidth - hintWrapper.get(0).offsetWidth,
-                top: position.top + 5 + jqTextarea.scrollTop()
-               }); 
-			  }else{
-			    hintWrapper.css({
-                left: position.left,
-                top: position.top + 5 + jqTextarea.scrollTop()
-                });
-			  }
-			   
+            });
+			 }
+			else{
+			 $('#input_list_wrapper').remove();
+             $('#input_calendar_wrapper').remove();
+			 //是#
+			 /* if(hintWrapper.offset().left+hintWrapper.get(0).offsetWidth >= jqTextarea.width() )
+			   alert(hintWrapper.offset().left);*/
 			}
-            if ((hintWrapper.outerHeight() + hintWrapper.offset().top) > $(window).height()) {
+            /*if ((hintWrapper.outerHeight() + hintWrapper.offset().top) > $(window).height()) {
                 hintWrapper.css({
                     'top': hintWrapper.position().top - hintWrapper.outerHeight() - 20
                 });
-            }
+            }*/
         },
         begin: function(jqTextarea, jqData) {
 		    
