@@ -427,12 +427,14 @@ var gkClientSync = {
             slash = '\\';
             slash_p = '\\\\';
         }
+
+        //设置选择的路径
         var setSelectFile = function (path,isLocal,type) {
             var filename = _context.getLocalFilename(path);
             var localSetWrapper = $('.local_set_wrapper');
             var cloudSetWrapper = $('.cloud_set_wrapper');
             var setWrapper = isLocal?localSetWrapper:cloudSetWrapper;
-            var input =   setWrapper.find('.selected_file_wrapper input');
+            var input =   setWrapper.find('.selected_file_wrapper .path_input');
             var unselectSpan = setWrapper.find('.selected_file_wrapper .unselected_span');
             var checkbox = dialog.find('.chk');
             if (!path) {
@@ -448,11 +450,10 @@ var gkClientSync = {
                 }
                 input.val(screenPath).attr('title',screenPath);
                 input.show();
-                input.focus();
                 unselectSpan.hide();
             }
-            var localPath = localSetWrapper.find('.selected_file_wrapper input').val();
-            var cloudPath =  cloudSetWrapper.find('.selected_file_wrapper input').val();
+            var localPath = localSetWrapper.find('.selected_file_wrapper .path_input').val();
+            var cloudPath =  cloudSetWrapper.find('.selected_file_wrapper .path_input').val();
 
             if(!localPath || !cloudPath){
                 checkbox.removeClass('checked').addClass('disabled');
@@ -461,6 +462,11 @@ var gkClientSync = {
             }
         };
 
+        if(path){
+            setSelectFile(path,1);
+        }
+
+        //checkbox
         dialog.find('.chk').click(function(){
             if($(this).hasClass('disabled')){
                 return;
@@ -468,8 +474,8 @@ var gkClientSync = {
             $(this).toggleClass('checked');
 
           var setWrapper = $(this).parents('.set_wrapper');
-          var localPathInput = dialog.find('.local_set_wrapper .selected_file_wrapper input');
-            var cloudPathInput = dialog.find('.cloud_set_wrapper .selected_file_wrapper input');
+          var localPathInput = dialog.find('.local_set_wrapper .selected_file_wrapper .path_input');
+            var cloudPathInput = dialog.find('.cloud_set_wrapper .selected_file_wrapper .path_input');
             var cloudPath = $.trim(cloudPathInput.val());
             var localPath = $.trim(localPathInput.val());
 
@@ -508,11 +514,13 @@ var gkClientSync = {
 
             return;
         });
+
+        //选择本地文件
         dialog.find('.select_local_file').on('click', function () {
             var old_path = '';
             var input = dialog.find('#selected_local_path');
             if (input.size()) {
-                old_path = $.trim(input.val());
+                old_path = $.trim(input.text());
             }
             var new_path = gkClientInterface.selectFile({
                 path: old_path,
@@ -531,6 +539,7 @@ var gkClientSync = {
             return;
         });
 
+        //选择云端文件
         dialog.find('.select_cloud_file').on('click', function () {
             var dialgoTmpl = $('#selectCloudFileDialog').tmpl();
             dialgoTmpl.gkDialog({
@@ -573,6 +582,7 @@ var gkClientSync = {
             return;
         });
 
+        //开始同步
         dialog.find('.start_sync').click(function () {
             var local_path = $.trim(dialog.find('.set_wrapper #selected_local_path').val());
             var webpath = $.trim(dialog.find('.set_wrapper #selected_cloud_path').val());
@@ -604,6 +614,8 @@ var gkClientSync = {
             _context.showStartSyncDialog(cloudSet, local_path, dialog);
             return;
         });
+
+        //取消
         dialog.find('.cancel').click(function () {
             gkClientInterface.closeWindow();
             return;

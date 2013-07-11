@@ -22,11 +22,16 @@
     <script type="text/javascript" src="../common/js/sync.js"></script>
     <script type="text/javascript">
         $(function () {
+            hash =location.hash;
+            var path = '';
+            if(hash){
+                path = decodeURIComponent(Util.String.ltrim(hash,'#'));
+            }
             initWebHref();
             $('body').tooltip({
                 selector: '.gktooltip'
             });
-            gkClientSync.initAddLink();
+            gkClientSync.initAddLink(path);
         })
     </script>
 </head>

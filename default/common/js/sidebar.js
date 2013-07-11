@@ -17,12 +17,62 @@ var gkClientSidebar = {
             selector: '.gktooltip'
         });
         _context.fetchAccountInfo();
-        $(".header_nav").click(function () {
+        $(".header_nav").click(function (e) {
+		
             gkClientInterface.launchpad();
         })
-
+		$(".header_website").click(function(e){
+		     gkClientInterface.openURL({
+                url: 'http://www.gokuai.com/storage',
+                sso: 0
+            })
+		    e.stopPropagation();
+		})
+     
+	  
 
     },
+	clearConfiect:function(arr){
+	  var i,results = [],len = arr.length,username = gkClientInterface.getUserInfo().username;
+	  for(i = 0;i<len;i++){
+	    
+		if(arr[i].hasOwnProperty("username") && arr[i]["username"] != username){
+		  results.push(arr[i]);
+		}
+		 
+	  }
+	  return results;
+	},
+	bindShares : function(shares){
+	$(".textarea_wrapper").inputTip(this.clearConfiect(shares),$(".at_and_task"));
+	    /*$('body').tooltip({
+            selector: '.gktooltip'
+        });*/
+	/*$(".textarea_wrapper").live("keydown",function(e){
+	            var _this = $(this),_flag = false;
+	            var _time = setTimeout(function(){   
+				    _flag = (e.keyCode == 16) ? true : false;
+					if(_this.val().charAt(_this.val().length - 1) == "@" && !_flag){
+					     $(".select-shares").remove();
+						 $("#ks").remove();
+						// $(".post_wrapper").append($("<span id='ks' style='position:absolute;left:-9999px;top:0'>"+_this.val()+"</span>"));
+						 var _x =  $("#ks").width() + 16;
+						 var _y = 32;
+					    $("#selectShares").tmpl({x:_x,y:_y,shares:shares}).appendTo($(".post_wrapper"));
+						$(".select-shares>div").click(function(){
+						  $(".textarea_wrapper").val($(".textarea_wrapper").val()+$(this).html());
+						  $(".select-shares").remove();
+						})
+						
+					 
+						
+						
+					}
+					 clearTimeout(_time);
+				},1);
+				 
+	   });*/
+	},
     fetchAccountInfo: function (type) {
         var account = gkClientInterface.getUserInfo();
         var data = {
@@ -42,9 +92,12 @@ var gkClientSidebar = {
         }
 
     },
+	shareMembers:[],
     fetchShareMembers: function (share_members) {
         var _context = this;
-        var slideItemShare = $('.tab_content_share');
+		
+		this.shareMembers = share_members;
+		var slideItemShare = $('.tab_content_share');
         slideItemShare.empty();
         var shareMemberList = $('#shareMembersTmpl').tmpl({
             share_members: share_members
@@ -467,7 +520,7 @@ var gkClientSidebar = {
             var loading = $('<div class="loader" style="position: absolute;left:0;right:0;color:#aaa;top:50%;text-align: center;margin-top: -9px">正在加载...</div>');
             $('.tab_content_wrapper > div').append(loading);
         }
-
+       var _this = this;
         $.ajax(
             {
                 url: gkClientInterface.getApiDomain() + '/client_sidebar',
@@ -479,8 +532,11 @@ var gkClientSidebar = {
                         return;
                     }
                     if(!tab || tab =='share'){
+					   
                         var share_members = data.share_members;
                         gkClientSidebar.fetchShareMembers(share_members);
+						//textarea绑定共享人
+					 	//_this.bindShares(share_members);
                     }
 
                     if(!tab || tab =='link'){
@@ -504,25 +560,34 @@ var gkClientSidebar = {
             }
         );
     },
+	selectTabIndex:2,
     fetchFileMain: function () {
+	    $('#input_list_wrapper').remove();
+        $('#input_calendar_wrapper').remove();
         var _context = this;
         var main = $('#main');
         main.empty();
         if(PAGE_CONFIG.state>1 && PAGE_CONFIG.state<6){
+            var _this = this;
             var fileMainTmpl = $('#fileMainTmpl').tmpl().appendTo(main);
-		
+		    
             $('.tab_list li').click(function () {
-                var target = $(this).data('target');
+			    $(".select-shares").remove();
+				$(".textarea_wrapper").val("");
+                _this.selectTabIndex = $(this).index();
+				var target = $(this).data('target');
                 var tab_content_wrapper = $('.tab_content_wrapper');
                 var tab_content = tab_content_wrapper.find('>div');
                 $(this).siblings().removeClass('selected');
                 $(this).addClass('selected');
-			
                 tab_content.hide();
                 tab_content_wrapper.find('.' + target).show();
             });
+		    
             _context.getFileMain(PAGE_CONFIG.path);
-            $('.tab_list li').eq(2).trigger('click');
+		   
+			
+            $('.tab_list li').eq(_this.selectTabIndex).trigger('click');
         }
 
     },
@@ -567,6 +632,7 @@ var gkClientSidebar = {
             remarks: remarks,
             old_remark:old_remark?old_remark:''
         }).appendTo(slideItemShare);
+		this.bindShares(this.shareMembers);
         $('textarea#post_value').blur(function(){
             var val = $.trim($(this).val());
               localStorage.setItem('remark_'+PAGE_CONFIG.path,val);
@@ -604,6 +670,8 @@ var gkClientSidebar = {
                     remarkItem.hide();
                     remarkItem.fadeIn();
                     localStorage.setItem('cache_'+PAGE_CONFIG.path,new Date().getTime());
+				
+					
                 }
                 $('textarea#post_value').val('');
                 localStorage.removeItem('remark_'+PAGE_CONFIG.path);

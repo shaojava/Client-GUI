@@ -1744,7 +1744,10 @@ border:1px solid #D0D6DB;
     width: 260px;
     border:0 none;
     color:#ACB4BF;
+    text-align: left;
+    direction:rtl ;
 }
+
 #sidebar .wrapper{
     position: absolute;
     top:0;
@@ -1767,17 +1770,24 @@ border:1px solid #D0D6DB;
     line-height: 18px;
 }
 #sidebar .header_nav{
-    background: #6185BC;
+    background: -webkit-linear-gradient(top,#81a6d5 25%,#7397c9 45%,#6387be);
     color:#fff;
     height: 38px;
     line-height: 38px;
     font-size: 16px;
-    padding:0 17px;
     cursor: pointer;
     margin-left: -1px;
+	box-shadow:0 1px 5px #6387be;
+	position:relative;
 
 }
-#sidebar .header_nav i{
+#sidebar .header_nav .logo{width:175px;padding-left:17px}
+#sidebar .header_nav .logo:hover,#sidebar .header_website:hover{
+ background: -webkit-linear-gradient(top,#8db6e9 25%,#7eaadc 45%,#6d9cce);
+}
+#sidebar .header_website{width:50px;height:38px;position:absolute;right:0;top:0;border-left:1px solid #617FB5  }
+#sidebar .header_website:before{display:block;content:"";background:#A4C3E9;height:38px;width:1px}
+#sidebar .header_nav i,#sidebar .header_website a{
     height: 16px;
     width: 16px;
     display: inline-block;
@@ -1787,6 +1797,7 @@ border:1px solid #D0D6DB;
     background-position: 0 0;
     margin: -3px 5px 0 0;
 }
+#sidebar .header_website a{position:absolute;background-position:0 -21px;right:11px;top:14px;width:16px;height:16px;}
 #sidebar .account_info,
 #sidebar .file_info_wrapper{
    color:#666;
@@ -1955,7 +1966,7 @@ background: none;
     color:#606D7F;
 }
 #sidebar #main.main_3.main_root{
-    top:38px;
+    top:42px;
 }
 #sidebar #main.main.main_root .root_content,
 #sidebar #main.main_1.main_root .root_content,
@@ -2130,13 +2141,75 @@ color:#B8BFC8;
     padding: 3px;
 }
 #main .post_wrapper .btn_wrapper{
-    text-align: center;
+    padding:0 10px;
 }
+#main .post_wrapper .btn_wrapper .at_and_task{
+overflow: hidden;
+margin-top: 3px;
+}
+#main .post_wrapper .btn_wrapper .at_and_task .insert{margin-right:10px}
+#main .post_wrapper .btn_wrapper .at_and_task .at{margin-top:5px}
+#main .post_wrapper .btn_wrapper .at_and_task .at  i,#main .post_wrapper .btn_wrapper .at_and_task .at-all  i,#main .post_wrapper .btn_wrapper .at_and_task .pound  i{
+opacity: .5;
+display: inline-block;
+width: 16px;
+height: 16px;
+vertical-align: middle;
+}
+.select-shares{position:absolute;border:1px solid #C2CBD3}
+.select-shares div{cursor:pointer;background:#EEE;padding:0 12px;height:25px;line-height:25px;color:#434343;white-space:nowrap;text-overflow:ellipsis;overflow:hidden}
+#main .post_wrapper .btn_wrapper .at_and_task .at  i{background-image: url("http://www.gokuai.com/Common/images/icon/at16x16.png");}
+#main .post_wrapper .btn_wrapper .at_and_task .at-all  i{background-image: url("http://gkdev.gokuai.com/Common/images/storage/at_all.png");width:43px}
+#main .post_wrapper .btn_wrapper .at_and_task .pound  i{background-image: url("http://gkdev.gokuai.com/Common/images/icon/pound16x16.png");}
+#main .post_wrapper .btn_wrapper .at_and_task .grid{display:none}
+#input_calendar_wrapper,
+#input_list_wrapper{
+    position: absolute;
+    top:0;
+    left:0;
+    display: none;
+    z-index: 9999;
+}
+#input_list_wrapper{
+    border:1px solid #C2CBD3;
+    width:100px;
+    background: #fff;
+}
+#input_calendar_wrapper{
+    border:0;
+}
+#input_list_wrapper li a{
+    display: block;
+    height:25px;
+
+    line-height: 25px;
+    padding:0 0 0 12px;
+    color:#434343;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow:ellipsis;
+    -o-text-overflow:ellipsis;
+    -webkit-text-overflow:ellipsis;
+    -moz-text-overflow:ellipsis;
+    border:0;
+    box-shadow: none;
+    font-size: 12px;
+}
+#input_list_wrapper li .select{
+    background-color: #EEE;
+}
+.grid{
+width: 2px;
+height: 16px;
+background-image: url("http://www.gokuai.com/Common/images/storage/grid.png");
+margin-top: 6px;
+margin-left: 8px;
+margin-right: 8px;}
 #main .post_wrapper .btn_wrapper .btn{
     text-align: center;
     padding-left:0;
    padding-right: 0;
-        width: 224px;
+        width: 80px;
 }
 #main .select_wrapper{
     margin: 8px auto 0;
@@ -2244,7 +2317,7 @@ margin: 15px 0;
     background-color: #f9fafc;
 }
 #main .quick_link_list {
-    font-size: 14px;
+    font-size: 13px;
     margin: 20px 0 0 0;
     line-height: 24px;
 }
@@ -2267,7 +2340,7 @@ margin: 15px 0;
     color:#B2B9C4;
     padding:0 20px;
     position: absolute;
-    font-size: 14px;
+    font-size: 13px;
     top:50%;
     margin-top:-31px;
 }
