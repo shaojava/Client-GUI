@@ -28,9 +28,40 @@ var gkClientSidebar = {
             })
 		    e.stopPropagation();
 		})
-
+     
+	  
 
     },
+	bindShares : function(shares){
+	$(".textarea_wrapper").inputTip(shares,$(".at_and_task"));
+	    $('body').tooltip({
+            selector: '.gktooltip'
+        });
+	/*$(".textarea_wrapper").live("keydown",function(e){
+	            var _this = $(this),_flag = false;
+	            var _time = setTimeout(function(){   
+				    _flag = (e.keyCode == 16) ? true : false;
+					if(_this.val().charAt(_this.val().length - 1) == "@" && !_flag){
+					     $(".select-shares").remove();
+						 $("#ks").remove();
+						// $(".post_wrapper").append($("<span id='ks' style='position:absolute;left:-9999px;top:0'>"+_this.val()+"</span>"));
+						 var _x =  $("#ks").width() + 16;
+						 var _y = 32;
+					    $("#selectShares").tmpl({x:_x,y:_y,shares:shares}).appendTo($(".post_wrapper"));
+						$(".select-shares>div").click(function(){
+						  $(".textarea_wrapper").val($(".textarea_wrapper").val()+$(this).html());
+						  $(".select-shares").remove();
+						})
+						
+					 
+						
+						
+					}
+					 clearTimeout(_time);
+				},1);
+				 
+	   });*/
+	},
     fetchAccountInfo: function (type) {
         var account = gkClientInterface.getUserInfo();
         var data = {
@@ -50,9 +81,13 @@ var gkClientSidebar = {
         }
 
     },
+	shareMembers:[],
     fetchShareMembers: function (share_members) {
         var _context = this;
-        var slideItemShare = $('.tab_content_share');
+		
+		this.shareMembers = share_members;
+        console.log("cc"+this.shareMembers);
+		var slideItemShare = $('.tab_content_share');
         slideItemShare.empty();
         var shareMemberList = $('#shareMembersTmpl').tmpl({
             share_members: share_members
@@ -475,7 +510,7 @@ var gkClientSidebar = {
             var loading = $('<div class="loader" style="position: absolute;left:0;right:0;color:#aaa;top:50%;text-align: center;margin-top: -9px">正在加载...</div>');
             $('.tab_content_wrapper > div').append(loading);
         }
-
+       var _this = this;
         $.ajax(
             {
                 url: gkClientInterface.getApiDomain() + '/client_sidebar',
@@ -487,8 +522,13 @@ var gkClientSidebar = {
                         return;
                     }
                     if(!tab || tab =='share'){
+					   
                         var share_members = data.share_members;
                         gkClientSidebar.fetchShareMembers(share_members);
+						//textarea绑定共享人
+					 	//_this.bindShares(share_members);
+					
+						
                     }
 
                     if(!tab || tab =='link'){
@@ -522,6 +562,8 @@ var gkClientSidebar = {
             var fileMainTmpl = $('#fileMainTmpl').tmpl().appendTo(main);
 		    
             $('.tab_list li').click(function () {
+			    $(".select-shares").remove();
+				$(".textarea_wrapper").val("");
                 _this.selectTabIndex = $(this).index();
 				var target = $(this).data('target');
                 var tab_content_wrapper = $('.tab_content_wrapper');
@@ -533,6 +575,8 @@ var gkClientSidebar = {
             });
 		    
             _context.getFileMain(PAGE_CONFIG.path);
+		
+			
             $('.tab_list li').eq(_this.selectTabIndex).trigger('click');
         }
 
@@ -578,6 +622,7 @@ var gkClientSidebar = {
             remarks: remarks,
             old_remark:old_remark?old_remark:''
         }).appendTo(slideItemShare);
+		this.bindShares(this.shareMembers);
         $('textarea#post_value').blur(function(){
             var val = $.trim($(this).val());
               localStorage.setItem('remark_'+PAGE_CONFIG.path,val);
@@ -615,6 +660,8 @@ var gkClientSidebar = {
                     remarkItem.hide();
                     remarkItem.fadeIn();
                     localStorage.setItem('cache_'+PAGE_CONFIG.path,new Date().getTime());
+				
+					
                 }
                 $('textarea#post_value').val('');
                 localStorage.removeItem('remark_'+PAGE_CONFIG.path);

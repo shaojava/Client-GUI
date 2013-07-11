@@ -3,10 +3,15 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../common/js/skin/WdatePicker.css"/>
+	<link rel="stylesheet" type="text/css" href="../common/js/skin/default/datepicker.css"/>
     <script type="text/javascript" src="../common/js/util.js"></script>
     <script type="text/javascript" src="../common/js/jquery.js"></script>
     <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="../common/js/interface.js"></script>
+	<script type="text/javascript" src="../common/js/WdatePicker.js"></script>
+	<script type="text/javascript" src="../common/js/calendar.js"></script>
+	<script type="text/javascript" src="../common/js/common.js"></script>
     <script type="text/javascript" src="../common/js/bootstrap_customize.min.js"></script>
     <script type="text/javascript" src="../common/js/droplist.js"></script>
     <script type="text/javascript" src="../common/js/ajax.js"></script>
@@ -96,17 +101,38 @@
             <textarea class="textarea_wrapper textarea textarea_radius" name="post_value" id="post_value">{{if typeof(old_remark)!=='undefined'&&old_remark}}${old_remark}{{/if}}</textarea>
         </div>
         <div class="btn_wrapper">
-            <button class="btn blue_btn post_now">发表讨论</button>
+		     <div class="at_and_task f_l">
+			    <a href="javascript:;" data-input="@" class="insert at left gktooltip">
+				 <i></i>
+				</a>
+				<span class="grid f_l"></span>
+				 <a href="javascript:;" data-input="@all" class="insert at-all left gktooltip">
+				 <i></i>
+				</a>
+				<span class="grid f_l"></span>
+				 <a href="javascript:;" data-input="#" class="insert pound left gktooltip" data-original-title="添加时间标记">
+				 <i></i>
+				</a>
+			
+			 </div>
+            <button class="btn blue_btn post_now f_r">发表讨论</button>
         </div>
     </div>
     {{/if}}
+</script>
+<script type="text/x-jquery-tmpl" id="selectShares">
+<div style="left:${x}px;top:${y}px;" class="select-shares" >
+ {{each(k,v) shares}}
+   <div>${v.username}</div>
+ {{/each}}
+</div>
 </script>
 <script type="text/x-jquery-tmpl" id="linkModeTmpl">
 <div class="select_wrapper">
     {{if modes && modes.length}}
     <ul class="dropdown_menu">
         {{each(i,mode) modes}}
-        <li ><a href="javascript:;" class="btn c_f ${mode.key}" data-auth="${mode.auth}">
+        <li><a href="javascript:;" class="btn c_f ${mode.key}" data-auth="${mode.auth}">
             <div class="f_l"><i></i></div>
             <div class="f_l t_l">
                 <p class="select_name">${mode.name}</p>
