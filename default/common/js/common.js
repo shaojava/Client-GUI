@@ -3169,7 +3169,7 @@ var gkFile = {
             });
         },
         //检测#
-        checkPound: function(jqTextarea) {
+        checkPound: function(jqTextarea,jqData) {
             var self = this;
             var textareaElem = jqTextarea[0];
             var val = jqTextarea.val();
@@ -3217,11 +3217,10 @@ var gkFile = {
             hintWrapper.mousedown(function(e) {
                 e.stopPropagation();
             });
-
+            
             hintWrapper.show(1, function(){
                 self.setPosition(jqTextarea, $(this));
             });
-
             WdatePicker({
                 dateFmt: 'yyyy-MM-dd',
                 errDealMode: 2,
@@ -3240,9 +3239,15 @@ var gkFile = {
         setPosition: function(jqTextarea, hintWrapper){
             var position = Util.Input.getInputPositon(jqTextarea[0]);
             hintWrapper.css({
-                left: 25,
+                left: position.left - 5,
                 top: position.top + 5 - jqTextarea.scrollTop()
             });
+			if(jqTextarea.val().slice(jqTextarea.val().length - 1) === "#"){
+			  hintWrapper.css({
+                left: 20,
+                top: position.top + 5 - jqTextarea.scrollTop()
+             });
+			}
             if ((hintWrapper.outerHeight() + hintWrapper.offset().top) > $(window).height()) {
                 hintWrapper.css({
                     'top': hintWrapper.position().top - hintWrapper.outerHeight() - 20
@@ -3263,7 +3268,7 @@ var gkFile = {
 					    
                         self.checkAt(jqTextarea, jqData);
                     }
-                    self.checkPound(jqTextarea);
+                    self.checkPound(jqTextarea,jqData);
                 }, 200);
             }).blur(function(e) {
                 if (timer) {
@@ -3283,12 +3288,14 @@ var gkFile = {
             });
         },
         //点击@,@all,#
+		 inputs:"",
         bindBtns: function(jqTextarea, jqBtns) {
             $('[data-input]', jqBtns).click(function() {
                 var input = $(this).data('input');
                 if (!input || !input.length) {
                     return;
                 }
+				this.inputs = input;
                 var val = jqTextarea.val();
                 var input_pos = Util.Input.getCurSor(jqTextarea[0]).split('|');
                 var is_insert = input_pos[1] != val.length ? 1 : 0;
