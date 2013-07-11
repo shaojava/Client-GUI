@@ -3238,15 +3238,26 @@ var gkFile = {
         // 设置位置
         setPosition: function(jqTextarea, hintWrapper){
             var position = Util.Input.getInputPositon(jqTextarea[0]);
-            hintWrapper.css({
-                left: position.left - 5,
-                top: position.top + 5 - jqTextarea.scrollTop()
-            });
-			if(jqTextarea.val().slice(jqTextarea.val().length - 1) === "#"){
-			  hintWrapper.css({
+           
+			if(jqTextarea.val().slice(jqTextarea.val().length - 1) != "@"){
+			 hintWrapper.css({
                 left: 20,
-                top: position.top + 5 - jqTextarea.scrollTop()
+                top: 220
              });
+			}else{
+			 //是@
+			  if(position.left+hintWrapper.get(0).offsetWidth >= jqTextarea.get(0).offsetWidth){
+			    hintWrapper.css({
+                left: jqTextarea.get(0).offsetWidth - hintWrapper.get(0).offsetWidth,
+                top: position.top + 5 + jqTextarea.scrollTop()
+               }); 
+			  }else{
+			    hintWrapper.css({
+                left: position.left,
+                top: position.top + 5 + jqTextarea.scrollTop()
+                });
+			  }
+			   
 			}
             if ((hintWrapper.outerHeight() + hintWrapper.offset().top) > $(window).height()) {
                 hintWrapper.css({

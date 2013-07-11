@@ -45,9 +45,9 @@ var gkClientSidebar = {
 	},
 	bindShares : function(shares){
 	$(".textarea_wrapper").inputTip(this.clearConfiect(shares),$(".at_and_task"));
-	    $('body').tooltip({
+	    /*$('body').tooltip({
             selector: '.gktooltip'
-        });
+        });*/
 	/*$(".textarea_wrapper").live("keydown",function(e){
 	            var _this = $(this),_flag = false;
 	            var _time = setTimeout(function(){   
@@ -537,8 +537,6 @@ var gkClientSidebar = {
                         gkClientSidebar.fetchShareMembers(share_members);
 						//textarea绑定共享人
 					 	//_this.bindShares(share_members);
-					
-						
                     }
 
                     if(!tab || tab =='link'){
@@ -556,14 +554,15 @@ var gkClientSidebar = {
                 error: function (request, textStatus, errorThrown) {
                     $('.tab_content_wrapper > div .loader').remove();
                     var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
-                    alert(errorMsg);
-
+                    //alert(errorMsg);
                 }
             }
         );
     },
 	selectTabIndex:2,
     fetchFileMain: function () {
+	    $('#input_list_wrapper').remove();
+        $('#input_calendar_wrapper').remove();
         var _context = this;
         var main = $('#main');
         main.empty();
@@ -585,7 +584,7 @@ var gkClientSidebar = {
             });
 		    
             _context.getFileMain(PAGE_CONFIG.path);
-		
+		   
 			
             $('.tab_list li').eq(_this.selectTabIndex).trigger('click');
         }
