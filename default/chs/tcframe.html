@@ -54,7 +54,7 @@
         $(function () {
             initWebHref();
             setInterval(function () {
-                if($(".new_tqframe").scrollTop() == 0){
+                if(!$(".new_tqframe").scrollTop()){
 				  fetchUpdate();
 				}
             }, 3000);
