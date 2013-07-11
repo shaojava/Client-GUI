@@ -3240,7 +3240,7 @@ var gkFile = {
         setPosition: function(jqTextarea, hintWrapper){
             var position = Util.Input.getInputPositon(jqTextarea[0]);
             hintWrapper.css({
-                left: position.left,
+                left: 25,
                 top: position.top + 5 - jqTextarea.scrollTop()
             });
             if ((hintWrapper.outerHeight() + hintWrapper.offset().top) > $(window).height()) {
