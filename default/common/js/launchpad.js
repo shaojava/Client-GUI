@@ -54,7 +54,7 @@ var gkClientLaunchPad = {
                         name:n.name,
                         icon:n.pic,
                         classes:'',
-                        sso:0
+                        sso:n.sso==1?1:0
                     });
                 });
 

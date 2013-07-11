@@ -329,10 +329,10 @@ var gkClientInterface = {
         }
     },
     getApiDomain: function () {
-        return 'http://a.gokuai.com';
+        return 'http://a2.gokuai.com';
     },
     getRestDomain: function () {
-        return 'http://r.gokuai.com';
+        return 'http://r2.gokuai.com';
     },
     openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);
@@ -351,6 +351,15 @@ var gkClientInterface = {
             content: content
         };
         gkClient.gMailTo(JSON.stringify(params));
+    },
+    getUserAgent:function(){
+        return navigator.userAgent.split(';')
+    },
+    getClientOS:function(){
+      return this.getUserAgent()[2].toLowerCase();
+    },
+    isWindowsClient:function(){
+        return this.getClientOS() == 'windows';
     }
 };
 var gkClientAjax = {};

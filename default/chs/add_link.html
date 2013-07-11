@@ -34,24 +34,39 @@
 <body id="sync_page">
 <div class="wrapper add_link_dialog">
     <div class="add_link_content">
-        <div class="cloud_set_wrapper">
-            <div class="d_title"><i></i>选择云端文件夹</div>
-            <div class="d_content select_file_wrapper">
-                <div class="scrollbar file_tree_wrapper">
-                    <div class="team_share_tree"></div>
-                </div>
+        <div class="set_wrapper cloud_set_wrapper">
+            <i class="icon"></i>
+            <div class="select_btn_wrapper">
+                <button class="btn blue_btn select_cloud_file"><i></i>选择云端文件夹</button>
             </div>
-
+            <div class="d_title">
+                <span>云端位置</span>
+            </div>
+            <div class="selected_file_wrapper">
+                <input type="text" value="" readonly class="path_input" id="selected_cloud_path" name="selected_cloud_path" />
+                <span class="unselected_span">未选择</span>
+            </div>
+            <div class="other_set_wrapper">
+                <a href="javascript:void(0)" class="chk disabled"><i></i><span>创建与本地同名的文件夹</span></a>
+            </div>
         </div>
-        <div class="local_set_wrapper">
-            <div class="d_title"><i></i>选择本地文件夹</div>
-            <div class="d_content goto_select_file">
-                <div>
-                    <button class="btn blue_btn select_local_file">选择本地位置</button>
-                </div>
-                <div>
-                    设置云端文件夹同步到本地的位置
-                </div>
+        <div class="middle_wrapper">
+            <i></i>
+        </div>
+        <div class="set_wrapper local_set_wrapper">
+            <i class="icon"></i>
+            <div class="select_btn_wrapper">
+                <button class="btn blue_btn select_local_file"><i></i>选择本地文件夹</button>
+            </div>
+            <div class="d_title">
+               <span id="">本地位置</span>
+            </div>
+            <div class="selected_file_wrapper">
+                <input type="text" value="" readonly class="path_input" id="selected_local_path" name="selected_local_path" />
+                <span class="unselected_span">未选择</span>
+            </div>
+            <div class="other_set_wrapper">
+                <a href="javascript:void(0)" class="chk disabled"><i></i><span>创建与云端同名的文件夹</span></a>
             </div>
         </div>
     </div>
@@ -65,9 +80,13 @@
          将云端文件夹 ${filename} 同步到 ${local_path}
      </div>
 </script>
-
-
-
 </body>
 
+<script type="text/x-jquery-tmpl" id="selectCloudFileDialog">
+    <div class="select_cloudfile_dialog_content">
+            <div class="team_share_tree">
+
+            </div>
+    </div>
+</script>
 </html>
