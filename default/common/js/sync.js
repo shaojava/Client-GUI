@@ -158,7 +158,7 @@ var gkClientSync = {
                             'data-filename': '团队的文件',
                             'data-icon': 'icon_team_root',
                             'data-type': 2,
-                            'children': _context.rendFileList(teamFiles, parentNode)
+                            'children': _context.rendFileList(teamFiles, parentNode,2)
                         };
                         var myTree = {
                             'tId': '2',
@@ -172,8 +172,8 @@ var gkClientSync = {
                             'data-fullpath': '',
                             'data-filename': '个人的文件',
                             'data-icon': 'icon_my_root',
-                            'data-type': 2,
-                            'children': _context.rendFileList(myFiles, parentNode)
+                            'data-type': 1,
+                            'children': _context.rendFileList(myFiles, parentNode,1)
                         };
                         treeData.push(myTree);
                         if (PAGE_CONFIG.orgId != 0) {
@@ -182,7 +182,7 @@ var gkClientSync = {
 
                     } else {
                         if (data && data.list) {
-                            treeData = _context.rendFileList(data.list, parentNode);
+                            treeData = _context.rendFileList(data.list, parentNode,data.org_share==1?2:1);
                         }
                     }
                     return treeData;
@@ -216,7 +216,7 @@ var gkClientSync = {
                             return;
                         }
                         if (!String(jItem.data('fullpath'))) {
-                            if(!path || jItem.data('type')!=2){
+                            if(!path || jItem.data('type')!=1){
                                 return;
                             }
                         }
@@ -232,13 +232,13 @@ var gkClientSync = {
         };
         var zTreeObj = $.fn.zTree.init(dialog.find('.team_share_tree'), setting);
     },
-    rendFileList: function (files, parentNode) {
+    rendFileList: function (files, parentNode,type) {
         var _context = this;
         var renderList = [];
         if (files && files.length) {
             $.each(files, function (i, n) {
                 n.icon = 'icon_folder';
-                var node = _context.rendFileItem(n, parentNode);
+                var node = _context.rendFileItem(n, parentNode,type);
                 if (i + 1 == files.length) {
                     node['className'] += ' last_file_item';
                 }
@@ -247,7 +247,7 @@ var gkClientSync = {
         }
         return renderList;
     },
-    rendFileItem: function (n, parentNode) {
+    rendFileItem: function (n, parentNode,type) {
         var name = n.filename;
         var isShare = n.share == 1 || n.cmd > 999;
         if (isShare) {
@@ -275,7 +275,7 @@ var gkClientSync = {
             'data-share': n.share,
             'data-local': n.local,
             'data-cmd': n.cmd,
-            'data-type': 0
+            'data-type': type
         };
         return item;
     },
@@ -582,7 +582,7 @@ var gkClientSync = {
                             var webpath = $.trim($(this).find('#select_cloud_file_path').text());
                             var screenpath = webpath;
                             var type = $(this).find('#select_cloud_file_path').data('type');
-                            if(type == 2){
+                            if(type == 1){
                                 screenpath = '个人的文件'+(screenpath?'/':'')+screenpath;
                             }else{
                                 screenpath = '团队的文件'+(screenpath?'/':'')+screenpath;
@@ -595,7 +595,6 @@ var gkClientSync = {
                             if(!webpath && path){
                                 dialog.find('.cloud_set_wrapper .chk').removeClass('checked').trigger('click');
                             }
-                            console.log(webpath);
                             $(this).dialog('close');
                         }
                     }
@@ -617,10 +616,7 @@ var gkClientSync = {
             var webpath = $.trim(dialog.find('.set_wrapper #selected_cloud_path').val());
             local_path +=slash;
             webpath = webpath.replace(new RegExp('^(个人的文件|团队的文件)/'),'');
-            var type = $('#selected_cloud_path').data('type');
-            if (!type) {
-                type = 0;
-            }
+            var type =0;
             if (!webpath) {
                 alert('请选择云端文件夹');
                 return;
@@ -644,6 +640,7 @@ var gkClientSync = {
                 type: type,
                 webpath: webpath
             };
+            console.log(cloudSet);
             _context.showStartSyncDialog(cloudSet, local_path, dialog);
             return;
         });

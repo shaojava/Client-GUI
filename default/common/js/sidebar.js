@@ -9,6 +9,8 @@ var gkClientSidebar = {
         'SORT_ZIP': ['rar', 'zip', '7z', 'cab', 'tar', 'gz', 'iso'],
         'SORT_EXE': ['exe', 'bat', 'com']
     },
+    shareMembers:[],
+    selectTabIndex:2,
     init: function () {
         var _context = this;
         localStorage.clear();
@@ -92,7 +94,6 @@ var gkClientSidebar = {
         }
 
     },
-	shareMembers:[],
     fetchShareMembers: function (share_members) {
         var _context = this;
 		
@@ -560,7 +561,6 @@ var gkClientSidebar = {
             }
         );
     },
-	selectTabIndex:2,
     fetchFileMain: function () {
 	    $('#input_list_wrapper').remove();
         $('#input_calendar_wrapper').remove();
@@ -709,23 +709,17 @@ var gkClientSidebar = {
                     sso: 1,
                     name: '在网页上查看文件'
                 },
-				{
-                    key: '',
-                    url: 'javascript:gkClientInterface.getShowTrans()',
-                    sso: 1,
-                    name: '传输列表'
-                },
-                {
-                    key: '',
-                    url: '/storage',
-                    sso: 1,
-                    name: '在网页上查看文件'
-                },
                 {
                     key: '',
                     url: 'javascript:gkClientInterface.selectSyncFile()',
                     sso: 0,
                     name: '选择性同步'
+                },
+				{
+                    key: '',
+                    url: 'javascript:gkClientInterface.getShowTrans()',
+                    sso: 1,
+                    name: '传输列表'
                 },
 				{
                     key: '',
