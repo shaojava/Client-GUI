@@ -418,7 +418,7 @@ var gkClientSync = {
 
         return true;
     },
-    initAddLink: function () {
+    initAddLink: function (path) {
         var _context = this;
         var dialog = $('.wrapper');
         var slash = '/';
@@ -438,7 +438,7 @@ var gkClientSync = {
             var unselectSpan = setWrapper.find('.selected_file_wrapper .unselected_span');
             var checkbox = dialog.find('.chk');
             if (!path) {
-                input.val('').attr('title','').hide();
+                input.val('').attr('title','').removeAttr('data-type').hide();
                 unselectSpan.show();
             } else {
                 var screenPath = '';
@@ -451,6 +451,9 @@ var gkClientSync = {
                 input.val(screenPath).attr('title',screenPath);
                 input.show();
                 unselectSpan.hide();
+                if(!isLocal && typeof type !=='undefined'){
+                    input.attr('data-type',type);
+                }
             }
             var localPath = localSetWrapper.find('.selected_file_wrapper .path_input').val();
             var cloudPath =  cloudSetWrapper.find('.selected_file_wrapper .path_input').val();
@@ -464,6 +467,7 @@ var gkClientSync = {
 
         if(path){
             setSelectFile(path,1);
+            dialog.find('.select_local_file').removeClass('blue_btn').addClass('disabled').attr('disabled','disabled');
         }
 
         //checkbox
@@ -487,7 +491,7 @@ var gkClientSync = {
                 }else{
                     var temp_re = localPath.replace(/\\/,'/')
                     var dir_path = Util.String.dirName(temp_re);
-                    newLocalPath = dir_path.replace(/\//,'\\');
+                    newLocalPath = dir_path.replace(/\//g,'\\');
                 }
                 setSelectFile(newLocalPath,1);
             }else{ //与本地同名
@@ -534,6 +538,7 @@ var gkClientSync = {
                         return;
                     }
                 }
+                dialog.find('.local_set_wrapper .chk').removeClass('checked');
                 setSelectFile(new_path,_context);
             }
             return;
@@ -566,7 +571,11 @@ var gkClientSync = {
                             }else{
                                 webpath = '团队的文件/'+webpath;
                             }
-                            setSelectFile(webpath,0);
+                            var old_path = $.trim(dialog.find('#selected_local_path').text());
+                            if(old_path!=webpath){
+                                dialog.find('.cloud_set_wrapper .chk').removeClass('checked');
+                            }
+                            setSelectFile(webpath,0,type);
                             $(this).dialog('close');
                         }
                     }
@@ -588,7 +597,7 @@ var gkClientSync = {
             var webpath = $.trim(dialog.find('.set_wrapper #selected_cloud_path').val());
             local_path +=slash;
             webpath.replace(new RegExp('^(个人的文件|团队的文件)'+slash_p),'');
-            var type = $('#select_cloud_file_path').data('type');
+            var type = $('#selected_cloud_path').data('type');
             if (!type) {
                 type = 0;
             }
