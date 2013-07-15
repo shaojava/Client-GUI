@@ -707,7 +707,7 @@ var gkClientSidebar = {
                     key: '',
                     url: '/storage',
                     sso: 1,
-                    name: '在网页上查看你的文件'
+                    name: '在网页上查看文件'
                 },
 				{
                     key: '',
@@ -735,7 +735,7 @@ var gkClientSidebar = {
                     key: '',
                     url: '/storage#!files',
                     sso: 1,
-                    name: '在网页上查看你的文件'
+                    name: '在网页上查看个人的文件'
                 }
             ];
             } else if (PAGE_CONFIG.type == 2) {
@@ -745,7 +745,7 @@ var gkClientSidebar = {
                     key: '',
                     url: '/storage#!team_files',
                     sso: 1,
-                    name: '在网页上查看你的文件'
+                    name: '在网页上查看团队的文件'
                 },
 				{url: 'javascript:gkClientInterface.openWindow({url:"/client/create_share_folder?org_share=1",sso:1,resize:0,width:400,height:140})',
                    key:'',
