@@ -3241,13 +3241,13 @@ var gkFile = {
 			if(jqTextarea.val().slice(jqTextarea.val().length - 1) === "@"){
             hintWrapper.css({
                 left: 10,
-                top: 370
+                top: jqTextarea.offset().top - hintWrapper.height()-5
             });
 	        }
 			else if(jqTextarea.val().slice(jqTextarea.val().length - 1) === "#"){
 			   hintWrapper.css({
-                left: 10,
-                top: 220
+                left: 30,
+                top: jqTextarea.offset().top - hintWrapper.height()-5
             });
 			 }
 			else{
