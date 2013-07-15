@@ -9,6 +9,8 @@ var gkClientSidebar = {
         'SORT_ZIP': ['rar', 'zip', '7z', 'cab', 'tar', 'gz', 'iso'],
         'SORT_EXE': ['exe', 'bat', 'com']
     },
+    shareMembers:[],
+    selectTabIndex:2,
     init: function () {
         var _context = this;
         localStorage.clear();
@@ -86,7 +88,6 @@ var gkClientSidebar = {
         }
 
     },
-	shareMembers:[],
     fetchShareMembers: function (share_members) {
         var _context = this;
 		
@@ -554,7 +555,6 @@ var gkClientSidebar = {
             }
         );
     },
-	selectTabIndex:2,
     fetchFileMain: function () {
 	    $('#input_list_wrapper').remove();
         $('#input_calendar_wrapper').remove();
@@ -707,6 +707,12 @@ var gkClientSidebar = {
                     sso: 1,
                     name: '在网页上查看文件'
                 },
+                {
+                    key: '',
+                    url: 'javascript:gkClientInterface.selectSyncFile()',
+                    sso: 0,
+                    name: '选择性同步'
+                },
 				{
                     key: '',
                     url: 'javascript:gkClientInterface.getShowTrans()',
@@ -734,7 +740,13 @@ var gkClientSidebar = {
                     url: '/storage#!files',
                     sso: 1,
                     name: '在网页上查看个人的文件'
-                }
+                },
+                    {
+                        key: '',
+                        url: 'javascript:gkClientInterface.selectSyncFile()',
+                        sso: 0,
+                        name: '选择性同步'
+                    },
             ];
             } else if (PAGE_CONFIG.type == 2) {
                 tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
@@ -745,6 +757,12 @@ var gkClientSidebar = {
                     sso: 1,
                     name: '在网页上查看团队的文件'
                 },
+                    {
+                        key: '',
+                        url: 'javascript:gkClientInterface.selectSyncFile()',
+                        sso: 0,
+                        name: '选择性同步'
+                    },
 				{url: 'javascript:gkClientInterface.openWindow({url:"/client/create_share_folder?org_share=1",sso:1,resize:0,width:400,height:140})',
                    key:'',
 				   sso:1,

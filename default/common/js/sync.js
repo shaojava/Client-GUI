@@ -28,7 +28,6 @@ var gkClientSync = {
         sync_items.find('.local_uri a,.cloud_uri a').click(function () {
             var item = $(this).parents('.sync_item');
             var local_uri = item.attr('data-local_uri');
-            console.log(local_uri);
             gkClientInterface.openDiskPath(local_uri);
             return false;
         })
@@ -96,7 +95,7 @@ var gkClientSync = {
             return;
         });
     },
-    showFileTree: function (dialog, mount_id) {
+    showFileTree: function (dialog, mount_id,path) {
         var setCloudFile = function (path, icon, type) {
             var filename = Util.String.baseName(path);
             dialog.find('.selected_cloud_file').remove();
@@ -158,7 +157,7 @@ var gkClientSync = {
                             'data-filename': '团队的文件',
                             'data-icon': 'icon_team_root',
                             'data-type': 2,
-                            'children': _context.rendFileList(teamFiles, parentNode)
+                            'children': _context.rendFileList(teamFiles, parentNode,2)
                         };
                         var myTree = {
                             'tId': '2',
@@ -172,8 +171,8 @@ var gkClientSync = {
                             'data-fullpath': '',
                             'data-filename': '个人的文件',
                             'data-icon': 'icon_my_root',
-                            'data-type': 2,
-                            'children': _context.rendFileList(myFiles, parentNode)
+                            'data-type': 1,
+                            'children': _context.rendFileList(myFiles, parentNode,1)
                         };
                         treeData.push(myTree);
                         if (PAGE_CONFIG.orgId != 0) {
@@ -182,13 +181,16 @@ var gkClientSync = {
 
                     } else {
                         if (data && data.list) {
-                            treeData = _context.rendFileList(data.list, parentNode);
+                            treeData = _context.rendFileList(data.list, parentNode,data.org_share==1?2:1);
                         }
                     }
                     return treeData;
                 }
             },
             callback: {
+                onAsyncError:function(){
+
+                },
                 onAsyncSuccess: function (event, treeId, treeNode, msg) {
                     var items;
                     if (!treeNode) {
@@ -213,7 +215,9 @@ var gkClientSync = {
                             return;
                         }
                         if (!String(jItem.data('fullpath'))) {
-                            return;
+                            if(!path || jItem.data('type')!=1){
+                                return;
+                            }
                         }
                         if (!jItem.hasClass('selected')) {
                             dialog.find('.file_item.selected').removeClass("selected");
@@ -227,13 +231,13 @@ var gkClientSync = {
         };
         var zTreeObj = $.fn.zTree.init(dialog.find('.team_share_tree'), setting);
     },
-    rendFileList: function (files, parentNode) {
+    rendFileList: function (files, parentNode,type) {
         var _context = this;
         var renderList = [];
         if (files && files.length) {
             $.each(files, function (i, n) {
                 n.icon = 'icon_folder';
-                var node = _context.rendFileItem(n, parentNode);
+                var node = _context.rendFileItem(n, parentNode,type);
                 if (i + 1 == files.length) {
                     node['className'] += ' last_file_item';
                 }
@@ -242,7 +246,7 @@ var gkClientSync = {
         }
         return renderList;
     },
-    rendFileItem: function (n, parentNode) {
+    rendFileItem: function (n, parentNode,type) {
         var name = n.filename;
         var isShare = n.share == 1 || n.cmd > 999;
         if (isShare) {
@@ -270,7 +274,7 @@ var gkClientSync = {
             'data-share': n.share,
             'data-local': n.local,
             'data-cmd': n.cmd,
-            'data-type': 0
+            'data-type': type
         };
         return item;
     },
@@ -325,7 +329,7 @@ var gkClientSync = {
                         $(this).dialog('close');
                         if (parentDialog.size()) {
                             //window.parent.showLinkedFile();
-                            gkClientInterface.closeWindow();
+                            //gkClientInterface.closeWindow();
                         } else {
                             _context.showLinkedFile();
                         }
@@ -440,6 +444,7 @@ var gkClientSync = {
             if (!path) {
                 input.val('').attr('title','').removeAttr('data-type').hide();
                 unselectSpan.show();
+
             } else {
                 var screenPath = '';
                 if(isLocal){
@@ -465,18 +470,13 @@ var gkClientSync = {
             }
         };
 
-        if(path){
-            setSelectFile(path,1);
-            dialog.find('.select_local_file').removeClass('blue_btn').addClass('disabled').attr('disabled','disabled');
-        }
-
         //checkbox
         dialog.find('.chk').click(function(){
             if($(this).hasClass('disabled')){
                 return;
             }
             $(this).toggleClass('checked');
-
+            var flag = false;
           var setWrapper = $(this).parents('.set_wrapper');
           var localPathInput = dialog.find('.local_set_wrapper .selected_file_wrapper .path_input');
             var cloudPathInput = dialog.find('.cloud_set_wrapper .selected_file_wrapper .path_input');
@@ -492,6 +492,7 @@ var gkClientSync = {
                     var temp_re = localPath.replace(/\\/,'/')
                     var dir_path = Util.String.dirName(temp_re);
                     newLocalPath = dir_path.replace(/\//g,'\\');
+
                 }
                 setSelectFile(newLocalPath,1);
             }else{ //与本地同名
@@ -501,8 +502,18 @@ var gkClientSync = {
                     newCloudPath = cloudPath+'/'+localFileName;
                 }else{
                     newCloudPath = Util.String.dirName(cloudPath);
+
+                    if(path&&(newCloudPath =='个人的文件' || newCloudPath =='团队的的文件')){
+                        var flag = true;
+
+                    }
+                    if(flag){
+                        newCloudPath = '';
+
+                    }
                 }
                 setSelectFile(newCloudPath,0);
+
             }
             if(dialog.find('.cloud_set_wrapper .chk').hasClass('checked')){
                 dialog.find('.local_set_wrapper .chk').addClass('disabled');
@@ -515,7 +526,9 @@ var gkClientSync = {
             }else{
                 dialog.find('.cloud_set_wrapper .chk').removeClass('disabled');
             }
-
+            if(flag){
+                dialog.find('.set_wrapper .chk').removeClass('checked').addClass('disabled');
+            }
             return;
         });
 
@@ -564,18 +577,23 @@ var gkClientSync = {
                         'text': '确定',
                         'class': 'blue_btn',
                         click: function () {
+
                             var webpath = $.trim($(this).find('#select_cloud_file_path').text());
+                            var screenpath = webpath;
                             var type = $(this).find('#select_cloud_file_path').data('type');
-                            if(type == 0){
-                                webpath = '个人的文件/'+webpath;
+                            if(type == 1){
+                                screenpath = '个人的文件'+(screenpath?'/':'')+screenpath;
                             }else{
-                                webpath = '团队的文件/'+webpath;
+                                screenpath = '团队的文件'+(screenpath?'/':'')+screenpath;
                             }
                             var old_path = $.trim(dialog.find('#selected_local_path').text());
-                            if(old_path!=webpath){
+                            if(old_path!=screenpath){
                                 dialog.find('.cloud_set_wrapper .chk').removeClass('checked');
                             }
-                            setSelectFile(webpath,0,type);
+                            setSelectFile(screenpath,0,type);
+                            if(!webpath && path){
+                                dialog.find('.cloud_set_wrapper .chk').removeClass('checked').trigger('click');
+                            }
                             $(this).dialog('close');
                         }
                     }
@@ -585,7 +603,7 @@ var gkClientSync = {
                     if(mount_id == 0){
                         return;
                     }
-                    _context.showFileTree($(this), mount_id);
+                    _context.showFileTree($(this), mount_id,path);
                 }
             });
             return;
@@ -596,11 +614,8 @@ var gkClientSync = {
             var local_path = $.trim(dialog.find('.set_wrapper #selected_local_path').val());
             var webpath = $.trim(dialog.find('.set_wrapper #selected_cloud_path').val());
             local_path +=slash;
-            webpath.replace(new RegExp('^(个人的文件|团队的文件)'+slash_p),'');
-            var type = $('#selected_cloud_path').data('type');
-            if (!type) {
-                type = 0;
-            }
+            webpath = webpath.replace(new RegExp('^(个人的文件|团队的文件)/'),'');
+            var type =0;
             if (!webpath) {
                 alert('请选择云端文件夹');
                 return;
@@ -612,9 +627,13 @@ var gkClientSync = {
 
             var local_filename = _context.getLocalFilename(local_path);
             var cloud_filename = Util.String.baseName(webpath);
-            if (!confirm('确定将 "' + cloud_filename + '"与本地的 "' + local_filename + '" 进行同步吗？如果 "' + local_filename + '" 中存在相同名称的文件将会被覆盖。')) {
-                return false;
+            var  isEmpty =gkClientInterface.checkIsEmptyPath(local_path);
+            if(!parseInt(isEmpty)){
+                if (!confirm('确定将 "' + cloud_filename + '"与本地的 "' + local_filename + '" 进行同步吗？如果本地的 "' + local_filename + '" 中存在相同名称的文件夹将会被覆盖。')) {
+                    return false;
+                }
             }
+
             var cloudSet = {
                 filename: cloud_filename,
                 type: type,
@@ -629,6 +648,14 @@ var gkClientSync = {
             gkClientInterface.closeWindow();
             return;
         });
+
+        if(path){
+            setSelectFile(path,1);
+            dialog.find('.select_local_file').removeClass('blue_btn').addClass('disabled').attr('disabled','disabled');
+            setSelectFile( '个人的文件',0);
+            dialog.find('.cloud_set_wrapper .chk').trigger('click');
+        }
+
     }
 
 };

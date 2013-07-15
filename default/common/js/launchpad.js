@@ -85,19 +85,22 @@ var gkClientLaunchPad = {
            $(".launth_pad_left li").removeClass('selected');
            $(this).addClass('selected');
         })
-		           //获取指定的样式
-		//$("."+location.hash.replace("#","")).addClass("selected").siblings("li").removeClass("selected");
-		var re = '';
-		if(location.hash){
-	     re =  location.hash.replace("#","");
-		}
-	    if(re&&$("."+re).size()){
-		  $("."+re).trigger("click");
-		}else{
-		 
-	      $(".left_menu_list li").eq(0).trigger('click');
-		}
-		
 
+        var selectNav = function(){
+            var re = '';
+            if(location.hash){
+                re =  location.hash.replace("#","");
+            }
+            if(re&&$("."+re).size()){
+                $("."+re).trigger("click");
+            }else{
+                $(".left_menu_list li").eq(0).trigger('click');
+            }
+        };
+
+        $(window).on('hashchange', function() {
+            selectNav();
+        });
+        selectNav();
     }
 };

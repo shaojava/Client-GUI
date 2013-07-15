@@ -27,6 +27,7 @@
             if(hash){
                 path= decodeURIComponent(Util.String.ltrim(hash,'#'));
             }
+
             initWebHref();
             $('body').tooltip({
                 selector: '.gktooltip'
@@ -82,7 +83,7 @@
 </div>
 <script type="text/x-jquery-tmpl" id="startSyncDialog">
      <div class="start_sync_dialog_content">
-         将云端文件夹 ${filename} 同步到 ${local_path}
+         云端文件夹 <strong>${filename}</strong> 与本地的文件夹 <strong>${local_path}</strong> 即将进行同步
      </div>
 </script>
 </body>
