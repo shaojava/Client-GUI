@@ -189,6 +189,9 @@ var gkClientSync = {
                 }
             },
             callback: {
+                onAsyncError:function(){
+
+                },
                 onAsyncSuccess: function (event, treeId, treeNode, msg) {
                     var items;
                     if (!treeNode) {
@@ -325,7 +328,7 @@ var gkClientSync = {
                         $(this).dialog('close');
                         if (parentDialog.size()) {
                             //window.parent.showLinkedFile();
-                            gkClientInterface.closeWindow();
+                            //gkClientInterface.closeWindow();
                         } else {
                             _context.showLinkedFile();
                         }
@@ -465,11 +468,6 @@ var gkClientSync = {
             }
         };
 
-        if(path){
-            setSelectFile(path,1);
-            dialog.find('.select_local_file').removeClass('blue_btn').addClass('disabled').attr('disabled','disabled');
-        }
-
         //checkbox
         dialog.find('.chk').click(function(){
             if($(this).hasClass('disabled')){
@@ -596,7 +594,7 @@ var gkClientSync = {
             var local_path = $.trim(dialog.find('.set_wrapper #selected_local_path').val());
             var webpath = $.trim(dialog.find('.set_wrapper #selected_cloud_path').val());
             local_path +=slash;
-            webpath.replace(new RegExp('^(个人的文件|团队的文件)'+slash_p),'');
+            webpath = webpath.replace(new RegExp('^(个人的文件|团队的文件)/'),'');
             var type = $('#selected_cloud_path').data('type');
             if (!type) {
                 type = 0;
@@ -612,9 +610,13 @@ var gkClientSync = {
 
             var local_filename = _context.getLocalFilename(local_path);
             var cloud_filename = Util.String.baseName(webpath);
-            if (!confirm('确定将 "' + cloud_filename + '"与本地的 "' + local_filename + '" 进行同步吗？如果 "' + local_filename + '" 中存在相同名称的文件将会被覆盖。')) {
-                return false;
+            var  isEmpty =gkClientInterface.checkIsEmptyPath();
+            if(!parseInt(isEmpty)){
+                if (!confirm('确定将 "' + cloud_filename + '"与本地的 "' + local_filename + '" 进行同步吗？如果本地的 "' + local_filename + '" 中存在相同名称的文件夹将会被覆盖。')) {
+                    return false;
+                }
             }
+
             var cloudSet = {
                 filename: cloud_filename,
                 type: type,
@@ -629,6 +631,14 @@ var gkClientSync = {
             gkClientInterface.closeWindow();
             return;
         });
+
+        if(path){
+            setSelectFile(path,1);
+            dialog.find('.select_local_file').removeClass('blue_btn').addClass('disabled').attr('disabled','disabled');
+            setSelectFile( '个人的文件',0);
+            dialog.find('.cloud_set_wrapper .chk').trigger('click');
+        }
+
     }
 
 };

@@ -1727,7 +1727,12 @@ border:1px solid #D0D6DB;
 }
 
 .start_sync_dialog .start_sync_dialog_content{
-    padding: 20px 12px;
+    padding: 20px 18px;
+    word-break: break-all;
+    word-wrap: break-word;
+    line-height: 1.5;
+    font-size: 13px;
+    color:#333;
 }
 .add_link_dialog .dialog_bottom{
     text-align: right;
