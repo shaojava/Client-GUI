@@ -28,7 +28,6 @@ var gkClientSync = {
         sync_items.find('.local_uri a,.cloud_uri a').click(function () {
             var item = $(this).parents('.sync_item');
             var local_uri = item.attr('data-local_uri');
-            console.log(local_uri);
             gkClientInterface.openDiskPath(local_uri);
             return false;
         })
@@ -640,7 +639,6 @@ var gkClientSync = {
                 type: type,
                 webpath: webpath
             };
-            console.log(cloudSet);
             _context.showStartSyncDialog(cloudSet, local_path, dialog);
             return;
         });
