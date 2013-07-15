@@ -96,7 +96,7 @@ var gkClientSync = {
             return;
         });
     },
-    showFileTree: function (dialog, mount_id) {
+    showFileTree: function (dialog, mount_id,path) {
         var setCloudFile = function (path, icon, type) {
             var filename = Util.String.baseName(path);
             dialog.find('.selected_cloud_file').remove();
@@ -216,7 +216,9 @@ var gkClientSync = {
                             return;
                         }
                         if (!String(jItem.data('fullpath'))) {
-                            return;
+                            if(!path || jItem.data('type')!=2){
+                                return;
+                            }
                         }
                         if (!jItem.hasClass('selected')) {
                             dialog.find('.file_item.selected').removeClass("selected");
@@ -443,6 +445,7 @@ var gkClientSync = {
             if (!path) {
                 input.val('').attr('title','').removeAttr('data-type').hide();
                 unselectSpan.show();
+
             } else {
                 var screenPath = '';
                 if(isLocal){
@@ -474,7 +477,7 @@ var gkClientSync = {
                 return;
             }
             $(this).toggleClass('checked');
-
+            var flag = false;
           var setWrapper = $(this).parents('.set_wrapper');
           var localPathInput = dialog.find('.local_set_wrapper .selected_file_wrapper .path_input');
             var cloudPathInput = dialog.find('.cloud_set_wrapper .selected_file_wrapper .path_input');
@@ -490,6 +493,7 @@ var gkClientSync = {
                     var temp_re = localPath.replace(/\\/,'/')
                     var dir_path = Util.String.dirName(temp_re);
                     newLocalPath = dir_path.replace(/\//g,'\\');
+
                 }
                 setSelectFile(newLocalPath,1);
             }else{ //与本地同名
@@ -499,8 +503,18 @@ var gkClientSync = {
                     newCloudPath = cloudPath+'/'+localFileName;
                 }else{
                     newCloudPath = Util.String.dirName(cloudPath);
+
+                    if(path&&(newCloudPath =='个人的文件' || newCloudPath =='团队的的文件')){
+                        var flag = true;
+
+                    }
+                    if(flag){
+                        newCloudPath = '';
+
+                    }
                 }
                 setSelectFile(newCloudPath,0);
+
             }
             if(dialog.find('.cloud_set_wrapper .chk').hasClass('checked')){
                 dialog.find('.local_set_wrapper .chk').addClass('disabled');
@@ -513,7 +527,9 @@ var gkClientSync = {
             }else{
                 dialog.find('.cloud_set_wrapper .chk').removeClass('disabled');
             }
-
+            if(flag){
+                dialog.find('.set_wrapper .chk').removeClass('checked').addClass('disabled');
+            }
             return;
         });
 
@@ -562,18 +578,24 @@ var gkClientSync = {
                         'text': '确定',
                         'class': 'blue_btn',
                         click: function () {
+
                             var webpath = $.trim($(this).find('#select_cloud_file_path').text());
+                            var screenpath = webpath;
                             var type = $(this).find('#select_cloud_file_path').data('type');
-                            if(type == 0){
-                                webpath = '个人的文件/'+webpath;
+                            if(type == 2){
+                                screenpath = '个人的文件'+(screenpath?'/':'')+screenpath;
                             }else{
-                                webpath = '团队的文件/'+webpath;
+                                screenpath = '团队的文件'+(screenpath?'/':'')+screenpath;
                             }
                             var old_path = $.trim(dialog.find('#selected_local_path').text());
-                            if(old_path!=webpath){
+                            if(old_path!=screenpath){
                                 dialog.find('.cloud_set_wrapper .chk').removeClass('checked');
                             }
-                            setSelectFile(webpath,0,type);
+                            setSelectFile(screenpath,0,type);
+                            if(!webpath && path){
+                                dialog.find('.cloud_set_wrapper .chk').removeClass('checked').trigger('click');
+                            }
+                            console.log(webpath);
                             $(this).dialog('close');
                         }
                     }
@@ -583,7 +605,7 @@ var gkClientSync = {
                     if(mount_id == 0){
                         return;
                     }
-                    _context.showFileTree($(this), mount_id);
+                    _context.showFileTree($(this), mount_id,path);
                 }
             });
             return;
@@ -610,7 +632,7 @@ var gkClientSync = {
 
             var local_filename = _context.getLocalFilename(local_path);
             var cloud_filename = Util.String.baseName(webpath);
-            var  isEmpty =gkClientInterface.checkIsEmptyPath();
+            var  isEmpty =gkClientInterface.checkIsEmptyPath(local_path);
             if(!parseInt(isEmpty)){
                 if (!confirm('确定将 "' + cloud_filename + '"与本地的 "' + local_filename + '" 进行同步吗？如果本地的 "' + local_filename + '" 中存在相同名称的文件夹将会被覆盖。')) {
                     return false;
