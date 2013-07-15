@@ -3212,7 +3212,7 @@ var gkFile = {
                 hintWrapper.remove();
             }
 
-            hintWrapper = $('<div id="input_calendar_wrapper" rel="' + q + '"></ul>');
+            hintWrapper = $('<div id="input_calendar_wrapper"  rel="' + q + '"></ul>');
             $('body').append(hintWrapper);
             hintWrapper.mousedown(function(e) {
                 e.stopPropagation();
