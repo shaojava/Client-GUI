@@ -32,7 +32,7 @@
               <span>开始够快</span>
              </span>
 			 <div class="header_website f_r">
-			   <a href="javascript:;" target="_blank"></a>
+			   <a href="/storage" target="_blank"></a>
 			 </div>
 		  </div>
 		   
@@ -100,11 +100,15 @@
         <div class="">
             <textarea class="textarea_wrapper textarea textarea_radius" name="post_value" id="post_value">{{if typeof(old_remark)!=='undefined'&&old_remark}}${old_remark}{{/if}}</textarea>
         </div>
+       
         <div class="btn_wrapper">
+		     {{if Show==='is'}}
 		     <div class="at_and_task f_l">
+			 
 			    <a href="javascript:;" data-input="@" class="insert at left" title="提醒">
 				 <i title="提醒"></i>
 				</a>
+		   
 				<span class="grid f_l"></span>
 				 <a href="javascript:;" data-input="@all " class="insert at-all left" title="提醒所有共享人">
 				 <i title="提醒所有共享人"></i>
@@ -114,8 +118,10 @@
 				 <i title="添加时间标记"></i>
 				</a>
 			 </div>
-            <button class="btn blue_btn post_now f_r">发表讨论</button>
+			 {{/if}}
+            <button class="btn blue_btn post_now f_r">发表讨论</button> 
         </div>
+        
     </div>
     {{/if}}
 </script>

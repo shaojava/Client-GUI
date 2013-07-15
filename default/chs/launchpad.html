@@ -13,9 +13,13 @@
     <script type="text/javascript">
         $(function(){
               gkClientLaunchPad.init();
-
+                
 		})
-
+        function loadImgText(){
+		   //加载图片和文字
+		   //$("").appendTo();
+		   
+		}
         function gUpdateLinkPaths(){
            var iframe = $('iframe');
             if(iframe.attr('src') == 'sync.html'){
@@ -33,7 +37,8 @@
             <div class="launth_pad_left f_l">
             </div>
             <div class="launth_pad_right">
-                <iframe frameborder="0" id="cframe" name="cframe"  src="javascript:void(0)" width="100%" height="100%"></iframe>
+			<iframe frameborder="0" id="cframe" name="cframe"  src="javascript:void(0)" width="100%" height="100%"></iframe>
+			<!--div id='loadImgText' class='loadImgText'><img src='' />亲，正在努力加载哟...</div-->
             </div>
         </div>
     </div>

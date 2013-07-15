@@ -1,6 +1,7 @@
 var gkClientLaunchPad = {
-    init:function(){
+    init:function(callback){
         //disable浏览器的默认事件
+		//callback();
         gkClientCommon.disableDefaultEvent();
         var menus = [
             {
@@ -38,6 +39,7 @@ var gkClientLaunchPad = {
                 sso:1
             }
         ];
+		
         var localMenus = [];
         $.ajax({
             url:gkClientInterface.getApiDomain()+'/left_extended_menu',
@@ -48,6 +50,11 @@ var gkClientLaunchPad = {
             async:false,
             dataType:'json',
             success:function(data){
+			   
+			   /* if($("#loadImgText").length > 0){
+				   $("#loadImgText").remove();
+				}*/
+				$(".launth_pad_right").append('');
                 $.each(data,function(i,n){
                     localMenus.push({
                         url: n.url,
@@ -57,15 +64,14 @@ var gkClientLaunchPad = {
                         sso:n.sso==1?1:0
                     });
                 });
-
-                $.merge(menus, localMenus )
+               $.merge(menus, localMenus )
             }
         });
         var menulist = $('#leftMenuList').tmpl({
             menus:menus
         }).appendTo($('.launth_pad_left'));
-
-        $(".launth_pad_left li").on("click",function(){
+        
+		$(".launth_pad_left li").on("click",function(){
             var url = $(this).data("url");
             var sso =  $(this).data("sso");
             if(sso==1){
@@ -75,9 +81,9 @@ var gkClientLaunchPad = {
                     opentype:1
                 });
             }
-            $("iframe").attr("src",url);
-            $(".launth_pad_left li").removeClass('selected');
-            $(this).addClass('selected');
+           $("iframe").attr("src",url);
+           $(".launth_pad_left li").removeClass('selected');
+           $(this).addClass('selected');
         })
 		           //获取指定的样式
 		//$("."+location.hash.replace("#","")).addClass("selected").siblings("li").removeClass("selected");

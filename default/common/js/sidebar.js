@@ -17,17 +17,11 @@ var gkClientSidebar = {
             selector: '.gktooltip'
         });
         _context.fetchAccountInfo();
-        $(".header_nav").click(function (e) {
+        $(".logo").click(function (e) {
 		
             gkClientInterface.launchpad();
         })
-		$(".header_website").click(function(e){
-		     gkClientInterface.openURL({
-                url: 'http://www.gokuai.com/storage',
-                sso: 0
-            })
-		    e.stopPropagation();
-		})
+	
      
 	  
 
@@ -628,9 +622,12 @@ var gkClientSidebar = {
         var slideItemShare = $('.tab_content_remark');
         slideItemShare.empty();
         var old_remark =  localStorage.getItem('remark_'+PAGE_CONFIG.path);
+	
         var remarkList = $('#remarkListTmpl').tmpl({
             remarks: remarks,
-            old_remark:old_remark?old_remark:''
+            old_remark:old_remark?old_remark:'',
+			Show:(this.shareMembers.length > 1) ? 'is' : ''
+			
         }).appendTo(slideItemShare);
 		this.bindShares(this.shareMembers);
         $('textarea#post_value').blur(function(){
@@ -660,6 +657,7 @@ var gkClientSidebar = {
             gkRest.fileRemind(PAGE_CONFIG.mountId, PAGE_CONFIG.path, text, function (data) {
                 _self.removeClass('disabled').addClass('blue_btn');
                 if(data){
+				    
                     var remarkItem = $('#remarkListTmpl').tmpl({
                         remarks: data,
                         isItem:true
