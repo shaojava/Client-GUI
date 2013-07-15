@@ -351,6 +351,15 @@ var gkClientInterface = {
             content: content
         };
         gkClient.gMailTo(JSON.stringify(params));
+    },
+    getUserAgent:function(){
+        return navigator.userAgent.split(';')
+    },
+    getClientOS:function(){
+      return this.getUserAgent()[2].toLowerCase();
+    },
+    isWindowsClient:function(){
+        return this.getClientOS() == 'windows';
     }
 };
 var gkClientAjax = {};

@@ -554,7 +554,8 @@ var gkClientSidebar = {
                 error: function (request, textStatus, errorThrown) {
                     $('.tab_content_wrapper > div .loader').remove();
                     var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
-                    //alert(errorMsg);
+                    $('.file_info_wrapper').remove();
+                    $('#main').html('<div class="empty">'+errorMsg+'</div>');
                 }
             }
         );

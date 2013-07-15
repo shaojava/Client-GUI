@@ -6,7 +6,7 @@ var gkClientSync = {
         $('.add_new_sync').click(function () {
             gkClientInterface.openChildWindow({
                 url: 'chs/add_link.html',
-               //url: 'default/chs/add_link.html',
+                //url: 'default/chs/add_link.html',
                 width: 700,
                 height: 470
             });
@@ -39,13 +39,13 @@ var gkClientSync = {
             var cloud_uri = String(item.data('cloud_uri'));
             var type = item.data('type');
             var new_local_uri = gkClientInterface.selectFile({
-                path:local_uri,
-                disable_root:1
+                path: local_uri,
+                disable_root: 1
             });
             if (new_local_uri && local_uri != new_local_uri) {
                 var re = gkClientInterface.checkLinkPath(new_local_uri);
-                var enable = _context.checkSelectPath(new_local_uri,re,cloud_uri);
-                if(!enable){
+                var enable = _context.checkSelectPath(new_local_uri, re, cloud_uri);
+                if (!enable) {
                     return;
                 }
                 var path = [
@@ -71,7 +71,7 @@ var gkClientSync = {
             var params = {
                 webpath: webpath,
                 type: item.data('type'),
-                close:0
+                close: 0
             };
             gkClientInterface.selectSyncFile(params);
             return;
@@ -152,7 +152,7 @@ var gkClientSync = {
                             'className': '',
                             'fullpath': '',
                             'open': true,
-                            'isParent': teamFiles&&teamFiles.length,
+                            'isParent': teamFiles && teamFiles.length,
                             'data-hash': '',
                             'data-fullpath': '',
                             'data-filename': '团队的文件',
@@ -167,7 +167,7 @@ var gkClientSync = {
                             'className': '',
                             'open': true,
                             'fullpath': '',
-                            'isParent':myFiles && myFiles.length,
+                            'isParent': myFiles && myFiles.length,
                             'data-hash': '',
                             'data-fullpath': '',
                             'data-filename': '个人的文件',
@@ -176,7 +176,7 @@ var gkClientSync = {
                             'children': _context.rendFileList(myFiles, parentNode)
                         };
                         treeData.push(myTree);
-                        if(PAGE_CONFIG.orgId!=0){
+                        if (PAGE_CONFIG.orgId != 0) {
                             treeData.push(teamTree);
                         }
 
@@ -212,7 +212,7 @@ var gkClientSync = {
                         if (!$(e.target).is(jItem) && !nearFileItem.is(jItem)) {
                             return;
                         }
-                        if(!String(jItem.data('fullpath'))){
+                        if (!String(jItem.data('fullpath'))) {
                             return;
                         }
                         if (!jItem.hasClass('selected')) {
@@ -230,7 +230,7 @@ var gkClientSync = {
     rendFileList: function (files, parentNode) {
         var _context = this;
         var renderList = [];
-        if(files&&files.length){
+        if (files && files.length) {
             $.each(files, function (i, n) {
                 n.icon = 'icon_folder';
                 var node = _context.rendFileItem(n, parentNode);
@@ -302,8 +302,8 @@ var gkClientSync = {
                         var params = {
                             webpath: webpath,
                             type: type,
-                            fullpath:local_path,
-                            close:1
+                            fullpath: local_path,
+                            close: 1
                         };
                         gkClientInterface.selectSyncFile(params);
 
@@ -398,14 +398,14 @@ var gkClientSync = {
         return location;
 
     },
-    checkSelectPath:function(path,re,cloud_path){
+    checkSelectPath: function (path, re, cloud_path) {
         var replace_path = path.replace(/\\/g, '/');
         if (re.disabled == 1) {
             var binded_path = re.path;
             var replace_bind_path = binded_path.replace(/\\/g, '/');
             var re = replace_path.replace(new RegExp(replace_bind_path), '');
             var msg = '';
-            if (!re ||re ==='/') {
+            if (!re || re === '/') {
                 msg = '该文件夹已绑定过同步关系，不能再进行绑定';
             } else if (re == replace_path) {
                 msg = '该文件夹的下级文件夹 ' + binded_path + ' 已绑定过同步关系，不能再进行绑定';
@@ -415,76 +415,184 @@ var gkClientSync = {
             alert(msg);
             return false;
         }
-        if(re.empty==0){
-            var filename = Util.String.baseName(Util.String.rtrim(replace_path,'/'));
-            var cloud_filename = Util.String.baseName(cloud_path);
-            if(!confirm('确定将 "'+cloud_filename+'" 同步到本地的 "'+filename+'" 吗？如果 "'+filename+'" 中存在相同名称的文件将会被覆盖。')){
-                return false;
-            }
-        }
+
         return true;
     },
     initAddLink: function () {
         var _context = this;
         var dialog = $('.wrapper');
-        var setSelectFile = function (path) {
+        var slash = '/';
+        var slash_p = '\/';
+        if(gkClientInterface.isWindowsClient()){
+            slash = '\\';
+            slash_p = '\\\\';
+        }
+
+        //设置选择的路径
+        var setSelectFile = function (path,isLocal,type) {
             var filename = _context.getLocalFilename(path);
-            dialog.find('.selected_local_file').remove();
+            var localSetWrapper = $('.local_set_wrapper');
+            var cloudSetWrapper = $('.cloud_set_wrapper');
+            var setWrapper = isLocal?localSetWrapper:cloudSetWrapper;
+            var input =   setWrapper.find('.selected_file_wrapper .path_input');
+            var unselectSpan = setWrapper.find('.selected_file_wrapper .unselected_span');
+            var checkbox = dialog.find('.chk');
             if (!path) {
-                dialog.find('.goto_select_file').show();
+                input.val('').attr('title','').hide();
+                unselectSpan.show();
             } else {
-                dialog.find('.goto_select_file').hide();
-                var html = '<div class="d_content selected_local_file">';
-                html += '<div><i></i><span>' + filename + '</span><button class="btn select_local_file">修改位置</button></div>';
-                html += '<div>';
-                html += '<div>本地位置</div>';
-                html += '<div><span class="user_select_enable" id="selected_local_path" >' + path + '</span></div>';
-                html += '</div>';
-                html += '</div>';
-                dialog.find('.local_set_wrapper').append(html);
+                var screenPath = '';
+                if(isLocal){
+                    screenPath = Util.String.rtrim(path,'/');
+                    screenPath = Util.String.rtrim(screenPath,'\\\\');
+                }else{
+                    screenPath = path;
+                }
+                input.val(screenPath).attr('title',screenPath);
+                input.show();
+                unselectSpan.hide();
+            }
+            var localPath = localSetWrapper.find('.selected_file_wrapper .path_input').val();
+            var cloudPath =  cloudSetWrapper.find('.selected_file_wrapper .path_input').val();
+
+            if(!localPath || !cloudPath){
+                checkbox.removeClass('checked').addClass('disabled');
+            }else{
+                checkbox.removeClass('disabled');
             }
         };
-        dialog.find('.local_set_wrapper').on('click', '.select_local_file', function () {
-            var webpath = $.trim($('#select_cloud_file_path').text());
-            if(!webpath){
-                alert('请先选择云端文件夹');
+
+        if(path){
+            setSelectFile(path,1);
+        }
+
+        //checkbox
+        dialog.find('.chk').click(function(){
+            if($(this).hasClass('disabled')){
                 return;
             }
+            $(this).toggleClass('checked');
+
+          var setWrapper = $(this).parents('.set_wrapper');
+          var localPathInput = dialog.find('.local_set_wrapper .selected_file_wrapper .path_input');
+            var cloudPathInput = dialog.find('.cloud_set_wrapper .selected_file_wrapper .path_input');
+            var cloudPath = $.trim(cloudPathInput.val());
+            var localPath = $.trim(localPathInput.val());
+
+            if(setWrapper.hasClass('local_set_wrapper')){ //与云端同名
+                var newLocalPath = '';
+                if($(this).hasClass('checked')){
+                    var cloudFileName = Util.String.baseName(cloudPath);
+                    newLocalPath = localPath+slash+cloudFileName;
+                }else{
+                    var temp_re = localPath.replace(/\\/,'/')
+                    var dir_path = Util.String.dirName(temp_re);
+                    newLocalPath = dir_path.replace(/\//,'\\');
+                }
+                setSelectFile(newLocalPath,1);
+            }else{ //与本地同名
+                var newCloudPath = '';
+                if($(this).hasClass('checked')){
+                    var localFileName = _context.getLocalFilename(localPath);
+                    newCloudPath = cloudPath+'/'+localFileName;
+                }else{
+                    newCloudPath = Util.String.dirName(cloudPath);
+                }
+                setSelectFile(newCloudPath,0);
+            }
+            if(dialog.find('.cloud_set_wrapper .chk').hasClass('checked')){
+                dialog.find('.local_set_wrapper .chk').addClass('disabled');
+            }else{
+                dialog.find('.local_set_wrapper .chk').removeClass('disabled');
+            }
+
+            if(dialog.find('.local_set_wrapper .chk').hasClass('checked')){
+                dialog.find('.cloud_set_wrapper .chk').addClass('disabled');
+            }else{
+                dialog.find('.cloud_set_wrapper .chk').removeClass('disabled');
+            }
+
+            return;
+        });
+
+        //选择本地文件
+        dialog.find('.select_local_file').on('click', function () {
             var old_path = '';
             var input = dialog.find('#selected_local_path');
             if (input.size()) {
-                old_path = $.trim(input.val());
+                old_path = $.trim(input.text());
             }
             var new_path = gkClientInterface.selectFile({
-                path:old_path,
-                disable_root:1
+                path: old_path,
+                disable_root: 1
             });
             if (new_path != old_path) {
-                if(new_path){
-
+                if (new_path) {
                     var re = gkClientInterface.checkLinkPath(new_path);
-                    var enable = _context.checkSelectPath(new_path,re,webpath);
-                    if(!enable){
-                       return;
+                    var enable = _context.checkSelectPath(new_path, re);
+                    if (!enable) {
+                        return;
                     }
                 }
-                setSelectFile(new_path);
+                setSelectFile(new_path,_context);
             }
             return;
         });
 
-        var mount_id = gkClientInterface.getUserInfo().mount_id;
-        _context.showFileTree(dialog, mount_id);
+        //选择云端文件
+        dialog.find('.select_cloud_file').on('click', function () {
+            var dialgoTmpl = $('#selectCloudFileDialog').tmpl();
+            dialgoTmpl.gkDialog({
+                width: 360,
+                height:400,
+                title:'选择云端文件夹',
+                class:'select_cloud_file_dialog',
+                buttons: [
+                    {
+                        'text': '取消',
+                        'click': function () {
+                               $(this).dialog('close');
+                        }
 
+                    },
+                    {
+                        'text': '确定',
+                        'class': 'blue_btn',
+                        click: function () {
+                            var webpath = $.trim($(this).find('#select_cloud_file_path').text());
+                            var type = $(this).find('#select_cloud_file_path').data('type');
+                            if(type == 0){
+                                webpath = '个人的文件/'+webpath;
+                            }else{
+                                webpath = '团队的文件/'+webpath;
+                            }
+                            setSelectFile(webpath,0);
+                            $(this).dialog('close');
+                        }
+                    }
+                ],
+                open:function(){
+                    var mount_id = gkClientInterface.getUserInfo().mount_id;
+                    if(mount_id == 0){
+                        return;
+                    }
+                    _context.showFileTree($(this), mount_id);
+                }
+            });
+            return;
+        });
+
+        //开始同步
         dialog.find('.start_sync').click(function () {
-		   
-            var local_path = $.trim($('#selected_local_path').text());
-            var webpath = $.trim($('#select_cloud_file_path').text());
+            var local_path = $.trim(dialog.find('.set_wrapper #selected_local_path').val());
+            var webpath = $.trim(dialog.find('.set_wrapper #selected_cloud_path').val());
+            local_path +=slash;
+            webpath.replace(new RegExp('^(个人的文件|团队的文件)'+slash_p),'');
             var type = $('#select_cloud_file_path').data('type');
             if (!type) {
                 type = 0;
             }
-            if(!webpath){
+            if (!webpath) {
                 alert('请选择云端文件夹');
                 return;
             }
@@ -492,15 +600,22 @@ var gkClientSync = {
                 alert('请选择本地位置');
                 return;
             }
+
+            var local_filename = _context.getLocalFilename(local_path);
+            var cloud_filename = Util.String.baseName(webpath);
+            if (!confirm('确定将 "' + cloud_filename + '"与本地的 "' + local_filename + '" 进行同步吗？如果 "' + local_filename + '" 中存在相同名称的文件将会被覆盖。')) {
+                return false;
+            }
             var cloudSet = {
-                filename: Util.String.baseName(webpath),
+                filename: cloud_filename,
                 type: type,
                 webpath: webpath
             };
-
             _context.showStartSyncDialog(cloudSet, local_path, dialog);
             return;
         });
+
+        //取消
         dialog.find('.cancel').click(function () {
             gkClientInterface.closeWindow();
             return;
