@@ -329,10 +329,10 @@ var gkClientInterface = {
         }
     },
     getApiDomain: function () {
-        return 'http://a2.gokuai.com';
+        return 'http://a.gokuai.com';
     },
     getRestDomain: function () {
-        return 'http://r2.gokuai.com';
+        return 'http://r.gokuai.com';
     },
     openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);
