@@ -25,7 +25,7 @@ var gkClientSync = {
             gkClientInterface.openChildWindow({
                 url: 'chs/add_link.html',
                 //url: 'default/chs/add_link.html',
-                width: 700,
+                width: 710,
                 height: 470
             });
             return;
