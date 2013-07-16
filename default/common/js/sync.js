@@ -1,4 +1,22 @@
 var gkClientSync = {
+    //检测文件名的格式有效性
+    checkFilenameValid: function(filename) {
+        filename = $.trim(filename);
+        if (!filename) {
+            alert(L('FILE_EMPTY_FILE_NAME'));
+            return false;
+        }
+        var reg = /\/|\\\\|\:|\*|\?|\"|<|>|\|/;
+        if (reg.test(filename)) {
+            alert(L('FILE_FILE_NAME_FORMAT'));
+            return false;
+        }
+        if (filename.length > 255) {
+            alert(L('FILE_FILE_NAME_LENTH'));
+            return false;
+        }
+        return true;
+    },
     init: function () {
         var _context = this;
         _context.showLinkedFile();
@@ -625,7 +643,7 @@ var gkClientSync = {
                                      alert('文件夹名不能为空');
                                     return;
                                 }
-                               if (!gkFile.checkFilenameValid(filename)) {
+                               if (!_context.checkFilenameValid(filename)) {
                                     return;
                                }
                                 var up_fullpath = String(item.data('fullpath'));
