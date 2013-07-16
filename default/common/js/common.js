@@ -3093,12 +3093,12 @@ var gkFile = {
             if (!resultList.length) {
                 return;
             }
-
-            hintWrapper = $('<ul id="input_list_wrapper" rel="' + q + '"></ul>');
+            hintWrapper = $('<ul id="input_list_wrapper"  rel="' + q + '"></ul>');
             for (var i = 0; i < resultList.length; i++) {
                 hintWrapper.append('<li><a title="' + resultList[i].username + '" class="' + (i == 0 ? 'select' : '') + '" href="javascript:void(0)" email="' + resultList[i].email + '" uid="' + resultList[i].id + '" >' + resultList[i].username + '</a></li>');
             }
             $('body').append(hintWrapper);
+		    hintWrapper.css({left:"10px",top:jqTextarea.offset().top - hintWrapper.height()+"px"});
             hintWrapper.mousedown(function(e) {
                 e.stopPropagation();
             });
@@ -3125,6 +3125,7 @@ var gkFile = {
             });
 
             $(document).off('keydown').on('keydown', function(e) {
+		
                 var key_code = e.keyCode;
                 var remind_member_list = $('#input_list_wrapper');
                 if (!remind_member_list.size()) {
@@ -3135,6 +3136,7 @@ var gkFile = {
                 var size = remind_member_list.find('li').size();
                 var itemHeight = remind_member_list.find('li:eq(0)').height();
                 if (key_code == 38) { //up
+				
                     e.preventDefault();
                     remind_member_list.find('li a').removeClass('select');
                     if (index == 0) {
@@ -3214,6 +3216,7 @@ var gkFile = {
 
             hintWrapper = $('<div id="input_calendar_wrapper"  rel="' + q + '"></ul>');
             $('body').append(hintWrapper);
+			hintWrapper.css({left:"30px",top:jqTextarea.offset().top - hintWrapper.height()+"px"});
             hintWrapper.mousedown(function(e) {
                 e.stopPropagation();
             });
@@ -3238,7 +3241,7 @@ var gkFile = {
         // 设置位置
         setPosition: function(jqTextarea, hintWrapper){
             var position = Util.Input.getInputPositon(jqTextarea[0]);
-			if(jqTextarea.val().slice(jqTextarea.val().length - 1) === "@"){
+			/*if(jqTextarea.val().slice(jqTextarea.val().length - 1) === "@"){
             hintWrapper.css({
                 left: 10,
                 top: jqTextarea.offset().top - hintWrapper.height()-5
@@ -3254,14 +3257,14 @@ var gkFile = {
 			 $('#input_list_wrapper').remove();
              $('#input_calendar_wrapper').remove();
 			 //是#
-			 /* if(hintWrapper.offset().left+hintWrapper.get(0).offsetWidth >= jqTextarea.width() )
-			   alert(hintWrapper.offset().left);*/
-			}
-            /*if ((hintWrapper.outerHeight() + hintWrapper.offset().top) > $(window).height()) {
+			  if(hintWrapper.offset().left+hintWrapper.get(0).offsetWidth >= jqTextarea.width() )
+			   alert(hintWrapper.offset().left);
+			}*/
+            if ((hintWrapper.outerHeight() + hintWrapper.offset().top) > $(window).height()) {
                 hintWrapper.css({
                     'top': hintWrapper.position().top - hintWrapper.outerHeight() - 20
                 });
-            }*/
+            }
         },
         begin: function(jqTextarea, jqData) {
 		    
