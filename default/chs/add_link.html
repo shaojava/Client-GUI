@@ -3,21 +3,22 @@
 <head>
     <title>添加一对新的同步文件夹</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
-    <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/jquery-ui/jquery-ui.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/jquery-ui/jquery-ui-gk.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/zTree/css/zTreeStyle/zTreeStyle.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/zTree/css/zTreeStyle/teamShareTree.css"/>
-
+    <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
     <script type="text/javascript" src="../common/js/util.js"></script>
-    <script type="text/javascript" src="../common/js/jquery.js"></script>
-    <script type="text/javascript" src="../common/js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="../common/js/lang/zh-cn.js"></script>
+    <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+    <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="../common/js/lib/jquery-ui/jquery-ui.js"></script>
     <script type="text/javascript" src="../common/js/lib/jquery-ui/jquery.gkDialog.js"></script>
     <script type="text/javascript" src="../common/js/lib/zTree/js/jquery.ztree.core-3.5.js"></script>
-    <script type="text/javascript" src="../common/js/droplist.js"></script>
-    <script type="text/javascript" src="../common/js/droplist.js"></script>
-    <script type="text/javascript" src="../common/js/bootstrap_customize.min.js"></script>
+    <script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap_customize.min.js"></script>
+    <script type="text/javascript" src="../common/js/component/droplist.js"></script>
+    <script type="text/javascript" src="../common/js/rest.js"></script>
+  <script type="text/javascript" src="../common/js/common.js"></script>
     <script type="text/javascript" src="../common/js/interface.js"></script>
     <script type="text/javascript" src="../common/js/sync.js"></script>
     <script type="text/javascript">
@@ -33,6 +34,7 @@
                 selector: '.gktooltip'
             });
             gkClientSync.initAddLink(path);
+
         })
     </script>
 </head>
@@ -45,16 +47,16 @@
             <div class="select_btn_wrapper">
                 <button class="btn blue_btn select_cloud_file"><i></i>选择云端文件夹</button>
             </div>
-            <div class="d_title">
-                <span>云端位置</span>
+            <div class="d_title yahei_font">
+                <span>云端位置：</span>
             </div>
             <div class="selected_file_wrapper">
                 <input type="text" value="" readonly class="path_input" id="selected_cloud_path" name="selected_cloud_path" />
                 <span class="unselected_span">未选择</span>
             </div>
-            <div class="other_set_wrapper">
-                <a href="javascript:void(0)" class="chk disabled"><i></i><span>创建与本地同名的文件夹</span></a>
-            </div>
+            <!--<div class="other_set_wrapper">-->
+                <!--<a href="javascript:void(0)" class="chk disabled"><i></i><span>创建与本地同名的文件夹</span></a>-->
+            <!--</div>-->
         </div>
         <div class="middle_wrapper">
             <i></i>
@@ -64,16 +66,16 @@
             <div class="select_btn_wrapper">
                 <button class="btn blue_btn select_local_file"><i></i>选择本地文件夹</button>
             </div>
-            <div class="d_title">
-               <span id="">本地位置</span>
+            <div class="d_title yahei_font">
+               <span id="">本地位置：</span>
             </div>
             <div class="selected_file_wrapper">
                 <input type="text" value="" readonly class="path_input" id="selected_local_path" name="selected_local_path" />
                 <span class="unselected_span">未选择</span>
             </div>
-            <div class="other_set_wrapper">
-                <a href="javascript:void(0)" class="chk disabled"><i></i><span>创建与云端同名的文件夹</span></a>
-            </div>
+            <!--<div class="other_set_wrapper">-->
+                <!--<a href="javascript:void(0)" class="chk disabled"><i></i><span>创建与云端同名的文件夹</span></a>-->
+            <!--</div>-->
         </div>
     </div>
     <div class="dialog_bottom">
@@ -90,7 +92,7 @@
 
 <script type="text/x-jquery-tmpl" id="selectCloudFileDialog">
     <div class="select_cloudfile_dialog_content">
-            <div class="team_share_tree">
+            <div class="team_share_tree" id="gk_cloud_file_list">
 
             </div>
     </div>
