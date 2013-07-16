@@ -118,5 +118,35 @@ var gkRest = {
                 }
             }
         );
+    },
+    put:function(mount_id,fullpath,options,onSuccess,onError){
+        var date = new Date().toUTCString();
+        var ver = 'PUT';
+        var webpath = Util.String.encodeRequestUri(fullpath);
+        var authorization = gkClientInterface.getAuthorization(ver,webpath,date);
+        var headers = {
+            'x-gk-mount':mount_id,
+            'Date':date,
+            'Authorization':authorization
+        };
+        $.extend(headers,options);
+        $.ajax(
+            {
+                url:gkClientInterface.getRestDomain()+webpath,
+                type:ver,
+                headers:headers,
+                dataType:'json',
+                success:function(data){
+                    if($.isFunction(onSuccess)){
+                        onSuccess(data);
+                    }
+                },
+                error:function(request, textStatus, errorThrown){
+                    if($.isFunction(onError)){
+                        onError(request, textStatus, errorThrown);
+                    }
+                }
+            }
+        );
     }
 };

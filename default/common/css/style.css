@@ -10,6 +10,9 @@ html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, fo
 html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, form, fieldset, legend, button,th,td{
     -webkit-user-select: none;
 }
+.yahei_font{
+    font-family:"hiragino sans gb","Helvetica Neue","Helvetica","Arial","Microsoft Yahei","宋体", "simsun","sans-serif";
+}
 .user_select_enable{
     -webkit-user-select:auto;
 }
@@ -1568,7 +1571,6 @@ width:90px;
 
 .add_link_dialog .add_link_content{
     padding: 0 12px;
-    color:#7f8999;
     overflow: hidden;
     zoom:1;
     margin: 31px 0 0 0;
@@ -1653,8 +1655,9 @@ width:90px;
 
 .add_link_dialog .set_wrapper .d_title{
     margin: 32px 0 0 0;
-    font-size: 14px;
-    color:#606D7F;
+    font-size: 12px;
+    text-align: left;
+    padding-left: 10px;
 }
 .add_link_dialog .set_wrapper .d_title span{
     background: #fff;
@@ -1665,7 +1668,7 @@ width:90px;
     border-radius: 3px;
     padding: 16px 0;
     text-align: center;
-    margin: -11px 0 0 0;
+    margin: -10px 0 0 0;
     color:#ACB4BF;
 }
 .add_link_dialog .set_wrapper .other_set_wrapper{
@@ -1746,9 +1749,9 @@ border:1px solid #D0D6DB;
 }
 .add_link_dialog .path_input{
     display: none;
-    width: 260px;
+    width: 285px;
     border:0 none;
-    color:#ACB4BF;
+    color:#7F8999;
     text-align: left;
     direction:rtl ;
 }
@@ -2393,4 +2396,18 @@ margin: 15px 0;
 .error .error-text div span{color:#6185BC;margin:0 4px}
 .select_cloudfile_dialog_content {
     background: #fff;
+}
+.select_cloud_file_dialog .ui-dialog-buttonpane  .ui-dialog-buttonset .create_new_folder{
+float: left;
+}
+.select_cloud_file_dialog .input_filename{
+    width: 130px;
+    height: 18px;
+    line-height: 18px;
+    padding: 3px 6px;
+}
+.select_cloud_file_dialog .edit_btns .btn{
+    margin-left:5px;
+    vertical-align: middle;
+    padding:4px 7px;
 }
