@@ -776,6 +776,8 @@ var gkClientSidebar = {
                 tip: tip,
                 links: links
             };
+			$('#input_list_wrapper').remove();
+            $('#input_calendar_wrapper').remove();
             main.find('.root_content').remove();
             $('#rootMainTmpl').tmpl(data).appendTo(main);
         } else {
