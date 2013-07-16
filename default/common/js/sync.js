@@ -242,7 +242,7 @@ var gkClientSync = {
                         }
                         var createFolderBtn = dialog.parent().find('.create_new_folder');
                         if (!String(jItem.data('fullpath')) && jItem.data('type')==2) {
-                            createFolderBtn.addClass('disabled').attr('disabled');
+                            createFolderBtn.addClass('disabled').attr('disabled','disabled');
                        }else{
                             createFolderBtn.removeClass('disabled').removeAttr('disabled');
                         }
@@ -724,7 +724,6 @@ var gkClientSync = {
         dialog.find('.start_sync').click(function () {
             var local_path = $.trim(dialog.find('.set_wrapper #selected_local_path').val());
             var webpath = $.trim(dialog.find('.set_wrapper #selected_cloud_path').val());
-            local_path +=slash;
             webpath = webpath.replace(new RegExp('^(个人的文件|团队的文件)/'),'');
             var type =0;
             if (!webpath) {
@@ -735,7 +734,7 @@ var gkClientSync = {
                 alert('请选择本地位置');
                 return;
             }
-
+            local_path +=slash;
             var local_filename = _context.getLocalFilename(local_path);
             var cloud_filename = Util.String.baseName(webpath);
             var  isEmpty =gkClientInterface.checkIsEmptyPath(local_path);
