@@ -68,7 +68,7 @@ var gkClientLaunchPad = {
         });
 
         
-		$(".launth_pad_left li").on("click",function(){
+		$(".launth_pad_left").on("click",'li',function(){
             var url = $(this).data("url");
             var sso =  $(this).data("sso");
             if(sso==1){

@@ -1420,6 +1420,7 @@ i.share_i{background-position:0 -125px}
     left:0;
     bottom: 0;
     background: #6185BC;
+    overflow: auto;
 }
 .launth_pad .launth_pad_left li{
     cursor: pointer;
