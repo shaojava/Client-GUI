@@ -1,9 +1,9 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <root>
 	<item>
 		<title>共享</title>
 		<icon>shellshare.bmp</icon>
-		<status>3</status>
+		<status>1843</status>
 		<action>gMain</action>
 		<url>/client/client_file_detail?tab=share</url>
 		<sso>1</sso>
@@ -25,9 +25,9 @@
 	<item>
 		<title>查看历史</title>
 		<icon>shellhistory.bmp</icon>
-		<status>1</status>
+		<status>1809</status>
 		<action>gMain</action>
-		<url>/client/client_file_detail?tab=history</url>
+		<url>/client/client_file_detail?tab=dynamic&amp;select=history</url>
 		<sso>1</sso>
 		<resize>1</resize>
 		<width>800</width>
@@ -36,9 +36,9 @@
 	<item>
 		<title>讨论</title>
 		<icon>shellremind.bmp</icon>
-		<status>3</status>
+		<status>1843</status>
 		<action>gMain</action>
-		<url>/client/client_file_detail?tab=remark</url>
+		<url>/client/client_file_detail?tab=dynamic&amp;select=remark</url>
 		<sso>1</sso>
 		<resize>1</resize>
 		<width>800</width>
@@ -56,9 +56,42 @@
 		<height></height>
 	</item>
 	<item>
+		<title>独占修改</title>
+		<icon>shelllock.bmp</icon>
+		<status>272</status>
+		<action>gMain</action>
+		<url>/client/file_edit?ac=lock</url>
+		<sso>1</sso>
+		<resize>0</resize>
+		<width>490</width>
+		<height>175</height>
+	</item>
+		<item>
+		<title>申请修改</title>
+		<icon>shelllockapply.bmp</icon>
+		<status>528</status>
+		<action>gMain</action>
+		<url>/client/file_edit?ac=apply</url>
+		<sso>1</sso>
+		<resize>0</resize>
+		<width>490</width>
+		<height>175</height>
+	</item>
+		<item>
+		<title>移交修改权</title>
+		<icon>shelltransfer.bmp</icon>
+		<status>1040</status>
+		<action>gMain</action>
+		<url>/client/file_edit?ac=transfer</url>
+		<sso>1</sso>
+		<resize>0</resize>
+		<width>490</width>
+		<height>230</height>
+	</item>
+	<item>
 		<title>收藏</title>
 		<icon>shellfavorite.bmp</icon>
-		<status>3</status>
+		<status>1843</status>
 		<action>gFavorite</action>
 		<url></url>
 		<sso></sso>
