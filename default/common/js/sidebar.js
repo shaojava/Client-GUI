@@ -243,29 +243,29 @@ var gkClientSidebar = {
                         gkClientInterface.mailTo('',url,url)
                     }
                 };
-                if (!exitLink) {
-                    $.ajax({
-                        url: gkClientInterface.getApiDomain() + '/link_publish',
-                        data: {
-                            token: gkClientInterface.getToken(),
-                            fullpath: PAGE_CONFIG.path,
-                            auth: auth
-                        },
-                        type: 'POST',
-                        dataType: 'json',
-                        success: function (data) {
-                            var url = data.link;
-                            callback(url);
-                            _context.setLocalLink(PAGE_CONFIG.path, auth, url);
-                        },
-                        error: function (request, textStatus, errorThrown) {
-                            var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
-                            alert(errorMsg);
-                        }
-                    });
-                } else {
-                    callback(exitLink);
+                var params = {
+                    token: gkClientInterface.getToken(),
+                    fullpath: PAGE_CONFIG.path,
+                    auth: auth
+                };
+                if (exitLink) {
+                    params.code = exitLink;
                 }
+                $.ajax({
+                    url: gkClientInterface.getApiDomain() + '/link_publish',
+                    data: params,
+                    type: 'POST',
+                    dataType: 'json',
+                    success: function (data) {
+                        var url = data.link,code=data.code;
+                        callback(url);
+                        _context.setLocalLink(PAGE_CONFIG.path, auth, code);
+                    },
+                    error: function (request, textStatus, errorThrown) {
+                        var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                        alert(errorMsg);
+                    }
+                });
             });
         }
     },

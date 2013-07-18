@@ -329,10 +329,23 @@ var gkClientInterface = {
         }
     },
     getApiDomain: function () {
-        return 'http://a.gokuai.com';
+        var protocol = 'http:',host = '';
+        if(typeof gkClient.gApiHost !== 'undefined'){
+            host =  gkClient.gApiHost();
+        }else{
+            host = 'a2.gokuai.com';
+        }
+        return protocol+'//'+host;
     },
     getRestDomain: function () {
-        return 'http://r.gokuai.com';
+        var protocol = 'http:';
+        var host = '';
+        if(typeof gkClient.gRestHost !== 'undefined'){
+            host = gkClient.gRestHost();
+        }else{
+            host = 'r2.gokuai.com';
+        }
+        return protocol+'//'+host;
     },
     openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);
