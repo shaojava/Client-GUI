@@ -1420,6 +1420,7 @@ i.share_i{background-position:0 -125px}
     left:0;
     bottom: 0;
     background: #6185BC;
+    overflow: auto;
 }
 .launth_pad .launth_pad_left li{
     cursor: pointer;
@@ -2410,4 +2411,16 @@ float: left;
     margin-left:5px;
     vertical-align: middle;
     padding:4px 7px;
+}
+.sync_confirm_dialog_content{
+    padding: 30px;
+}
+.sync_confirm_dialog_content .strong{
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+.sync_confirm_dialog_content > div{
+    padding-left: 64px;
+   background: url('../images/icon/why48x48.png') no-repeat 0 50%;
 }

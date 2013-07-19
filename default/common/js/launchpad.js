@@ -17,7 +17,8 @@ var gkClientLaunchPad = {
                 icon:'',
                 classes:'updates',
                 sso:1
-            }, {
+            },
+            {
                 url:'/client/client?ac=favorites',
                 name:'收藏夹',
                 icon:'',
@@ -39,7 +40,9 @@ var gkClientLaunchPad = {
                 sso:1
             }
         ];
-		
+        $('#leftMenuList').tmpl({
+            menus:menus
+        }).appendTo($('.launth_pad_left .left_menu_list'));
         var localMenus = [];
         $.ajax({
             url:gkClientInterface.getApiDomain()+'/left_extended_menu',
@@ -47,14 +50,8 @@ var gkClientLaunchPad = {
               token:gkClientInterface.getToken()
             },
             type:'GET',
-            async:false,
             dataType:'json',
             success:function(data){
-			   
-			   /* if($("#loadImgText").length > 0){
-				   $("#loadImgText").remove();
-				}*/
-				$(".launth_pad_right").append('');
                 $.each(data,function(i,n){
                     localMenus.push({
                         url: n.url,
@@ -64,14 +61,14 @@ var gkClientLaunchPad = {
                         sso:n.sso==1?1:0
                     });
                 });
-               $.merge(menus, localMenus )
+                $('#leftMenuList').tmpl({
+                    menus:localMenus
+                }).appendTo($('.launth_pad_left .left_menu_list'));
             }
         });
-        var menulist = $('#leftMenuList').tmpl({
-            menus:menus
-        }).appendTo($('.launth_pad_left'));
+
         
-		$(".launth_pad_left li").on("click",function(){
+		$(".launth_pad_left").on("click",'li',function(){
             var url = $(this).data("url");
             var sso =  $(this).data("sso");
             if(sso==1){
