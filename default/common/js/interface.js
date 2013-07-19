@@ -333,7 +333,7 @@ var gkClientInterface = {
         if(typeof gkClient.gApiHost !== 'undefined'){
             host =  gkClient.gApiHost();
         }else{
-            host = 'a2.gokuai.com';
+            host = 'a.gokuai.com';
         }
         return protocol+'//'+host;
     },
@@ -343,7 +343,7 @@ var gkClientInterface = {
         if(typeof gkClient.gRestHost !== 'undefined'){
             host = gkClient.gRestHost();
         }else{
-            host = 'r2.gokuai.com';
+            host = 'r.gokuai.com';
         }
         return protocol+'//'+host;
     },

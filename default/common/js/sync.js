@@ -249,9 +249,13 @@ var gkClientSync = {
                        }else{
                             createFolderBtn.removeClass('disabled').removeAttr('disabled');
                         }
-                            dialog.find('.file_item.selected').removeClass("selected");
-                            jItem.addClass("selected");
-                        jItem.find('.switch').trigger('click');
+                        dialog.find('.file_item.selected').removeClass("selected");
+                        jItem.addClass("selected");
+                        var treeObj = $.fn.zTree.getZTreeObj('gk_cloud_file_list');
+                        var node = treeObj.getNodeByTId(jItem.parent().attr('id'));
+                        if(!node.open){
+                            jItem.find('.switch').trigger('click');
+                        }
                     });
                 }
             }
