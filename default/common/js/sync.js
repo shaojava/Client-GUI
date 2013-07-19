@@ -240,18 +240,18 @@ var gkClientSync = {
                         if (!$(e.target).is(jItem) && !nearFileItem.is(jItem)) {
                             return;
                         }
+                        if(jItem.hasClass('selected')){
+                              return;
+                        }
                         var createFolderBtn = dialog.parent().find('.create_new_folder');
                         if (!String(jItem.data('fullpath')) && jItem.data('type')==2) {
                             createFolderBtn.addClass('disabled').attr('disabled','disabled');
                        }else{
                             createFolderBtn.removeClass('disabled').removeAttr('disabled');
                         }
-                        if (!jItem.hasClass('selected')) {
                             dialog.find('.file_item.selected').removeClass("selected");
                             jItem.addClass("selected");
-                        } else {
-                            jItem.toggleClass("selected");
-                        }
+                        jItem.find('.switch').trigger('click');
                     });
                 }
             }
@@ -458,7 +458,7 @@ var gkClientSync = {
             slash = '\\';
             slash_p = '\\\\';
         }
-
+        var default_path = path;
         //设置选择的路径
         var setSelectFile = function (path,isLocal,type) {
             var filename = _context.getLocalFilename(path);
@@ -492,8 +492,13 @@ var gkClientSync = {
 
             if(!localPath || !cloudPath){
                 checkbox.removeClass('checked').addClass('disabled');
-            }else{
-                checkbox.removeClass('disabled');
+            }else {
+                if(!default_path){
+                    checkbox.removeClass('disabled');
+                }else{
+                    cloudSetWrapper.find('.chk').removeClass('disabled');
+                }
+
             }
         };
 
@@ -505,6 +510,19 @@ var gkClientSync = {
             $(this).toggleClass('checked');
             var flag = false;
           var setWrapper = $(this).parents('.set_wrapper');
+            if($(this).hasClass('checked')){
+                if(setWrapper.hasClass('local_set_wrapper')){
+                    var cloud_chk =  $('.cloud_set_wrapper .chk');
+                    if( cloud_chk.hasClass('checked')){
+                        cloud_chk.trigger('click');
+                    }
+                }else{
+                    var local_chk =  $('.local_set_wrapper .chk');
+                    if(local_chk.hasClass('checked')){
+                        local_chk.trigger('click');
+                    }
+                }
+            }
           var localPathInput = dialog.find('.local_set_wrapper .selected_file_wrapper .path_input');
             var cloudPathInput = dialog.find('.cloud_set_wrapper .selected_file_wrapper .path_input');
             var cloudPath = $.trim(cloudPathInput.val());
@@ -532,22 +550,20 @@ var gkClientSync = {
                     newCloudPath = cloudPath+'/'+localFileName;
                 }else{
                     newCloudPath = Util.String.dirName(cloudPath);
-
                     if(path&&(newCloudPath =='个人的文件' || newCloudPath =='团队的的文件')){
                         var flag = true;
-
                     }
                     if(flag){
                         newCloudPath = '';
-
                     }
                 }
+                //alert(newCloudPath);
                 setSelectFile(newCloudPath,0);
 
             }
             if(dialog.find('.cloud_set_wrapper .chk').hasClass('checked')){
                 //dialog.find('.local_set_wrapper .chk').addClass('disabled');
-            }else{
+            }else if(!default_path){
                 dialog.find('.local_set_wrapper .chk').removeClass('disabled');
             }
 
@@ -583,6 +599,10 @@ var gkClientSync = {
                 }
                 dialog.find('.local_set_wrapper .chk').removeClass('checked');
                 setSelectFile(new_path,_context);
+                var cloudChk =dialog.find('.cloud_set_wrapper .chk');
+                if(cloudChk.hasClass('checked')){
+                    cloudChk.removeClass('checked').trigger('click');
+                }
             }
             return;
         });
@@ -679,19 +699,19 @@ var gkClientSync = {
                         'click': function () {
                                $(this).dialog('close');
                         }
-
                     },
                     {
                         'text': '确定',
                         'class': 'blue_btn',
                         click: function () {
                             var webpath = $.trim($(this).find('#select_cloud_file_path').text());
-                            if(!webpath){
-                                alert('请选择要同步的云端文件夹');
-                                return;
+                            var type = $(this).find('#select_cloud_file_path').data('type');
+                            if(!webpath && type==2){
+                               alert('不能同步到团队的文件的根目录');
+                              return;
                             }
                             var screenpath = webpath;
-                            var type = $(this).find('#select_cloud_file_path').data('type');
+
                             if(type == 1){
                                 screenpath = '个人的文件'+(screenpath?'/':'')+screenpath;
                             }else{
@@ -702,8 +722,13 @@ var gkClientSync = {
                                 dialog.find('.cloud_set_wrapper .chk').removeClass('checked');
                             }
                             setSelectFile(screenpath,0,type);
-                            if(!webpath && path){
-                                dialog.find('.cloud_set_wrapper .chk').removeClass('checked').trigger('click');
+                            if(!webpath){
+                                var cloud_chk = dialog.find('.cloud_set_wrapper .chk').removeClass('checked disabled');
+                                if(path){
+                                    cloud_chk.trigger('click');
+                                }else{
+                                    cloud_chk.addClass('checked');
+                                }
                             }
                             $(this).dialog('close');
                         }
@@ -738,12 +763,6 @@ var gkClientSync = {
             var local_filename = _context.getLocalFilename(local_path);
             var cloud_filename = Util.String.baseName(webpath);
             var  isEmpty =gkClientInterface.checkIsEmptyPath(local_path);
-            if(!parseInt(isEmpty)){
-                if (!confirm('确定将 "' + cloud_filename + '"与本地的 "' + local_filename + '" 进行同步吗？如果两个文件夹中存在相同名称的文件，本地的文件将会覆盖云端的文件。')) {
-                    return false;
-                }
-            }
-
             var paths = [
                 {
                     'webpath': webpath,
@@ -751,14 +770,39 @@ var gkClientSync = {
                     'type': type
                 }
             ];
-            gkClientInterface.setLinkPath(paths);
+            if(!parseInt(isEmpty)){
+                var html = '<div class="sync_confirm_dialog_content">';
+                html +='<div class="">';
+                html +='<div class="strong">确定开始同步？</div>';
+                html +='<div class="tip">如果两个文件夹中存在相同名称的文件，本地将会覆盖云端。</div>';
+                html +='</div>';
+                html += '</div>';
+                $(html).gkDialog({
+                    width: 480,
+                    title: '开始同步',
+                    dialogClass: 'sync_confirm_dialog',
+                    buttons: [
+                        {
+                            "text": '取消',
+                            'class': 'btn',
+                            "click": function () {
+                                $(this).dialog("close");
+                            }
+                        },
+                        {
+                            "text": '确定',
+                            'class': 'btn blue_btn',
+                            "click": function () {
 
-//            var cloudSet = {
-//                filename: cloud_filename,
-//                type: type,
-//                webpath: webpath
-//            };
-//            _context.showStartSyncDialog(cloudSet, local_path, dialog);
+                                $(this).dialog("close");
+                                gkClientInterface.setLinkPath(paths);
+                            }
+                        }
+                    ]
+                });
+            }else{
+                gkClientInterface.setLinkPath(paths);
+            }
             return;
         });
 
@@ -771,6 +815,9 @@ var gkClientSync = {
         if(path){
             setSelectFile(path,1);
             dialog.find('.select_local_file').removeClass('blue_btn').addClass('disabled').attr('disabled','disabled');
+            dialog.find('.local_set_wrapper .chk').addClass('disabled');
+            setSelectFile( '个人的文件',0);
+            dialog.find('.cloud_set_wrapper .chk').trigger('click');
         }
 
     }
