@@ -554,14 +554,13 @@ var gkClientSync = {
                     newCloudPath = cloudPath+'/'+localFileName;
                 }else{
                     newCloudPath = Util.String.dirName(cloudPath);
-                    if(path&&(newCloudPath =='个人的文件' || newCloudPath =='团队的的文件')){
-                        var flag = true;
+                    if(newCloudPath =='个人的文件' || newCloudPath =='团队的的文件'){
+                         flag = true;
                     }
                     if(flag){
                         newCloudPath = '';
                     }
                 }
-                //alert(newCloudPath);
                 setSelectFile(newCloudPath,0);
 
             }
@@ -728,11 +727,13 @@ var gkClientSync = {
                             setSelectFile(screenpath,0,type);
                             if(!webpath){
                                 var cloud_chk = dialog.find('.cloud_set_wrapper .chk').removeClass('checked disabled');
-                                if(path){
+                                var localPath = $.trim(dialog.find('#selected_local_path').val());
+                                if(localPath){
                                     cloud_chk.trigger('click');
                                 }else{
                                     cloud_chk.addClass('checked');
                                 }
+                                dialog.find('.local_set_wrapper .chk').removeClass('disabled').addClass('disabled');
                             }
                             $(this).dialog('close');
                         }
