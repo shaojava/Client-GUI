@@ -8,8 +8,10 @@
     <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="../common/js/interface.js"></script>
     <script type="text/javascript">
-        function getLocalTime(nS) {
-            return new Date(parseInt(nS) * 1000).toLocaleString().replace(/:\d{1,2}$/, ' ');
+           function getLocalTime(time) {		    
+var b = new Date;
+b.setTime(time * 1E3);
+return b;
         }
         function fetchUpdate() {
             var member_id = 0;
@@ -28,8 +30,9 @@
                 if(data.updates){
                     updates = data.updates;
                     $.each(updates, function (k, v) {
-                        HM = new Date(getLocalTime(v["dateline"]));
+                        HM = getLocalTime(v["dateline"]);
                         if (currentDate == v.date) {
+						    
                             v["date_txt"] = HM.getHours() + ":" + HM.getMinutes();
                         } else {
                             v["date_txt"] = (HM.getMonth() + 1) + "月" + HM.getDate() + "日";

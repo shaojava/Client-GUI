@@ -3093,12 +3093,20 @@ var gkFile = {
             if (!resultList.length) {
                 return;
             }
-            hintWrapper = $('<ul id="input_list_wrapper"  rel="' + q + '"></ul>');
+			var heights = 0;
+			if(resultList.length > 7){
+			  heights = 200;
+			}else{
+              heights = resultList.length * 25;
+			}
+			hintWrapper = $('<ul id="input_list_wrapper"  rel="' + q + '"></ul>');
+			
             for (var i = 0; i < resultList.length; i++) {
                 hintWrapper.append('<li><a title="' + resultList[i].username + '" class="' + (i == 0 ? 'select' : '') + '" href="javascript:void(0)" email="' + resultList[i].email + '" uid="' + resultList[i].id + '" >' + resultList[i].username + '</a></li>');
             }
-            $('body').append(hintWrapper);
-		    hintWrapper.css({left:"10px",top:jqTextarea.offset().top - hintWrapper.height()+"px"});
+             $('body').append(hintWrapper);
+			$("#input_list_wrapper").css({left:"10px",top:jqTextarea.offset().top - heights +"px"});
+			 
             hintWrapper.mousedown(function(e) {
                 e.stopPropagation();
             });
@@ -3216,7 +3224,7 @@ var gkFile = {
 
             hintWrapper = $('<div id="input_calendar_wrapper"  rel="' + q + '"></ul>');
             $('body').append(hintWrapper);
-			hintWrapper.css({left:"30px",top:jqTextarea.offset().top - hintWrapper.height()+"px"});
+			$("#input_calendar_wrapper").css({left:"30px",top:jqTextarea.offset().top - hintWrapper.height()+"px"});
             hintWrapper.mousedown(function(e) {
                 e.stopPropagation();
             });
