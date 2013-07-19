@@ -3098,8 +3098,8 @@ var gkFile = {
                 hintWrapper.append('<li><a title="' + resultList[i].username + '" class="' + (i == 0 ? 'select' : '') + '" href="javascript:void(0)" email="' + resultList[i].email + '" uid="' + resultList[i].id + '" >' + resultList[i].username + '</a></li>');
             }
              $('body').append(hintWrapper);
-			  $("#input_list_wrapper").css({left:"10px",top:jqTextarea.offset().top - (resultList.length*25) +"px"});
-			
+			$("#input_list_wrapper").css({left:"10px",top:jqTextarea.offset().top - 200 +"px"});
+			 
             hintWrapper.mousedown(function(e) {
                 e.stopPropagation();
             });
