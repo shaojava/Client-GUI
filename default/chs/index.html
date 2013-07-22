@@ -32,8 +32,8 @@
 			 <i></i>
               <span>开始够快</span>
              </span>
-			 <div class="header_website f_r">
-			   <a href="/storage" target="_blank"></a>
+			 <div class="header_website f_r" title="访问网页版">
+			   <a href="/storage" target="_blank" title="访问网页版" style="display:block"></a>
 			 </div>
 		  </div>
 		   
@@ -65,10 +65,11 @@
 
         </div>
         <div class="tab_content_link">
-              
+             <span class="gjmodel"><i></i>高级模式</span>
         </div>
         <div class="tab_content_remark">
         </div>
+		
     </div>
 </script>
 <script type="text/x-jquery-tmpl" id="remarkListTmpl">
@@ -135,6 +136,7 @@
 </script>
 <script type="text/x-jquery-tmpl" id="linkModeTmpl">
 <div class="select_wrapper">
+
     {{if modes && modes.length}}
     <ul class="dropdown_menu">
         {{each(i,mode) modes}}
@@ -151,26 +153,28 @@
     <ul class="share_types">
         <li><a href="javascript:;" class="link_browser">
             <i></i>
-            在浏览器中打开
+            查看链接
         </a></li>
         <li><a href="javascript:;" class="link_clipboard">
             <i></i>
-            复制到剪切板
+            复制链接
+        </a></li>
+		 <li><a href="javascript:;" class="link_qq">
+            <i></i>
+            分享到腾讯微博
         </a></li>
         <li><a href="javascript:;" class="link_sina">
             <i></i>
             分享到新浪微博
         </a></li>
-        <li><a href="javascript:;" class="link_qq">
-            <i></i>
-            分享到腾讯微博
-        </a></li>
+   
         <li><a href="javascript:;" class="link_mail">
             <i></i>
             用邮件发送
         </a></li>
     </ul>
 </div>
+ 
 </script>
 <script type="text/x-jquery-tmpl" id="shareMembersTmpl">
     <ul class="share_members scrollbar">

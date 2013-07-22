@@ -122,6 +122,17 @@ var gkClientSidebar = {
             };
             gkClientInterface.openWindow(params);
         });
+		//高级模式
+		$(".gjmodel").click(function(){
+		  var params = {
+                url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
+                sso: 1,
+                resize: 0,
+                width: 800,
+                height: 600
+            };
+            gkClientInterface.openWindow(params);
+		})
     },
     getLinkKeyAndTipByAuth: function (auth) {
         var re = {};
@@ -157,7 +168,7 @@ var gkClientSidebar = {
     fetchLink: function (publish) {
         var _context = this;
         var tab_content_wrapper = $('.tab_content_link');
-        tab_content_wrapper.empty();
+        tab_content_wrapper.find(".select_wrapper").remove();
         if (publish.isclosed == 1) {
             tab_content_wrapper.append('<div class="empty">链接分享功能已关闭</div>');
             tab_content_wrapper.find('.open_link_share').click(function(){
@@ -189,23 +200,29 @@ var gkClientSidebar = {
                 modes: modes
             }).prependTo(tab_content_wrapper);
             selectWrp.find('.dropdown_menu').on('click', 'a', function () {
-			
-                var btn = selectWrp.children('a:first'); 
-                  	
-    			  var cloneBtn = $(this).clone();
+		        
+                 var btn = selectWrp.children('a:first');
+    			  $(this).addClass('only').find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF");
+                  $('.dropdown_menu').find('a').not($(this)).removeClass('only').find('.select_name').css('color','#606D7F').siblings(".select_tip").css("color","#ACB4BF");
+				  //alert($(this).siblings("a").size());
+				 // $(this).siblings("a").removeClass('only').find('.select_name').css('color','#606D7F').siblings(".select_tip").css("color","#ACB4BF");				 
+				 var cloneBtn = $(this).clone();
+				   
+				  //selectWrp.prepend(cloneBtn.addClass('only'));
                 if (btn.size()) {
-                    selectWrp.find('a:first').replaceWith(cloneBtn);
+                    selectWrp.find('a:first').replaceWith(cloneBtn.addClass('only'));
+					cloneBtn.find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF");
 					
-                } else {	 
-                    selectWrp.prepend(cloneBtn);
+                } else {
+                    selectWrp.prepend(cloneBtn.addClass('only'));
+					cloneBtn.find(".select_name").css("color","#FFF").siblings(".select_tip").css("color","#FFF");
 				}
 
                 if ($(this).parents('ul').children().size() > 1) {
-
-                    cloneBtn.append('<s></s>');
-               cloneBtn.droplist({
+                   cloneBtn.append('<s></s>');
+                   cloneBtn.droplist({
                     onClose: function (btn) {
-                        selectWrp.children('a:first').removeClass('active');
+                       selectWrp.children('a:first').removeClass('active');
                     }
                 });
 
@@ -217,6 +234,7 @@ var gkClientSidebar = {
             selectWrp.find('.dropdown_menu a:first').trigger('click');
 
             $('.share_types li a').click(function () {
+			 
                 var _self = $(this);
                 var auth = $('.select_wrapper .btn').data('auth');
                 var exitLink = _context.getLocalLink(PAGE_CONFIG.path, auth);

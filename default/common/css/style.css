@@ -190,7 +190,7 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
     overflow: hidden;
     vertical-align: middle;
     border:4px dashed transparent;
-    border-top: 4px solid #88949E;
+    border-top: 4px solid #FFF;
     margin: 2px 0 0 5px;
 }
 
@@ -1295,7 +1295,9 @@ i.share_i{background-position:0 -125px}
 .toolbar .main_nav li.main_nav_li a>span i.updates_span{background-position:center -255px}/*-255*/
 .toolbar .main_nav li.main_nav_li a>span i.updates_span_slide{background-position:center -195px}
 .toolbar .main_nav li .share_info{width:238px;background:#fff;overflow-y:auto;overflow-x:hidden;height:100%;font-size:12px;font-family:"微软雅黑"}
-
+.tab_content_link{position:relative;height:100%;padding-top:1px}
+.tab_content_link .gjmodel{position:absolute;width:100%;cursor:pointer;padding:20px 0;border-top:1px solid #c5ced8;bottom:1px;left:0;display:block;text-align:center;font-size:20px;font-family:'Microsoft Yahei';background-color:#f3f7f9}
+.tab_content_link .gjmodel i{display:inline-block;width:32px;height:32px;background:url("../images/icon/slide_icons2.png") no-repeat 0 -224px;vertical-align:middle}
 .toolbar .main_nav li .share_info .share_mes_info{padding:10px 0 10px 22px;color:#64727C;position:relative;cursor: pointer}
 .toolbar .main_nav li .share_info .share_mes_info:hover{background:#e9eff3}
 .toolbar .main_nav li .share_info .share_mes_info img{display:block;width:32px;height:32px;border-radius:50%}
@@ -2230,6 +2232,10 @@ margin-right: 8px;}
 #main .select_wrapper .t_l{
     width: 170px;
 }
+#main .select_wrapper .only{
+ background:#6185BC;
+ color:#FFF!important;
+}
 #main .select_wrapper .btn{
     padding: 10px;
     line-height: 20px;
@@ -2240,8 +2246,8 @@ margin-right: 8px;}
 }
 #main .select_wrapper .btn s{
     position: absolute;
-    left: 113px;
-    bottom: 0px;
+    right: 10px;
+    bottom: 25px;
 }
 #main .select_wrapper .btn i{
     background: url("../images/icon/slide_icons2.png") no-repeat ;
@@ -2258,10 +2264,10 @@ margin-right: 8px;}
     background-position: 0 -128px;
 }
 #main .select_wrapper .btn.unknownUpload i{
-    background-position: 0 -224px;
+    background-position: 0 -192px;
 }
 #main .select_wrapper .btn.cooperate i{
-    background-position: 0 -192px;
+    background-position: 0 -160px;
 }
 #main .select_wrapper .btn .select_name{
     color: #606D7F;
@@ -2283,15 +2289,20 @@ margin-right: 8px;}
     margin: auto;
 }
 #main .share_types li{
-margin: 15px 0;
+margin-right:2px;
+width:230px;
 }
+
 #main .share_types li a{
     color: #7F8999;
     font-size: 14px;
     height: 32px;
     line-height: 32px;
-    padding: 0 20px;
+    padding: 8px 20px;
+	display:block;
+	border-radius:8px;
 }
+#main .share_types li a:hover{background-color:#E6EBF1;color:#83A9D6}
 #main .share_types li i{
     display: inline-block;
     width: 32px;
