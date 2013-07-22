@@ -1297,7 +1297,7 @@ i.share_i{background-position:0 -125px}
 .toolbar .main_nav li .share_info{width:238px;background:#fff;overflow-y:auto;overflow-x:hidden;height:100%;font-size:12px;font-family:"微软雅黑"}
 .tab_content_link{position:relative;height:100%;padding-top:1px}
 .tab_content_link .gjmodel{position:absolute;width:100%;cursor:pointer;padding:20px 0;border-top:1px solid #c5ced8;bottom:1px;left:0;display:block;text-align:center;font-size:20px;font-family:'Microsoft Yahei';background-color:#f3f7f9}
-.tab_content_link .gjmodel i{display:inline-block;width:32px;height:32px;background:url("../images/icon/slide_icons2.png") no-repeat 0 -224px}
+.tab_content_link .gjmodel i{display:inline-block;width:32px;height:32px;background:url("../images/icon/slide_icons2.png") no-repeat 0 -224px;vertical-align:middle}
 .toolbar .main_nav li .share_info .share_mes_info{padding:10px 0 10px 22px;color:#64727C;position:relative;cursor: pointer}
 .toolbar .main_nav li .share_info .share_mes_info:hover{background:#e9eff3}
 .toolbar .main_nav li .share_info .share_mes_info img{display:block;width:32px;height:32px;border-radius:50%}
