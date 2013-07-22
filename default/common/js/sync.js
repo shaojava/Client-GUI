@@ -33,7 +33,14 @@ var gkClientSync = {
     },
     showLinkedFile: function () {
         var _context = this;
-        var files = _context.formatLinkData(gkClientInterface.getLinkPath().list);
+        var list = gkClientInterface.getLinkPath().list || [];
+        var bindpath = gkClientInterface.getClientInfo().bindpath;
+        list.unshift({
+            fullpath:bindpath,
+            type: 3,
+            webpath: "文件"
+        });
+        var files = _context.formatLinkData(list);
         $('.list_wrapper .list').remove();
         var list = $('#fileListTmpl').tmpl({
             files: files
@@ -85,6 +92,10 @@ var gkClientSync = {
             var item = $(this).parents('.sync_item');
             var local_uri = String(item.data('local_uri'));
             var webpath = String(item.data('cloud_uri'));
+            var type = item.data('type');
+            if(type==3){
+                webpath = '';
+            }
             var params = {
                 webpath: webpath,
                 type: item.data('type'),
@@ -385,10 +396,10 @@ var gkClientSync = {
             var cloud_filename = '';
             if (v.type == 1) {
                 icon = 'icon_my_root';
-                cloud_filename = '我的文件';
+                cloud_filename = '个人的文件';
             } else if (v.type == 2) {
                 icon = 'icon_team_root';
-                cloud_filename = '团队文件';
+                cloud_filename = '团队的文件';
             } else {
                 cloud_filename = Util.String.baseName(v.webpath);
                 ;
@@ -554,14 +565,13 @@ var gkClientSync = {
                     newCloudPath = cloudPath+'/'+localFileName;
                 }else{
                     newCloudPath = Util.String.dirName(cloudPath);
-                    if(path&&(newCloudPath =='个人的文件' || newCloudPath =='团队的的文件')){
-                        var flag = true;
+                    if(newCloudPath =='个人的文件' || newCloudPath =='团队的的文件'){
+                         flag = true;
                     }
                     if(flag){
                         newCloudPath = '';
                     }
                 }
-                //alert(newCloudPath);
                 setSelectFile(newCloudPath,0);
 
             }
@@ -728,11 +738,13 @@ var gkClientSync = {
                             setSelectFile(screenpath,0,type);
                             if(!webpath){
                                 var cloud_chk = dialog.find('.cloud_set_wrapper .chk').removeClass('checked disabled');
-                                if(path){
+                                var localPath = $.trim(dialog.find('#selected_local_path').val());
+                                if(localPath){
                                     cloud_chk.trigger('click');
                                 }else{
                                     cloud_chk.addClass('checked');
                                 }
+                                dialog.find('.local_set_wrapper .chk').removeClass('disabled').addClass('disabled');
                             }
                             $(this).dialog('close');
                         }
