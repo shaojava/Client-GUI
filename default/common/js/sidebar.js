@@ -510,7 +510,7 @@ var gkClientSidebar = {
                 };
         }
         if (url) {
-            url += $.param(params)
+            url += $.param(params);
             gkClientInterface.openURL({
                 url: url,
                 sso: 0
