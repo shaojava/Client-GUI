@@ -32,7 +32,10 @@
 			 <i></i>
               <span>开始够快</span>
              </span>
-			 <div class="header_website f_r" title="访问网页版">
+			 <div class="header_help" title="在线帮助">
+		       <a href="javascript:;" style="display:block"></a>
+			 </div>
+			 <div class="header_website" title="访问网页版">
 			   <a href="/storage" target="_blank" title="访问网页版" style="display:block"></a>
 			 </div>
 		  </div>
@@ -151,13 +154,13 @@
     </ul>
     {{/if}}
     <ul class="share_types">
-        <li><a href="javascript:;" class="link_browser">
-            <i></i>
-            查看链接
-        </a></li>
         <li><a href="javascript:;" class="link_clipboard">
             <i></i>
             复制链接
+        </a></li>
+		<li><a href="javascript:;" class="link_browser">
+            <i></i>
+            查看链接
         </a></li>
 		 <li><a href="javascript:;" class="link_qq">
             <i></i>
@@ -180,9 +183,17 @@
     <ul class="share_members scrollbar">
         {{each(i,member) share_members}}
         <li>
-        <img src="${member.photourl}" alt="" />
+        <img src="${member.photourl}"  alt="" />
         <div class="member_info">
-            <div class="member_name">${gkClientSidebar.getScreenName(PAGE_CONFIG.memberId,member.member_id,member.username)}</div>
+            <div class="member_name">
+			<span class="f_l">${gkClientSidebar.getScreenName(PAGE_CONFIG.memberId,member.member_id,member.username)}</span>
+			{{if member.auth == '3'}}
+			<img title="共享发起人" src="../common/images/icon/crown.png" width='16' height='16' style="vertical-align:middle;width:16px;height:16px;margin-left:2px" />
+			{{/if}}
+			
+			
+			</div>
+			<div style="clear:both"></div>
             <div class="auth" data-auth="${member.auth}">
                 ${member.auth_name}
             </div>
