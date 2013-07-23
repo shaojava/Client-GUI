@@ -23,7 +23,19 @@ var gkClientSidebar = {
 		
             gkClientInterface.launchpad();
         })
-	
+	//在线帮助
+		$(".header_help").click(function(){	 
+		 var  param = {
+                    url: '/client/feedback',
+                    sso: 1,
+                    resize: 1,
+                    width: 800,
+                    height: 600
+                };
+
+                gkClientInterface.openWindow(param);
+
+		})
      
 	  
 
@@ -94,6 +106,7 @@ var gkClientSidebar = {
 		this.shareMembers = share_members;
 		var slideItemShare = $('.tab_content_share');
         slideItemShare.empty();
+		console.log(share_members);
         var shareMemberList = $('#shareMembersTmpl').tmpl({
             share_members: share_members
         }).appendTo(slideItemShare);
@@ -124,6 +137,7 @@ var gkClientSidebar = {
         });
 		//高级模式
 		$(".gjmodel").click(function(){
+		  
 		  var params = {
                 url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
                 sso: 1,
@@ -133,25 +147,27 @@ var gkClientSidebar = {
             };
             gkClientInterface.openWindow(params);
 		})
+		
     },
     getLinkKeyAndTipByAuth: function (auth) {
+
         var re = {};
         switch (auth) {
             case '1000':
                 re = {
-                    tip: '允许链接访问者预览',
+                    tip: '允许访问者预览',
                     key: 'preview'
                 }
                 break;
             case '1011':
                 re = {
-                    tip: '允许链接访问者预览、下载',
+                    tip: '允许访问者预览、下载',
                     key: 'download'
                 }
                 break;
             case '1111':
                 re = {
-                    tip: '允许链接访问者预览、下载、上传',
+                    tip: '允许访问者预览、下载、上传',
                     key: 'cooperate'
                 }
                 break;
@@ -182,17 +198,20 @@ var gkClientSidebar = {
                 gkClientInterface.openWindow(params);
             });
         } else {
-            var link_type = publish.link_type,              
+		   
+            var link_type = publish.link_type,             
 			  modes = [],
                 mode = null;
-            $.each(link_type, function (i, n) {
+ 	                 
+		   $.each(link_type, function (i, n) {
                 var re = _context.getLinkKeyAndTipByAuth(n.value);
                 mode = {
                     name: n.name,
-                    tip: re.tip,
+                    tip: (link_type.length < 4)?re.tip.replace('上传','更新'):re.tip,
                     auth: n.value,
                     key: re.key
                 };
+		
                 modes.push(mode);
             })
          
@@ -202,20 +221,17 @@ var gkClientSidebar = {
             selectWrp.find('.dropdown_menu').on('click', 'a', function () {
 		        
                  var btn = selectWrp.children('a:first');
-    			  $(this).addClass('only').find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF");
-                  $('.dropdown_menu').find('a').not($(this)).removeClass('only').find('.select_name').css('color','#606D7F').siblings(".select_tip").css("color","#ACB4BF");
-				  //alert($(this).siblings("a").size());
-				 // $(this).siblings("a").removeClass('only').find('.select_name').css('color','#606D7F').siblings(".select_tip").css("color","#ACB4BF");				 
+    			  $(this).addClass('only').find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF").parent().siblings('div').find('i').css('background-position-x','-32px');
+                  $('.dropdown_menu').find('a').not($(this)).removeClass('only').find('.select_name').css('color','#606D7F').siblings(".select_tip").css("color","#ACB4BF").parent().siblings('div').find('i').css('background-position-x','0');			 
 				 var cloneBtn = $(this).clone();
-				   
-				  //selectWrp.prepend(cloneBtn.addClass('only'));
+			
                 if (btn.size()) {
                     selectWrp.find('a:first').replaceWith(cloneBtn.addClass('only'));
-					cloneBtn.find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF");
+					cloneBtn.find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF").parent().siblings('div').find('i').css('background-position-x','-32px');
 					
                 } else {
                     selectWrp.prepend(cloneBtn.addClass('only'));
-					cloneBtn.find(".select_name").css("color","#FFF").siblings(".select_tip").css("color","#FFF");
+					cloneBtn.find(".select_name").css("color","#FFF").siblings(".select_tip").css("color","#FFF").parent().siblings('div').find('i').css('background-position-x','-32px');
 				}
 
                 if ($(this).parents('ul').children().size() > 1) {
