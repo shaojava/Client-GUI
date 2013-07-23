@@ -202,20 +202,16 @@ var gkClientSidebar = {
             selectWrp.find('.dropdown_menu').on('click', 'a', function () {
 		        
                  var btn = selectWrp.children('a:first');
-    			  $(this).addClass('only').find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF");
-                  $('.dropdown_menu').find('a').not($(this)).removeClass('only').find('.select_name').css('color','#606D7F').siblings(".select_tip").css("color","#ACB4BF");
-				  //alert($(this).siblings("a").size());
-				 // $(this).siblings("a").removeClass('only').find('.select_name').css('color','#606D7F').siblings(".select_tip").css("color","#ACB4BF");				 
+    			  $(this).addClass('only').find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF").parent().siblings('div').find('i').css('background-position-x','-32px');
+                  $('.dropdown_menu').find('a').not($(this)).removeClass('only').find('.select_name').css('color','#606D7F').siblings(".select_tip").css("color","#ACB4BF").parent().siblings('div').find('i').css('background-position-x','0');			 
 				 var cloneBtn = $(this).clone();
-				   
-				  //selectWrp.prepend(cloneBtn.addClass('only'));
                 if (btn.size()) {
                     selectWrp.find('a:first').replaceWith(cloneBtn.addClass('only'));
-					cloneBtn.find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF");
+					cloneBtn.find(".select_name").css('color','#FFF').siblings(".select_tip").css("color","#FFF").parent().siblings('div').find('i').css('background-position-x','-32px');
 					
                 } else {
                     selectWrp.prepend(cloneBtn.addClass('only'));
-					cloneBtn.find(".select_name").css("color","#FFF").siblings(".select_tip").css("color","#FFF");
+					cloneBtn.find(".select_name").css("color","#FFF").siblings(".select_tip").css("color","#FFF").parent().siblings('div').find('i').css('background-position-x','-32px');
 				}
 
                 if ($(this).parents('ul').children().size() > 1) {
