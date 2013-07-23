@@ -330,7 +330,7 @@ var gkClientInterface = {
     },
     getApiDomain: function () {
         var protocol = 'http:',host = '';
-        if(typeof gkClient.gApiHost !== 'undefined'){
+        if(0){
             host =  gkClient.gApiHost();
         }else{
             host = 'a.gokuai.com';
@@ -340,7 +340,7 @@ var gkClientInterface = {
     getRestDomain: function () {
         var protocol = 'http:';
         var host = '';
-        if(typeof gkClient.gRestHost !== 'undefined'){
+        if(0){
             host = gkClient.gRestHost();
         }else{
             host = 'r.gokuai.com';
