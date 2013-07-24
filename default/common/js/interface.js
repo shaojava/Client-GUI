@@ -33,8 +33,12 @@ var gkClientInterface = {
 	   return gkClient.gSelectPath(path);
 	},
 	//移动同步文件
-	moveSyncFile:function(path){
-	  return gkClient.gMoveBindPath(path);
+    moveSyncFile:function(path){
+        try {
+            return gkClient.gMoveBindPath(path);
+        } catch (e) {
+            throw e;
+        }
 	},
     getClientInfo:function(){
         try {

@@ -72,8 +72,12 @@ var gkClientSync = {
                 if (!enable) {
                     return;
                 }
+                var trimPath =Util.String.rtrim(Util.String.rtrim(new_local_uri,'/'),'\\\\');
+                if(!confirm('确定要移动到 '+trimPath+' ?')){
+                    return;
+                }
                 if(type==3){ //移动同步根目录
-
+                    gkClientInterface.moveSyncFile(new_local_uri);
                 }else{
                     var path = [
                         {

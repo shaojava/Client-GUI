@@ -1552,7 +1552,7 @@ display: none;
     width: 280px
 }
 #sync_page .list_wrapper .opts{
-width:115px;
+    width:105px;
     text-align: right;
 }
 #sync_page .list_wrapper .opts .set{
