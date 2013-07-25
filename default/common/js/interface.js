@@ -333,9 +333,9 @@ var gkClientInterface = {
         if(typeof gkClient.gApiHost !== 'undefined'){
             host =  gkClient.gApiHost();
         }else{
-            host = 'a.gokuai.com';
+            host = 'https://a2.gokuai.com';
         }
-        return protocol+'//'+host;
+        return host;
     },
     getRestDomain: function () {
         var protocol = 'http:';
@@ -343,9 +343,9 @@ var gkClientInterface = {
         if(typeof gkClient.gRestHost !== 'undefined'){
             host = gkClient.gRestHost();
         }else{
-            host = 'r.gokuai.com';
+            host = 'https://r2.gokuai.com';
         }
-        return protocol+'//'+host;
+        return host;
     },
     openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);
