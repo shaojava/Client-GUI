@@ -1,4 +1,4 @@
-@charset "utf-8";
+﻿@charset "utf-8";
 /*CSS RESET*/
 html,body{
     overflow: hidden;
@@ -1552,7 +1552,7 @@ display: none;
     width: 280px
 }
 #sync_page .list_wrapper .opts{
-width:115px;
+    width:105px;
     text-align: right;
 }
 #sync_page .list_wrapper .opts .set{
@@ -1748,9 +1748,7 @@ border:1px solid #D0D6DB;
 .add_link_dialog .dialog_bottom .btn{
     margin: 0 5px;
 }
-.add_link_dialog .select_local_file{
-    margin-left: 15px;
-}
+
 .add_link_dialog .path_input{
     display: none;
     width: 285px;

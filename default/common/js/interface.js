@@ -12,7 +12,43 @@ var gkClientFileLock = {
     LOCK_BY_ME: 2
 };
 var gkClientInterface = {
-    setFileStatus: function (path, dir, state) {
+ /*注销登录*/
+    logoOut:function(){
+	  gkClient.gLogoff();
+	},
+//设置客户端消息
+    setClientInfo:function(params){
+	    gkClient.gSetClientInfo(params);
+	},
+   //清除缓存
+    clearCache:function(){
+	   gkClient.gClearCache();
+	},
+	//设置代理
+	setConfigDl:function(){
+	  gkClient.gSettings();
+	},
+	//移动文件
+	moveFile:function(path){
+	   return gkClient.gSelectPath(path);
+	},
+	//移动同步文件
+    moveSyncFile:function(path){
+        try {
+            return gkClient.gMoveBindPath(path);
+        } catch (e) {
+            throw e;
+        }
+	},
+    getClientInfo:function(){
+        try {
+            return JSON.parse(gkClient.gGetClientInfo());
+        } catch (e) {
+            throw e;
+        }
+
+    },
+    setFileStatus: function(path, dir, state) {
         var params = JSON.stringify({
             webpath: path,
             status: state,
@@ -330,7 +366,7 @@ var gkClientInterface = {
     },
     getApiDomain: function () {
         var protocol = 'http:',host = '';
-        if(typeof gkClient.gApiHost !== 'undefined'){
+        if(0){
             host =  gkClient.gApiHost();
         }else{
             host = 'https://a2.gokuai.com';
@@ -340,7 +376,7 @@ var gkClientInterface = {
     getRestDomain: function () {
         var protocol = 'http:';
         var host = '';
-        if(typeof gkClient.gRestHost !== 'undefined'){
+        if(0){
             host = gkClient.gRestHost();
         }else{
             host = 'https://r2.gokuai.com';

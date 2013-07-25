@@ -6,7 +6,11 @@ var gkClientFileState = {
     LOCAL_STATE: 4,
     EDIT_STATE: 5
 };
-
+var gkClientFileLock = {
+    UNLOCK: 0,
+    LOCK_BY_OTHER: 1,
+    LOCK_BY_ME: 2
+};
 var gkClientInterface = {
  /*注销登录*/
     logoOut:function(){
@@ -147,20 +151,21 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getSelectPaths: function() {
+    getSelectPaths: function (path) {
+        path = typeof arguments[0] === 'undefined' ? '' : path;
         try {
-            return gkClient.gSelectSyncPath();
+            return gkClient.gSelectSyncPath(path);
         } catch (e) {
             throw e;
         }
     },
-    openWindow: function(params) {
+    openWindow: function (params) {
         try {
             if (!params.sso && params.url && /^(http:\/\/|https:\/\/).+/.test(params.url)) {
                 params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
             }
             params = JSON.stringify(params);
-            gkClient.gMain(params);
+            return gkClient.gMain(params);
         } catch (e) {
             throw e;
         }
@@ -194,23 +199,26 @@ var gkClientInterface = {
             throw e;
         }
     },
-    selectSyncFile: function() {
+    selectSyncFile: function (params) {
+        params = typeof arguments[0] === 'undefined' ? '' : params;
         try {
-            gkClient.gSelectSyncPath();
+            var JSONparams = JSON.stringify(params)
+            gkClient.gSelectSyncPath(JSONparams);
         } catch (e) {
             throw e;
         }
     },
-    getUserInfo: function() {
+    getUserInfo: function () {
         try {
-			if(gkClient.gUserInfo()){
-              return JSON.parse(gkClient.gUserInfo());
-			}
+            if (!gkClient.gUserInfo()) {
+                return '';
+            }
+            return JSON.parse(gkClient.gUserInfo());
         } catch (e) {
             throw e;
         }
     },
-    toggleLock: function(path) {
+    toggleLock: function (path) {
         try {
             if (!path.length) {
                 return;
@@ -220,7 +228,21 @@ var gkClientInterface = {
             throw e;
         }
     },
-    add2Favorite: function(path) {
+    getClientInfo: function () {
+        try {
+            return JSON.parse(gkClient.gGetClientInfo());
+        } catch (e) {
+            throw e;
+        }
+
+    },
+    getShowTrans: function () {
+        gkClient.gShowTrans();
+    },
+    getShowSettings: function () {
+        gkClient.gShowSettings();
+    },
+    add2Favorite: function (path) {
         try {
             if (!path.length) {
                 return;
@@ -230,8 +252,12 @@ var gkClientInterface = {
             throw e;
         }
     },
-    launchpad: function() {
+    launchpad: function (path) {
         try {
+            if (path) {
+                gkClient.gLaunchpad(path);
+                return;
+            }
             gkClient.gLaunchpad();
         } catch (e) {
             throw e;
@@ -248,17 +274,136 @@ var gkClientInterface = {
         params = JSON.stringify(params);
         gkClient.gCompare(params);
     },
-    getMessage: function() {
-        return JSON.parse(gkClient.gGetMessage());
+    getMessage: function () {
+        try {
+            var re= gkClient.gGetMessage();
+            if(!re){
+                return ''
+            }
+            return JSON.parse(re);
+        } catch (e) {
+            throw e;
+        }
+
     },
-    clearUpdateCount: function() {
-        gkClient.gClearUpdateCount();
+    clearUpdateCount: function () {
+        try {
+            gkClient.gClearUpdateCount();
+        } catch (e) {
+            throw e;
+        }
+
     },
-    getSiteDomain: function() {
-        return gkClient.gSiteDomain();
+    getSiteDomain: function () {
+        try {
+            return gkClient.gSiteDomain();
+        } catch (e) {
+            throw e;
+        }
     },
-    setClipboardData: function(text) {
-        gkClient.gSetClipboardData(text);
+    setClipboardData: function (text) {
+        try {
+            gkClient.gSetClipboardData(text);
+        } catch (e) {
+            throw e;
+        }
+    },
+    getLinkPath: function () {
+        var re = gkClient.gGetLinkPaths();
+        if (!re) {
+            return '';
+        }
+        return JSON.parse(re);
+    },
+    selectFile: function (path) {
+        var params = {
+            path: '',
+            disable_root: 0
+        };
+        if (typeof path === 'string') {
+            params = {
+                path: path,
+                disable_root: 0
+            };
+        } else if (typeof path === 'object') {
+            params = path;
+        }
+        var JSONparams = JSON.stringify(params);
+        return gkClient.gSelectPath(JSONparams);
+    },
+    setLinkPath: function (paths) {
+        var params = {
+            'list': paths
+        };
+        gkClient.gSetLinkPaths(JSON.stringify(params));
+    },
+    removeLinks: function (links) {
+        var params = {
+            'list': links
+        };
+        gkClient.gRemoveLinkPaths(JSON.stringify(params));
+    },
+    getAuthorization: function (ver, webpath, date) {
+        var params = {
+            ver: ver,
+            webpath: webpath,
+            date: date
+        };
+        var JSONParams = JSON.stringify(params);
+        return gkClient.gGetAuthorization(JSONParams);
+    },
+    getToken: function () {
+        try {
+            return gkClient.gGetToken();
+        } catch (e) {
+            throw e;
+        }
+    },
+    getApiDomain: function () {
+        var protocol = 'http:',host = '';
+        if(0){
+            host =  gkClient.gApiHost();
+        }else{
+            host = 'a.gokuai.com';
+        }
+        return protocol+'//'+host;
+    },
+    getRestDomain: function () {
+        var protocol = 'http:';
+        var host = '';
+        if(0){
+            host = gkClient.gRestHost();
+        }else{
+            host = 'r.gokuai.com';
+        }
+        return protocol+'//'+host;
+    },
+    openDiskPath: function (path) {
+        gkClient.gOpenDiskPath(path);
+    },
+    openChildWindow: function (params) {
+        gkClient.gChildMain(JSON.stringify(params));
+    },
+    checkLinkPath: function (path) {
+        var re = gkClient.gCheckLinkPath(path);
+        return JSON.parse(re)
+    },
+    mailTo: function (to, subject, content) {
+        var params = {
+            to: to,
+            subject: subject,
+            content: content
+        };
+        gkClient.gMailTo(JSON.stringify(params));
+    },
+    getUserAgent:function(){
+        return navigator.userAgent.split(';')
+    },
+    getClientOS:function(){
+      return this.getUserAgent()[2].toLowerCase();
+    },
+    isWindowsClient:function(){
+        return this.getClientOS() == 'windows';
     }
 };
 var gkClientAjax = {};
@@ -295,10 +440,12 @@ gkClientAjax.Exception = {
     }
 };
 
-function initWebHref() {
-    $('body').on('click', 'a', function(e) {
+function initWebHref(proxyElem) {
+    proxyElem = proxyElem === undefined ? $('body') : proxyElem;
+    proxyElem.on('click', 'a', function (e) {
         var href = $(this).attr('href');
-        if (/\/storage#!files:(0|1):(.*?)(:(.*):.*)??$/.test(href)) {
+        var targetElem = $(e.target);
+        if (!targetElem.hasClass('gk_blank') && /\/storage#!files:(0|1):(.*?)(:(.*):.*)??$/.test(href)) {
             if (!RegExp.$2 && !RegExp.$2.length && !RegExp.$4 && !RegExp.$4.length) {
                 gkClientInterface.openSyncDir();
             } else {
@@ -328,11 +475,24 @@ function initWebHref() {
                 url: href,
                 sso: 0
             };
-            if (parseInt(PAGE_CONFIG.memberId)) {
+            if (parseInt(PAGE_CONFIG.memberId) || targetElem.data('sso') == 1) {
                 param.sso = 1;
             }
             gkClientInterface.openURL(param);
             return false;
         }
     });
-};
+}
+
+var PAGE_CONFIG = {};
+//获取当前登录用户的信息
+(function () {
+    var account = gkClientInterface.getUserInfo();
+    if (account) {
+        PAGE_CONFIG.memberId = account.id;
+        PAGE_CONFIG.email = account.email;
+        PAGE_CONFIG.mountId = account.mount_id;
+        PAGE_CONFIG.orgId = account.org_id;
+    }
+})();
+;

@@ -72,14 +72,23 @@ var gkClientSync = {
                 if (!enable) {
                     return;
                 }
-                var path = [
-                    {
-                        webpath: cloud_uri,
-                        fullpath: new_local_uri,
-                        type: type
-                    }
-                ];
-                gkClientInterface.setLinkPath(path);
+                var trimPath =Util.String.rtrim(Util.String.rtrim(new_local_uri,'/'),'\\\\');
+                if(!confirm('确定要移动到 '+trimPath+' ?')){
+                    return;
+                }
+                if(type==3){ //移动同步根目录
+                    gkClientInterface.moveSyncFile(new_local_uri);
+                }else{
+                    var path = [
+                        {
+                            webpath: cloud_uri,
+                            fullpath: new_local_uri,
+                            type: type
+                        }
+                    ];
+                    gkClientInterface.setLinkPath(path);
+                }
+
                 var local_filename = _context.getLocalFilename(new_local_uri);
                 item.attr('data-local_uri', new_local_uri).attr('data-local_filename', local_filename);
                 item.find('.local_uri a').attr('data-original-title', new_local_uri).text(local_filename);
