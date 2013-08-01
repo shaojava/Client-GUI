@@ -36,9 +36,16 @@ var gkClientSidebar = {
                 gkClientInterface.openWindow(param);
 
 		})
-     
-	  
 
+        //访问网页版
+        $(".header_website").click(function(){
+            var  param = {
+                url: '/storage',
+                sso: 1
+            };
+            gkClientInterface.openURL(param);
+        })
+     
     },
 	clearConfiect:function(arr){
 	  var i,results = [],len = arr.length,username = gkClientInterface.getUserInfo().username;
