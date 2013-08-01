@@ -1258,7 +1258,6 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .file_attrs p{margin:5px 0;height:24px;line-height:22px}
 .file_attrs p.dzupdate{/*background-position: 15px -62px;*/background-color:#ff944d;}
 .file_attrs p.nodzupdate{/*background-position: 15px -28px;*/background-color:#6185BC;}
-.file_attrs .filename .files{display:inline-block;letter-spacing:0;max-width:120px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 #sider_page .header{padding:0;background:#6185bc;height:52px}
 #sider_page .header:hover{background:#486ea9}
 #sider_page .header .member_2013{padding-left:18px;height:100%}
@@ -1774,10 +1773,10 @@ border:1px solid #D0D6DB;
     padding:0 3px;
     border-radius: 3px;
     color:#fff;
-    font-size: 12px;
+    font-size: 11px;
     cursor: pointer;
     display: inline-block;
-    line-height: 18px;
+    line-height: 15px;
 }
 #sidebar .header_nav{
     background: -webkit-linear-gradient(top,#81a6d5 25%,#7397c9 45%,#6387be);
@@ -1798,7 +1797,7 @@ border:1px solid #D0D6DB;
 #sidebar .header_website,#sidebar .header_help{width:50px;height:38px;position:absolute;right:0;top:0;border-left:1px solid #617FB5  }
 #sidebar .header_help{right:50px;}
 #sidebar .header_website:before,#sidebar .header_help:before{display:block;content:"";background:#A4C3E9;height:38px;width:1px}
-#sidebar .header_nav i,#sidebar .header_help a{
+#sidebar .header_nav i,#sidebar .header_website a,#sidebar .header_help a{
     height: 16px;
     width: 16px;
     display: inline-block;
@@ -1807,41 +1806,39 @@ border:1px solid #D0D6DB;
     background-position: 0 0;
     margin: -3px 5px 0 0;
 }
-#sidebar .header_nav i{background-image: url(../images/icon/start16x16.png);}
-.header_help img,.header_website span{position:absolute;top:11px;left:17px}
-.header_website span{background:url(../images/icon/start16x16.png) no-repeat 0 -20px;width:50px;height:38px}
+#sidebar .header_nav i,#sidebar .header_website a{background-image: url(../images/icon/start16x16.png);}
+#sidebar .header_help a{background-image:url('../images/icon/help.png')}
+#sidebar .header_website a,#sidebar .header_help a{position:absolute;background-position:0 -21px;right:11px;top:14px;width:16px;height:16px;}
+#sidebar .header_help a{background-position:left top}
 #sidebar .account_info,
 #sidebar .file_info_wrapper{
    color:#666;
     height: 81px;
 }
-
+#sidebar .file_info_wrapper .opts{
+    margin-left: 61px;
+}
 #sidebar .account_info >div{
     display: none;
     white-space: nowrap;
-    overflow: hidden;
     text-overflow: ellipsis;
 }
 #sidebar .org_info {
     padding:18px 20px 0 20px;
 }
 #sidebar .user_info{
-    overflow: hidden;
     padding: 14px 5px 0 10px;
 }
 #sidebar .user_info img{
     height: 52px;
     width: 52px;
     border-radius: 52px;
-    float: left;
+    display: block;
     border:none;
     margin: 0 10px 0 0;
 }
 #sidebar .user_info .attrs{
-width:160px;
-float: left;
-    margin:0;
-    width:160px;
+    margin:-50px 0 0 60px;
 }
 #sidebar .user_info .attrs > div{
     overflow: hidden;
@@ -1858,13 +1855,12 @@ font-weight: 600;
 padding: 10px 10px 0 0;
 }
 #header .file_info .file_icon{
-    float: left;
     display: block;
     width: 48px;
     height: 48px;
     background-repeat: no-repeat;
     background-position: 0 0;
-    margin:0 4px 0 7px;
+    margin: 0px 4px 0 7px;
     position: relative;
     background-size: 48px 48px;
 }
@@ -1919,9 +1915,7 @@ background: none;
 }
 #header .file_info .file_attrs{
     color:#ACB4BF;
-    float: left;
-    width: 170px;
-	/*padding-top:6px;*/
+    margin: -46px 0 0 60px;
 }
 
 #header .file_info .file_opts span{
@@ -1961,6 +1955,8 @@ background: none;
     white-space: nowrap;
     overflow: hidden;
    text-overflow:ellipsis;
+    height: 19px;
+    line-height: 19px;
 }
 #header .file_info .filename{
     color:#606D7F;
@@ -2000,7 +1996,7 @@ overflow: hidden;
 }
 #main .tab_list li{
     float: left;
-    width: 80px;
+    width: 33.33%;
     text-align: center;
     cursor: pointer;
 }
@@ -2079,6 +2075,10 @@ float: right;
     float: left;
     margin: 0px 7px 0 10px;
 }
+#main .remark_list li img{
+    float: none;
+    display: block;
+}
 #main .share_members li .member_name{
     color:#64727C;
 }
@@ -2101,12 +2101,10 @@ color:#B8BFC8;
     word-break: break-all;
     word-wrap: break-word;
     margin: 20px 0 0 0;
-    overflow: hidden;
     line-height: 22px;
 }
 #main .remark_list li >div{
-    float: left;
-    width: 170px;
+    margin:-32px 0 0 50px;
 }
 #main .remark_list li .datetime{
     color:#ACB4BF;

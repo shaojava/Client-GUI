@@ -80,9 +80,6 @@ var gkClientInterface = {
     },
     openURL: function (param) {
         try {
-            if (!param.sso && param.url && /^(http:\/\/|https:\/\/).+/.test(param.url)) {
-                param.url = param.url.replace(/^http:\/\/|^https:\/\//, '');
-            }
             param = JSON.stringify(param);
             gkClient.gOpenUrl(param);
         } catch (e) {
@@ -165,9 +162,6 @@ var gkClientInterface = {
     },
     openWindow: function (params) {
         try {
-            if (!params.sso && params.url && /^(http:\/\/|https:\/\/).+/.test(params.url)) {
-                params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
-            }
             params = JSON.stringify(params);
             return gkClient.gMain(params);
         } catch (e) {
@@ -369,9 +363,9 @@ var gkClientInterface = {
         if(0){
             host =  gkClient.gApiHost();
         }else{
-            host = 'https://a2.gokuai.com';
+            host = 'a.gokuai.com';
         }
-        return host;
+        return protocol+'//'+host;
     },
     getRestDomain: function () {
         var protocol = 'http:';
@@ -379,9 +373,9 @@ var gkClientInterface = {
         if(0){
             host = gkClient.gRestHost();
         }else{
-            host = 'https://r2.gokuai.com';
+            host = 'r.gokuai.com';
         }
-        return host;
+        return protocol+'//'+host;
     },
     openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);

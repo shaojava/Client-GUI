@@ -32,13 +32,12 @@
 			 <i></i>
               <span>开始够快</span>
              </span>
-		          <a href="javascript:;" class="header_help" title="在线帮助" style="display:block">
-                               <img src="../common/images/icon/help.png" width="16" height="16" />
-                          </a>
-			   <a href="/storage" target="_blank" title="访问网页版" class="header_website" style="display:block">
-                              <span></span>
-                           </a>
-			 
+			 <div class="header_help" title="在线帮助">
+		       <a href="javascript:;" style="display:block"></a>
+			 </div>
+			 <div class="header_website" title="访问网页版">
+			   <a href="/storage" target="_blank" title="访问网页版" style="display:block"></a>
+			 </div>
 		  </div>
 		   
       </div>
@@ -234,16 +233,14 @@
                 {{if favorite}}
                 <s class="top_right favorite"></s>
                 {{/if}}
-				{{if state>1 && state < 6}}
-				  <span class="favorite{{if favorite}} on{{/if}}"><i></i></span>
-				{{/if}}
+                {{if state>1 && state < 6}}
+                <span class="favorite{{if favorite}} on{{/if}}"><i></i></span>
+                {{/if}}
             </i>
             <div class="file_attrs">
-                <div class="filename" title="${filename}"><span class="files">${filename}</span>
-				   {{if dir==0 && state > 1 && state < 6}}
-                    <a href="javascript:void(0)" title="查看历史版本" class="gktooltip version">V{{if index>0 }}${index}{{/if}}</a>
-                    {{/if}}
-				</div>
+                <div class="filename" title="${filename}">
+                    <span class="files">${filename}</span>
+                </div>
                 {{if state==0 || state==1 ||state==6}}
                 {{if state==1}}
                 <div>该文件{{if dir==1}}夹{{/if}}正与云端进行同步</div>
@@ -252,13 +249,14 @@
                 {{/if}}
                 {{else}}
                 <div class="last_edit" title="由${last_member_name}修改于${last_datetime}">
+                    {{if dir==0 && state > 1 && state < 6}}
+                    <a href="javascript:void(0)" title="查看历史版本" class="gktooltip version">V{{if index>0 }}${index}{{/if}}</a>
+                    {{/if}}
                     {{if typeof(last_member_name)!=='undefined' && last_member_name&&typeof(last_datetime)!=='undefined'&&last_datetime}}
-                    由<span class=""> ${last_member_name} </span>修改于${last_datetime}
+                    <span class="">${last_member_name} </span>修改于${last_datetime}
                     {{/if}}
                 </div>
                 {{/if}}
-
-
             </div>
         </div>
         <div class="opts" state = "${state}">

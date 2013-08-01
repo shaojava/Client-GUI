@@ -23,8 +23,8 @@ var gkClientSync = {
         //添加新的同步位置
         $('.add_new_sync').click(function () {
             gkClientInterface.openChildWindow({
-                url: 'chs/add_link.html',
-                //url: 'default/chs/add_link.html',
+                //url: 'chs/add_link.html',
+                url: 'default/chs/add_link.html',
                 width: 710,
                 height: 470
             });
