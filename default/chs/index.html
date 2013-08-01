@@ -260,7 +260,7 @@
             </div>
         </div>
         <div class="opts" state = "${state}">
-            {{if state>1 && state < 6 && is_share>0 && dir==0}}
+            {{if state>1 && state < 6 && is_share>0 && dir==0 && auth>0}}
                 {{if state == 5}}
                 <button class="btn orange_btn finish_edit">放弃独占</button>
                 {{else}}

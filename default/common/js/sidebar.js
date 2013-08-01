@@ -45,7 +45,7 @@ var gkClientSidebar = {
             };
             gkClientInterface.openURL(param);
         })
-     
+
     },
 	clearConfiect:function(arr){
 	  var i,results = [],len = arr.length,username = gkClientInterface.getUserInfo().username;
@@ -409,7 +409,8 @@ var gkClientSidebar = {
                 last_datetime: '',
                 dateline:0,
 				is_share:0,
-                index:0
+                index:0,
+                auth:0
             };
           var localData = _context.getLocalData(file.fullpath) || {};
           if(localData){
@@ -425,6 +426,7 @@ var gkClientSidebar = {
                     favorite: reData.favorite,
                     last_datetime: reData.last_datetime,
 					is_share:reData.share,
+                    auth:reData.auth,
                     icon:'icon_64_'+ _context.getFileIconSuffix(filename,dir,reData.share,file.local),
                     index:reData.index || 0
                 };
