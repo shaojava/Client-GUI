@@ -617,7 +617,6 @@ var gkClientSync = {
                 path: old_path,
                 disable_root: 1
             });
-            new_path = '/user/ddd/';
             if (new_path != old_path) {
                 if (new_path) {
                     var re = gkClientInterface.checkLinkPath(new_path);
