@@ -495,7 +495,6 @@ var gkClientSync = {
             if (!path) {
                 input.val('').attr('title','').removeAttr('data-type').hide();
                 unselectSpan.show();
-
             } else {
                 var screenPath = '';
                 if(isLocal){
@@ -519,6 +518,9 @@ var gkClientSync = {
             }else {
                 if(!default_path){
                     checkbox.removeClass('disabled');
+                    if(cloudSetWrapper.find('.chk').hasClass('checked') && cloudPath.split('/').length<=2){
+                        localSetWrapper.find('.chk').addClass('disabled');
+                    }
                 }else{
                     cloudSetWrapper.find('.chk').removeClass('disabled');
                 }
@@ -563,6 +565,7 @@ var gkClientSync = {
                 }else{
                     var temp_re = localPath.replace(/\\/,'/');
                     var dir_path = Util.String.dirName(temp_re);
+                    newLocalPath = dir_path;
                     if(temp_re != localPath){
                         newLocalPath = dir_path.replace(/\//g,'\\');
                     }
@@ -572,6 +575,7 @@ var gkClientSync = {
                 var newCloudPath = '';
                 if($(this).hasClass('checked')){
                     var localFileName = _context.getLocalFilename(localPath);
+
                     newCloudPath = cloudPath+'/'+localFileName;
                 }else{
                     newCloudPath = Util.String.dirName(cloudPath);
@@ -613,6 +617,7 @@ var gkClientSync = {
                 path: old_path,
                 disable_root: 1
             });
+            new_path = '/user/ddd/';
             if (new_path != old_path) {
                 if (new_path) {
                     var re = gkClientInterface.checkLinkPath(new_path);
@@ -622,7 +627,7 @@ var gkClientSync = {
                     }
                 }
                 dialog.find('.local_set_wrapper .chk').removeClass('checked');
-                setSelectFile(new_path,_context);
+                setSelectFile(new_path,1);
                 var cloudChk =dialog.find('.cloud_set_wrapper .chk');
                 if(cloudChk.hasClass('checked')){
                     cloudChk.removeClass('checked').trigger('click');
