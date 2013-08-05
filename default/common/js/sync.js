@@ -561,10 +561,11 @@ var gkClientSync = {
                     var cloudFileName = Util.String.baseName(cloudPath);
                     newLocalPath = localPath+slash+cloudFileName;
                 }else{
-                    var temp_re = localPath.replace(/\\/,'/')
+                    var temp_re = localPath.replace(/\\/,'/');
                     var dir_path = Util.String.dirName(temp_re);
-                    newLocalPath = dir_path.replace(/\//g,'\\');
-
+                    if(temp_re != localPath){
+                        newLocalPath = dir_path.replace(/\//g,'\\');
+                    }
                 }
                 setSelectFile(newLocalPath,1);
             }else{ //与本地同名

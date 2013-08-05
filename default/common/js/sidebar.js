@@ -806,7 +806,8 @@ var gkClientSidebar = {
                         sso: 0,
                         name: '选择性同步'
                     },
-                    {url: 'javascript:gkClientInterface.openWindow({url:"/client/create_share_folder?org_share=1",sso:1,resize:0,width:400,height:140})',
+                    {
+                        url: 'javascript:gkClientInterface.openWindow({url:"/client/create_share_folder?org_share=1",sso:1,resize:0,width:400,height:140})',
                         key: '',
                         sso: 1,
                         name: "创建团队文件夹"
