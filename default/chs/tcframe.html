@@ -8,11 +8,6 @@
     <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="../common/js/interface.js"></script>
     <script type="text/javascript">
-           function getLocalTime(time) {		    
-var b = new Date;
-b.setTime(time * 1E3);
-return b;
-        }
         function fetchUpdate() {
             var member_id = 0;
             $('body').find('.no_content,.new_tqframe').remove();
@@ -29,22 +24,11 @@ return b;
                 var updates = [];
                 if(data.updates){
                     updates = data.updates;
-                    $.each(updates, function (k, v) {
-                        HM = getLocalTime(v["dateline"]);
-                        if (currentDate == v.date) {
-						    
-                            v["date_txt"] = HM.getHours() + ":" + HM.getMinutes();
-                        } else {
-                            v["date_txt"] = (HM.getMonth() + 1) + "月" + HM.getDate() + "日";
-                        }
-                        v["hover_date_txt"] = v["date"] + " " + HM.getHours() + ":" + HM.getMinutes();
-                    })
+                    var updateMes =  $("#update_mes").tmpl({
+                        data: updates
+                    });
+                    updateMes.appendTo($('body'));
                 }
-
-                var updateMes =  $("#update_mes").tmpl({
-                    data: updates
-                });
-                updateMes.appendTo($('body'));
                 $('body').find('.new_tqframe').click(function () {
                     gkClientInterface.launchpad(JSON.stringify({tab: "notices"}));//notices
                 });
@@ -60,10 +44,8 @@ return b;
                 if(!$(".new_tqframe").scrollTop()){
 				  fetchUpdate();
 				}
-            }, 3000);
+            }, 1000);
             fetchUpdate();
-		 
-
         })
     </script>
 </head>
@@ -87,7 +69,7 @@ return b;
                     </div>
                     <div class="update_item_content f_l">
                         ${v.member_name} ${v.render_text}
-                        <span class="update_item_date" title="${v.hover_date_txt}">
+                        <span class="update_item_date" title="${v.date}">
                             ( ${v.date_txt} )
                         </span>
                     </div>
