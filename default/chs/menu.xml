@@ -11,34 +11,34 @@
 		<width>800</width>
 		<height>600</height>
 	</item>
-<!--         <item>
-                <title>扫一扫共享</title>
-                <icon>shellqrshare.bmp</icon>
-                <status>3</status>
-                <action>gMain</action>
-                <url>/client/client_file_detail?tab=share_qr</url>
-                <sso>1</sso>
-                <resize>1</resize>
-                <width>800</width>
-                <height>600</height>
-        </item> -->
 	<item>
-		<title>查看历史</title>
-		<icon>shellhistory.bmp</icon>
-		<status>1809</status>
+		<title>链接</title>
+		<icon>shelllink.bmp</icon>
+		<status>1843</status>
 		<action>gMain</action>
-		<url>/client/client_file_detail?tab=dynamic&amp;select=history</url>
+		<url>/client/client_file_detail?tab=link</url>
 		<sso>1</sso>
 		<resize>1</resize>
 		<width>800</width>
 		<height>600</height>
 	</item>
 	<item>
-		<title>讨论</title>
+		<title>动态</title>
 		<icon>shellremind.bmp</icon>
 		<status>1843</status>
 		<action>gMain</action>
 		<url>/client/client_file_detail?tab=dynamic&amp;select=remark</url>
+		<sso>1</sso>
+		<resize>1</resize>
+		<width>800</width>
+		<height>600</height>
+	</item>
+	<item>
+		<title>查看历史</title>
+		<icon>shellhistory.bmp</icon>
+		<status>1809</status>
+		<action>gMain</action>
+		<url>/client/client_file_detail?tab=dynamic&amp;select=history</url>
 		<sso>1</sso>
 		<resize>1</resize>
 		<width>800</width>
@@ -67,7 +67,7 @@
 		<height>175</height>
 	</item>
 		<item>
-		<title>申请修改</title>
+		<title>独占修改</title>
 		<icon>shelllockapply.bmp</icon>
 		<status>528</status>
 		<action>gMain</action>
@@ -78,7 +78,7 @@
 		<height>175</height>
 	</item>
 		<item>
-		<title>移交修改权</title>
+		<title>放弃独占</title>
 		<icon>shelltransfer.bmp</icon>
 		<status>1040</status>
 		<action>gMain</action>
