@@ -20,7 +20,6 @@ var gkClientSidebar = {
         });
         _context.fetchAccountInfo();
         $(".logo").click(function () {
-
             gkClientInterface.launchpad();
         })
         //在线帮助
@@ -94,10 +93,10 @@ var gkClientSidebar = {
             username: account.username,
             org_name: account.org_name,
             photourl: account.photourl,
-            used_size: Util.Number.bitSize(account.size),
-            capacity: Util.Number.bitSize(account.capacity),
-            org_used_size: Util.Number.bitSize(account.org_size),
-            org_capacity: Util.Number.bitSize(account.org_capacity)
+            used_size: Util.Number.bitSize($.trim(account.size)),
+            capacity: Util.Number.bitSize($.trim(account.capacity)),
+            org_used_size: Util.Number.bitSize($.trim(account.org_size)),
+            org_capacity: Util.Number.bitSize($.trim(account.org_capacity))
         };
         var account_info = $('#accountInfoTmpl').tmpl(data).appendTo($('#header'));
         if (type == 2) {
@@ -813,6 +812,16 @@ var gkClientSidebar = {
                         name: "创建团队文件夹"
                     }
                 ];
+                if(PAGE_CONFIG && PAGE_CONFIG.memberId && $.isNumeric(PAGE_CONFIG.memberType)  && PAGE_CONFIG.memberType<2){
+                    links.push(
+                        {
+                            url: 'javascript:gkClientInterface.openURL({url:"/manage/dashboard",sso:1})',
+                            key: '',
+                            sso: 1,
+                            name: "管理团队"
+                        }
+                    );
+                }
 
             }
             var data = {
@@ -861,7 +870,6 @@ var gkClientSidebar = {
         return optState;
     }
 };
-
 
 function gShellSelect(re) {
     if (re === PAGE_CONFIG.re) {

@@ -57,19 +57,8 @@
 	</item>
 	<item>
 		<title>独占修改</title>
-		<icon>shelllock.bmp</icon>
-		<status>272</status>
-		<action>gMain</action>
-		<url>/client/file_edit?ac=lock</url>
-		<sso>1</sso>
-		<resize>0</resize>
-		<width>490</width>
-		<height>175</height>
-	</item>
-		<item>
-		<title>独占修改</title>
 		<icon>shelllockapply.bmp</icon>
-		<status>528</status>
+		<status>784</status>
 		<action>gMain</action>
 		<url>/client/file_edit?ac=apply</url>
 		<sso>1</sso>
@@ -77,7 +66,7 @@
 		<width>490</width>
 		<height>175</height>
 	</item>
-		<item>
+	<item>
 		<title>放弃独占</title>
 		<icon>shelltransfer.bmp</icon>
 		<status>1040</status>

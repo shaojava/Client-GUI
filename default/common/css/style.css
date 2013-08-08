@@ -1790,7 +1790,13 @@ border:1px solid #D0D6DB;
 	position:relative;
 
 }
-#sidebar .header_nav .logo{width:125px;padding-left:17px}
+#sidebar .header_nav .logo{
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 101px;
+    padding-left:17px
+}
 #sidebar .header_nav .logo:hover,#sidebar .header_website:hover,#sidebar .header_help:hover{
  background: -webkit-linear-gradient(top,#8db6e9 25%,#7eaadc 45%,#6d9cce);
 }
