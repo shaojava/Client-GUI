@@ -741,7 +741,6 @@ var gkClientSidebar = {
         var main = $('#main');
         if (!PAGE_CONFIG.path) {
             var links = [], tip = '';
-
             links = [
                 {
                     key: '',
@@ -769,9 +768,9 @@ var gkClientSidebar = {
                 },
                 {
                     key: '',
-                    url: 'http://help.gokuai.com',
+                    url: 'http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODA2NjEzOF8zNzIwOV80MDA2MTEwODYwXzJf',
                     sso: 1,
-                    name: '在线帮助'
+                    name: '在线客服'
                 }
             ]
             if (PAGE_CONFIG.type == 1) {
@@ -788,6 +787,12 @@ var gkClientSidebar = {
                         url: 'javascript:gkClientInterface.selectSyncFile()',
                         sso: 0,
                         name: '选择性同步'
+                    },
+                    {
+                        key: '',
+                        url: 'http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODA2NjEzOF8zNzIwOV80MDA2MTEwODYwXzJf',
+                        sso: 1,
+                        name: '在线客服'
                     }
                 ];
             } else if (PAGE_CONFIG.type == 2) {
@@ -810,6 +815,12 @@ var gkClientSidebar = {
                         key: '',
                         sso: 1,
                         name: "创建团队文件夹"
+                    },
+                    {
+                        key: '',
+                        url: 'http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODA2NjEzOF8zNzIwOV80MDA2MTEwODYwXzJf',
+                        sso: 1,
+                        name: '在线客服'
                     }
                 ];
                 if(PAGE_CONFIG && PAGE_CONFIG.memberId && $.isNumeric(PAGE_CONFIG.memberType)  && PAGE_CONFIG.memberType<2){
