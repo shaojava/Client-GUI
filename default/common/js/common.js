@@ -3222,29 +3222,28 @@ var gkFile = {
                 hintWrapper.remove();
             }
 
-            hintWrapper = $('<div id="input_calendar_wrapper"  rel="' + q + '"></ul>');
+            hintWrapper = $('<div id="input_calendar_wrapper" rel="' + q + '"></div>');
             $('body').append(hintWrapper);
-			$("#input_calendar_wrapper").css({left:"30px",top:jqTextarea.offset().top - hintWrapper.height()+"px"});
+			$("#input_calendar_wrapper").css({left:"30px",top:jqTextarea.offset().top - hintWrapper.outerHeight()+15+"px"});
             hintWrapper.mousedown(function(e) {
                 e.stopPropagation();
             });
-            
+            hintWrapper.datepicker({
+                autoclose:true,
+                startDate:Util.Date.format(new Date(),'yyyy-MM-dd'),
+                orientation:'bottom middle',
+                language:'zh-CN',
+                format:'yyyy-mm-dd'
+            })
+            .on('changeDate', function(e){
+                    insertChar(Util.Date.format(e.date,'yyyy-MM-dd'));
+                });;
             hintWrapper.show(1, function(){
                 self.setPosition(jqTextarea, $(this));
-            });
-            WdatePicker({
-                dateFmt: 'yyyy-MM-dd',
-                errDealMode: 2,
-                eCont: hintWrapperSelector.replace('#', ''),
-                isShowClear: false,
-                highLineWeekDay: true,
-                minDate: Util.Date.format(new Date(), 'yyyy-MM-dd'),
-                onpicked: function(dp) {
-                    var date = dp.cal.getNewDateStr('yyyy-MM-dd');
-                    insertChar(date);
-                }
 
             });
+
+
         },
         // 设置位置
         setPosition: function(jqTextarea, hintWrapper){

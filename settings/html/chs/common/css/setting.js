@@ -155,6 +155,8 @@ var gkClientSetting = {
 		  $(".sync-position").click(function(){
 			 var d = gkClientInterface.selectSyncFile("{\"name\":"+$(".sync").find("input").val()+",\"type\":3}"); 
 	      })
+
+
     },
     getComputerInfo:function(){
         var clientInfo=null;

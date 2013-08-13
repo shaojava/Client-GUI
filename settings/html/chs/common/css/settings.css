@@ -12,7 +12,7 @@
 #setting #wrapper #header .tab_list li i.iabout{background-position: 0 -64px}
 #setting #wrapper #header .tab_list li i.no{background-position-x: -32px}
 #setting #wrapper #header .tab_list li:hover{background: #495b75;}
-/*liѡ��ɫ*/
+/*li选中色*/
 #setting #wrapper #header .tab_list li.selected_bg{background:#667894;}
 #setting #wrapper #main{height:490px;width:100%;background:#e1ebf5;}
 #setting #wrapper #main .tab_content_wrapper{height:419px;padding:10px;color:#999;background:#f9fbfc;border-bottom:1px solid #c2d7e9}
@@ -55,3 +55,28 @@
 #setting #wrapper #main .about h2{margin-top:20px}
 #setting #wrapper #main .about .mess{margin-top: 25px}
 #setting #wrapper #main .about .mess h3{color:#6185BC}
+
+.chk{
+    color: #434343;
+}
+.chk i{
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    background: url("../images/checkbox.png") no-repeat 0px 0px;
+    text-decoration: none;
+    vertical-align: middle;
+}
+.chk:hover i{
+    background-position:-32px 0;
+}
+.chk.checked i{
+    background-position: -48px 0;
+}
+.chk.part_checked i{
+    background-position: -64px 0;
+}
+
+#setting #wrapper #main .tab_content_wrapper .chk{
+    color:#999;
+}

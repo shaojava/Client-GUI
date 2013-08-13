@@ -11,11 +11,9 @@ var gkClientSetting = {
 		  $(".sync").find("input").val(gkClientInterface.getClientInfo().bindpath);
 		  //设置权限
 		  var baseconfig = {},gjconfig={},clientInfo = gkClientInterface.getClientInfo() ? gkClientInterface.getClientInfo() : this.clientInfo;
-console.log(this.clientInfo);		  
+
 		  for(var k in clientInfo){
-		 
 			  if(k == "auto"){
-			  
 			  baseconfig["auto"] = {};
 			  baseconfig["auto"]["k"] = k;
 			     baseconfig["auto"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
@@ -107,6 +105,11 @@ console.log(this.clientInfo);
 			   }
 			}
 			params["configpath"] = $(".file_index").find("input").val();
+            if($('.chk.use_proxy').hasClass('checked')){
+                params["proxy"] = 1;
+            }else{
+                params["proxy"] = 0;
+            }
 			gkClientInterface.setClientInfo(JSON.stringify(params));
 		    gkClientInterface.closeWindow();
 		  })
@@ -151,6 +154,23 @@ console.log(this.clientInfo);
 		  $(".sync-position").click(function(){
 			 var d = gkClientInterface.selectSyncFile("{\"name\":"+$(".sync").find("input").val()+",\"type\":3}"); 
 	      })
+
+
+        $('body').on('click','.chk',function(){
+            $(this).toggleClass('checked');
+            if($(this).hasClass('user_proxy')){
+                if($(this).hasClass('ckecked')){
+
+                }else{
+
+                }
+            }
+        })
+        if(clientInfo.proxy==1){
+            $('.chk.use_proxy').addClass('checked');
+        }else{
+            $('.chk.use_proxy').removeClass('checked');
+        }
     },
     getComputerInfo:function(){
         var clientInfo=null;

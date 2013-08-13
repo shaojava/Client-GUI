@@ -33,8 +33,12 @@ var gkClientInterface = {
 	   return gkClient.gSelectPath(path);
 	},
 	//移动同步文件
-	moveSyncFile:function(path){
-	  return gkClient.gMoveBindPath(path);
+    moveSyncFile:function(path){
+        try {
+            return gkClient.gMoveBindPath(path);
+        } catch (e) {
+            throw e;
+        }
 	},
     getClientInfo:function(){
         try {
@@ -76,9 +80,6 @@ var gkClientInterface = {
     },
     openURL: function(param) {
         try {
-            if (!param.sso && param.url && /^(http:\/\/|https:\/\/).+/.test(param.url)) {
-                param.url = param.url.replace(/^http:\/\/|^https:\/\//, '');
-            }
             param = JSON.stringify(param);
             gkClient.gOpenUrl(param);
         } catch (e) {
@@ -161,16 +162,13 @@ var gkClientInterface = {
     },
     openWindow: function (params) {
         try {
-            if (!params.sso && params.url && /^(http:\/\/|https:\/\/).+/.test(params.url)) {
-                params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
-            }
             params = JSON.stringify(params);
             return gkClient.gMain(params);
         } catch (e) {
             throw e;
         }
     },
-    openSingleWindow: function(params) {
+    openSingleWindow: function (params) {
         try {
             params = JSON.stringify(params);
             gkClient.gSoleMain(params);
@@ -178,7 +176,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    openSyncDir: function(path) {
+    openSyncDir: function (path) {
         try {
             if (path !== undefined) {
                 gkClient.gOpenPath(path);
@@ -189,7 +187,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    openPathWithSelect: function(path) {
+    openPathWithSelect: function (path) {
         try {
             if (!path && !path.length) {
                 return;
@@ -208,7 +206,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getUserInfo: function () {
+    getUserInfo: function() {
         try {
             if (!gkClient.gUserInfo()) {
                 return '';
@@ -218,7 +216,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    toggleLock: function (path) {
+    toggleLock: function(path) {
         try {
             if (!path.length) {
                 return;

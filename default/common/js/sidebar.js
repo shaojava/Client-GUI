@@ -59,6 +59,7 @@ var gkClientSidebar = {
     },
     bindShares: function (shares) {
         $(".textarea_wrapper").inputTip(this.clearConfiect(shares), $(".at_and_task"));
+
         /*$('body').tooltip({
          selector: '.gktooltip'
          });*/
@@ -112,7 +113,6 @@ var gkClientSidebar = {
         this.shareMembers = share_members;
         var slideItemShare = $('.tab_content_share');
         slideItemShare.empty();
-        console.log(share_members);
         var shareMemberList = $('#shareMembersTmpl').tmpl({
             share_members: share_members
         }).appendTo(slideItemShare);
