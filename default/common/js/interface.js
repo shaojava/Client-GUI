@@ -359,23 +359,18 @@ var gkClientInterface = {
         }
     },
     getApiDomain: function () {
-        var protocol = 'http:',host = '';
-        if(0){
-            host =  gkClient.gApiHost();
-        }else{
-            host = 'a.gokuai.com';
+        try{
+            return gkClient.gApiHost();
+        }catch(e){
+
         }
-        return protocol+'//'+host;
     },
     getRestDomain: function () {
-        var protocol = 'http:';
-        var host = '';
-        if(0){
-            host = gkClient.gRestHost();
-        }else{
-            host = 'r.gokuai.com';
+        try{
+            return  gkClient.gRestHost();
+        }catch(e){
+
         }
-        return protocol+'//'+host;
     },
     openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);
@@ -494,4 +489,3 @@ var PAGE_CONFIG = {};
         PAGE_CONFIG.orgId = account.org_id;
     }
 })();
-;

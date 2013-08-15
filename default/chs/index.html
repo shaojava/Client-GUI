@@ -260,13 +260,9 @@
             </div>
         </div>
         <div class="opts" state = "${state}">
-            {{if state>1 && state < 6 && is_share>0 && dir==0 && auth>0}}
-                {{if state == 5}}
-                <button class="btn orange_btn finish_edit">放弃独占</button>
-                {{else}}
-                <button class="btn blue_btn lock_to_edit">独占修改</button>
-                {{/if}}
-            {{/if}}
+            {{each(i,opt) opts}}
+            <button class="${opt.classes}" title="${opt.title}"><i></i></button>
+            {{/each}}
         </div>
     </div>
 </script>

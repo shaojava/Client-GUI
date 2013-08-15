@@ -309,46 +309,243 @@ var gkClientSidebar = {
             });
         }
     },
-    fetchFileHeader: function (localData) {
+    getOptClassesByFileInfo:function(ac,file){
+        var classes = 'gktooltip '+ac;
+        if(file.state<=1 || file.state>=6){
+            classes+=' disabled';
+            if(ac === 'force_to_lock' || ac === 'finish_edit' ){
+                classes+=' hide';
+            }
+        }else{
+            switch(ac){
+                case 'lock_to_edit':
+                    if(file.is_share==1 && file.dir==0 && file.auth>0 && (file.state ==2 ||  file.state ==4)){
 
+                    }else{
+                        if(file.state==3 ||file.state==5){
+                            classes+=' hide';
+                        }else{
+                            classes+=' disabled';
+                        }
+
+                    }
+                    break;
+                case 'force_to_lock':
+                    if(file.is_share==1 && file.dir==0 && file.auth>0 && file.state ==3){
+
+                    }else{
+                        classes+=' disabled hide';
+                    }
+                    break;
+                case 'finish_edit':
+                    if(file.is_share==1 && file.dir==0 && file.auth>0 && file.state ==5){
+
+                    }else{
+                        classes+=' disabled hide';
+                    }
+                    break;
+                case 'archive':
+                    if(typeof PAGE_CONFIG !=='undefined' && PAGE_CONFIG.orgId>0){
+                        if(PAGE_CONFIG.type==1){
+
+                        }else{
+                            classes+=' disabled';
+                        }
+                    }else{
+                        classes+=' hide';
+                    }
+
+                    break;
+                case 'add_keywords':
+                    break;
+        }
+        }
+        return classes;
+    },
+    fetchFileHeader: function (localData) {
         var _context = this;
         var header = $('#header');
         header.find('.file_info_wrapper').remove();
+
+
+        var show_timer = null,hide_timer;
+        var hideWrapper = function(fileDescWrapper){
+            if(show_timer){
+                clearTimeout(show_timer);
+            }
+            if(fileDescWrapper.size()){
+                hide_timer = setTimeout(function(){
+                    fileDescWrapper.remove();
+                },200);
+            }
+        }
+        var opts = [
+            {
+                classes:_context.getOptClassesByFileInfo('lock_to_edit',localData),
+                title:'独占修改',
+                events:{
+                    click:function(){
+                        var path = PAGE_CONFIG.path;
+                        if (!path.length) {
+                            return;
+                        }
+                        var params = {
+                            url: '/client/file_edit?ac=lock&fullpath=' + encodeURIComponent(path),
+                            sso: 1,
+                            resize: 0,
+                            width: 490,
+                            height: 175
+                        };
+                        gkClientInterface.openSingleWindow(params);
+                    }
+                }
+
+            },
+            {
+                classes:_context.getOptClassesByFileInfo('force_to_lock',localData),
+                title:'强制独占',
+                events:{
+                    click:function(){
+                        var path = PAGE_CONFIG.path;
+                        if (!path.length) {
+                            return;
+                        }
+                        var params = {
+                            url: '/client/file_edit?ac=lock&fullpath=' + encodeURIComponent(path),
+                            sso: 1,
+                            resize: 0,
+                            width: 490,
+                            height: 175
+                        };
+                        gkClientInterface.openSingleWindow(params);
+                    }
+                }
+
+            },
+            {
+                classes:_context.getOptClassesByFileInfo('finish_edit',localData),
+                title:'取消独占',
+                events:{
+
+                    click:function(){
+                        var path = PAGE_CONFIG.path;
+                        if (!path.length) {
+                            return;
+                        }
+                        var params = {
+                            url: '/client/file_edit?ac=transfer&fullpath=' + encodeURIComponent(path),
+                            sso: 1,
+                            resize: 0,
+                            width: 490,
+                            height: 230
+                        };
+                        gkClientInterface.openSingleWindow(params);
+                    }
+                }
+            },
+            {
+                classes:_context.getOptClassesByFileInfo('archive',localData),
+                title:'归档',
+                events:{
+                    click:function(){
+                        var path = PAGE_CONFIG.path;
+                        if (!path.length) {
+                            return;
+                        }
+                        var params = {
+                            url: '/client/archive?fullpath=' + encodeURIComponent(path),
+                            sso: 1,
+                            resize: 0,
+                            width: 450,
+                            height: 420
+                        };
+                        gkClientInterface.openSingleWindow(params);
+                    }
+                }
+
+            },
+            {
+                classes:_context.getOptClassesByFileInfo('add_keywords',localData),
+                title:'添加注释',
+                events:{
+                    mouseenter:function(){
+                        var _self = $(this);
+                        if(hide_timer){
+                            clearTimeout(hide_timer);
+                        }
+                        show_timer = setTimeout(function(){
+                            if($('.file_desc_wrapper').size()){
+                                return;
+                            }
+                            var fileDescWrapperHtml = '<div class="file_desc_wrapper">';
+                            fileDescWrapperHtml+='<div class="file_desc_content"><div class="loading empty">正在加载...</div></div>';
+                            fileDescWrapperHtml+='<s class="arrow"><em></em></s>';
+                            fileDescWrapperHtml+='</div>';
+                            var fileDescWrapper = $(fileDescWrapperHtml);
+                            fileDescWrapper.appendTo($('body'));
+                            var offset = _self.offset();
+                            var cWidth = document.documentElement.clientWidth||document.body.clientWidth;
+                            var top  = offset.top +  _self.outerHeight()+10,
+                                left = (cWidth - fileDescWrapper.outerWidth())*0.5;
+                            fileDescWrapper.css({
+                                'top':top,
+                                'left':left
+                            })
+                            fileDescWrapper.on({
+                                mouseenter:function(){
+                                    if(hide_timer){
+                                        clearTimeout(hide_timer);
+                                    }
+                                },
+                                mouseleave:function(){
+                                    hideWrapper(fileDescWrapper);
+                                }
+                            })
+                            gkRest.getFileInfo(PAGE_CONFIG.mountId, PAGE_CONFIG.path, '', function (reData) {
+                                var tag = reData.tag || '';
+                                if(!tag){
+                                    fileDescWrapper.find('.file_desc_content').html('<div class="empty">没有注释</div>');
+                                }else{
+                                    fileDescWrapper.find('.file_desc_content').html(tag);
+                                }
+
+                                var arrow = fileDescWrapper.find('.arrow');
+                                arrow.css({
+                                    'left':offset.left-fileDescWrapper.offset().left+(_self.outerWidth()-arrow.outerWidth())*0.5
+                                });
+                            },function(){
+                                fileDescWrapper.find('.loading').remove();
+                            });
+                        },400)
+                    },
+                    mouseleave:function(){
+                        hideWrapper($('.file_desc_wrapper'));
+                    },
+                    click:function(){
+                        var params = {
+                            url: '/client/add_keywords?fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
+                            sso: 1,
+                            resize: 0,
+                            width: 380,
+                            height: 230
+                        };
+                        gkClientInterface.openWindow(params);
+                    }
+                }
+            }
+        ];
+
+        localData.opts = opts;
         //判断是否出现版本
         var fileInfoWrapper = $('#fileInfoTmpl').tmpl(localData).appendTo(header);
         fileInfoWrapper.show();
 
-        //独占修改
-        $(".lock_to_edit").click(function () {
-            var path = PAGE_CONFIG.path;
-            if (!path.length) {
-                return;
+        $('.opts button').each(function(){
+            var index = $(this).index();
+            var events = opts[index].events;
+            if(events){
+                $(this).on(events);
             }
-            var params = {
-                url: '/client/file_edit?ac=lock&fullpath=' + encodeURIComponent(path),
-                sso: 1,
-                resize: 0,
-                width: 490,
-                height: 175
-            };
-            gkClientInterface.openSingleWindow(params);
-        });
-
-        //取消独占
-        $(".finish_edit").click(function () {
-            var path = PAGE_CONFIG.path;
-            if (!path.length) {
-                return;
-            }
-            var params = {
-                url: '/client/file_edit?ac=transfer&fullpath=' + encodeURIComponent(path),
-                sso: 1,
-                resize: 0,
-                width: 490,
-                height: 230
-            };
-            gkClientInterface.openSingleWindow(params);
-
         });
 
         //收藏，取消收藏
@@ -387,6 +584,8 @@ var gkClientSidebar = {
             };
             gkClientInterface.openWindow(params);
         });
+
+
     },
     fetchFileInfo: function (file) {
         var _context = this;
@@ -721,6 +920,12 @@ var gkClientSidebar = {
             });
         });
 
+        $('textarea#post_value').on('keydown',function(e){
+            if (e.keyCode == 13) {
+                $('.post_now').trigger('click');
+                return false;
+            }
+        })
 
         //历史版本
         slideItemShare.find('.version').click(function () {
