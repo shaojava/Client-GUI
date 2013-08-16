@@ -130,9 +130,13 @@ var gkClientLogin = {
         });
 
         //使用第三方帐号
-        $('#oauth_login_form .btn').on('click', function() {
+        $('.oauth_btn.btn').on('click', function() {
             var oauth = $(this).attr('name');
             var oauthURL = gkClientInterface.getSiteDomain() + '/account/oauth?oauth=' + oauth + '&key=' + gkClientInterface.getOauthKey();
+            if(oauth=='qq'){
+                //oauthURL+='&display=mobile';
+            }
+            console.log(oauthURL);
             gkClientInterface.openWindow({
                 url: oauthURL,
                 sso: 0,

@@ -363,7 +363,8 @@ input[type="password"] {
     font-size:14px;
     color:#444444;
 }
-#oauth_login_form .btn{
+
+.oauth_btn.btn{
     display:block;
     width:160px;
     height:26px;
@@ -372,35 +373,42 @@ input[type="password"] {
     margin:10px auto;
     text-align: center;
 }
-#oauth_login_form .content i{
+.from_raw.oauth_login .oauth_btn.btn{
+    width: 90px;
+    display: inline-block;
+    padding-left:10px;
+    padding-right:10px;
+    margin:0 2px;
+}
+.oauth_btn.btn i{
     width:32px;
     height:32px;
     display:block;
     float:left;
     margin-right:5px;
 }
-#oauth_login_form .sina_logo{
+.oauth_btn.btn .sina_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat -32px 0;
 }
-#oauth_login_form .qq_logo{
+.oauth_btn.btn .qq_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat 0 0;
 }
-#oauth_login_form .hichina_logo{
+.oauth_btn.btn .hichina_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat -64px 0;
 }
-#oauth_login_form .shnu_logo{
+.oauth_btn.btn .shnu_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat -96px 0;
 }
-#oauth_login_form .tita_logo{
+.oauth_btn.btn .tita_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat -160px 0;
 }
-#oauth_login_form .shisu_logo{
+.oauth_btn.btn .shisu_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat -192px 0;
 }
-#oauth_login_form .sbs_logo{
+.oauth_btn.btn .sbs_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat -224px 0;
 }
-#oauth_login_form .shedu_logo{
+.oauth_btn.btn .shedu_logo{
     background: url("../images/oath_logo.png?v=2") no-repeat -128px 0;
 }
 #login .content {
