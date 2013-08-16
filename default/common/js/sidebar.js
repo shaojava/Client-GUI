@@ -601,7 +601,7 @@ var gkClientSidebar = {
             filename: filename,
             dir: dir,
             state: file.state,
-            last_member_name: file.last_member_name,
+            last_member_name:file.last_member_name,
             last_member_id: file.last_member_id,
             favorite: 0,
             last_datetime: '',
@@ -626,7 +626,8 @@ var gkClientSidebar = {
                     is_share: reData.share,
                     auth: reData.auth,
                     icon: 'icon_64_' + _context.getFileIconSuffix(filename, dir, reData.share, file.local),
-                    index: reData.index || 0
+                    index: reData.index || 0,
+                    last_member_name: reData.last_member_name
                 };
                 $.extend(localData, newData);
                 $.extend(data, localData);

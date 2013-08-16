@@ -213,7 +213,7 @@ var gkClientInterface = {
             }
             return JSON.parse(gkClient.gUserInfo());
         } catch (e) {
-            throw e;
+            throw new Error(e.name+':'+e.message);
         }
     },
     toggleLock: function (path) {
@@ -481,11 +481,17 @@ function initWebHref(proxyElem) {
 var PAGE_CONFIG = {};
 //获取当前登录用户的信息
 (function () {
-    var account = gkClientInterface.getUserInfo();
-    if (account) {
-        PAGE_CONFIG.memberId = account.id;
-        PAGE_CONFIG.email = account.email;
-        PAGE_CONFIG.mountId = account.mount_id;
-        PAGE_CONFIG.orgId = account.org_id;
+    try{
+        var account = gkClientInterface.getUserInfo();
+        if (account) {
+            PAGE_CONFIG.memberId = account.id;
+            PAGE_CONFIG.email = account.email;
+            PAGE_CONFIG.mountId = account.mount_id;
+            PAGE_CONFIG.orgId = account.org_id;
+        }
+        console.log(PAGE_CONFIG);
+    }catch(e){
+        throw new Error(e.name+':'+ e.message);
     }
+
 })();

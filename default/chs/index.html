@@ -190,8 +190,6 @@
 			{{if member.auth == '3'}}
 			<img title="共享发起人" src="../common/images/icon/crown.png" width='16' height='16' style="vertical-align:middle;width:16px;height:16px;margin-left:2px" />
 			{{/if}}
-			
-			
 			</div>
 			<div style="clear:both"></div>
             <div class="auth" data-auth="${member.auth}">
@@ -253,7 +251,7 @@
                     <a href="javascript:void(0)" title="查看历史版本" class="gktooltip version">V{{if index>0 }}${index}{{/if}}</a>
                     {{/if}}
                     {{if typeof(last_member_name)!=='undefined' && last_member_name&&typeof(last_datetime)!=='undefined'&&last_datetime}}
-                    <span class="">${last_member_name} </span>修改于${last_datetime}
+                    <span class="">${last_member_name} </span>{{if (state==3|| state==5)&&dir==0}}独占{{/if}}修改于${last_datetime}
                     {{/if}}
                 </div>
                 {{/if}}

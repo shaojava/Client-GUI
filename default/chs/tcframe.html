@@ -1,12 +1,52 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title></title>
+    <title>最新消息</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-    <script type="text/javascript" src="../common/js/interface.js"></script>
     <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
     <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="../common/js/interface.js"></script>
+    <script>
+        function fetchUpdate() {
+            var member_id = 0;
+            $('body').find('.no_content,.new_tqframe').remove();
+            var account = gkClientInterface.getUserInfo();
+            if(account && account.id){
+                member_id =account.id;
+            }
+            if(member_id){
+                var data = gkClientInterface.getMessage();
+                //如果今天就显示时分，如果是今天以前就是月日
+                //hover显示年月日
+                var date = new Date(), currentDate = date.getFullYear() + "-" + ((date.getMonth() + 1 < 10) ? ("0" + (date.getMonth() + 1)) : (date.getMonth() + 1)) + "-" + ((date.getDate() < 10) ? ("0" + date.getDate()) : date.getDate());
+                var HM = null;
+                var updates = [];
+                if(data.updates){
+                    updates = data.updates;
+                    var updateMes =  $("#update_mes").tmpl({
+                        data: updates
+                    });
+                    updateMes.appendTo($('body'));
+                }
+                $('body').find('.new_tqframe').click(function () {
+                    gkClientInterface.launchpad(JSON.stringify({tab: "notices"}));//notices
+                });
+            }else{
+                var noContent =  $("#noContentTmpl").tmpl();
+                noContent.appendTo($('body'));
+            }
+        }
+        $(window).load(function(){
+            initWebHref();
+            setInterval(function () {
+                if(!$(".new_tqframe").scrollTop()){
+                    fetchUpdate();
+                }
+            }, 1000);
+            fetchUpdate();
+        });
+    </script>
 </head>
 <body class="tc_frame">
 <script id="noContentTmpl" type="text/x-jquery-tmpl">
@@ -38,47 +78,6 @@
             </ul>
         </div>
     </div>
-</script>
-<script type="text/javascript">
-    function fetchUpdate() {
-        var member_id = 0;
-        $('body').find('.no_content,.new_tqframe').remove();
-        var account = gkClientInterface.getUserInfo();
-        if(account && account.id){
-            member_id =account.id;
-        }
-        if(member_id){
-            var data = gkClientInterface.getMessage();
-            //如果今天就显示时分，如果是今天以前就是月日
-            //hover显示年月日
-            var date = new Date(), currentDate = date.getFullYear() + "-" + ((date.getMonth() + 1 < 10) ? ("0" + (date.getMonth() + 1)) : (date.getMonth() + 1)) + "-" + ((date.getDate() < 10) ? ("0" + date.getDate()) : date.getDate());
-            var HM = null;
-            var updates = [];
-            if(data.updates){
-                updates = data.updates;
-                var updateMes =  $("#update_mes").tmpl({
-                    data: updates
-                });
-                updateMes.appendTo($('body'));
-            }
-            $('body').find('.new_tqframe').click(function () {
-                gkClientInterface.launchpad(JSON.stringify({tab: "notices"}));//notices
-            });
-        }else{
-            var noContent =  $("#noContentTmpl").tmpl();
-            noContent.appendTo($('body'));
-        }
-    }
-
-    $(function () {
-        initWebHref();
-        setInterval(function () {
-            if(!$(".new_tqframe").scrollTop()){
-                fetchUpdate();
-            }
-        }, 1000);
-        fetchUpdate();
-    })
 </script>
 </body>
 </html>
