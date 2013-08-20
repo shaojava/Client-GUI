@@ -280,7 +280,9 @@ var gkClientSidebar = {
                     } else if (_self.hasClass('link_qq')) {
                         _context.shareToWeibo('qq', content, url);
                     } else if (_self.hasClass('link_mail')) {
-                        gkClientInterface.mailTo('', url, url)
+						var subject = '链接共享';
+						var content = '您的朋友 ' + PAGE_CONFIG.memberName + ' 通过够快和你分享了一个文件\n\n点击下面链接查看\n' + url;
+						gkClientInterface.mailTo('', subject, content);
                     }
                 };
                 var params = {
