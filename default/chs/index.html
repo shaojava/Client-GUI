@@ -259,7 +259,7 @@
         </div>
         <div class="opts" state = "${state}">
             {{each(i,opt) opts}}
-            <button class="${opt.classes}" title="${opt.title}"><i></i></button>
+            <button class="${opt.classes}"{{if opt.classes.indexOf('disable')>=0}} disabled{{/if}} title="${opt.title}"><i></i></button>
             {{/each}}
         </div>
     </div>
