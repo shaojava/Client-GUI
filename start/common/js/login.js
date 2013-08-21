@@ -389,10 +389,10 @@ var gkClientLogin = {
             return false;
         });
 
-        var qrImg = $('<img class="qrcode" alt="您的网络似乎有问题，请检查您的网络连接。" src="' + gkClientInterface.getSiteDomain() + '/account/get_login_qr?key=' + key + '&client=1" />');
-        if ($('.slide_banner .qr_img').size()) {
-            $('.slide_banner .qr_img').prepend(qrImg);
-        }
+//        var qrImg = $('<img class="qrcode" alt="您的网络似乎有问题，请检查您的网络连接。" src="' + gkClientInterface.getSiteDomain() + '/account/get_login_qr?key=' + key + '&client=1" />');
+//        if ($('.slide_banner .qr_img').size()) {
+//            $('.slide_banner .qr_img').prepend(qrImg);
+//        }
         //幻灯片运行
         gkClientLogin.bindUI();
         //检测二维码登录 
