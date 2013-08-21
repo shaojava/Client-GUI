@@ -358,6 +358,17 @@ var gkClientSidebar = {
                     break;
                 case 'add_keywords':
                     break;
+                case 'smart_folder':
+                    if(typeof PAGE_CONFIG !=='undefined'){
+                        if(file.dir==1){
+
+                        }else{
+                            classes+=' disabled';
+                        }
+                    }else{
+                        classes+=' hide';
+                    }
+                    break;
         }
         }
         return classes;
@@ -366,7 +377,6 @@ var gkClientSidebar = {
         var _context = this;
         var header = $('#header');
         header.find('.file_info_wrapper').remove();
-
 
         var show_timer = null,hide_timer;
         var hideWrapper = function(fileDescWrapper){
@@ -445,7 +455,7 @@ var gkClientSidebar = {
             },
             {
                 classes:_context.getOptClassesByFileInfo('archive',localData),
-                title:'归档',
+                title:'归档到团队的文件',
                 events:{
                     click:function(){
                         var path = PAGE_CONFIG.path;
@@ -532,6 +542,57 @@ var gkClientSidebar = {
                         gkClientInterface.openWindow(params);
                     }
                 }
+            },
+            {
+                classes:_context.getOptClassesByFileInfo('smart_folder',localData),
+                title:'创建智能文件夹',
+                events:{
+                    click:function(){
+                        var path = PAGE_CONFIG.path;
+                        var fullpath = path+ '/';
+                        var keyword = '';
+                        var condition = {'include': {}, 'exclude': {}};
+                        keyword && (condition.include.keywords = keyword);
+                        path && (condition.include.path = fullpath);
+                        var params = {
+                            token: gkClientInterface.getToken(),
+                            fullpath: fullpath,
+                            auth: '1011',
+                            type: 6,
+                            condition: condition
+                        };
+                        condition.include.org_share = 0;
+                        if( PAGE_CONFIG.type==3){
+                            condition.include.org_share = 1;
+                        }
+
+                        $.ajax({
+                            url: gkClientInterface.getApiDomain() + '/link_publish',
+                            data: params,
+                            type: 'POST',
+                            dataType: 'json',
+                            success: function (data) {
+                                console.log(data);
+                                if(!data || !data.link) return;
+                                var params = {
+                                    url:  data.link,
+                                    sso: 1,
+                                    resize: 0,
+                                    width: 1000,
+                                    height: 600
+                                };
+                                console.log(params);
+                                gkClientInterface.openWindow(params);
+                            },
+                            error: function (request, textStatus, errorThrown) {
+                                var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                                alert(errorMsg);
+                            }
+                        });
+
+                    }
+                }
+
             }
         ];
 

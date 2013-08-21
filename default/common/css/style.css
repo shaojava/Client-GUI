@@ -1872,6 +1872,9 @@ border:1px solid #D0D6DB;
 #sidebar .file_info_wrapper .opts button.finish_edit i{
     background-position: -43px -24px;
 }
+#sidebar .file_info_wrapper .opts button.smart_folder i{
+    background-position:-124px -25px;
+}
 #sidebar .file_info_wrapper .opts button.disabled{
     background: #ccc;
     cursor: default;
