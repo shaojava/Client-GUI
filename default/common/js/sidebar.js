@@ -564,7 +564,7 @@ var gkClientSidebar = {
                             condition: condition
                         };
                         condition.include.org_share = 0;
-                        if( PAGE_CONFIG.type==3){
+                        if( PAGE_CONFIG.type==2){
                             condition.include.org_share = 1;
                         }
 
