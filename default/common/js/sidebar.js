@@ -551,7 +551,7 @@ var gkClientSidebar = {
                 events:{
                     click:function(){
                         var path = PAGE_CONFIG.path;
-                        var fullpath = path+ '/';
+                        var fullpath = path;
                         var keyword = '';
                         var condition = {'include': {}, 'exclude': {}};
                         keyword && (condition.include.keywords = keyword);
