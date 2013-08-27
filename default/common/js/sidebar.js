@@ -447,7 +447,7 @@ var gkClientSidebar = {
             },
             {
                 classes:_context.getOptClassesByFileInfo('finish_edit',localData),
-                title:'取消独占',
+                title:'放弃独占',
                 events:{
 
                     click:function(){
