@@ -222,6 +222,13 @@
         </div>
     </div>
 </script>
+<script type="text/x-jquery-tmpl" id="optsTmpl">
+    <div class="opts" state = "${state}">
+        {{each(i,opt) opts}}
+        <button class="${opt.classes}"{{if opt.classes.indexOf('disable')>=0}} disabled{{/if}} title="${opt.title}"><i></i></button>
+        {{/each}}
+    </div>
+</script>
 <script type="text/x-jquery-tmpl" id="fileInfoTmpl">
     <div class="file_info_wrapper">
         <div class="file_info">
@@ -255,11 +262,6 @@
                 </div>
                 {{/if}}
             </div>
-        </div>
-        <div class="opts" state = "${state}">
-            {{each(i,opt) opts}}
-            <button class="${opt.classes}"{{if opt.classes.indexOf('disable')>=0}} disabled{{/if}} title="${opt.title}"><i></i></button>
-            {{/each}}
         </div>
     </div>
 </script>

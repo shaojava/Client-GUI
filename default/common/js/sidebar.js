@@ -89,6 +89,7 @@ var gkClientSidebar = {
          });*/
     },
     fetchAccountInfo: function (type) {
+        var _context = this;
         var account = gkClientInterface.getUserInfo();
         var data = {
             username: account.username,
@@ -100,6 +101,16 @@ var gkClientSidebar = {
             org_capacity: Util.Number.bitSize($.trim(account.org_capacity))
         };
         var account_info = $('#accountInfoTmpl').tmpl(data).appendTo($('#header'));
+        if(type == 1 || type == 2){
+            var fileData = {
+                is_share:0,
+                dir:1,
+                state:2,
+                auth:3,
+                fullpath:''
+            };
+            _context.fetchOpts(fileData,account_info);
+        }
         if (type == 2) {
             account_info.find('.org_info').show();
         } else {
@@ -156,7 +167,6 @@ var gkClientSidebar = {
 
     },
     getLinkKeyAndTipByAuth: function (auth) {
-
         var re = {};
         switch (auth) {
             case '1000':
@@ -204,7 +214,6 @@ var gkClientSidebar = {
                 gkClientInterface.openWindow(params);
             });
         } else {
-
             var link_type = publish.link_type,
                 modes = [],
                 mode = null;
@@ -265,7 +274,6 @@ var gkClientSidebar = {
                     dir = 1;
                 }
                 var filename = Util.String.baseName(Util.String.rtrim(PAGE_CONFIG.path, '/'));
-                var content = '我通过 @够快科技 共享了文件' + (dir ? '夹' : '') + ' "' + filename + '"';
                 var callback = function (url) {
                     if (_self.hasClass('link_browser')) {
                         gkClientInterface.openURL({
@@ -324,7 +332,7 @@ var gkClientSidebar = {
                     if(file.is_share==1 && file.dir==0 && file.auth>0 && (file.state ==2 ||  file.state ==4)){
 
                     }else{
-                        if(file.state==3 ||file.state==5){
+                        if(file.fullpath&&(file.state==3 ||file.state==5)){
                             classes+=' hide';
                         }else{
                             classes+=' disabled';
@@ -333,14 +341,14 @@ var gkClientSidebar = {
                     }
                     break;
                 case 'force_to_lock':
-                    if(file.is_share==1 && file.dir==0 && file.auth>0 && file.state ==3){
+                    if(file.fullpath&&file.is_share==1 && file.dir==0 && file.auth>0 && file.state ==3){
 
                     }else{
                         classes+=' disabled hide';
                     }
                     break;
                 case 'finish_edit':
-                    if(file.is_share==1 && file.dir==0 && file.auth>0 && file.state ==5){
+                    if(file.fullpath&&file.is_share==1 && file.dir==0 && file.auth>0 && file.state ==5){
 
                     }else{
                         classes+=' disabled hide';
@@ -348,7 +356,7 @@ var gkClientSidebar = {
                     break;
                 case 'archive':
                     if(typeof PAGE_CONFIG !=='undefined' && PAGE_CONFIG.orgId>0){
-                        if(PAGE_CONFIG.type==1){
+                        if(file.fullpath&&PAGE_CONFIG.type==1){
 
                         }else{
                             classes+=' disabled';
@@ -359,6 +367,11 @@ var gkClientSidebar = {
 
                     break;
                 case 'add_keywords':
+                    if(file.fullpath){
+
+                    }else{
+                        classes+=' disabled';
+                    }
                     break;
                 case 'smart_folder':
                     if(typeof PAGE_CONFIG !=='undefined'){
@@ -375,11 +388,9 @@ var gkClientSidebar = {
         }
         return classes;
     },
-    fetchFileHeader: function (localData) {
+    fetchOpts:function(localData,wrapper){
+        console.log(localData);
         var _context = this;
-        var header = $('#header');
-        header.find('.file_info_wrapper').remove();
-
         var show_timer = null,hide_timer;
         var hideWrapper = function(fileDescWrapper){
             if(show_timer){
@@ -390,7 +401,7 @@ var gkClientSidebar = {
                     fileDescWrapper.remove();
                 },200);
             }
-        }
+        };
         var opts = [
             {
                 classes:_context.getOptClassesByFileInfo('lock_to_edit',localData),
@@ -481,6 +492,9 @@ var gkClientSidebar = {
                 title:'添加注释',
                 events:{
                     mouseenter:function(){
+                        if(!PAGE_CONFIG.path){
+                            return;
+                        }
                         var _self = $(this);
                         if(hide_timer){
                             clearTimeout(hide_timer);
@@ -551,7 +565,7 @@ var gkClientSidebar = {
                 events:{
                     click:function(){
                         var path = PAGE_CONFIG.path;
-                        var fullpath = path+ '/';
+                        var fullpath = path;
                         var keyword = '';
                         var condition = {'include': {}, 'exclude': {}};
                         keyword && (condition.include.keywords = keyword);
@@ -574,16 +588,14 @@ var gkClientSidebar = {
                             type: 'POST',
                             dataType: 'json',
                             success: function (data) {
-                                console.log(data);
                                 if(!data || !data.link) return;
                                 var params = {
                                     url:  data.link + '#create',
                                     sso: 1,
-                                    resize: 0,
+                                    resize: 1,
                                     width: 1000,
                                     height: 600
                                 };
-                                console.log(params);
                                 gkClientInterface.openWindow(params);
                             },
                             error: function (request, textStatus, errorThrown) {
@@ -597,19 +609,26 @@ var gkClientSidebar = {
 
             }
         ];
+        wrapper.find('.opts').remove();
+        var optsWrapper = $('#optsTmpl').tmpl({opts:opts,state:localData.state}).appendTo(wrapper);
 
-        localData.opts = opts;
-        //判断是否出现版本
-        var fileInfoWrapper = $('#fileInfoTmpl').tmpl(localData).appendTo(header);
-        fileInfoWrapper.show();
-
-        $('.opts button').each(function(){
+        optsWrapper.find('button').each(function(){
             var index = $(this).index();
             var events = opts[index].events;
             if(events){
                 $(this).on(events);
             }
         });
+    },
+    fetchFileHeader: function (localData) {
+        var _context = this;
+        var header = $('#header');
+        header.find('.file_info_wrapper').remove();
+
+        //判断是否出现版本
+        var fileInfoWrapper = $('#fileInfoTmpl').tmpl(localData).appendTo(header);
+        _context.fetchOpts(localData,fileInfoWrapper);
+        fileInfoWrapper.show();
 
         //收藏，取消收藏
         fileInfoWrapper.find('.favorite').click(function () {
@@ -671,7 +690,8 @@ var gkClientSidebar = {
             dateline: 0,
             is_share: 0,
             index: 0,
-            auth: 0
+            auth: 0,
+            fullpath:fullpath
         };
         var localData = _context.getLocalData(file.fullpath) || {};
         if (localData) {
