@@ -1824,11 +1824,11 @@ border:1px solid #D0D6DB;
    color:#666;
     height: 108px;
 }
-#sidebar .file_info_wrapper .opts{
+#sidebar #header .opts{
     text-align: center;
     margin: 16px 0 0 0;
 }
-#sidebar .file_info_wrapper .opts button{
+#sidebar #header .opts button{
     display: inline-block;
     width: 30px;
     height: 24px;
@@ -1838,64 +1838,65 @@ border:1px solid #D0D6DB;
     border:0;
     cursor: pointer;
 }
-#sidebar .file_info_wrapper .opts button.archive{
+#sidebar #header .opts button.archive{
     background: #C1E292;
 }
-#sidebar .file_info_wrapper .opts button.add_keywords{
+#sidebar #header .opts button.add_keywords{
     background: #AAC2D7;
 }
-#sidebar .file_info_wrapper .opts button.force_to_lock{
+#sidebar #header .opts button.force_to_lock{
     background: #8ACBE1;
 }
-#sidebar .file_info_wrapper .opts button.finish_edit{
+#sidebar #header .opts button.finish_edit{
     background: #9AD1B8;
 }
-#sidebar .file_info_wrapper .opts button i{
+#sidebar #header .opts button i{
     display: inline-block;
     width: 16px;
     height: 16px;
     vertical-align: middle;
     background: url(../images/icon/white_icon16x16.png) no-repeat 0 0;
 }
-#sidebar .file_info_wrapper .opts button.lock_to_edit i{
+#sidebar #header .opts button.lock_to_edit i{
     background-position: -164px -4px;
 }
-#sidebar .file_info_wrapper .opts button.archive i{
+#sidebar #header .opts button.archive i{
     background-position: -3px -25px;
 }
-#sidebar .file_info_wrapper .opts button.add_keywords i{
+#sidebar #header .opts button.add_keywords i{
     background-position: -24px -25px;
 }
-#sidebar .file_info_wrapper .opts button.force_to_lock i{
+#sidebar #header .opts button.force_to_lock i{
     background-position: -62px -25px;
 }
-#sidebar .file_info_wrapper .opts button.finish_edit i{
+#sidebar #header .opts button.finish_edit i{
     background-position: -43px -24px;
 }
-#sidebar .file_info_wrapper .opts button.smart_folder i{
+#sidebar #header .opts button.smart_folder i{
     background-position:-124px -25px;
 }
-#sidebar .file_info_wrapper .opts button.disabled{
+#sidebar #header .opts button.disabled{
     background: #ccc;
     cursor: default;
 }
-#sidebar .file_info_wrapper .opts button.hide{
+#sidebar #header .opts button.hide{
     display: none;
 }
-#sidebar .account_info >div{
+#sidebar .account_info .org_info,
+#sidebar .account_info .user_info{
     display: none;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
 #sidebar .org_info {
-    padding:18px 20px 0 20px;
+    padding:10px 20px 0 20px;
 }
 #sidebar .user_info{
-    padding: 14px 5px 0 10px;
+    padding: 12px 5px 0 10px;
 }
 #sidebar .user_info img{
-    height: 52px;
-    width: 52px;
+    height: 48px;
+    width: 48px;
     border-radius: 52px;
     display: block;
     border:none;
@@ -1916,7 +1917,7 @@ color:#6185BC;
 font-weight: 600;
 }
 #header .file_info{
-padding: 10px 10px 0 0;
+padding: 15px 10px 0 0;
 }
 #header .file_info .file_icon{
     display: block;
