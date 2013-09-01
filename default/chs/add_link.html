@@ -8,37 +8,7 @@
     <link rel="stylesheet" type="text/css" href="../common/js/lib/zTree/css/zTreeStyle/zTreeStyle.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/zTree/css/zTreeStyle/teamShareTree.css"/>
     <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-    <script type="text/javascript" src="../common/js/util.js"></script>
-    <script type="text/javascript" src="../common/js/lang/zh-CN.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery-ui/jquery-ui.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery-ui/jquery.gkDialog.js"></script>
-    <script type="text/javascript" src="../common/js/lib/zTree/js/jquery.ztree.core-3.5.js"></script>
-    <script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap_customize.min.js"></script>
-    <script type="text/javascript" src="../common/js/component/droplist.js"></script>
-    <script type="text/javascript" src="../common/js/rest.js"></script>
-    <script type="text/javascript" src="../common/js/common.js"></script>
-    <script type="text/javascript" src="../common/js/interface.js"></script>
-    <script type="text/javascript" src="../common/js/sync.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            //多语言
-            $('[data-locale]').translate();
 
-            var hash =location.hash;
-            var path = '';
-            if(hash){
-                path= decodeURIComponent(Util.String.ltrim(hash,'#'));
-            }
-            initWebHref();
-            $('body').tooltip({
-                selector: '.gktooltip'
-            });
-            gkClientSync.initAddLink(path);
-
-        })
-    </script>
 </head>
 
 <body id="sync_page">
@@ -90,13 +60,50 @@
          {{html L('start_sync_dialog_content',filename,local_path)}}
      </div>
 </script>
-</body>
-
 <script type="text/x-jquery-tmpl" id="selectCloudFileDialog">
     <div class="select_cloudfile_dialog_content">
-            <div class="team_share_tree" id="gk_cloud_file_list">
+        <div class="team_share_tree" id="gk_cloud_file_list">
 
-            </div>
+        </div>
     </div>
 </script>
+
+<script type="text/javascript">
+    var lang = navigator.language || 'zh-CN';
+    document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript" src="../common/js/common.js"></script>
+<script type="text/javascript" src="../common/js/util.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery-ui/jquery.gkDialog.js"></script>
+<script type="text/javascript" src="../common/js/lib/zTree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap_customize.min.js"></script>
+<script type="text/javascript" src="../common/js/component/droplist.js"></script>
+<script type="text/javascript" src="../common/js/rest.js"></script>
+<script type="text/javascript" src="../common/js/common.js"></script>
+<script type="text/javascript" src="../common/js/interface.js"></script>
+<script type="text/javascript" src="../common/js/sync.js"></script>
+<script type="text/javascript">
+    $(function () {
+        //多语言
+        $('[data-locale]').translate();
+
+        var hash =location.hash;
+        var path = '';
+        if(hash){
+            path= decodeURIComponent(Util.String.ltrim(hash,'#'));
+        }
+        initWebHref();
+        $('body').tooltip({
+            selector: '.gktooltip'
+        });
+        gkClientSync.initAddLink(path);
+
+    })
+</script>
+</body>
+
+
 </html>
