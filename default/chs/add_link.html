@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>添加一对新的同步文件夹</title>
+    <title data-locale="add_a_new_pair_of_synchronize_folders">添加一对新的同步文件夹</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/jquery-ui/jquery-ui.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/jquery-ui/jquery-ui-gk.css"/>
@@ -9,7 +9,7 @@
     <link rel="stylesheet" type="text/css" href="../common/js/lib/zTree/css/zTreeStyle/teamShareTree.css"/>
     <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
     <script type="text/javascript" src="../common/js/util.js"></script>
-    <script type="text/javascript" src="../common/js/lang/zh-cn.js"></script>
+    <script type="text/javascript" src="../common/js/lang/zh-CN.js"></script>
     <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
     <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
     <script type="text/javascript" src="../common/js/lib/jquery-ui/jquery-ui.js"></script>
@@ -23,6 +23,9 @@
     <script type="text/javascript" src="../common/js/sync.js"></script>
     <script type="text/javascript">
         $(function () {
+            //多语言
+            $('[data-locale]').translate();
+
             var hash =location.hash;
             var path = '';
             if(hash){
@@ -44,17 +47,17 @@
         <div class="set_wrapper cloud_set_wrapper">
             <i class="icon"></i>
             <div class="select_btn_wrapper">
-                <button class="btn blue_btn select_cloud_file"><i></i>选择云端文件夹</button>
+                <button class="btn blue_btn select_cloud_file"><i></i><span data-locale="select_a_cloud_folder">选择云端文件夹</span></button>
             </div>
             <div class="d_title yahei_font">
-                <span>云端位置：</span>
+                <span data-locale="cloud_position">云端位置：</span>
             </div>
             <div class="selected_file_wrapper">
                 <input type="text" value="" readonly class="path_input" id="selected_cloud_path" name="selected_cloud_path" />
-                <span class="unselected_span">未选择</span>
+                <span class="unselected_span" data-locale="pls_select_a_cloud_folder">请选择云端位置</span>
             </div>
             <div class="other_set_wrapper">
-                <a href="javascript:void(0)" class="chk disabled"><i></i><span>创建与本地同名的文件夹</span></a>
+                <a href="javascript:void(0)" class="chk disabled"><i></i><span  data-locale="create_a_folder_with_the_same_name_as_local_folder">创建与本地同名的文件夹</span></a>
             </div>
         </div>
         <div class="middle_wrapper">
@@ -63,28 +66,28 @@
         <div class="set_wrapper local_set_wrapper">
             <i class="icon"></i>
             <div class="select_btn_wrapper">
-                <button class="btn blue_btn select_local_file"><i></i>选择本地文件夹</button>
+                <button class="btn blue_btn select_local_file"><i></i><span data-locale="select_a_local_folder">选择本地文件夹</span></button>
             </div>
             <div class="d_title yahei_font">
-               <span id="">本地位置：</span>
+               <span id="" data-locale="local_position">本地位置：</span>
             </div>
             <div class="selected_file_wrapper">
                 <input type="text" value="" readonly class="path_input" id="selected_local_path" name="selected_local_path" />
-                <span class="unselected_span">未选择</span>
+                <span class="unselected_span" data-locale="pls_select_a_local_folder">请选择本地位置</span>
             </div>
             <div class="other_set_wrapper">
-                <a href="javascript:void(0)" class="chk disabled"><i></i><span>创建与云端同名的文件夹</span></a>
+                <a href="javascript:void(0)" class="chk disabled"><i></i><span data-locale="create_a_folder_with_the_same_name_as_cloud_folder">创建与云端同名的文件夹</span></a>
             </div>
         </div>
     </div>
     <div class="dialog_bottom">
-        <button class="btn blue_btn start_sync">开始同步</button>
-        <button class="btn cancel">取消</button>
+        <button class="btn blue_btn start_sync" data-locale="start_sync">开始同步</button>
+        <button class="btn cancel" data-locale="cancel">取消</button>
     </div>
 </div>
 <script type="text/x-jquery-tmpl" id="startSyncDialog">
-     <div class="start_sync_dialog_content">
-         云端文件夹 <strong>${filename}</strong> 与本地的文件夹 <strong>${local_path}</strong> 即将进行同步
+     <div class="start_sync_dialog_content" data-locale="start_sync_dialog_content">
+         {{html L('start_sync_dialog_content',filename,local_path)}}
      </div>
 </script>
 </body>

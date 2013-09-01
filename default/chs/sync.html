@@ -8,76 +8,54 @@
     <link rel="stylesheet" type="text/css" href="../common/js/lib/jquery-ui/jquery-ui-gk.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/zTree/css/zTreeStyle/zTreeStyle.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/zTree/css/zTreeStyle/teamShareTree.css"/>
-
-    <script type="text/javascript" src="../common/js/util.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery-ui/jquery-ui.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery-ui/jquery.gkDialog.js"></script>
-    <script type="text/javascript" src="../common/js/lib/zTree/js/jquery.ztree.core-3.5.js"></script>
-    <script type="text/javascript" src="../common/js/component/droplist.js"></script>
-    <script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap_customize.min.js"></script>
-    <script type="text/javascript" src="../common/js/interface.js"></script>
-    <script type="text/javascript" src="../common/js/sync.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            initWebHref();
-            $('body').tooltip({
-                selector: '.gktooltip'
-            });
-            gkClientSync.init();
-
-        })
-    </script>
 </head>
 
 <body id="sync_page">
 <div class="wrapper">
-    <h1>设置文件夹的同步</h1>
-
+    <h1 data-locale="synchronization_options">设置文件夹的同步</h1>
     <div class="list_wrapper">
         <div class="list_header">
             <div class="td cloud_uri">
                 <i></i>
-                <span>云端位置</span>
+                <span data-locale="cloud_position">云端位置</span>
             </div>
             <div class="td local_uri">
                 <i></i>
-                <span>本地位置</span>
+                <span data-locale="local_position">本地位置</span>
             </div>
             <div class="td opts">
-                <button class="btn blue_btn add_new_sync">+ 添加</button>
+                <button class="btn blue_btn add_new_sync" data-locale="plus_add">+ 添加</button>
             </div>
         </div>
     </div>
 </div>
 <script type="text/x-jquery-tmpl" id="startSyncDialog">
      <div class="start_sync_dialog_content">
-         将云端文件夹 ${filename} 同步到 ${local_path}
+        ${L('start_sync_dialog_content',filename,local_path)}
      </div>
 </script>
 <script type="text/x-jquery-tmpl" id="addLinkDialogTmpl">
     <div class="add_link_content">
         <div class="cloud_set_wrapper">
-            <div class="d_title"><i></i>选择云端文件夹</div>
+            <div class="d_title"><i></i>${L('choose_cloud_folder')}</div>
             <div class="d_content select_file_wrapper">
                 <div class="f_l scrollbar file_tree_wrapper">
                     <div class="team_share_tree"></div>
                 </div>
                 <div class="f_l selected_cloud_file_wrapper">
-                    <div class="empty">正在加载...</div>
+                    <div class="empty">${L('loading')}</div>
                 </div>
             </div>
-
         </div>
         <div class="local_set_wrapper">
-            <div class="d_title"><i></i>选择本地文件夹</div>
+            <div class="d_title"><i></i>${L('choose_local_folder')}</div>
             <div class="d_content goto_select_file">
                 <div>
-                    <button class="btn blue_btn select_local_file">选择本地位置</button>
+                    <button class="btn blue_btn select_local_file">${L('choose_local_position')}</button>
                 </div>
                 <div>
-                    设置云端文件夹同步到本地的位置
+                    ${L('set_local_synchronization_position')}
+
                 </div>
             </div>
         </div>
@@ -86,7 +64,7 @@
 <script type="text/x-jquery-tmpl" id="fileListTmpl">
     <div class="list scrollbar">
         {{if typeof(files)===undefined || !files || !files.length }}
-            <div class="empty">未设置文件夹同步</div>
+            <div class="empty">${L('no_synchronization')}</div>
         {{else}}
         {{each(i,v) files}}
         <div class="sync_item c_f_after"
@@ -98,21 +76,21 @@
         <div class="td local_uri">
             <i class="icon"></i>
             <a href="${v.local_url}" title="${v.local_uri}" class="gktooltip name">${v.local_filename}</a>
-            <button class="btn edit_local_uri">移动</button>
+            <button class="btn edit_local_uri">${L('move')}</button>
         </div>
         <div class="td opts">
             <a href="javascript:void(0)" class="set"></a>
             <ul class="dropdown_menu dropdown_main dropdown_menu_set_sync">
                 <li>
-                    <a href="javascript:void(0)" title="取消同步该文件夹下的部分文件" data-placement="left"
+                    <a href="javascript:void(0)" data-placement="left"
                        class="gktooltip select_to_sync">
-                        选择性同步
+                        ${L('select_files_to_sync')}
                     </a>
                 </li>
                 {{if v.removeAvaiable}}
                 <li>
-                    <a href="javascript:void(0)" title="停止与云端文件夹的同步" data-placement="left"
-                       class="gktooltip remove_sync">取消同步</a>
+                    <a href="javascript:void(0)" data-placement="left"
+                       class="gktooltip remove_sync">${L('remove_synchronization')}</a>
                 </li>
                 {{/if}}
             </ul>
@@ -122,6 +100,33 @@
         {{/if}}
     </div>
 </script>
-</body>
 
+
+<script type="text/javascript">
+    var lang = navigator.language || 'zh-CN';
+    document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery-ui/jquery-ui.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery-ui/jquery.gkDialog.js"></script>
+<script type="text/javascript" src="../common/js/lib/zTree/js/jquery.ztree.core-3.5.js"></script>
+<script type="text/javascript" src="../common/js/common.js"></script>
+<script type="text/javascript" src="../common/js/util.js"></script>
+<script type="text/javascript" src="../common/js/component/droplist.js"></script>
+<script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap_customize.min.js"></script>
+<script type="text/javascript" src="../common/js/interface.js"></script>
+<script type="text/javascript" src="../common/js/sync.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('[data-locale]').translate();
+        initWebHref();
+        $('body').tooltip({
+            selector: '.gktooltip'
+        });
+        gkClientSync.init();
+
+    })
+</script>
+</body>
 </html>

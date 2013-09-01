@@ -37,7 +37,7 @@ var gkClientSync = {
         list.unshift({
             fullpath:bindpath,
             type: 3,
-            webpath: "文件"
+            webpath: L('files')
         });
         var files = _context.formatLinkData(list);
         $('.list_wrapper .list').remove();
@@ -72,7 +72,7 @@ var gkClientSync = {
                     return;
                 }
                 var trimPath =Util.String.rtrim(Util.String.rtrim(new_local_uri,'/'),'\\\\');
-                if(!confirm('确定要移动到 '+trimPath+' ?')){
+                if(!confirm(L('are_your_sure_to_move_to',trimPath))){
                     return;
                 }
                 if(type==3){ //移动同步根目录
@@ -121,7 +121,7 @@ var gkClientSync = {
             if (!webpath) {
                 return;
             }
-            if(!confirm('确定要取消该同步关系？')){
+            if(!confirm(L('are_you_sure_to_remove_this_synchronization_relationship'))){
            // if(!confirm('确定要取消云端文件 ' +webpath+ ' 与 '+localpath+' 的同步？')){
                 return;
             }
@@ -144,7 +144,7 @@ var gkClientSync = {
             var html = '<div class="d_content selected_cloud_file" style="display: none">';
             html += '<div><i class="' + icon + '"></i><span>' + filename + '</span></div>';
             html += '<div>';
-            html += '<div>云端位置</div>';
+            html += '<div>'+L('cloud')+'</div>';
             html += '<div><span id="select_cloud_file_path" data-type="' + type + '">' + path + '</span></div>';
             html += '</div>';
             html += '</div>';
@@ -191,7 +191,7 @@ var gkClientSync = {
                         var myFiles = data.my_files;
                         var teamTree = {
                             'tId': '1',
-                            'name': '团队的文件',
+                            'name': L('team_files'),
                             'iconSkin': 'file_icon icon_team_root ',
                             'className': '',
                             'fullpath': '',
@@ -199,14 +199,14 @@ var gkClientSync = {
                             'isParent': teamFiles && teamFiles.length,
                             'data-hash': '',
                             'data-fullpath': '',
-                            'data-filename': '团队的文件',
+                            'data-filename':L('team_files'),
                             'data-icon': 'icon_team_root',
                             'data-type': 2,
                             'children': _context.rendFileList(teamFiles, parentNode,2)
                         };
                         var myTree = {
                             'tId': '2',
-                            'name': '个人的文件',
+                            'name': L('my_files'),
                             'iconSkin': 'file_icon icon_my_root ',
                             'className': '',
                             'open': true,
@@ -214,7 +214,7 @@ var gkClientSync = {
                             'isParent': myFiles && myFiles.length,
                             'data-hash': '',
                             'data-fullpath': '',
-                            'data-filename': '个人的文件',
+                            'data-filename': L('my_files'),
                             'data-icon': 'icon_my_root',
                             'data-type': 1,
                             'children': _context.rendFileList(myFiles, parentNode,1)
@@ -339,18 +339,18 @@ var gkClientSync = {
         });
         html.gkDialog({
             width: 400,
-            title: '即将开始同步',
+            title: L('start_sync'),
             dialogClass: 'start_sync_dialog',
             buttons: [
                 {
-                    "text": '取消',
+                    "text": L('cancel'),
                     'class': 'btn',
                     "click": function () {
                         $(this).dialog("close");
                     }
                 },
                 {
-                    "text": '选择性同步',
+                    "text": L('select_files_to_sync'),
                     'class': 'btn blue_btn',
                     "click": function () {
                         var params = {
@@ -365,7 +365,7 @@ var gkClientSync = {
                     }
                 },
                 {
-                    "text": '全部同步',
+                    "text": L('sync_all_files'),
                     'class': 'btn blue_btn start_now',
                     "click": function () {
                         var paths = [
@@ -404,10 +404,10 @@ var gkClientSync = {
             var cloud_filename = '';
             if (v.type == 1) {
                 icon = 'icon_my_root';
-                cloud_filename = '个人的文件';
+                cloud_filename = L('my_files');
             } else if (v.type == 2) {
                 icon = 'icon_team_root';
-                cloud_filename = '团队的文件';
+                cloud_filename = L('team_files');
             } else {
                 cloud_filename = Util.String.baseName(v.webpath);
                 ;
@@ -460,11 +460,11 @@ var gkClientSync = {
             var re = replace_path.replace(new RegExp(replace_bind_path), '');
             var msg = '';
             if (!re || re === '/') {
-                msg = '该文件夹已绑定过同步关系，不能再进行绑定';
+                msg = L('this_folder_can_not_rebind_synchronization_relationship');
             } else if (re == replace_path) {
-                msg = '该文件夹的下级文件夹 ' + binded_path + ' 已绑定过同步关系，不能再进行绑定';
+                msg = L('this_folder_subfolder_has_bind_synchronization_relationship',binded_path);
             } else {
-                msg = '该文件夹的上级文件夹 ' + binded_path + ' 已绑定过同步关系，不能再进行绑定';
+                msg = L('this_folder_parent_folder_has_bind_synchronization_relationship',binded_path);
             }
             alert(msg);
             return false;
@@ -578,7 +578,7 @@ var gkClientSync = {
                     newCloudPath = cloudPath+'/'+localFileName;
                 }else{
                     newCloudPath = Util.String.dirName(cloudPath);
-                    if(newCloudPath =='个人的文件' || newCloudPath =='团队的的文件'){
+                    if(newCloudPath == L('my_files') || newCloudPath ==L('team_files')){
                          flag = true;
                     }
                     if(flag){
@@ -640,27 +640,27 @@ var gkClientSync = {
             dialgoTmpl.gkDialog({
                 width: 386,
                 height:400,
-                title:'选择云端文件夹',
+                title:L('choose_cloud_folder'),
                 dialogClass:'select_cloud_file_dialog',
                 buttons: [
                     {
-                        'text': '新建文件夹',
+                        'text': L('create_folder'),
                         'class': 'create_new_folder',
                         'click': function () {
                             var item = $(this).find('.file_item.selected');
                             if (item.size() != 1) {
-                                alert('请选择文件夹');
+                                alert(L('pls_choose_sync_folder'));
                                 return;
                             }
 
-                            var filename ='新建文件夹';
+                            var filename =L('default_new_folder_name');
                             var treeObj = $.fn.zTree.getZTreeObj('gk_cloud_file_list');
 
                             var node = treeObj.getNodeByTId(item.parent().attr('id'));
                             var name = '';
                             name += '<span class="edit_filename_wrapper" style="display: inline-block;">';
                             name += '<input class="input_text_radius input_filename" type="text" value="' +filename + '" x-webkit-speech="" />';
-                            name += '<span class="edit_btns" style="margin-top: 0px;"><button class="btn blue_btn">确定</button><button class="btn">取消</button></span>';
+                            name += '<span class="edit_btns" style="margin-top: 0px;"><button class="btn blue_btn">'+L('ok')+'</button><button class="btn">'+L('cancel')+'</button></span>';
                             name += '</span>';
                             var newNodeDatas = treeObj.addNodes(node, {
                                 'tId': '',
@@ -687,7 +687,7 @@ var gkClientSync = {
                             jqBtns.find('button:first').on('click', function() {
                                 var filename = jqInput.val();
                                 if (!filename.length) {
-                                     alert('文件夹名不能为空');
+                                     alert(L('folder_name_is_empty'));
                                     return;
                                 }
                                if (!_context.checkFilenameValid(filename)) {
@@ -722,27 +722,27 @@ var gkClientSync = {
 
                     },
                     {
-                        'text': '取消',
+                        'text': L('cancel'),
                         'click': function () {
                                $(this).dialog('close');
                         }
                     },
                     {
-                        'text': '确定',
+                        'text': L('ok'),
                         'class': 'blue_btn',
                         click: function () {
                             var webpath = $.trim($(this).find('#select_cloud_file_path').text());
                             var type = $(this).find('#select_cloud_file_path').data('type');
                             if(!webpath && type==2){
-                               alert('不能同步到团队的文件的根目录');
+                               alert(L('can_not_sync_to_team_files_root_directory'));
                               return;
                             }
                             var screenpath = webpath;
 
                             if(type == 1){
-                                screenpath = '个人的文件'+(screenpath?'/':'')+screenpath;
+                                screenpath = L('my_files')+(screenpath?'/':'')+screenpath;
                             }else{
-                                screenpath = '团队的文件'+(screenpath?'/':'')+screenpath;
+                                screenpath = L('team_files')+(screenpath?'/':'')+screenpath;
                             }
                             var old_path = $.trim(dialog.find('#selected_local_path').text());
                             if(old_path!=screenpath){
@@ -778,14 +778,14 @@ var gkClientSync = {
         dialog.find('.start_sync').click(function () {
             var local_path = $.trim(dialog.find('.set_wrapper #selected_local_path').val());
             var webpath = $.trim(dialog.find('.set_wrapper #selected_cloud_path').val());
-            webpath = webpath.replace(new RegExp('^(个人的文件|团队的文件)/'),'');
+            webpath = webpath.replace(new RegExp('^('+L('my_files')+'|'+L('team_files')+')/'),'');
             var type =0;
             if (!webpath) {
-                alert('请选择云端文件夹');
+                alert(L('choose_cloud_folder'));
                 return;
             }
             if (!local_path) {
-                alert('请选择本地位置');
+                alert(L('pls_choose_local_folder'));
                 return;
             }
             local_path +=slash;
@@ -802,24 +802,24 @@ var gkClientSync = {
             if(!parseInt(isEmpty)){
                 var html = '<div class="sync_confirm_dialog_content">';
                 html +='<div class="">';
-                html +='<div class="strong">确定开始同步？</div>';
-                html +='<div class="tip">如果两个文件夹中存在相同名称的文件，本地将会覆盖云端。</div>';
+                html +='<div class="strong">'+L('are_you_sure_to_sync_the_folders')+'</div>';
+                html +='<div class="tip">'+L('cloud_file_will_be_overwrite')+'</div>';
                 html +='</div>';
                 html += '</div>';
                 $(html).gkDialog({
                     width: 480,
-                    title: '开始同步',
+                    title: L('start_sync'),
                     dialogClass: 'sync_confirm_dialog',
                     buttons: [
                         {
-                            "text": '取消',
+                            "text": L('cancel'),
                             'class': 'btn',
                             "click": function () {
                                 $(this).dialog("close");
                             }
                         },
                         {
-                            "text": '确定',
+                            "text": L('ok'),
                             'class': 'btn blue_btn',
                             "click": function () {
 
@@ -845,7 +845,7 @@ var gkClientSync = {
             setSelectFile(path,1);
             dialog.find('.select_local_file').removeClass('blue_btn').addClass('disabled').attr('disabled','disabled');
             dialog.find('.local_set_wrapper .chk').addClass('disabled');
-            setSelectFile( '个人的文件',0);
+            setSelectFile(L('my_files'),0);
             dialog.find('.cloud_set_wrapper .chk').trigger('click');
         }
 

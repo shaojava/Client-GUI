@@ -7,8 +7,19 @@
     </head>
     <body id="error_page">
         <section class="error_info">
-            <p class="desc">出错了，请重试。</p>
-            <!--<p class="tip">请检查当前网络，如果正常的话，请点击 <a href="#">刷新</a></p>-->
+            <p class="desc" data-locale="error_title">出错啦</p>
+            <p class="tip" data-locale="error_0">请检查当前网络，如果正常的话</p>
         </section>
+        <script type="text/javascript">
+            var lang = navigator.language || 'zh-CN';
+            document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+        <script type="text/javascript" src="../common/js/common.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('[data-locale]').translate();
+            });
+        </script>
     </body>
 </html>

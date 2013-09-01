@@ -1,27 +1,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>开始够快</title>
+    <title data-locale="start_gokuai">开始够快</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-    <script type="text/javascript" src="../common/js/util.js"></script>
-    <script type="text/javascript" src="../common/js/config.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src="../common/js/interface.js"></script>
-    <script type="text/javascript" src="../common/js/launchpad.js"></script>
-    <script type="text/javascript">
-        $(function(){
-              gkClientLaunchPad.init();    
-		})
-        function gUpdateLinkPaths(){
-           var iframe = $('iframe');
-            if(iframe.attr('src') == 'sync.html'){
-                window.frames["cframe"].gkClientSync.showLinkedFile();
-            }
-
-        }
-    </script>
 </head>
 
 <body id="lanchpad_page" class="launth_pad">
@@ -44,5 +26,29 @@
         {{/each}}
 
  </script>
+
+<script type="text/javascript">
+    var lang = navigator.language || 'zh-CN';
+    document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="../common/js/common.js"></script>
+<script type="text/javascript" src="../common/js/util.js"></script>
+<script type="text/javascript" src="../common/js/interface.js"></script>
+<script type="text/javascript" src="../common/js/launchpad.js"></script>
+<script type="text/javascript">
+    function gUpdateLinkPaths(){
+        var iframe = $('iframe');
+        if(iframe.attr('src') == 'sync.html'){
+            window.frames["cframe"].gkClientSync.showLinkedFile();
+        }
+
+    }
+    $(function(){
+        $('[data-locale]').translate();
+        gkClientLaunchPad.init();
+    })
+</script>
 </body>
 </html>

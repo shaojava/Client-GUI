@@ -2,7 +2,7 @@ var gkClientSetting = {
     clientInfo:null,
     init:function(){
 	//初始化版本
-	$(".version").html("版本："+navigator.userAgent.substring(navigator.userAgent.indexOf(";")+1,navigator.userAgent.indexOf(";W")));
+	$(".version").html(L('sync_client_version')+": "+navigator.userAgent.substring(navigator.userAgent.indexOf(";")+1,navigator.userAgent.indexOf(";W")));
 	//个人信息
 		 $("#layout_member_info").tmpl(this.getComputerInfo()).appendTo($(".person_message"));	     
 		  //设置配置文件位置
@@ -17,52 +17,52 @@ var gkClientSetting = {
 			  baseconfig["auto"] = {};
 			  baseconfig["auto"]["k"] = k;
 			     baseconfig["auto"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
-				 baseconfig["auto"]["name"] = "系统启动时运行够快";
+				 baseconfig["auto"]["name"] = L('start_gokuai_on_system_startup');
 			  }
 			  if(k == "classic"){
 			  baseconfig["classic"] = {};
 			  baseconfig["classic"]["k"] = k;
 			     baseconfig["classic"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
-				 baseconfig["classic"]["name"] = "使用经典右键菜单";
+				 baseconfig["classic"]["name"] = L('revert_to_the_classic_contextmenu');
 			  }
 			    if(k == "https"){
 	
 				  gjconfig["https"] = {};
 				  gjconfig["https"]["k"] = k;
 			      gjconfig["https"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
-				  gjconfig["https"]["name"] = "开启HTTPS安全连接";
+				  gjconfig["https"]["name"] = L('enable_https_contection');
 			  }
 			    if(k == "local"){
 				 gjconfig["local"] = {};
 				 gjconfig["local"]["k"] = k;
 			     gjconfig["local"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
-				 gjconfig["local"]["name"] = "开启局域网内高速同步";
+				 gjconfig["local"]["name"] = L('enable_lan_sync');
 			  }
 			   if(k == "lock"){
 				 baseconfig["lock"] = {};
 				 baseconfig["lock"]["k"] = k;
 			     baseconfig["lock"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
-				 baseconfig["lock"]["name"] = "选中被锁定的文件时，用气泡提醒我。";
+				 baseconfig["lock"]["name"] = L('select_lock_file_remind_me_by_desktop_notification')
 			  }
 			  
 			    if(k == "prompt"){
 				 baseconfig["prompt"] = {};
 				 baseconfig["prompt"]["k"] = k;
 			     baseconfig["prompt"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
-				 baseconfig["prompt"]["name"] = "显示桌面通知";
+				 baseconfig["prompt"]["name"] = L('show_desktop_notifications');
 			  }
 			    if(k == "recycle"){
 				baseconfig["recycle"] = {};
 				 baseconfig["recycle"]["k"] = k;
 			     baseconfig["recycle"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
-				 baseconfig["recycle"]["name"] = "别人删除与我共享的文件时，也进入我电脑的回收站";
+				 baseconfig["recycle"]["name"] = L('other_members_del_my_share_folders_tip');
 			  }
 
 			    if(k == "shelltool"){
 				 baseconfig["shelltool"] = {};
 				 baseconfig["shelltool"]["k"] = k;
 			     baseconfig["shelltool"]["checked"] = (clientInfo[k] == 1) ? "no_check_icon" : "check_icon";
-				 baseconfig["shelltool"]["name"] = "开启Explorer右侧边栏";
+				 baseconfig["shelltool"]["name"] = L('enable_gokuai_explorer_sidebar');
 			  }
 			  
 		  }
@@ -119,7 +119,7 @@ var gkClientSetting = {
 		  });
 		  //清除缓存数据
 		  $(".clearCache").click(function(){
-		   if(confirm("是否清除缓存数据")){
+		   if(confirm(L('are_sure_to_clear_cache'))){
 		     gkClientInterface.clearCache();
 		   }
 		  })
@@ -141,7 +141,7 @@ var gkClientSetting = {
 			var d = gkClientInterface.getBindPath();
 		   if(d!=""){
 		      
-		      if(confirm("您是否确定移动同步目录"+old+"到"+d+"")){
+		      if(confirm(L('are_you_sure_to_move_synchronize_directory',old,d))){
 			    $(".sync").find("input").val(d);	
 			      var syncPath = $(".sync").find("input").val();
 				  gkClientInterface.moveSyncFile(syncPath);
@@ -190,11 +190,11 @@ var gkClientSetting = {
         var featureSettings = {
             auto:{
                 checked:this.clientInfo.auto==1,
-                name:'软件自动开机启动'
+                name:L('start_gokuai_on_system_startup')
             },
             rightmenu:{
                 checked:this.clientInfo.rightmenu==1,
-                name:'Explorer右键菜单支持'
+                name:L('enable_gokuai_explorer_contextmenu')
             },
             prompt:{
                

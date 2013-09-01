@@ -1,62 +1,51 @@
 <!DOCTYPE html>
 <html lang="zh-cn">
     <head>
-        <title>够快</title>
+        <title data-locale="gokuai">够快</title>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
         <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-        <script type="text/javascript" src="../common/js/util.js"></script>
-        <script type="text/javascript" src="../common/js/config.js"></script>
-        <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
-        <script type="text/javascript" src="../common/js/lib/jsMD5.js"></script>
-        <script type="text/javascript" src="../common/js/interface.js"></script>
-        <script type="text/javascript" src="../common/js/login.js"></script>
-        <script type="text/javascript" src="../common/js/spin.js"></script>
-        <script type="text/javascript">
-            $(function(){
-                gkClientLogin.init();
-            })
-        </script>
+
     </head>
     <body id="login">
         <div>
             <div id="login_p2" class="login_page">
                 <form id="form_login" class="form-horizontal">
-                    <h1 id="loginTab"><i></i>登录</h1>
+                    <h1 id="loginTab"><i></i><span data-locale="login">登录</span></h1>
                     <div class="content" style="display: block">
                         <div class="from_raw">
-                            <label for="email">帐号：</label>
-                            <input type="text" placeholder="请输入帐号" id="email" name="email" class="input_text" />
+                            <label for="email" data-locale="label_email_address">帐号：</label>
+                            <input type="text" id="email" name="email" class="input_text" />
                         </div>
                         <div class="from_raw">
-                            <label for="password">密码：</label>
-                            <input type="password" placeholder="请输入密码" id="password" name="password" class="input_text" />
+                            <label for="password" data-locale="label_password">密码：</label>
+                            <input type="password" id="password" name="password" class="input_text" />
                         </div>
                         <div class="from_raw">
-                            <button class="btn blue_btn login_btn" type="submit">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+                            <button class="btn blue_btn login_btn" type="submit" data-locale="login_btn">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
                         </div>
                         <div class="from_raw">
-                            <a id="btn_findpassword" href="javascript:;">忘记密码?</a>
+                            <a id="btn_findpassword" href="javascript:;" data-locale="forget_password">忘记密码?</a>
                         </div>
                         <div class="from_raw oauth_login">
-                            <a class="btn oauth_btn" href="javascript:;" name="sina"><i class="sina_logo"></i>新浪微博</a>
-                            <a class="btn oauth_btn" href="javascript:;" name="qq"><i class="qq_logo"></i>腾讯QQ</a>
+                            <a class="btn oauth_btn" href="javascript:;" name="sina"><i class="sina_logo"></i><span data-locale="sina_weibo">新浪微博</span></a>
+                            <a class="btn oauth_btn" href="javascript:;" name="qq"><i class="qq_logo"></i><span data-locale="tencent_qq">腾讯QQ</span></a>
                         </div>
                     </div>
                 </form>
                 <form id="ent_login_form" class="form-horizontal">
-                    <h1 id="entTab" class="fold"><i></i>企业用户登录</h1>
+                    <h1 id="entTab" class="fold"><i></i><span data-locale="gkauth_member_login">企业用户登录</span></h1>
                     <div class="content">
                         <div class="from_raw">
-                            <label for="ent_id">企业代码：</label>
-                            <input type="text" placeholder="请输入企业代码" id="ent_id" name="ent_id" class="input_text" />
+                            <label for="ent_id" data-locale="label_team_code">企业代码：</label>
+                            <input type="text" id="ent_id" name="ent_id" class="input_text" />
                         </div>
                         <div class="from_raw">
-                            <button class="btn blue_btn login_btn" type="submit">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
+                            <button class="btn blue_btn login_btn" type="submit" data-locale="submit_btn">确&nbsp;&nbsp;&nbsp;&nbsp;定</button>
                         </div>
                     </div>
                 </form>
                 <form id="oauth_login_form">
-                    <h1 id="oauthTab" class="fold"><i></i>合作帐号登录</h1>
+                    <h1 id="oauthTab" class="fold"><i></i><span data-locale="third_party_access">合作帐号登录</span></h1>
                     <div class="content scrollbar">
                         <a class="btn oauth_btn" href="javascript:;" name="hichina"><i class="hichina_logo"></i>万网企业邮箱</a>
 						<a class="btn oauth_btn"  href="javascript:;" name="tita"><i class="tita_logo"></i>tita账号登录</a>
@@ -67,133 +56,154 @@
                     </div>
                 </form>
                 <div class="dialog_bottom">
-                    <button type="button" class="network_settings"><i class="setting_icon"></i>网络设置</button>
-                    <button type="button" class="go2regist"><i class="regist_icon"></i>注册帐号</button>
+                    <button type="button" class="network_settings"><i class="setting_icon"></i><span data-locale="network_settings">网络设置</span></button>
+                    <button type="button" class="go2regist"><i class="regist_icon"></i><span data-locale="sign_up">注册帐号</span></button>
                 </div>
             </div>
             <div id="login_p3" class="login_page">
                 <form id="gk_settings_form" class="form-horizontal">
                     <input type="hidden" value="" name="over_write" />
-                    <h1>请设置您的客户端</h1>
+                    <h1 data-locale="pls_set_gokuai_sync_client">请设置您的客户端</h1>
                     <div class="content">
                         <dl class="from_raw">
                             <dt>
                                 <input name="chose_settings" type="radio" name="gk_settings_type" checked="checked" value="0" />
-                                默认设置
+                                <span data-locale="default_settings">默认设置</span>
                             </dt>
                             <dd>
-                                使用默认的同步目录和同步设置
+                                <span data-locale="use_default_sync_dir_and_sync_setting">使用默认的同步目录和同步设置</span>
                             </dd>
                         </dl>
                         <dl class="from_raw">
                             <dt>
                                 <input name="chose_settings" type="radio" name="gk_settings_type" value="1" />
-                                自定义设置
+                               <span data-locale="custom_settings">自定义设置</span>
                             </dt>
                             <dd>
-                                手动设置同步目录和同步设置
+                                <span data-locale="manual_set_sync_dir_and_sync_settings">手动设置同步目录和同步设置</span>
                             </dd>
                         </dl>
                     </div>
                     <div class="dialog_bottom">
-                        <button type="submit" class="btn_next" style="width: 100%; border: 0">完成</button>
+                        <button type="submit" class="btn_next" style="width: 100%; border: 0" data-locale="done">完成</button>
                     </div>
                 </form>
             </div>
 
             <div id="login_p9" class="login_page">
                 <form id="regist_form">
-                    <h1 id="registTab"><i></i>注册</h1>
+                    <h1 id="registTab"><i></i><span data-locale="sign_up">注册</span></h1>
                     <div class="content">
                         <div class="from_raw">
-                            <label for="email">请输入您的常用邮箱：</label>
+                            <label for="email" data-locale="label_regist_email">请输入您的常用邮箱：</label>
                             <input type="text" value="" class="input_text" id="email" name="email" />
                         </div>
                         <div class="from_raw">
-                            <button type="submit" class="btn green_btn regist_btn">立即注册</button>
+                            <button type="submit" class="btn green_btn regist_btn" data-locale="sign_up_btn">立即注册</button>
                         </div>
                     </div>
                     <div class="dialog_bottom">
-                        <button class="network_settings" type="button"><i class="setting_icon"></i>网络设置</button>
-                        <button class="btn_prev" type="button"><i class="go_back_icon"></i>返回登录</button>
+                        <button class="network_settings" type="button"><i class="setting_icon"></i><span data-locale="network_settings">网络设置</span></button>
+                        <button class="btn_prev" type="button"><i class="go_back_icon"></i><span data-locale="back">返回</span></button>
                     </div>
                 </form>
             </div>
 
             <div id="login_p11" class="login_page">
                 <form id="select_sync_dir">
-                    <h1>请选择同步文件夹路径</h1>
+                    <h1 data-locale="pls_select_sync_dir">请选择同步文件夹路径</h1>
                     <div class="content">
                         <dl class="from_raw">
                             <dt>
                                 <input type="radio" name="sync_dir" checked="checked" value="0" />
-                                默认本地同步文件夹路径
+                                <span data-locale="default_local_sync_dir">默认本地同步文件夹路径</span>
                             </dt>
                             <dd>"<span id="default_gk_sync_dir"></span>"</dd>
                         </dl>
                         <dl class="from_raw">
                             <dt>
                                 <input type="radio" name="sync_dir" value="1" />
-                                我想选择的本地同步文件夹路径
+                                <span data-locale="custom_set_local_sync_dir">我想选择的本地同步文件夹路径</span>
                             </dt>
                             <dd>
                                 <div>
                                     <input type="text" class="" readonly="readonly" value="" id="gk_sync_dir" name="gk_sync_dir" />
                                 </div>
-                                <div><button type="button" id="select_gk_sync_dir">浏览...</button></div>
+                                <div><button type="button" id="select_gk_sync_dir" data-locale="choose_sync_dir">浏览...</button></div>
                             </dd>
                         </dl>
 
                     </div>
                     <div class="dialog_bottom">
-                        <button type="button" class="btn_prev">上一步</button>
-                        <button type="submit">下一步</button>
+                        <button type="button" class="btn_prev" data-locale="prev_step">上一步</button>
+                        <button type="submit" data-locale="next_step">下一步</button>
                     </div>
                 </form>
             </div>
 
             <div id="login_p12" class="login_page">
                 <form id="is_chose_sync">
-                    <h1>选择性同步</h1>
+                    <h1 data-locale="select_files_to_sync">选择性同步</h1>
                     <div class="content">
                         <dl class="from_raw">
                             <dt>
                                 <input type="radio" name="chose_dir" checked="checked" value="0" />
-                                同步所有文件夹到我的电脑
+                                <span data-locale="sync_all_files_to_my_computer">同步所有文件夹到我的电脑</span>
+
                             </dt>
                         </dl>
                         <dl class="from_raw">
                             <dt>
                                 <input type="radio" name="chose_dir" value="1" />
-                                选择文件夹同步到我的电脑</dt>
-                            <dd><button id="select_sync_dirs">选择同步文件夹</button></dd>
+                                <span data-locale="select_files_sync_to_my_computer">选择文件夹同步到我的电脑</span>
+                                </dt>
+                            <dd><button id="select_sync_dirs" data-locale="select_sync_files_btn">选择同步文件夹</button></dd>
                         </dl>
                     </div>
                     <div class="dialog_bottom">
-                        <button type="button" class="btn_prev">上一步</button>
-                        <button type="submit">完成</button>
+                        <button type="button" class="btn_prev" data-locale="prev_step">上一步</button>
+                        <button type="submit" data-locale="done">完成</button>
                     </div>
                 </form>
             </div>
             <div id="login_p13" class="login_page">
                 <form id="is_use_old_settings">
-                    <h1>是否使用上一次同步设置？</h1>
+                    <h1 data-locale="use_last_sync_settings">是否使用上一次同步设置？</h1>
                     <div class="content">
                         <dl class="from_raw selected">
                                 <input type="radio" name="use_old_settings" checked="checked" value="1" />
-                                使用上一次的同步设置
+                                <span data-locale="use_last_sync_settings">使用上一次的同步设置</span>
+
                         </dl>
                         <dl class="from_raw">
                                 <input type="radio" name="use_old_settings" value="0" />
-                                重新设置
+                                <span data-locale="reset_sync">重新设置</span>
+
                         </dl>
                     </div>
                     <div class="dialog_bottom">
-                        <button type="submit" style="width: 100%; border: 0;">完成</button>
+                        <button type="submit" style="width: 100%; border: 0;" data-locale="done">完成</button>
                     </div>
                 </form>
             </div>
             <div class="login_page_wrp" ></div>
         </div>
+        <script type="text/javascript">
+            var lang = navigator.language || 'zh-CN';
+            document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+        </script>
+        <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+        <script type="text/javascript" src="../common/js/lib/jsMD5.js"></script>
+        <script type="text/javascript" src="../common/js/common.js"></script>
+        <script type="text/javascript" src="../common/js/util.js"></script>
+        <script type="text/javascript" src="../common/js/interface.js"></script>
+        <script type="text/javascript" src="../common/js/login.js"></script>
+        <script type="text/javascript" src="../common/js/spin.js"></script>
+        <script type="text/javascript">
+            $(function(){
+                $('[data-locale]').translate();
+                gkClientLogin.init();
+            })
+        </script>
     </body>
 </html>

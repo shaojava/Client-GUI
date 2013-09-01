@@ -410,7 +410,7 @@ gkClientAjax.Exception = {
         } else {
             switch (request.status) {
                 case 0:
-                    errorMsg = '';
+                    errorMsg = L('please_check_your_network');
                     break;
                 case 401:
                     errorMsg = L('ERROR_MSG_401');
