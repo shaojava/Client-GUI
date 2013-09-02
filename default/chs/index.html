@@ -229,9 +229,9 @@
                 </div>
                 {{if state==0 || state==1 ||state==6}}
                 {{if state==1}}
-                <div>{$L('this_file_is_synchronizing',$dir?'文件夹':'文件')}</div>
+                <div>${L('this_file_is_synchronizing',$dir?'文件夹':'文件')}</div>
                 {{else}}
-                <div>{$L('this_file_is_not_synchronous',$dir?'文件夹':'文件')}</div>
+                <div>${L('this_file_is_not_synchronous',$dir?'文件夹':'文件')}</div>
                 {{/if}}
                 {{else}}
                 <div class="last_edit" title="${L('modify_by_at',last_member_name,last_datetime)}">
