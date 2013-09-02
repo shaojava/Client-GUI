@@ -430,7 +430,7 @@ var LANG = {
     if_disable_share_link_all_shared_link_will_be_closed:'关闭链接功能将停用所有已链接到 $1 的链接，您确定要关闭吗？',
 
     //index.js
-	please_input_your_id:'请输入您的帐号',
+	please_input_your_id:'请输入您的账号',
 	please_input_your_password:'请输入您的密码',
     PLEASE_INPUT_VERIFY_CODE:'请输入验证码',
     pls_input_email:'请输入邮箱',
@@ -574,7 +574,7 @@ var LANG = {
     unquota_tip:'未给 $1 分配空间，$2 正在使用团队空间',
     quota_size_should_lager_than_used_size:'分配的空间不能小于已使用空间',
     quota_size_should_not_lager_than_avaiable_size:'分配的空间不能大于已使用空间',
-    set_admin:'设置管理员',
+    set_admin:'提升为管理员',
     set_admin_confirm:'你确定要将 $1 设置为管理员？',
     remove_admin:'取消管理员',
     remove_admin_confirm:'你确定要取消 $1 的管理员权限？',
@@ -615,9 +615,9 @@ var LANG = {
     oauth_account_login:'合作帐号登录',
     updir:'返回上一层',
     added:'已经添加',
-    pls_enter_comment:'说点什么吧！',
+    pls_enter_comment:'说点什么吧',
     are_you_sure_to_remove_this_comment:'确定删除该讨论？',
-    no_comments:':(暂无任何讨论',
+    no_comments:'没有讨论',
 
     //app.js
     rceive_2G_awards_success:'恭喜您成功领取2G奖励',
@@ -758,7 +758,7 @@ var LANG = {
     gokuai_desktop_client:'够快桌面客户端',
     gokuai_technology:'够快科技',
 
-   //login.js
+    //login.js
     pls_enter_your_email_address:'请输入你的邮箱地址',
     next_step:'下一步',
     prev_step:'上一步',
@@ -802,6 +802,4 @@ var LANG = {
     use_last_sync_settings:'使用上一次的同步设置',
     reset_sync:'重新设置'
 
-
-}
-
+};
