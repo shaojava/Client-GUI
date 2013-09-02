@@ -745,6 +745,7 @@ var LANG = {
     //settings.html
     general:'基本',
     advanced:'高级',
+    about:'关于',
     label_computer:'计算机名：',
     label_login_account:'登录账号：',
     unlogin:'未登录',
