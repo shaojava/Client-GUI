@@ -1,4 +1,5 @@
 var LANG = {
+    add:'添加',
     all:'全部',
     password:'密码',
     back:'返回',
@@ -291,7 +292,6 @@ var LANG = {
     pls_choose:'请选择',
     group_name_format:'分组名称必须是中文汉字、数字、英文字母或下划线',
     share_file_to:'添加共享文件夹给 $1 ',
-    share_file_to:'添加共享文件夹给 $1 ',
     create_a_team_folder_for_this_group:'同时为该分组创建一个团队文件夹',
     group_name:'分组名',
     contact_all_contacts:'全部联系人',
@@ -347,9 +347,10 @@ var LANG = {
     FILE_EMPTY_COMMENT:'评论内容不能为空',
     NEW_ORG_FOLDER_NAME:'新建团队文件夹',
     comment_length_limit:'注释的长度不超过280个字',
-    upload_success:'删除成功',
+    upload_success:'上传成功',
     remain_size:'剩余',
     total_size:'共',
+    recovery_success:'恢复成功',
     
     //ent.js
     ENT_CREATE_SUC:'创建成功',
@@ -561,6 +562,13 @@ var LANG = {
     personalize_app:'自定义应用',
     pls_select_app_icon:'请选择一个应用图标',
     pls_enter_app_name:'请输入应用简称',
+    max_input_limit: '最多可输入$1个字符',
+    pls_enter_app_url: '请输入应用的URL地址',
+    pls_enter_app_urlform: '请输入正确的URL地址格式',
+    are_you_sure_to_del_this:'是否确定删除该项?',
+    please_choose_file_first: '请先选择文件',
+    are_you_sure_to_revert_logo:'是否确定还原LOGO?',
+    revert_success: '还原成功',
     pls_enter_login_password:'请输入登录密码',
     pls_enter_server_name:'请输入服务器名称',
     invite_member:'邀请成员',
@@ -592,6 +600,7 @@ var LANG = {
     reset_all_member_password_confirm:'您确定要重置所有成员的密码吗？',
     reset_email_send_success:'重置成功，每个成员将收到重置邮件',
     are_you_sure_to_enable_this_feature:'是否确定开启该功能？',
+    are_you_sure_to_disable_this_feature:'是否确定关闭该功能？',
     no_team_folders:'没有团队文件夹',
     discontect:'已断开',
     unbind_server_tip:'注意：解除绑定后，属于该服务器的内部存储文件夹需要手动在共享中删除',
@@ -604,7 +613,7 @@ var LANG = {
     pls_choose_archive_file:'请选择要归档的文件',
 
 
-	//mobile.js
+	//mobile.js,manage.js
 	login_success:'登录成功',
 	saving:'正在保存...',
 	save_success:'保存成功',
