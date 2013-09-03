@@ -686,6 +686,7 @@ var LANG = {
     modify_by_at:'由$1修改于$2',
     view_version:'查看历史版本',
     lock_by_at:'由$1独占修改于$2',
+    modify_by_at:'由$1修改于$2',
     synchronization_options:'',
 
     //sync.js

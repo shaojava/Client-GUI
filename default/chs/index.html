@@ -138,23 +138,23 @@
     <ul class="share_types">
         <li><a href="javascript:;" class="link_clipboard">
             <i></i>
-            L('copy_share_link')
+            ${L('copy_share_link')}
         </a></li>
 		<li><a href="javascript:;" class="link_browser">
             <i></i>
-            L('visit_share_link')
+            ${L('visit_share_link')}
         </a></li>
 		 <li><a href="javascript:;" class="link_qq">
             <i></i>
-             L('share_to_tencent_weibo')
+             ${L('share_to_tencent_weibo')}
         </a></li>
         <li><a href="javascript:;" class="link_sina">
             <i></i>
-            L('share_to_sina_weibo')
+            ${L('share_to_sina_weibo')}
         </a></li>
         <li><a href="javascript:;" class="link_mail">
             <i></i>
-            L('share_by_email')
+            ${L('share_by_email')}
         </a></li>
     </ul>
 </div>
@@ -240,7 +240,7 @@
                     {{/if}}
                     {{if typeof(last_member_name)!=='undefined' && last_member_name&&typeof(last_datetime)!=='undefined'&&last_datetime}}
                     {{if (state==3|| state==5)&&dir==0}}
-                    ${L('lock_by_at',last_member_name,last_datetime)}
+                    1${L('lock_by_at',last_member_name,last_datetime)}
                     {{else}}
                     ${L('modify_by_at',last_member_name,last_datetime)}
                     {{/if}}
@@ -254,7 +254,7 @@
 </script>
 
 <script type="text/javascript">
-    var lang = navigator.language || 'zh-CN';
+    var lang = navigator.language || 'zh-cn';
     document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
 </script>
 <script type="text/javascript" src="../common/js/lib/jquery.js"></script>

@@ -18,7 +18,7 @@
 #setting #wrapper #main .tab_content_wrapper{height:419px;padding:10px;color:#999;background:#f9fbfc;border-bottom:1px solid #c2d7e9}
 #setting #wrapper #main .person_message,#setting #wrapper #main .advance_qx,#setting #wrapper #main .file_index{border:1px solid #e1ebf5;margin-bottom:10px}
 
-#setting #wrapper #main .tab_content,#setting #wrapper #main .advance_qx{border:1px solid #e1ebf5;height:125px;border-radius: 3px;background:#fff;padding:0 34px;cursor:default}
+#setting #wrapper #main .tab_content,#setting #wrapper #main .advance_qx{border:1px solid #e1ebf5;height:125px;border-radius: 3px;background:#fff;padding:0 25px;cursor:default}
 #setting #wrapper #main .tab_content{height:235px;padding-top:15px;padding-bottom:15px}
 #setting #wrapper #main .advance_qx{display:none;padding-top:10px}
 #setting #wrapper #main .tab_content  li,#setting #wrapper #main .advance_qx li{margin-bottom:10px;cursor:pointer}
