@@ -753,6 +753,8 @@ var LANG = {
     sync_dir_locatin:'同步文件位置',
     config_file_location:'配置文件位置',
     take_effect_after_software_restart:'软件重启生效',
+    'move':'移动',
+    'clear_cache':'清除缓存',
     clear_cache_tip:'删除缓存可以换取您的硬盘空间，但可能会导致您的同步效率下降',
     set_proxy:'设置代理',
     enable_ie_proxy:'开启IE代理（软件下次启动时生效）',
