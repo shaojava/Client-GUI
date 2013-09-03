@@ -711,7 +711,7 @@ var LANG = {
     //add_link.html
     add_a_new_pair_of_synchronize_folders:'添加一对新的同步文件夹',
     select_a_cloud_folder:'选择云端文件夹',
-    cloud_position:'云端位置：',
+    cloud_position:'云端位置',
     pls_select_a_cloud_folder:'请选择云端位置',
     create_a_folder_with_the_same_name_as_local_folder:'创建与本地同名的文件夹',
     select_a_local_folder:'选择本地文件夹',
@@ -754,6 +754,8 @@ var LANG = {
     sync_dir_locatin:'同步文件位置',
     config_file_location:'配置文件位置',
     take_effect_after_software_restart:'软件重启生效',
+    'move':'移动',
+    'clear_cache':'清除缓存',
     clear_cache_tip:'删除缓存可以换取您的硬盘空间，但可能会导致您的同步效率下降',
     set_proxy:'设置代理',
     enable_ie_proxy:'开启IE代理（软件下次启动时生效）',

@@ -754,6 +754,8 @@ var LANG = {
     sync_dir_locatin:'Sync folder location',
     config_file_location:'Config file location',
     take_effect_after_software_restart:'Take effect after restarting Gokuai',
+    'move':'Move',
+    'clear_cache':'Clear cache',
     clear_cache_tip:'Clearing cache will release much space,but will decrease sync efficiency',
     set_proxy:'Proxies',
     enable_ie_proxy:'Enable IE proxy (Take effect after restarting Gokuai)',
