@@ -25,7 +25,45 @@
             </li>
         </ul>
     </div>
+    <script type="text/javascript">
+        var lang = navigator.language || 'zh-CN';
+        document.write(unescape("%3Cscript src='./common/js/lang/" + lang + ".js' type='text/javascript'%3E%3C/script%3E"));
+    </script>
 
+    <script type="text/javascript" src="./common/js/jquery.js"></script>
+    <script type="text/javascript" src="./common/js/jquery.tmpl.min.js"></script>
+    <script type="text/javascript" src="./common/js/common.js"></script>
+    <script type="text/javascript" src="./common/js/util.js"></script>
+    <script type="text/javascript" src="./common/js/interface.js"></script>
+    <script type="text/javascript" src="./common/js/setting.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            $('[data-locale]').translate();
+            $("#header li").click(function () {
+                $(this).addClass("selected_bg").siblings("li").removeClass("selected_bg");
+                $(this).find("i").addClass("no").parents("li").siblings("li").find("i").removeClass("no");
+                var currentDiv = $(".tab_content_wrapper").children("div").filter(":not(.person_message)").filter(":not(.advance_qx)").filter(":not(.file_index)").eq($(this).index());
+                if (currentDiv.attr("class").indexOf("basic") > 0) {
+                    $(".person_message").show();
+                    $(".advance_qx").hide();
+                    $(".file_index").hide();
+                } else if (currentDiv.attr("class").indexOf("advance") > 0) {
+
+                    $(".person_message").hide();
+                    $(".advance_qx").show();
+                    $(".file_index").show();
+
+                } else if (currentDiv.attr("class").indexOf("about") > 0) {
+                    $(".person_message").hide();
+                    $(".advance_qx").hide();
+                    $(".file_index").hide();
+
+                }
+                currentDiv.show().siblings("div").filter(":not(.person_message)").filter(":not(.advance_qx)").filter(":not(.file_index)").hide();
+            })
+            gkClientSetting.init();
+        })
+    </script>
     <!--计算机信息-->
     <script type="text/x-jquery-tmpl" id="layout_member_info">
         <div class="userImg clearfix">
@@ -155,44 +193,6 @@
 
 </div>
 
-<script type="text/javascript">
-    var lang = navigator.language || 'zh-CN';
-    document.write(unescape("%3Cscript src='./common/js/lang/" + lang + ".js' type='text/javascript'%3E%3C/script%3E"));
-</script>
 
-<script type="text/javascript" src="./common/js/jquery.js"></script>
-<script type="text/javascript" src="./common/js/jquery.tmpl.min.js"></script>
-<script type="text/javascript" src="./common/js/common.js"></script>
-<script type="text/javascript" src="./common/js/util.js"></script>
-<script type="text/javascript" src="./common/js/interface.js"></script>
-<script type="text/javascript" src="./common/js/setting.js"></script>
-<script type="text/javascript">
-    $(function () {
-        $('[data-locale]').translate();
-        $("#header li").click(function () {
-            $(this).addClass("selected_bg").siblings("li").removeClass("selected_bg");
-            $(this).find("i").addClass("no").parents("li").siblings("li").find("i").removeClass("no");
-            var currentDiv = $(".tab_content_wrapper").children("div").filter(":not(.person_message)").filter(":not(.advance_qx)").filter(":not(.file_index)").eq($(this).index());
-            if (currentDiv.attr("class").indexOf("basic") > 0) {
-                $(".person_message").show();
-                $(".advance_qx").hide();
-                $(".file_index").hide();
-            } else if (currentDiv.attr("class").indexOf("advance") > 0) {
-
-                $(".person_message").hide();
-                $(".advance_qx").show();
-                $(".file_index").show();
-
-            } else if (currentDiv.attr("class").indexOf("about") > 0) {
-                $(".person_message").hide();
-                $(".advance_qx").hide();
-                $(".file_index").hide();
-
-            }
-            currentDiv.show().siblings("div").filter(":not(.person_message)").filter(":not(.advance_qx)").filter(":not(.file_index)").hide();
-        })
-        gkClientSetting.init();
-    })
-</script>
 </body>
 </html>
