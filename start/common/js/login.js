@@ -100,7 +100,6 @@ var gkClientLogin = {
             return false;
         });
 
-
         //注册帐号
         $('.go2regist').on('click', function() {
             var param = {
@@ -124,7 +123,6 @@ var gkClientLogin = {
 
         //网络设置
         $('.network_settings').on('click', function() {
-
             gkClientInterface.settings();
             return;
         });
@@ -136,7 +134,6 @@ var gkClientLogin = {
             if(oauth=='qq'){
                 //oauthURL+='&display=mobile';
             }
-            console.log(oauthURL);
             gkClientInterface.openWindow({
                 url: oauthURL,
                 sso: 0,
@@ -226,7 +223,7 @@ var gkClientLogin = {
                 $(this).find(':button').html(L('done'));
             }
             else {
-                $(this).find(':button').html(L('prev_step'));
+                $(this).find(':button').html(L('next_step'));
             }
         });
 

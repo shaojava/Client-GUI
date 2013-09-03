@@ -902,10 +902,7 @@ var gkClientSidebar = {
                 tab_content.hide();
                 tab_content_wrapper.find('.' + target).show();
             });
-
             _context.getFileMain(PAGE_CONFIG.path);
-
-
             $('.tab_list li').eq(_this.selectTabIndex).trigger('click');
         }
 
@@ -947,12 +944,10 @@ var gkClientSidebar = {
         var slideItemShare = $('.tab_content_remark');
         slideItemShare.empty();
         var old_remark = localStorage.getItem('remark_' + PAGE_CONFIG.path);
-
         var remarkList = $('#remarkListTmpl').tmpl({
             remarks: remarks,
             old_remark: old_remark ? old_remark : '',
             Show: (this.shareMembers.length > 1) ? 'is' : ''
-
         }).appendTo(slideItemShare);
         this.bindShares(this.shareMembers);
         $('textarea#post_value').blur(function () {
@@ -982,7 +977,6 @@ var gkClientSidebar = {
             gkRest.fileRemind(PAGE_CONFIG.mountId, PAGE_CONFIG.path, text, function (data) {
                 _self.removeClass('disabled').addClass('blue_btn');
                 if (data) {
-
                     var remarkItem = $('#remarkListTmpl').tmpl({
                         remarks: data,
                         isItem: true
@@ -993,8 +987,6 @@ var gkClientSidebar = {
                     remarkItem.hide();
                     remarkItem.fadeIn();
                     localStorage.setItem('cache_' + PAGE_CONFIG.path, new Date().getTime());
-
-
                 }
                 $('textarea#post_value').val('');
                 localStorage.removeItem('remark_' + PAGE_CONFIG.path);
