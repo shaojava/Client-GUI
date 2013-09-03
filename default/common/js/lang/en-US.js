@@ -695,9 +695,9 @@ var LANG = {
     sync_all_files:'Sync all files',
     this_folder_can_not_rebind_synchronization_relationship:'Sorry, this folder is connected to another folder.',
     this_folder_subfolder_has_bind_synchronization_relationship:'Sorry,the subfolder $1 has connected to another folder.',
-    this_folder_parent_folder_has_bind_synchronization_relationship:'Sorry, the new location $1 cannot be inside the current folder',
+    this_folder_parent_folder_has_bind_synchronization_relationship:'Sorry, the parent folder $1 has connected to another folder.',
     choose_cloud_folder:'Choose a folder in cloud',
-    pls_choose_sync_folder:'Please choose the folder you want to sync.',
+    pls_choose_sync_folder:'Please choose the folder that you want to sync.',
     folder_name_is_empty:'Folder name cannot be empty.',
     can_not_sync_to_team_files_root_directory:'Cannot sync to Team Folder.',
     pls_choose_local_folder:'Please choose a folder in computer',
@@ -709,7 +709,7 @@ var LANG = {
 
     //add_link.html
     add_a_new_pair_of_synchronize_folders:'Add a new pair of sync folders',
-    select_a_cloud_folder:'Choose a folder in cloud',
+    select_a_cloud_folder:'Please choose a folder in cloud',
     cloud_position:'Location in cloud:',
     pls_select_a_cloud_folder:'Please choose a folder',
     create_a_folder_with_the_same_name_as_local_folder:'Create a duplicate folder in cloud ',
