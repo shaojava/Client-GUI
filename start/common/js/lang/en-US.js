@@ -686,6 +686,7 @@ var LANG = {
     modify_by_at:'$1 modified on $2',
     view_version:'Versions',
     lock_by_at:'$1 locked on $2',
+    modify_by_at:'$1 modified at $2',
     synchronization_options:'',
 
     //sync.js
