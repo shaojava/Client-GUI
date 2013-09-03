@@ -710,11 +710,11 @@ var LANG = {
     //add_link.html
     add_a_new_pair_of_synchronize_folders:'Add a new pair of sync folders',
     select_a_cloud_folder:'Please choose a folder in cloud',
-    cloud_position:'Location in cloud:',
+    cloud_position:'Location in cloud',
     pls_select_a_cloud_folder:'Please choose a folder',
     create_a_folder_with_the_same_name_as_local_folder:'Create a duplicate folder in cloud ',
     select_a_local_folder:'Choose a folder in computer',
-    local_position:'Location in computer:',
+    local_position:'Location in computer',
     pls_select_a_local_folder:'Please choose a folder',
     create_a_folder_with_the_same_name_as_cloud_folder:'Create a duplicate folder in computer',
     start_sync_dialog_content:'Cloud folder <strong>$1</strong> Sync with local folder <strong>$2</strong> ',
