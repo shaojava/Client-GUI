@@ -798,6 +798,7 @@ var LANG = {
     custom_set_local_sync_dir:'我想选择的本地同步文件夹路径',
     choose_sync_dir: '浏览...',
     sync_all_files_to_my_computer:'同步所有文件夹到我的电脑',
+    select_files_sync_to_my_computer:'选择文件夹同步到我的电脑',
     select_sync_files_btn:'选择同步文件夹',
     is_use_last_sync_settings:'是否使用上一次同步设置？',
     use_last_sync_settings:'使用上一次的同步设置',
