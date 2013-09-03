@@ -710,7 +710,7 @@ var LANG = {
     //add_link.html
     add_a_new_pair_of_synchronize_folders:'添加一对新的同步文件夹',
     select_a_cloud_folder:'选择云端文件夹',
-    cloud_position:'云端位置：',
+    cloud_position:'云端位置',
     pls_select_a_cloud_folder:'请选择云端位置',
     create_a_folder_with_the_same_name_as_local_folder:'创建与本地同名的文件夹',
     select_a_local_folder:'选择本地文件夹',
