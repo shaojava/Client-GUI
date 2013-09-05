@@ -2,16 +2,25 @@
 <html lang="zh-cn">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>出错啦！- 够快</title>
+        <title data-locale="error_title">出错啦</title>
         <link rel="stylesheet" type="text/css" href="../common/css/base.css"/>
         <link rel="stylesheet" type="text/css" href="../common/css/error.css"/>		
     </head>
     <body id="error401">
        <div class="main">
        		<div class="img"><img src="../common/images/icon/error_client.png" /></div>
-			<h1 class="client">啊呀呀！好像哪里不对呢！</h1>
-			<div class="return">请检查一下您的网页再试试喽。</div>
-		
+			<div class="return" data-locale="error_dw">对不起，您的网络出现异常，请检查您的网络或者本机防火墙设置</div>
        </div>
+       <script type="text/javascript">
+           var lang = navigator.language || 'zh-CN';
+           document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+       </script>
+       <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+       <script type="text/javascript" src="../common/js/common.js"></script>
+       <script type="text/javascript">
+           $(function(){
+               $('[data-locale]').translate();
+           });
+       </script>
     </body>
 </html>

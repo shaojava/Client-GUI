@@ -6,35 +6,35 @@ var gkClientLaunchPad = {
         var menus = [
             {
             url:'sync.html',
-            name:'同步',
+            name:L('nav_sync'),
             icon:'',
             classes:'sync',
             sso:0
         },
             {
                 url:'/client/client?ac=updates',
-                name:'更新',
+                name:L('nav_updates'),
                 icon:'',
                 classes:'updates',
                 sso:1
             },
             {
                 url:'/client/client?ac=favorites',
-                name:'收藏夹',
+                name:L('nav_favorites'),
                 icon:'',
                 classes:'favorite',
                 sso:1
             },
             {
                 url:'/client/client?ac=notices',
-                name:'消息',
+                name:L('nav_notification'),
                 icon:'',
                 classes:'notices',
                 sso:1
             },
             {
                 url:'/client/client?ac=recyclebin',
-                name:'回收站',
+                name:L('nav_trash'),
                 icon:'',
                 classes:'recyclebin',
                 sso:1

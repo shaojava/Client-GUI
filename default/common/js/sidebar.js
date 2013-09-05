@@ -171,25 +171,25 @@ var gkClientSidebar = {
         switch (auth) {
             case '1000':
                 re = {
-                    tip: '允许访问者预览',
+                    tip: L('view_link_tip'),
                     key: 'preview'
                 }
                 break;
             case '1011':
                 re = {
-                    tip: '允许访问者预览、下载',
+                    tip: L('download_link_tip'),
                     key: 'download'
                 }
                 break;
             case '1111':
                 re = {
-                    tip: '允许访问者预览、下载、上传',
+                    tip: L('cooperate_link_tip'),
                     key: 'cooperate'
                 }
                 break;
             case '0100':
                 re = {
-                    tip: '只允许访问者上传',
+                    tip: L('upload_link_tip'),
                     key: 'unknownUpload'
                 }
 
@@ -202,7 +202,7 @@ var gkClientSidebar = {
         var tab_content_wrapper = $('.tab_content_link');
         tab_content_wrapper.find(".select_wrapper").remove();
         if (publish.isclosed == 1) {
-            tab_content_wrapper.append('<div class="empty">链接分享功能已关闭</div>');
+            tab_content_wrapper.append('<div class="empty">'+L('share_by_link_has_been_disable')+'</div>');
             tab_content_wrapper.find('.open_link_share').click(function () {
                 var params = {
                     url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
@@ -222,7 +222,7 @@ var gkClientSidebar = {
                 var re = _context.getLinkKeyAndTipByAuth(n.value);
                 mode = {
                     name: n.name,
-                    tip: (link_type.length < 4) ? re.tip.replace('上传', '更新') : re.tip,
+                    tip: (link_type.length < 4) ? re.tip.replace(L('upload'), L('update')) : re.tip,
                     auth: n.value,
                     key: re.key
                 };
@@ -282,14 +282,14 @@ var gkClientSidebar = {
                         });
                     } else if (_self.hasClass('link_clipboard')) {
                         gkClientInterface.setClipboardData(url);
-                        alert('已复制到剪切板');
+                        alert(L('clip_success'));
                     } else if (_self.hasClass('link_sina')) {
                         _context.shareToWeibo('sina', content, url);
                     } else if (_self.hasClass('link_qq')) {
                         _context.shareToWeibo('qq', content, url);
                     } else if (_self.hasClass('link_mail')) {
-						var subject = '链接共享';
-						var content = '您的朋友 ' + PAGE_CONFIG.membername + ' 通过够快和你分享了一个文件\n\n点击下面链接查看\n' + url;
+						var subject = L('link_share');
+						var content =L('email_share_text',PAGE_CONFIG.membername,url);
 						gkClientInterface.mailTo('', subject, content);
                     }
                 };
@@ -405,7 +405,7 @@ var gkClientSidebar = {
         var opts = [
             {
                 classes:_context.getOptClassesByFileInfo('lock_to_edit',localData),
-                title:'独占修改',
+                title:L('opt_lock'),
                 events:{
                     click:function(){
                         var path = PAGE_CONFIG.path;
@@ -426,7 +426,7 @@ var gkClientSidebar = {
             },
             {
                 classes:_context.getOptClassesByFileInfo('force_to_lock',localData),
-                title:'强制独占',
+                title:L('opt_force_lock'),
                 events:{
                     click:function(){
                         var path = PAGE_CONFIG.path;
@@ -447,7 +447,7 @@ var gkClientSidebar = {
             },
             {
                 classes:_context.getOptClassesByFileInfo('finish_edit',localData),
-                title:'取消独占',
+                title:L('opt_unlock'),
                 events:{
 
                     click:function(){
@@ -468,7 +468,7 @@ var gkClientSidebar = {
             },
             {
                 classes:_context.getOptClassesByFileInfo('archive',localData),
-                title:'归档到团队的文件',
+                title:L('opt_archive'),
                 events:{
                     click:function(){
                         var path = PAGE_CONFIG.path;
@@ -489,7 +489,7 @@ var gkClientSidebar = {
             },
             {
                 classes:_context.getOptClassesByFileInfo('add_keywords',localData),
-                title:'添加注释',
+                title:L('opt_add_decription'),
                 events:{
                     mouseenter:function(){
                         if(!PAGE_CONFIG.path){
@@ -504,7 +504,7 @@ var gkClientSidebar = {
                                 return;
                             }
                             var fileDescWrapperHtml = '<div class="file_desc_wrapper">';
-                            fileDescWrapperHtml+='<div class="file_desc_content"><div class="loading empty">正在加载...</div></div>';
+                            fileDescWrapperHtml+='<div class="file_desc_content"><div class="loading empty">'+L('loading')+'</div></div>';
                             fileDescWrapperHtml+='<s class="arrow"><em></em></s>';
                             fileDescWrapperHtml+='</div>';
                             var fileDescWrapper = $(fileDescWrapperHtml);
@@ -530,7 +530,7 @@ var gkClientSidebar = {
                             gkRest.getFileInfo(PAGE_CONFIG.mountId, PAGE_CONFIG.path, '', function (reData) {
                                 var tag = reData.tag || '';
                                 if(!tag){
-                                    fileDescWrapper.find('.file_desc_content').html('<div class="empty">没有注释</div>');
+                                    fileDescWrapper.find('.file_desc_content').html('<div class="empty">'+L('empty_description')+'</div>');
                                 }else{
                                     fileDescWrapper.find('.file_desc_content').html(tag);
                                 }
@@ -561,7 +561,7 @@ var gkClientSidebar = {
             },
             {
                 classes:_context.getOptClassesByFileInfo('smart_folder',localData),
-                title:'创建智能文件夹',
+                title:L('opt_create_smart_folder'),
                 events:{
                     click:function(){
                         var path = PAGE_CONFIG.path;
@@ -837,7 +837,7 @@ var gkClientSidebar = {
             dateline = dateline || new Date().getTime();
             params['_'] = dateline;
         } else {
-            var loading = $('<div class="loader" style="position: absolute;left:0;right:0;color:#aaa;top:50%;text-align: center;margin-top: -9px">正在加载...</div>');
+            var loading = $('<div class="loader" style="position: absolute;left:0;right:0;color:#aaa;top:50%;text-align: center;margin-top: -9px">'+L('loading')+'</div>');
             $('.tab_content_wrapper > div').append(loading);
         }
         var _this = this;
@@ -902,10 +902,7 @@ var gkClientSidebar = {
                 tab_content.hide();
                 tab_content_wrapper.find('.' + target).show();
             });
-
             _context.getFileMain(PAGE_CONFIG.path);
-
-
             $('.tab_list li').eq(_this.selectTabIndex).trigger('click');
         }
 
@@ -947,12 +944,10 @@ var gkClientSidebar = {
         var slideItemShare = $('.tab_content_remark');
         slideItemShare.empty();
         var old_remark = localStorage.getItem('remark_' + PAGE_CONFIG.path);
-
         var remarkList = $('#remarkListTmpl').tmpl({
             remarks: remarks,
             old_remark: old_remark ? old_remark : '',
             Show: (this.shareMembers.length > 1) ? 'is' : ''
-
         }).appendTo(slideItemShare);
         this.bindShares(this.shareMembers);
         $('textarea#post_value').blur(function () {
@@ -975,14 +970,13 @@ var gkClientSidebar = {
             }
             var text = $('textarea#post_value').val();
             if (!text) {
-                alert('内容不能为空');
+                alert(L('FILE_EMPTY_COMMENT'));
             }
             var oldText = _self.text();
             _self.removeClass('.blue_btn').addClass('disabled');
             gkRest.fileRemind(PAGE_CONFIG.mountId, PAGE_CONFIG.path, text, function (data) {
                 _self.removeClass('disabled').addClass('blue_btn');
                 if (data) {
-
                     var remarkItem = $('#remarkListTmpl').tmpl({
                         remarks: data,
                         isItem: true
@@ -993,8 +987,6 @@ var gkClientSidebar = {
                     remarkItem.hide();
                     remarkItem.fadeIn();
                     localStorage.setItem('cache_' + PAGE_CONFIG.path, new Date().getTime());
-
-
                 }
                 $('textarea#post_value').val('');
                 localStorage.removeItem('remark_' + PAGE_CONFIG.path);
@@ -1035,81 +1027,81 @@ var gkClientSidebar = {
                     key: '',
                     url: '/storage',
                     sso: 1,
-                    name: '在网页上查看文件'
+                    name: L('visit_website')
                 },
                 {
                     key: '',
                     url: 'javascript:gkClientInterface.selectSyncFile()',
                     sso: 0,
-                    name: '选择性同步'
+                    name: L('slect_files_to_sync')
                 },
                 {
                     key: '',
                     url: 'javascript:gkClientInterface.getShowTrans()',
                     sso: 1,
-                    name: '传输列表'
+                    name: L('synchronous_list')
                 },
                 {
                     key: '',
                     url: 'javascript:gkClientInterface.getShowSettings()',
                     sso: 1,
-                    name: '软件设置'
+                    name: L('perferences')
                 },
                 {
                     key: '',
                     url: 'http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODA2NjEzOF8zNzIwOV80MDA2MTEwODYwXzJf',
                     sso: 1,
-                    name: '在线客服'
+                    name: L('online_service')
                 }
             ]
             if (PAGE_CONFIG.type == 1) {
-                tip = '这里是你的个人文件夹，你可以将你的文件存放在这里，也可以跟你的朋友分享你的文件';
+                tip = L('my_files_tip');
                 links = [
                     {
                         key: '',
                         url: '/storage#!files',
                         sso: 1,
-                        name: '在网页上查看个人的文件'
+                        name: L('visit_website')
                     },
                     {
                         key: '',
                         url: 'javascript:gkClientInterface.selectSyncFile()',
                         sso: 0,
-                        name: '选择性同步'
+                        name: L('select_files_to_sync')
                     },
                     {
                         key: '',
                         url: 'http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODA2NjEzOF8zNzIwOV80MDA2MTEwODYwXzJf',
                         sso: 1,
-                        name: '在线客服'
+                        name: L('online_service')
                     }
                 ];
             } else if (PAGE_CONFIG.type == 2) {
-                tip = '这里是团队文件夹，你可以将团队的文件存在在这里，以方便与同事进行共享和协作';
+                tip = L('team_files_tip');
                 links = [
                     {
                         key: '',
                         url: '/storage#!team_files',
                         sso: 1,
-                        name: '在网页上查看团队的文件'
+                        name: L('visit_website')
                     },
                     {
                         key: '',
                         url: 'javascript:gkClientInterface.selectSyncFile()',
                         sso: 0,
-                        name: '选择性同步'
+                        name: L('select_files_to_sync')
                     },
                     {
                         url: 'javascript:gkClientInterface.openWindow({url:"/client/create_share_folder?org_share=1",sso:1,resize:0,width:400,height:140})',
                         key: '',
                         sso: 1,
-                        name: "创建团队文件夹"
+                        name: L('create_team_folder')
                     },
                     {
                         key: '',
                         url: 'http://wpa.b.qq.com/cgi/wpa.php?ln=1&key=XzkzODA2NjEzOF8zNzIwOV80MDA2MTEwODYwXzJf',
                         sso: 1,
-                        name: '在线客服'
+                        name: L('online_service')
                     }
                 ];
                 if(PAGE_CONFIG && PAGE_CONFIG.memberId && $.isNumeric(PAGE_CONFIG.memberType)  && PAGE_CONFIG.memberType<2){
@@ -1118,7 +1110,7 @@ var gkClientSidebar = {
                             url: 'javascript:gkClientInterface.openURL({url:"/manage/dashboard",sso:1})',
                             key: '',
                             sso: 1,
-                            name: "管理团队"
+                            name: L('team_management')
                         }
                     );
                 }
@@ -1153,7 +1145,7 @@ var gkClientSidebar = {
     },
     getScreenName: function (uid, member_id, member_name) {
         if (uid == member_id) {
-            return '我';
+            return L('me');
         }
         return member_name;
     },

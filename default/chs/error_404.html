@@ -1,17 +1,26 @@
 ﻿<!DOCTYPE html>
-<html lang="zh-cn">
+<html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-        <title>出错啦！- 够快</title>
+        <title data-locale="error_title"></title>
         <link rel="stylesheet" type="text/css" href="../common/css/base.css"/>
         <link rel="stylesheet" type="text/css" href="../common/css/error.css"/>		
     </head>
     <body id="error401">
        <div class="main">
        		<div class="img"><img src="../common/images/icon/error_404.png" /></div>
-			<h1>哦no，你的页面居然不存在！</h1>
-			
-		
+			<h1 data-locale="error_404">对不起，您所访问的页面不存在</h1>
        </div>
+       <script type="text/javascript">
+           var lang = navigator.language || 'zh-CN';
+           document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+       </script>
+       <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+       <script type="text/javascript" src="../common/js/common.js"></script>
+       <script type="text/javascript">
+           $(function(){
+               $('[data-locale]').translate();
+           });
+       </script>
     </body>
 </html>

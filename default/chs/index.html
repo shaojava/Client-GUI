@@ -5,23 +5,6 @@
     <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
 	<link rel="stylesheet" type="text/css" href="../common/js/lib/bootstrap/bootstrap.css"/>
     <link rel="stylesheet" type="text/css" href="../common/js/lib/bootstrap/datepicker/css/datepicker.css"/>
-    <script type="text/javascript" src="../common/js/util.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap_customize.min.js"></script>
-    <script type="text/javascript" src="../common/js/lib/bootstrap/datepicker/js/bootstrap-datepicker.js"></script>
-    <script type="text/javascript" src="../common/js/lib/bootstrap/datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
-
-    <script type="text/javascript" src="../common/js/interface.js"></script>
-	<script type="text/javascript" src="../common/js/common.js"></script>
-    <script type="text/javascript" src="../common/js/component/droplist.js"></script>
-    <script type="text/javascript" src="../common/js/rest.js"></script>	
-    <script type="text/javascript" src="../common/js/sidebar.js"></script>
-    <script type="text/javascript">
-           $(function(){
-               gkClientSidebar.init();
-           })
-    </script>
 </head>
 <body id="sidebar">
 <div class="wrapper">
@@ -29,12 +12,12 @@
           <div class="header_nav clearfix">
              <span class="logo f_l">             
 			 <i></i>
-              <span>开始够快</span>
+              <span data-locale="start_gokuai">开始够快</span>
              </span>
-			 <div class="header_help" title="在线帮助">
+			 <div class="header_help">
 		       <a href="javascript:;" style="display:block"></a>
 			 </div>
-			 <div class="header_website" title="访问网页版">
+			 <div class="header_website">
 			   <a href="javascript:;" style="display:block"></a>
 			 </div>
 		  </div>
@@ -58,16 +41,16 @@
 </script>
 <script type="text/x-jquery-tmpl" id="fileMainTmpl">
     <ul class="tab_list">
-        <li class="share" data-target="tab_content_share" title="共享"><i></i></li>
-        <li class="link" data-target="tab_content_link" title="链接"><i></i></li>
-        <li class="remark" data-target="tab_content_remark" title="动态"><i></i></li>
+        <li class="share" data-target="tab_content_share" title="${L('tab_share')}"><i></i></li>
+        <li class="link" data-target="tab_content_link" title="${L('tab_share_link')}"><i></i></li>
+        <li class="remark" data-target="tab_content_remark" title="${L('tab_update')}"><i></i></li>
     </ul>
     <div class="tab_content_wrapper">
         <div class="tab_content_share">
 
         </div>
         <div class="tab_content_link">
-             <span class="gjmodel"><i></i>高级模式</span>
+             <span class="gjmodel"><i></i>${L('advance_settings')}</span>
         </div>
         <div class="tab_content_remark">
         </div>
@@ -75,7 +58,7 @@
     </div>
 </script>
 <script type="text/x-jquery-tmpl" id="remarkListTmpl">
-    {{if remarks && remarks.length}}
+    {{if remarks}}
     {{if typeof(isItem)==='undefined' || !isItem}}
     <ul class="remark_list scrollbar">
         {{/if}}
@@ -97,7 +80,7 @@
     </ul>
     {{/if}}
     {{else}}
-    <div class="empty">没有更新</div>
+    <div class="empty">${L('empty_update')}</div>
     {{/if}}
     {{if typeof(isItem)==='undefined' || !isItem}}
     <div class="post_wrapper">
@@ -109,21 +92,21 @@
 		     {{if Show==='is'}}
 		     <div class="at_and_task f_l">
 			 
-			    <a href="javascript:;" data-input="@" class="insert at left" title="提醒">
-				 <i title="提醒"></i>
+			    <a href="javascript:;" data-input="@" class="insert at left" title="${L('at')}">
+				 <i title="${L('at')}"></i>
 				</a>
 		   
 				<span class="grid f_l"></span>
-				 <a href="javascript:;" data-input="@all " class="insert at-all left" title="提醒所有共享人">
-				 <i title="提醒所有共享人"></i>
+				 <a href="javascript:;" data-input="@all " class="insert at-all left" title="${L('at')}">
+				 <i title="${L('at')}"></i>
 				</a>
 				<span class="grid f_l"></span>
-				 <a href="javascript:;" data-input="#" class="insert pound left" title="添加时间标记">
-				 <i title="添加时间标记"></i>
+				 <a href="javascript:;" data-input="#" class="insert pound left" title="${L('add_date_mark')}">
+				 <i title="${L('add_date_mark')}"></i>
 				</a>
 			 </div>
 			 {{/if}}
-            <button class="btn blue_btn post_now f_r">发表讨论</button> 
+            <button class="btn blue_btn post_now f_r">${L('submit_comment')}</button>
         </div>
         
     </div>
@@ -155,24 +138,23 @@
     <ul class="share_types">
         <li><a href="javascript:;" class="link_clipboard">
             <i></i>
-            复制链接
+            ${L('copy_share_link')}
         </a></li>
 		<li><a href="javascript:;" class="link_browser">
             <i></i>
-            查看链接
+            ${L('visit_share_link')}
         </a></li>
 		 <li><a href="javascript:;" class="link_qq">
             <i></i>
-            分享到腾讯微博
+             ${L('share_to_tencent_weibo')}
         </a></li>
         <li><a href="javascript:;" class="link_sina">
             <i></i>
-            分享到新浪微博
+            ${L('share_to_sina_weibo')}
         </a></li>
-   
         <li><a href="javascript:;" class="link_mail">
             <i></i>
-            用邮件发送
+            ${L('share_by_email')}
         </a></li>
     </ul>
 </div>
@@ -187,7 +169,7 @@
             <div class="member_name">
 			<span class="f_l">${gkClientSidebar.getScreenName(PAGE_CONFIG.memberId,member.member_id,member.username)}</span>
 			{{if member.auth == '3'}}
-			<img title="共享发起人" src="../common/images/icon/crown.png" width='16' height='16' style="vertical-align:middle;width:16px;height:16px;margin-left:2px" />
+			<img title="${L('share_owner')}" src="../common/images/icon/crown.png" width='16' height='16' style="vertical-align:middle;width:16px;height:16px;margin-left:2px" />
 			{{/if}}
 			</div>
 			<div style="clear:both"></div>
@@ -202,7 +184,7 @@
         {{/each}}
     </ul>
     <div class="manage_share_wrapper">
-        <a class="manage_share" href="javascript:void(0);"><i></i><span>管理共享</span></a>
+        <a class="manage_share" href="javascript:void(0);"><i></i><span>${L('share_management')}</span></a>
     </div>
 </script>
 <script type="text/x-jquery-tmpl" id="accountInfoTmpl">
@@ -212,13 +194,13 @@
             <div class="attrs">
                 <div class="name">${username}</div>
                 <div>
-                    <span>个人空间使用：</span><span>${used_size}/${capacity}</span>
+                    <span>${L('my_files_size')}</span><span>${used_size}/${capacity}</span>
                 </div>
             </div>
         </div>
         <div class="org_info">
             <div class="org_name">${org_name}</div>
-            <div>团队空间使用：${org_used_size}/${org_capacity}</div>
+            <div>${L('my_files_size')}${org_used_size}/${org_capacity}</div>
         </div>
     </div>
 </script>
@@ -247,23 +229,50 @@
                 </div>
                 {{if state==0 || state==1 ||state==6}}
                 {{if state==1}}
-                <div>该文件{{if dir==1}}夹{{/if}}正与云端进行同步</div>
+                <div>${L('this_file_is_synchronizing',dir?'文件夹':'文件')}</div>
                 {{else}}
-                <div>该文件{{if dir==1}}夹{{/if}}未同步到云端</div>
+                <div>${L('this_file_is_not_synchronous',dir?'文件夹':'文件')}</div>
                 {{/if}}
                 {{else}}
-                <div class="last_edit" title="由${last_member_name}修改于${last_datetime}">
+                <div class="last_edit" title="${L('modify_by_at',last_member_name,last_datetime)}">
                     {{if dir==0 && state > 1 && state < 6}}
-                    <a href="javascript:void(0)" title="查看历史版本" class="gktooltip version">V{{if index>0 }}${index}{{/if}}</a>
+                    <a href="javascript:void(0)" title="${L('view_version')}" class="gktooltip version">V{{if index>0 }}${index}{{/if}}</a>
                     {{/if}}
                     {{if typeof(last_member_name)!=='undefined' && last_member_name&&typeof(last_datetime)!=='undefined'&&last_datetime}}
-                    <span class="">${last_member_name} </span>{{if (state==3|| state==5)&&dir==0}}独占{{/if}}修改于${last_datetime}
+                    {{if (state==3|| state==5)&&dir==0}}
+                    1${L('lock_by_at',last_member_name,last_datetime)}
+                    {{else}}
+                    ${L('modify_by_at',last_member_name,last_datetime)}
+                    {{/if}}
                     {{/if}}
                 </div>
                 {{/if}}
             </div>
         </div>
     </div>
+
+</script>
+
+<script type="text/javascript">
+    var lang = navigator.language || 'zh-cn';
+    document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap_customize.min.js"></script>
+<script type="text/javascript" src="../common/js/lib/bootstrap/datepicker/js/bootstrap-datepicker.js"></script>
+<script type="text/javascript" src="../common/js/lib/bootstrap/datepicker/js/locales/bootstrap-datepicker.zh-CN.js"></script>
+<script type="text/javascript" src="../common/js/common.js"></script>
+<script type="text/javascript" src="../common/js/util.js"></script>
+<script type="text/javascript" src="../common/js/interface.js"></script>
+<script type="text/javascript" src="../common/js/component/droplist.js"></script>
+<script type="text/javascript" src="../common/js/rest.js"></script>
+<script type="text/javascript" src="../common/js/sidebar.js"></script>
+<script type="text/javascript">
+    $(function(){
+        $('[data-locale]').translate();
+        gkClientSidebar.init();
+    });
 </script>
 </body>
 </html>

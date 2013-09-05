@@ -1,63 +1,70 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <title>最新消息</title>
+    <title data-locale="notification">消息</title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
-    <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
-    <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src="../common/js/interface.js"></script>
-    <script>
-        function fetchUpdate() {
-            var member_id = 0;
-            $('body').find('.no_content,.new_tqframe').remove();
-            var account = gkClientInterface.getUserInfo();
-            if(account && account.id){
-                member_id =account.id;
-            }
-            if(member_id){
-                var data = gkClientInterface.getMessage();
-                //如果今天就显示时分，如果是今天以前就是月日
-                //hover显示年月日
-                var date = new Date(), currentDate = date.getFullYear() + "-" + ((date.getMonth() + 1 < 10) ? ("0" + (date.getMonth() + 1)) : (date.getMonth() + 1)) + "-" + ((date.getDate() < 10) ? ("0" + date.getDate()) : date.getDate());
-                var HM = null;
-                var updates = [];
-                if(data.updates){
-                    updates = data.updates;
-                    var updateMes =  $("#update_mes").tmpl({
-                        data: updates
-                    });
-                    updateMes.appendTo($('body'));
-                }
-                $('body').find('.new_tqframe').click(function () {
-                    gkClientInterface.launchpad(JSON.stringify({tab: "notices"}));//notices
-                });
-            }else{
-                var noContent =  $("#noContentTmpl").tmpl();
-                noContent.appendTo($('body'));
-            }
-        }
-        $(window).load(function(){
-            initWebHref();
-            setInterval(function () {
-                if(!$(".new_tqframe").scrollTop()){
-                    fetchUpdate();
-                }
-            }, 1000);
-            fetchUpdate();
-        });
-    </script>
+
 </head>
 <body class="tc_frame">
+<script type="text/javascript">
+    var lang = navigator.language || 'zh-CN';
+    document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="../common/js/common.js"></script>
+<script type="text/javascript" src="../common/js/interface.js"></script>
+<script>
+    function fetchUpdate() {
+        var member_id = 0;
+        $('body').find('.no_content,.new_tqframe').remove();
+        var account = gkClientInterface.getUserInfo();
+        if(account && account.id){
+            member_id =account.id;
+        }
+        if(member_id){
+            var data = gkClientInterface.getMessage();
+            //如果今天就显示时分，如果是今天以前就是月日
+            //hover显示年月日
+            var date = new Date(), currentDate = date.getFullYear() + "-" + ((date.getMonth() + 1 < 10) ? ("0" + (date.getMonth() + 1)) : (date.getMonth() + 1)) + "-" + ((date.getDate() < 10) ? ("0" + date.getDate()) : date.getDate());
+            var HM = null;
+            var updates = [];
+            if(data.updates){
+                updates = data.updates;
+                var updateMes =  $("#update_mes").tmpl({
+                    data: updates
+                });
+                updateMes.appendTo($('body'));
+            }
+            $('body').find('.new_tqframe').click(function () {
+                gkClientInterface.launchpad(JSON.stringify({tab: "notices"}));//notices
+            });
+        }else{
+            var noContent =  $("#noContentTmpl").tmpl();
+            noContent.appendTo($('body'));
+        }
+    }
+    $(window).load(function(){
+        $('[data-locale]').translate();
+        initWebHref();
+        setInterval(function () {
+            if(!$(".new_tqframe").scrollTop()){
+                fetchUpdate();
+            }
+        }, 1000);
+        fetchUpdate();
+    });
+</script>
 <script id="noContentTmpl" type="text/x-jquery-tmpl">
     <div class="no_content" style="text-align:center;position:absolute;height:24px;top:50%;margin-top:-12px;color:#B8B8B8;line-height:24px;left:0;right:0;">
-        你还未登录
+        ${L('pls_login')}
     </div>
 </script>
 <script id="update_mes" type="text/x-jquery-tmpl">
     <div class="new_tqframe scrollbar">
         <div class="new_tqframe_header">
-            <a id="update_all" href="javascript:void(0)">查看全部</a>
+            <a id="update_all" href="javascript:void(0)">${L('view_all')}</a>
         </div>
         <div class="new_tqframe_body">
             <ul>

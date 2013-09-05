@@ -1,5 +1,5 @@
-<!doctype>
-<html lang="zh-cn">
+<!DOCTYPE html>
+<html>
    <head>
      <meta charset="utf-8" />
 	 <link href="../common/css/style.css" type="text/css" rel="stylesheet" />  
@@ -10,9 +10,20 @@
 		   <img src="../common/images/icon/dw.png" />
 		 </div>
 		 <div class="error-text f_l">
-		   <h3>啊呀呀！好像哪里不对呢！</h3>
-		   <div>请检查一下您的网络在试试喽。</div>
+		   <h3 data-locale="error_title">出错啦</h3>
+		   <div data-locale="error_501">请检查一下您的网络在试试喽。</div>
 		 </div>
 	  </div>
+      <script type="text/javascript">
+          var lang = navigator.language || 'zh-CN';
+          document.write(unescape("%3Cscript src='../common/js/lang/"+lang+".js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+      <script type="text/javascript" src="../common/js/common.js"></script>
+      <script type="text/javascript">
+          $(function(){
+              $('[data-locale]').translate();
+          });
+      </script>
    </body>
 </html>

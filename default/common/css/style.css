@@ -1428,8 +1428,15 @@ i.share_i{background-position:0 -125px}
 .launth_pad .launth_pad_left li{
     cursor: pointer;
     margin:8px auto;
-color:#fff;
-    display:block;_zoom:1;width:100%;text-align:center;padding:5px 0;font-size:13px;text-decoration: none
+    color:#fff;
+    display:block;
+    _zoom:1;
+    width:100%;
+    text-align:center;
+    padding:5px 0;
+    font-size:13px;
+    text-decoration: none;
+    overflow: hidden;
 }
 .launth_pad .launth_pad_left li.selected{
     background: #486EA9;

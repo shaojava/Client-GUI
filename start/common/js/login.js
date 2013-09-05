@@ -61,15 +61,15 @@ var gkClientLogin = {
             var email = $.trim($(this).find('input[name="email"]').val());
             var password = $.trim($(this).find('input[name="password"]').val());
             if (!email.length) {
-                alert('请输入您的够快帐号（邮箱地址）');
+                alert(L('please_input_your_id'));
                 return false;
             }
             if (!Util.Validation.isEmail(email)) {
-                alert('请输入正确格式的邮箱地址');
+                alert(L('INDEX_FIND_PASSWORD_invalid_email_format'));
                 return false;
             }
             if (!password.length) {
-                alert('请输入您的密码');
+                alert(L('please_input_your_password'));
                 return false;
             }
             var loginBtn = $(this).find('button[type="submit"]');
@@ -86,7 +86,7 @@ var gkClientLogin = {
         $('#ent_login_form').on('submit', function() {
             var ent_id = $.trim($(this).find('input[name="ent_id"]').val());
             if (!ent_id.length) {
-                alert('请输入企业代码');
+                alert(L('pls_enter_team_code'));
                 return false;
             }
             var params = {
@@ -99,7 +99,6 @@ var gkClientLogin = {
             gkClientInterface.openWindow(params);
             return false;
         });
-
 
         //注册帐号
         $('.go2regist').on('click', function() {
@@ -124,7 +123,6 @@ var gkClientLogin = {
 
         //网络设置
         $('.network_settings').on('click', function() {
-
             gkClientInterface.settings();
             return;
         });
@@ -136,7 +134,6 @@ var gkClientLogin = {
             if(oauth=='qq'){
                 //oauthURL+='&display=mobile';
             }
-            console.log(oauthURL);
             gkClientInterface.openWindow({
                 url: oauthURL,
                 sso: 0,
@@ -151,11 +148,11 @@ var gkClientLogin = {
         $('.login_page #regist_form').on('submit', function() {
             var email = $.trim($(this).find('input[name="email"]').val());
             if (!email.length) {
-                alert('请输入您的邮箱地址');
+                alert(L('pls_enter_your_email_address'));
                 return false;
             }
             if (!Util.Validation.isEmail(email)) {
-                alert('请输入正确格式的邮箱地址');
+                alert(L('invalid_email_format'));
                 return false;
             }
             var flag = {};
@@ -170,7 +167,7 @@ var gkClientLogin = {
                 }
             });
             if (flag.state) {
-                alert('该邮箱已经被注册过');
+                alert(L('INDEX_EXSIT_ID'));
                 return false;
             }
             var registBtn = $('#regist_form button[type="submit"]');
@@ -183,7 +180,7 @@ var gkClientLogin = {
                 },
                 dataType: 'json',
                 success: function() {
-                    alert('已经向您的邮箱发送激活邮件，请前往查收');
+                    alert(L('resend_regist_email'));
                     registBtn.find('.spinner').remove();
                     registBtn.removeAttr('disabled');
                 },
@@ -209,7 +206,7 @@ var gkClientLogin = {
                 if ($("#login_p3 .btn_prev")) {
                     $('#login_p3 .btn_prev').remove();
                 }
-                var prev = $("<button type='button' class='btn_prev'>上一步</button>");
+                var prev = $("<button type='button' class='btn_prev'>"+L('next_step')+"</button>");
                 prev.on('click', function() {
                     history.back();
                     return;
@@ -223,10 +220,10 @@ var gkClientLogin = {
         $('#login_p13 form').on('click', function() {
             var val = $(this).find('input[name="use_old_settings"]:checked').val();
             if (val == 1) {
-                $(this).find(':button').html('完成');
+                $(this).find(':button').html(L('done'));
             }
             else {
-                $(this).find(':button').html('下一步');
+                $(this).find(':button').html(L('next_step'));
             }
         });
 
@@ -240,20 +237,20 @@ var gkClientLogin = {
                 var defaultPath = gkClientInterface.getNormalPath();
                 var isEmpty = gkClientInterface.checkIsEmptyPath(defaultPath);
                 if (!parseInt(isEmpty)) {
-                    var content = '<div>您选择的目录[' + defaultPath + ']含有文件，会引起本地覆盖服务器端或服务端覆盖本地文件，请选择？</div>';
+                    var content = '<div>'+L('synchronize_directory_will_be_overwrite',defaultPath)+'</div>';
 
                     gkClientModal.show({
-                        title: '请选择',
+                        title: L('pls_choose'),
                         content: content,
                         buttons: [
                             {
-                                text: '重新选择',
+                                text: L('rechoose'),
                                 click: function() {
                                     gkClientModal.close();
                                 }
                             },
                             {
-                                text: '本地覆盖服务器端',
+                                text: L('local_files_overwrite_cloud_files'),
                                 click: function() {
                                     var overWriteInput = $('input[name="over_write"]');
                                     overWriteInput.val(0);
@@ -266,7 +263,7 @@ var gkClientLogin = {
                                 }
                             },
                             {
-                                text: '服务器端覆盖本地',
+                                text: L('cloud_files_overwrite_local_files'),
                                 click: function() {
                                     var overWriteInput = $('input[name="over_write"]');
                                     overWriteInput.val(1);
@@ -293,10 +290,10 @@ var gkClientLogin = {
         $('#login_p3 form').on('click', function() {
             var val = $(this).find('input[name="chose_settings"]:checked').val();
             if (val == 1) {
-                $(this).find('.btn_next').html('下一步');
+                $(this).find('.btn_next').html(L('next_step'));
             }
             else {
-                $(this).find('.btn_next').html('完成');
+                $(this).find('.btn_next').html(L('done'));
             }
         });
 
@@ -320,20 +317,20 @@ var gkClientLogin = {
 
             var isEmpty = gkClientInterface.checkIsEmptyPath(path);
             if (!parseInt(isEmpty)) {
-                var content = '<div>您选择的目录[' + path + ']含有文件，会引起本地覆盖服务器端或服务端覆盖本地文件，请选择？</div>';
+                var content = '<div>'+L('synchronize_directory_will_be_overwrite',path)+'</div>';
 
                 gkClientModal.show({
-                    title: '请选择',
+                    title: L('pls_choose'),
                     content: content,
                     buttons: [
                         {
-                            text: '重新选择',
+                            text: L('rechoose'),
                             click: function() {
                                 gkClientModal.close();
                             }
                         },
                         {
-                            text: '本地覆盖服务器端',
+                            text: L('local_files_overwrite_cloud_files'),
                             click: function() {
                                 var overWriteInput = $('input[name="over_write"]');
                                 overWriteInput.val(0);
@@ -342,7 +339,7 @@ var gkClientLogin = {
                             }
                         },
                         {
-                            text: '服务器端覆盖本地',
+                            text: L('cloud_files_overwrite_local_files'),
                             click: function() {
                                 var overWriteInput = $('input[name="over_write"]');
                                 overWriteInput.val(1);
@@ -540,12 +537,12 @@ function gLoginResult(data) {
     loginBtn.removeAttr('disabled');
     loginBtn.find('.spinner').remove();
     if (!data) {
-        gkClientInterface.showError('无数据返回');
+        gkClientInterface.showError(L('response_date_is_empty'));
         return;
     }
     var rep = JSON.parse(data);
     if (!rep) {
-        gkClientInterface.showError('无效的数据格式');
+        gkClientInterface.showError(L('invalid_data'));
         return;
     }
     if (rep.error != 0) {
