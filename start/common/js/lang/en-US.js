@@ -803,6 +803,8 @@ var LANG = {
     use_default_sync_dir_and_sync_setting:'Use default sync folder location and sync preferences',
     custom_settings:'Advanced',
     manual_set_sync_dir_and_sync_settings:'Choose sync folder location and which folders will be synced',
+    virtual_settings:'虚拟盘设置',
+    virtual_settings_desc:'设置同步虚拟盘，支持密码访问，让文件更安全',
     label_regist_email:'Email',
     sign_up_btn:'Sign up',
     pls_select_sync_dir:'Please choose a location for sync folder',

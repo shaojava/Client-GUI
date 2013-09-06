@@ -233,6 +233,8 @@ var gkClientLogin = {
             var gkSettingsType = $(this).find('input[name="chose_settings"]:checked').val();
             if (gkSettingsType == 1) {//非默认设置
                 gkClientLogin.setHash('login_p11');
+            } else if(gkSettingsType == 2){
+                gkClientLogin.setHash('login_p14');
             } else {//默认设置z
                 var defaultPath = gkClientInterface.getNormalPath();
                 var isEmpty = gkClientInterface.checkIsEmptyPath(defaultPath);
@@ -289,10 +291,9 @@ var gkClientLogin = {
         });
         $('#login_p3 form').on('click', function() {
             var val = $(this).find('input[name="chose_settings"]:checked').val();
-            if (val == 1) {
+            if (val) {
                 $(this).find('.btn_next').html(L('next_step'));
-            }
-            else {
+            } else {
                 $(this).find('.btn_next').html(L('done'));
             }
         });
@@ -381,6 +382,7 @@ var gkClientLogin = {
             if (overwrite.length) {
                 param.overwrite = parseInt(overwrite);
             }
+            param = gkClientLogin.checkVirtual(param);
             //console.log(param);
             gkClientInterface.finishSettings(param);
             return false;
@@ -439,6 +441,7 @@ var gkClientLogin = {
             left: 'auto' // Left position relative to parent in px
         };
 
+        this.initVirtual();
     },
     //绑定UI事件
     bindUI: function() {
@@ -465,6 +468,16 @@ var gkClientLogin = {
             var defaultPath = gkClientInterface.getNormalPath();
             $('#default_gk_sync_dir').text(defaultPath);
             $('#gk_sync_dir').val(defaultPath).attr('title', defaultPath);
+        } else if (target == '#login_p14') {
+            var drives = gkClientInterface.getDriveInfo();
+            var dirve_list = drives['list'];
+            var options = '';
+            for (var i in dirve_list) {
+                var drive = dirve_list[i];
+                var value = '本地' + drive['name'] + '盘，可用空间' + Util.Number.bitSize(drive['free'], 0);
+                options += '<option value="' + drive['name'] + ':\\" free="' + drive['free'] + '">' + value + '</option>';
+            }
+            $('.local_drives').html(options);
         }
     },
     showClientGuild: function(step) {
@@ -477,6 +490,84 @@ var gkClientLogin = {
     },
     choseSyncType: function() {
 
+    },
+
+    //虚拟盘相关
+    initVirtual: function () {
+        var virtualForm = $('#is_virtual_settings');
+        var checkSize = function () {
+            var freeSize = parseInt($('.local_drives :selected', virtualForm).attr('free'));
+            var setSize = parseInt($('#virtual_size', virtualForm).val());
+            if (!setSize) {
+                return [0, '请设置虚拟盘大小'];
+            }
+            var err = $('.err', virtualForm);
+            if (setSize * 1024 * 1024 * 1024 > freeSize) {
+                err.show();
+                return [0, $.trim(err.text())];
+            } else {
+                err.hide();
+                return [1];
+            }
+        };
+        $('#virtual_size', virtualForm).on('blur', function () {
+            checkSize();
+        });
+        $('.local_drives', virtualForm).on('change', function () {
+            checkSize();
+        });
+        virtualForm.on('submit', function () {
+            var result = checkSize();
+            if (!result[0]) {
+                alert(result[1]);
+                return false;
+            }
+            gkClientLogin.setHash('login_p15');
+            return false;
+        });
+        var virtualPwdForm = $('#is_virtual_password_settings');
+        var checkPwd = function () {
+            var pwd = $('#virtual_password', virtualPwdForm).val();
+            var rpwd = $('#re_virtual_password', virtualPwdForm).val();
+            if (!pwd.length) {
+                return [0, '请先设置密码'];
+            }
+            var err = $('.err', virtualPwdForm);
+            if (pwd != rpwd) {
+                err.show();
+                return [0, $.trim(err.text())];
+            } else {
+                err.hide();
+                return [1];
+            }
+        };
+        $('#re_virtual_password', virtualPwdForm).on('blur', function () {
+            checkPwd();
+        });
+        virtualPwdForm.on('submit', function () {
+            var result = checkPwd();
+            if (!result[0]) {
+                alert(result[1]);
+                return false;
+            }
+            gkClientLogin.setHash('login_p12');
+            return false;
+        });
+    },
+    //完成时检测虚拟盘
+    checkVirtual: function(params){
+        var virtualForm = $('#is_virtual_settings');
+        var virtualPwdForm = $('#is_virtual_password_settings');
+        var virtualSize = parseInt($('#virtual_size', virtualForm).val());
+        if(!virtualSize){
+            return params;
+        }
+        var password = $('#virtual_password', virtualPwdForm).val();
+        params.size = virtualSize * 1024 * 1024 * 1024;
+        params.password = MD5(password);
+        params.diskpath = $('.local_drives', virtualForm).val();
+        params.path = 3;
+        return params;
     }
 };
 

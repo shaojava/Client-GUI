@@ -803,6 +803,8 @@ var LANG = {
     use_default_sync_dir_and_sync_setting:'使用默认的同步目录和同步设置',
     custom_settings:'自定义设置',
     manual_set_sync_dir_and_sync_settings:'手动设置同步目录和同步设置',
+    virtual_settings:'虚拟盘设置',
+    virtual_settings_desc:'设置同步虚拟盘，支持密码访问，让文件更安全',
     label_regist_email:'请输入您的常用邮箱：',
     sign_up_btn:'立即注册',
     pls_select_sync_dir:'请选择同步文件夹路径',

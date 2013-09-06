@@ -360,6 +360,13 @@ var gkClientInterface = {
     },
     isWindowsClient:function(){
         return this.getClientOS() == 'windows';
+    },
+    getDriveInfo: function(){
+        try {
+            return $.parseJSON(gkClient.gGetDriveInfo());
+        } catch (e) {
+            throw e;
+        }
     }
 };
 var gkClientAjax = {};

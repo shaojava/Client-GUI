@@ -568,9 +568,12 @@ Util.Clock = {
 };
 
 Util.Number = {
-    bitSize: function(num) {
+    bitSize: function(num,  decimal) {
         if (typeof(num) != 'number') {
             num = Number(num);
+        }
+        if (typeof(decimal) != 'number'){
+            decimal = 2;
         }
         if (num < 0) {
             return '';
@@ -586,7 +589,11 @@ Util.Number = {
         if (num == 0) {
             return num;
         } else {
-            return Math.round(num * 100) / 100 + type[j];
+            var dec = 1;
+            for (var i = 0; i < decimal; i++) {
+                dec = dec * 10;
+            }
+            return Math.round(num * dec) / dec + type[j];
         }
     }
 };

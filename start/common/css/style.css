@@ -161,6 +161,10 @@ input[type="password"] {
 .f_r{
     float: right;
 }
+.c_f{
+    overflow: hidden;
+    zoom: 1;
+}
 /* components.css */
 /* 滚动条样式 */
 .scrollbar::-webkit-scrollbar {
@@ -827,4 +831,38 @@ dl.from_raw.selected{
 }
 .slide_banner .qr_img{
     padding: 40px 0;
+}
+/*虚拟盘设置页*/
+#is_virtual_settings h2{
+    font-size: 16px;
+    color: #434343;
+}
+#is_virtual_settings .local_drives{
+    font-size: 14px;
+    color: #5E656D;
+    padding: 4px;
+    height: 28px;
+    line-height: 28px;
+}
+#is_virtual_settings p{
+    margin: 5px 0;
+}
+#is_virtual_settings span{
+    font-size: 12px;
+}
+#is_virtual_settings #virtual_size{
+    width: 60px;
+    padding: 2px 4px;
+    height: 18px;
+    line-height: 18px;
+}
+#is_virtual_settings .err,
+#is_virtual_password_settings .err{
+    font-size: 12px;
+    color: red;
+    display: none;
+}
+#is_virtual_password_settings h2{
+    font-size: 16px;
+    color: #5E656D;
 }
