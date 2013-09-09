@@ -5,194 +5,137 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <link rel="stylesheet" type="text/css" href="./common/css/style.css"/>
     <link rel="stylesheet" type="text/css" href="./common/css/settings.css"/>
-
 </head>
 <body id="setting">
 <div id="wrapper">
-    <div id="header" class="clearfix">
+    <div id="header">
         <ul class="tab_list">
-            <li class="basic selected_bg" data-target="basic">
-                <i class="ibasic no"></i>
+            <li class="tbasic selected" data-target="basic">
+                <i></i>
                 <span data-locale="general">基本</span>
             </li>
-            <li class="advance" data-target="advance">
-                <i class="iadvance"></i>
+            <li class="tadvance" data-target="advance">
+                <i></i>
                 <span data-locale="advanced">高级</span>
             </li>
-            <li class="about" data-target="about">
-                <i class="iabout"></i>
+            <li class="tabout" data-target="about">
+                <i></i>
                 <span data-locale="about">关于</span>
             </li>
         </ul>
     </div>
-    <script type="text/javascript">
-        var lang = navigator.language || 'zh-CN';
-        document.write(unescape("%3Cscript src='./common/js/lang/" + lang + ".js' type='text/javascript'%3E%3C/script%3E"));
-    </script>
-
-    <script type="text/javascript" src="./common/js/jquery.js"></script>
-    <script type="text/javascript" src="./common/js/jquery.tmpl.min.js"></script>
-    <script type="text/javascript" src="./common/js/common.js"></script>
-    <script type="text/javascript" src="./common/js/util.js"></script>
-    <script type="text/javascript" src="./common/js/interface.js"></script>
-    <script type="text/javascript" src="./common/js/setting.js"></script>
-    <script type="text/javascript">
-        $(function () {
-            $('[data-locale]').translate();
-            $("#header li").click(function () {
-                $(this).addClass("selected_bg").siblings("li").removeClass("selected_bg");
-                $(this).find("i").addClass("no").parents("li").siblings("li").find("i").removeClass("no");
-                var currentDiv = $(".tab_content_wrapper").children("div").filter(":not(.person_message)").filter(":not(.advance_qx)").filter(":not(.file_index)").eq($(this).index());
-                if (currentDiv.attr("class").indexOf("basic") > 0) {
-                    $(".person_message").show();
-                    $(".advance_qx").hide();
-                    $(".file_index").hide();
-                } else if (currentDiv.attr("class").indexOf("advance") > 0) {
-
-                    $(".person_message").hide();
-                    $(".advance_qx").show();
-                    $(".file_index").show();
-
-                } else if (currentDiv.attr("class").indexOf("about") > 0) {
-                    $(".person_message").hide();
-                    $(".advance_qx").hide();
-                    $(".file_index").hide();
-
-                }
-                currentDiv.show().siblings("div").filter(":not(.person_message)").filter(":not(.advance_qx)").filter(":not(.file_index)").hide();
-            })
-            gkClientSetting.init();
-        })
-    </script>
-    <!--计算机信息-->
-    <script type="text/x-jquery-tmpl" id="layout_member_info">
-        <div class="userImg clearfix">
-            <div class="f_l"><img src="${photourl}" class="img_info"/></div>
-            <div class="img_mes_info">
-                <div><span>${L('label_computer')}</span>${computer_name}</div>
-                <div><span>${L('label_login_account')}</span>{{if typeof username != "undefined"}}${username}{{else}}${L('unlogin')}{{/if}}<input
-                        type='button'
-                        style="cursor:{{if typeof username==='undefined'}} default{{else}}pointer{{/if}};color:{{if typeof username==='undefined'}} #999{{/if}}"
-                    {{if typeof username==='undefined'}} disabled{{/if}} class="btn edit_btn" value="${L('logout')}" />
-                </div>
-            </div>
-        </div>
-    </script>
-    <!--个人信息-->
-    <script type="text/x-jquery-tmpl" id="gjconfig">
-        <ul>
-            {{each(k,v) gjconfig}}
-            <li data-config="${k}" class="opt">
-
-                <i class="${v.checked}"></i>
-
-                ${v.name}
-            </li>
-            {{/each}}
-        </ul>
-
-    </script>
     <div id="main">
-        <div class="tab_content_wrapper">
-            <div class="person_message">
-
+        <div class="basic">
+            <div class="person_message panel">
             </div>
-            <div class="tab_content basic">
-                <script type="text/x-jquery-tmpl" id="baseconfig">
-                    <ul>
-                        {{each(k,v) baseconfig}}
-                        <li data-config="${v.k}" class="opt">
-
-                            <i class="${v.checked}"></i>
-
-                            ${v.name}
-                        </li>
-                        {{/each}}
-                    </ul>
-
-                </script>
+            <div class="basic_setting panel">
             </div>
-            <div class="advance_qx">
-                <div class="advance_gj"></div>
-                <div class="sync">
-                    <span data-locale="sync_dir_locatin">同步文件位置</span>
-                    <script>
-                        if (typeof gkClientInterface.getUserInfo() === 'undefined') {
-
-                            $(".sync").append('<input type="text" disabled="disabled" /><button class="btn sync-move" disabled="disabled" style="color:#999">'+L('move')+'</button> <button class="btn sync-position" disabled="disabled" style="color:#999" >'+L('select_files_to_sync')+'</button>');
-                        } else {
-                            $(".sync").append('<input type="text" disabled="disabled" /><button class="btn sync-move">'+L('move')+'</button> <button class="btn sync-position"  >'+L('select_files_to_sync')+'</button>');
-                        }
-                    </script>
-
-
-                </div>
-            </div>
-            <div class="file_index" style="display:none">
-                <span data-locale="config_file_location">配置文件位置</span>
-                <script>
-                    if (typeof gkClientInterface.getUserInfo() === 'undefined') {
-                        $(".file_index").append('<input type="text" disabled="disabled" /><button class="btn move" style="color:#999" disabled="disabled">'+L('move')+'</button>');
-
-                    } else {
-                        $(".file_index").append('<input type="text"  /><button class="btn move">'+L('move')+'</button>');
-                    }
-                </script>
-
-                <span id="sx" data-locale="take_effect_after_software_restart">软件重启生效</span>
-            </div>
-            <div class="tab_content advance" style="display:none;height:93px;padding-bottom: 15px;padding-top:20px">
-
-                <div id="settingsMes">
-
-                    <div class="clearcache">
-                        <script>
-                            if (typeof gkClientInterface.getUserInfo() === 'undefined') {
-                                $(".clearcache").prepend('<input type="button" style="color:#999" disabled="disabled" class="clearCache btn f_l" value="'+L('clear_cache')+'" />');
-
-
-                            } else {
-                                $(".clearcache").prepend('<input type="button" class="clearCache btn f_l" value="'+L('clear_cache')+'" />');
-                            }
-                        </script>
-                        <div class="textMes" data-locale="clear_cache_tip">删除缓存可以换取您的硬盘空间，但可能会导致您的同步效率下降</div>
-                    </div>
-                    <div class="rjconfig" style="margin-top:10px">
-                        <script>
-                            if (typeof gkClientInterface.getUserInfo() === 'undefined') {
-                                $(".rjconfig").prepend('<input type="button" class="settingDl btn f_l" style="color:#999" disabled="disabled"  value="'+L('set_proxy')+'" />');
-
-
-                            } else {
-                                $(".rjconfig").prepend('<input type="button" class="settingDl btn f_l" value="'+L('set_proxy')+'" />');
-                            }
-                        </script>
-                        <div class="textMes"><a href="javascript:void(0)" class="chk use_proxy"><i></i><span data-locale="enable_ie_proxy">开启IE代理（软件下次启动时生效）</span></a>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-            <div class="tab_content about" style="display:none;height:367px">
-                <img src="./common/images/about_logo.png"/>
-                <h2 data-locale="gokuai_desktop_client">够快桌面客户端</h2>
-                <span class="version"></span>
-                <div class="mess">
-                    <h3 data-locale="gokuai_technology">够快科技</h3>
-                    www.gokuai.com
-                </div>
-
+            <div class="language_setting panel">
+                <label>语言切换</label>
+                <select class="input_text_radius">
+                    <option>简体中文</option>
+                    <option>繁体中文</option>
+                    <option>英文</option>
+                </select>
+                <span data-locale="take_effect_after_software_restart">软件重启生效</span>
             </div>
         </div>
-        <div id="footer">
-            <button class="btn blue_btn confirm purple_btn" data-locale="ok">确定</button>
-            <button class="btn cancel" data-locale="cancel">取消</button>
+        <div class="advance" style="display:none">
+            <div class="advance_setting panel">
+            </div>
+            <div class="panel location">
+                <div class="sync_loc">
+                    <p><h2 data-locale="sync_dir_locatin">同步文件位置</h2></p>
+                    <p>
+                        <input type="text" class="input_text_radius disabled" disabled="disabled"/>
+                        <button class="btn sync-move" checkLogin data-locale="move"></button>
+                        <button class="btn sync-position" checkLogin data-locale="select_files_to_sync"></button>
+                    </p>
+                </div>
+                <div class="config_loc">
+                    <p><h2 data-locale="config_file_location">配置文件位置</h2></p>
+                    <p><input type="text" class="input_text_radius disabled" disabled="disabled"/>
+                        <button class="btn move" data-locale="move" checkLogin></button></p>
+                    <p><span data-locale="take_effect_after_software_restart">软件重启生效</span></p>
+                </div>
+            </div>
+            <div class="panel others">
+                <div class="clearcache c_f">
+                    <button class="clearCache btn f_l" checkLogin data-locale="clear_cache"></button>
+                    <div class="textMes" >
+                        <span data-locale="clear_cache_tip">删除缓存可以换取您的硬盘空间，但可能会导致您的同步效率下降</span>
+                    </div>
+                </div>
+                <div class="rjconfig c_f" style="margin-top:10px">
+                    <button class="settingDl btn f_l" checkLogin data-locale="set_proxy"></button>
+                    <div class="textMes">
+                        <a href="javascript:void(0)" data-config="proxy" class="chk use_proxy">
+                            <i></i><span data-locale="enable_ie_proxy">开启IE代理（软件下次启动时生效）</span>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="about panel" style="display:none">
+            <img src="./common/images/about_logo.png"/>
+
+            <h2 data-locale="gokuai_desktop_client">够快桌面客户端</h2>
+            <span class="version"></span>
+
+            <div class="mess">
+                <h3 data-locale="gokuai_technology">够快科技</h3>
+                www.gokuai.com
+            </div>
         </div>
     </div>
-
+    <div id="footer">
+        <button class="btn cancel" data-locale="cancel">取消</button>
+        <button class="btn blue_btn confirm purple_btn" data-locale="ok">确定</button>
+    </div>
 </div>
 
+<script type="text/javascript">
+    var lang = navigator.language || 'zh-CN';
+    document.write(unescape("%3Cscript src='./common/js/lang/" + lang + ".js' type='text/javascript'%3E%3C/script%3E"));
+</script>
 
+<script type="text/javascript" src="./common/js/jquery.js"></script>
+<script type="text/javascript" src="./common/js/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="./common/js/common.js"></script>
+<script type="text/javascript" src="./common/js/util.js"></script>
+<script type="text/javascript" src="./common/js/interface.js"></script>
+<script type="text/javascript" src="./common/js/setting.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('[data-locale]').translate();
+        gkClientSetting.init();
+    })
+</script>
+<!--基本设置-->
+<script type="text/x-jquery-tmpl" id="configTmpl">
+    <ul class="configs">
+        {{each(k,v) configs}}
+        <li data-config="${v.k}" class="chk ${v.checked}">
+            <label><i></i>${v.name}</label>
+        </li>
+        {{/each}}
+    </ul>
+</script>
+<!--计算机信息-->
+<script type="text/x-jquery-tmpl" id="layout_member_info">
+    <div class="f_l"><img src="${photourl}" class="img_info"/></div>
+    <div class="img_mes_info">
+        <div>
+            <span>${L('label_computer')}</span>${computer_name}
+        </div>
+        <div>
+            <span>${L('label_login_account')}</span>{{if typeof username !=
+            "undefined"}}${username}{{else}}${L('unlogin')}{{/if}}
+            <input type='button'
+                   style="cursor:{{if typeof username==='undefined'}} default{{else}}pointer{{/if}};color:{{if typeof username==='undefined'}} #999{{/if}}"
+            {{if typeof username==='undefined'}} disabled{{/if}} class="btn edit_btn" value="${L('logout')}" />
+        </div>
+    </div>
+</script>
 </body>
 </html>

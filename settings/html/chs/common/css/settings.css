@@ -1,65 +1,117 @@
 @charset "utf-8";
-.clearfix{display:block;}
-.clearfix:after{clear:both;display:block;content:"";font-size:0;visibility:hidden}
-#setting{font:14px "Microsoft Yahei";}
-#setting #wrapper #header{height:80px;width:100%;background:#3d4f69;}
-#setting #wrapper #header .tab_list{width:50%;margin:0 auto 0 170px;color:#fff}
-#setting #wrapper #header .tab_list li{text-align:center;cursor:pointer;float:left;padding:6px 0 0;width:87px;height:64px;margin-top:10px;border-top-left-radius: 5px;border-top-right-radius: 5px;}
-#setting #wrapper #header .tab_list li span{display:block;margin-top: 5px;margin-left:3px}
-#setting #wrapper #header .tab_list li i{display:block;width:30px;height:30px;margin-left:27px;background:url('../images/icon_tab.png') no-repeat 0 0}
-#setting #wrapper #header .tab_list li i.ibasic{background-position: 0 0}
-#setting #wrapper #header .tab_list li i.iadvance{background-position: 0 -32px}
-#setting #wrapper #header .tab_list li i.iabout{background-position: 0 -64px}
-#setting #wrapper #header .tab_list li i.no{background-position-x: -32px}
-#setting #wrapper #header .tab_list li:hover{background: #495b75;}
-/*li选中色*/
-#setting #wrapper #header .tab_list li.selected_bg{background:#667894;}
-#setting #wrapper #main{height:490px;width:100%;background:#e1ebf5;}
-#setting #wrapper #main .tab_content_wrapper{height:419px;padding:10px;color:#999;background:#f9fbfc;border-bottom:1px solid #c2d7e9}
-#setting #wrapper #main .person_message,#setting #wrapper #main .advance_qx,#setting #wrapper #main .file_index{border:1px solid #e1ebf5;margin-bottom:10px}
-
-#setting #wrapper #main .tab_content,#setting #wrapper #main .advance_qx{border:1px solid #e1ebf5;height:125px;border-radius: 3px;background:#fff;padding:0 25px;cursor:default}
-#setting #wrapper #main .tab_content{height:235px;padding-top:15px;padding-bottom:15px}
-#setting #wrapper #main .advance_qx{display:none;padding-top:10px}
-#setting #wrapper #main .tab_content  li,#setting #wrapper #main .advance_qx li{margin-bottom:10px;cursor:pointer}
-#setting #wrapper #main .tab_content  li{margin-bottom:20px}
-#setting #wrapper #main .tab_content  li i,#setting #wrapper #main .advance_qx li i{background:url('../images/checkbox.png') no-repeat 0 0;cursor:pointer;width:16px;height:16px;display:inline-block;text-decoration:none;vertical-align: middle;}
-#setting #wrapper #main #footer{float:right;position:relative;right:5px;top:12px}
-#setting #wrapper #main .tab_content  li i.check_icon,#setting #wrapper #main .advance_qx li i.check_icon{background-position:0 0}
-#setting #wrapper #main .tab_content  li i.no_check_icon,#setting #wrapper #main .advance_qx li i.no_check_icon{background-position:-48px 0}
-#setting #wrapper #main .tab_content  li i.hover_check_icon,#setting #wrapper #main .advance_qx li i.hover_check_icon{background-position:-32px 0}
-#footer .purple_btn{background:#6185BC;border-color:transparent}
-#footer button{width:82px}
-
-
-#setting #wrapper #main .userImg{padding:25px 34px;background:#fff;margin-bottom:10px;border-radius: 3px}
-#setting #wrapper #main .userImg .img_info{height:70px;width:70px;border-radius: 50%;display: block}
-#setting #wrapper #main .userImg div.img_mes_info{padding-left:90px;cursor:default}
-#setting #wrapper #main .userImg div.img_mes_info div{margin-bottom:15px;}
-#setting #wrapper #main .userImg div.img_mes_info div span{color:#6185BC}
-#setting #wrapper #main .userImg div.img_mes_info .edit_btn{margin-left:40px;padding:4px 6px}
-#setting #wrapper #main .advance{padding-top:16px}
-#setting #wrapper #main .file_index{padding:25px 35px;background:#fff;cursor: default}
-#setting #wrapper #main .file_index span,#setting #wrapper #main .sync span{font-size:15px;color:#6185BC;display: block;height:25px;line-height:25px}
-#setting #wrapper #main .file_index input,#setting #wrapper #main .sync input{margin-right:6px;width:348px;border:1px solid #C2CBD3;box-shadow:inset 0 1px 2px #C2CBD3;border-radius:5px;height:24px;line-height: 24px;display:inline-block}
-#setting #wrapper #main .file_index button.move{width:58px}
-#setting #wrapper #main .file_index div:nth-child(1) span{color:#6185BC;font-size:15px;display:block;height:25px;line-height:25px;}
-#setting #wrapper #main #sx{color:#999;font-size:13px;}
-#setting #wrapper #main .advance div.link_c{margin:30px 0}
-/*#settingsMes div{margin-bottom:15px}*/
-#settingsMes button{width:98px;padding:8px 14px}
-#settingsMes .textMes{padding-left:115px}
-
-#setting #wrapper #main .about{text-align:center}
-#setting #wrapper #main .about img{margin-top: 45px}
-#setting #wrapper #main .about h2{margin-top:20px}
-#setting #wrapper #main .about .mess{margin-top: 25px}
-#setting #wrapper #main .about .mess h3{color:#6185BC}
-
-.chk{
-    color: #434343;
+/* 头部 */
+#setting #wrapper #header {
+    font: 14px "Microsoft Yahei";
+    left: 0;
+    right: 0;
+    top: 0;
+    position: absolute  ;
+    height: 80px;
+    background: #3d4f69;
+    overflow: hidden;
 }
-.chk i{
+/* 头部TAB */
+#setting #wrapper #header .tab_list {
+    margin: auto;
+    color: #FFF;
+    text-align: center;
+    padding-top: 10px;
+}
+
+#setting #wrapper #header .tab_list li {
+    text-align: center;
+    cursor: pointer;
+    width: 90px;
+    height: 50px;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    display: inline-block;
+    padding: 10px 0;
+    margin: 0 15px;
+}
+
+#setting #wrapper #header .tab_list li i {
+    display: block;
+    width: 32px;
+    height: 32px;
+    margin: auto;
+    background: url('../images/icon_tab.png') no-repeat;
+}
+
+#setting #wrapper #header .tab_list li.tbasic i {
+    background-position: 0 0
+}
+
+#setting #wrapper #header .tab_list li.tadvance i {
+    background-position: 0 -32px
+}
+
+#setting #wrapper #header .tab_list li.tabout i {
+    background-position: 0 -64px
+}
+
+#setting #wrapper #header .tab_list li:hover {
+    background: #495b75;
+}
+
+#setting #wrapper #header .tab_list li.selected {
+    background: #667894;
+}
+
+#setting #wrapper #header .tab_list li.selected i {
+    background-position-x: -32px
+}
+
+/*主内容*/
+#setting #wrapper #main {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 80px;
+    bottom: 50px;
+    padding: 10px;
+    background: #FFF;
+}
+
+#setting #wrapper #main .panel {
+    border: 1px solid #e1ebf5;
+    border-radius: 3px;
+    padding: 18px 30px;
+    background: #FFF;
+    color: #606D7F;
+    overflow: hidden;
+}
+
+/*底部设置*/
+#setting #wrapper #footer {
+    border-top: 1px solid #c2d7e9;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 50px;
+    background: #E1EBF5;
+    overflow: hidden;
+    zoom: 1;
+}
+
+#setting #wrapper #footer .purple_btn {
+    background: #6185BC;
+}
+
+#setting #wrapper #footer button {
+    width: 82px;
+    float: right;
+    margin-right: 12px;
+    margin-top: 12px;
+}
+
+/*选择框*/
+.chk {
+    color: #606D7F;
+}
+
+.chk i {
     display: inline-block;
     width: 16px;
     height: 16px;
@@ -67,16 +119,137 @@
     text-decoration: none;
     vertical-align: middle;
 }
-.chk:hover i{
-    background-position:-32px 0;
+
+.chk:hover i {
+    background-position: -32px 0;
 }
-.chk.checked i{
+
+.chk.checked i {
     background-position: -48px 0;
 }
-.chk.part_checked i{
+
+.chk.part_checked i {
     background-position: -64px 0;
 }
 
-#setting #wrapper #main .tab_content_wrapper .chk{
-    color:#999;
+/*具体页面*/
+/*用户信息*/
+#setting #wrapper #main .person_message,
+#setting #wrapper #main .basic_setting{
+    overflow: hidden;
+    zoom: 1;
+    margin-bottom: 10px;
+}
+#setting #wrapper #main .person_message  .img_info {
+    height: 70px;
+    width: 70px;
+    border-radius: 50%;
+    display: block
+}
+
+#setting #wrapper #main .person_message  div.img_mes_info {
+    margin-left: 25px;
+    cursor: default;
+    float: left;
+}
+
+#setting #wrapper #main .person_message  div.img_mes_info div {
+    line-height: 35px;
+    height: 35px;
+}
+
+#setting #wrapper #main .person_message  div.img_mes_info div span {
+    color: #6185BC;
+}
+
+#setting #wrapper #main .person_message  div.img_mes_info .edit_btn {
+    margin-left: 40px;
+    padding: 4px 6px
+}
+/*基本设置选项*/
+#setting #wrapper #main .configs li{
+    line-height: 30px;
+    height: 30px;
+}
+#setting #wrapper #main .configs li i{
+    margin-right: 10px;
+}
+#setting #wrapper #main .language_setting select{
+    line-height: 24px;
+    height: 24px;
+    padding: 2px;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 5px;
+    min-width: 188px;
+    color: #606D7F;
+}
+#setting #wrapper #main .language_setting span{
+    color: #ACB4BF;
+    cursor: default;
+}
+/*高级设置*/
+#setting #wrapper #main .advance span{
+    color: #ACB4BF;
+}
+#setting #wrapper #main .advance .panel{
+    margin-bottom: 10px;
+}
+#setting #wrapper #main .advance .input_text_radius{
+    padding: 4px 6px;
+    width: 300px;
+}
+#setting #wrapper #main .advance .textMes{
+    float: left;
+    line-height: 26px;
+    margin-left: 15px;
+}
+#setting #wrapper #main .advance .textMes .use_proxy i{
+    margin-right: 5px;
+}
+#setting #wrapper #main .advance .location p{
+    line-height: 26px;
+}
+#setting #wrapper #main .advance .location h2{
+    color: #6185BC;
+    font-size: 14px;
+}
+#setting #wrapper #main .advance .location button{
+    vertical-align: middle;
+    margin-top: -4px;
+    margin-left: 4px;
+}
+#setting #wrapper #main .advance .location .sync_loc{
+    margin-bottom: 16px;
+}
+#setting #wrapper #main .advance .others > div{
+    margin: 7px 0;
+}
+/*关于*/
+#setting #wrapper #main .about {
+    text-align: center;
+    height: 99%;
+    padding: 0;
+}
+
+#setting #wrapper #main .about img {
+    margin-top: 80px
+}
+
+#setting #wrapper #main .about h2 {
+    margin-top: 20px;
+    font-weight: 600;
+    font-size: 22px;
+}
+
+#setting #wrapper #main .about .mess {
+    margin-top: 25px
+}
+
+#setting #wrapper #main .about .version {
+    font-size: 14px;
+}
+#setting #wrapper #main .about .mess h3 {
+    color: #6185BC;
+    font-size: 16px;
 }
