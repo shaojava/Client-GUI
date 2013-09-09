@@ -403,6 +403,14 @@ var gkClientInterface = {
     },
     getClientLang:function(){
 
+    },
+    
+    getDriveInfo: function(){
+        try {
+            return $.parseJSON(gkClient.gGetDriveInfo());
+        } catch (e) {
+            throw e;
+        }
     }
 };
 var gkClientAjax = {};
@@ -493,6 +501,7 @@ var PAGE_CONFIG = {};
             PAGE_CONFIG.email = account.email;
             PAGE_CONFIG.mountId = account.mount_id;
             PAGE_CONFIG.orgId = account.org_id;
+	    PAGE_CONFIG.memberType = account.member_type;
         }
         console.log(PAGE_CONFIG);
     }catch(e){
