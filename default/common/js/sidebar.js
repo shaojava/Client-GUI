@@ -590,7 +590,7 @@ var gkClientSidebar = {
                             success: function (data) {
                                 if(!data || !data.link) return;
                                 var params = {
-                                    url:  data.link,
+                                    url:  data.link + '#create',
                                     sso: 1,
                                     resize: 1,
                                     width: 1000,
