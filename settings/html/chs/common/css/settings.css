@@ -167,6 +167,9 @@
     padding: 4px 6px
 }
 /*基本设置选项*/
+#setting #wrapper #main .configs{
+    display: inline-block;
+}
 #setting #wrapper #main .configs li{
     line-height: 30px;
     height: 30px;

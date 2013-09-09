@@ -3,8 +3,8 @@ var gkClientSetting = {
     init: function () {
         //初始化
         this.clientInfo = gkClientInterface.getClientInfo();
-        this.initUI();
         this.initData();
+        this.initUI();
         var config = this.getConfig();
         $('#configTmpl').tmpl({configs: config.baseconfig}).appendTo($('.basic_setting'));
         $('#configTmpl').tmpl({configs: config.gjconfig}).appendTo($('.advance_setting'));
@@ -96,7 +96,7 @@ var gkClientSetting = {
         $('#layout_member_info').tmpl({
             photourl: userInfo ? userInfo.photourl : 'http://oss.aliyuncs.com/gkavatar2/e2/e29aff5326885a7a675a8ff46b6b08ba1e377b06.jpg',
             computer_name: this.clientInfo.computername,
-            username: this.clientInfo.username
+            username: this.clientInfo.username || L('unlogin')
         }).appendTo($('.person_message'));
         //设置配置文件位置
         $('.config_loc').find('input').val(this.clientInfo.configpath);

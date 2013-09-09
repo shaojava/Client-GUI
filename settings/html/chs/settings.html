@@ -31,7 +31,7 @@
             <div class="basic_setting panel">
             </div>
             <div class="language_setting panel">
-                <label>语言切换</label>
+                <label data-locale="language_switch">语言切换</label>
                 <select class="input_text_radius">
                     <option>简体中文</option>
                     <option>繁体中文</option>
@@ -126,14 +126,13 @@
     <div class="f_l"><img src="${photourl}" class="img_info"/></div>
     <div class="img_mes_info">
         <div>
-            <span>${L('label_computer')}</span>${computer_name}
+            <span>${L('label_computer')}</span>
+            ${computer_name}
         </div>
         <div>
-            <span>${L('label_login_account')}</span>{{if typeof username !=
-            "undefined"}}${username}{{else}}${L('unlogin')}{{/if}}
-            <input type='button'
-                   style="cursor:{{if typeof username==='undefined'}} default{{else}}pointer{{/if}};color:{{if typeof username==='undefined'}} #999{{/if}}"
-            {{if typeof username==='undefined'}} disabled{{/if}} class="btn edit_btn" value="${L('logout')}" />
+            <span>${L('label_login_account')}</span>
+            ${username}
+            <button class="btn edit_btn" checkLogin>${L('logout')}</button>
         </div>
     </div>
 </script>
