@@ -257,7 +257,6 @@ var gkClientInterface = {
                 return;
             }
             gkClient.gLaunchpad();
-
         } catch (e) {
             throw e;
         }
@@ -398,6 +397,12 @@ var gkClientInterface = {
     },
     isWindowsClient:function(){
         return this.getClientOS() == 'windows';
+    },
+    getClientVersion:function(){
+        return this.getUserAgent()[1].toLowerCase();
+    },
+    getClientLang:function(){
+
     }
 };
 var gkClientAjax = {};

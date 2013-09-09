@@ -297,6 +297,23 @@ Util.Browser = {
             }
         }
         return moblie;
+    },
+    /**
+     *比较软件版本号的大小
+     *如果nowVersion>outVersion,返回1,nowVersion<outVersion 返回-1，nowVersion=outVersion 返回0
+     * */
+    compareVersion:function(nowVersion, outVersion){
+        if (outVersion !== nowVersion) {
+            var nowArray = nowVersion.split('.');
+            var outArray =  outVersion.split('.');
+            for (var i = 0; i < nowArray.length; i++) {
+                var result = parseInt(nowArray[i]) - parseInt(outArray[i]);
+                if (result) {
+                    return result > 0?1:-1;
+                }
+            }
+        }
+        return 0;
     }
 };
 
@@ -513,59 +530,6 @@ Util.Email = {
     }
 };
 
-Util.Clock = {
-    week: [L('sunday'), L('monday'), L('tuesday'),L('wednesday'),L('thursday'), L('friday'), L('friday'),L('saturday')],
-    set_date: function(date) {
-        var scope = this.scope;
-        $('.clock_week', scope).text(this.week[date.getDay()]);
-        $('.clock_month', scope).text(this.set_double(date.getMonth() + 1));
-        $('.clock_date', scope).text(this.set_double(date.getDate()));
-        $('.clock_year', scope).text(date.getFullYear());
-    },
-    set_time: function(date) {
-        var scope = this.scope;
-        this.seconds = date.getSeconds();
-        this.minutes = date.getMinutes();
-
-        $('.clock_seconds', scope).text(this.set_double(date.getSeconds()));
-        $('.clock_hours', scope).text(this.set_double(date.getHours()));
-        $('.clock_minutes', scope).text(this.set_double(date.getMinutes()));
-    },
-    set_double: function(value) {
-        return (value < 10 ? "0" : "") + value;
-    },
-    init: function(scope) {
-        var date = new Date();
-        this.scope = scope;
-        this.set_date(date);
-        this.set_time(date);
-
-        var ths = this;
-        setInterval(function() {
-            var seconds = ++ths.seconds;
-
-            if (seconds === 60) {
-                ths.seconds = seconds = 0;
-                var minutes = ++ths.minutes;
-                minutes = minutes === 60 ? 0 : minutes;
-                $('.clock_minutes', scope).text(ths.set_double(minutes));
-
-                if (minutes === 0) {
-                    ths.minutes = 0;
-                    var date = new Date();
-                    var hours = date.getHours();
-                    $('.clock_hours', scope).text(ths.set_double(hours));
-
-                    if (!hours) {
-                        ths.set_date(date);
-                    }
-                }
-            }
-
-            $('.clock_seconds', scope).text(ths.set_double(seconds));
-        }, 1000);
-    }
-};
 
 Util.Number = {
     bitSize: function(num) {

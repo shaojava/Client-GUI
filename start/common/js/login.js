@@ -291,7 +291,7 @@ var gkClientLogin = {
         });
         $('#login_p3 form').on('click', function() {
             var val = $(this).find('input[name="chose_settings"]:checked').val();
-            if (val) {
+            if (val == 1) {
                 $(this).find('.btn_next').html(L('next_step'));
             } else {
                 $(this).find('.btn_next').html(L('done'));
