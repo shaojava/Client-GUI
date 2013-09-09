@@ -233,12 +233,11 @@ var gkClientLogin = {
             var gkSettingsType = $(this).find('input[name="chose_settings"]:checked').val();
             if (gkSettingsType == 1) {//非默认设置
                 gkClientLogin.setHash('login_p11');
-            } else {//默认设置z
+            } else {//默认设置
                 var defaultPath = gkClientInterface.getNormalPath();
                 var isEmpty = gkClientInterface.checkIsEmptyPath(defaultPath);
                 if (!parseInt(isEmpty)) {
                     var content = '<div>'+L('synchronize_directory_will_be_overwrite',defaultPath)+'</div>';
-
                     gkClientModal.show({
                         title: L('pls_choose'),
                         content: content,

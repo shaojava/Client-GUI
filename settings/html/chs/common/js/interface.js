@@ -56,14 +56,14 @@ var gkClientInterface = {
         });
         gkClient.gSetFileStatus(params);
     },
-    closeWindow: function() {
+    closeWindow: function () {
         try {
             gkClient.gClose();
         } catch (e) {
             throw e;
         }
     },
-    login: function(param) {
+    login: function (param) {
         try {
             param = JSON.stringify(param);
             gkClient.gLogin(param);
@@ -71,14 +71,14 @@ var gkClientInterface = {
             throw e;
         }
     },
-    loginByKey: function() {
+    loginByKey: function () {
         try {
             gkClient.gLoginByKey();
         } catch (e) {
             throw e;
         }
     },
-    openURL: function(param) {
+    openURL: function (param) {
         try {
             param = JSON.stringify(param);
             gkClient.gOpenUrl(param);
@@ -86,34 +86,34 @@ var gkClientInterface = {
             throw e;
         }
     },
-    settings: function() {
+    settings: function () {
         try {
             gkClient.gSettings();
         } catch (e) {
             throw e;
         }
     },
-    checkLastPath: function() {
+    checkLastPath: function () {
         try {
             return gkClient.gCheckLastPath();
         } catch (e) {
             throw e;
         }
     },
-    checkIsEmptyPath: function(path) {
+    checkIsEmptyPath: function (path) {
         try {
             return gkClient.gCheckEmpty(path);
         } catch (e) {
             throw e;
         }
     },
-    showError: function(errorMsg, errorCode) {
+    showError: function (errorMsg, errorCode) {
         if (!errorMsg.length) {
             return;
         }
         alert(errorMsg);
     },
-    finishSettings: function(param) {
+    finishSettings: function (param) {
         try {
             param = JSON.stringify(param);
             gkClient.gStart(param);
@@ -121,7 +121,7 @@ var gkClientInterface = {
             throw e;
         }
     },
-    toogleArrow: function(state) {
+    toogleArrow: function (state) {
         try {
             state = JSON.stringify(state);
             gkClient.gShowArrow(state);
@@ -130,7 +130,7 @@ var gkClientInterface = {
         }
 
     },
-    setMenus: function(menus) {
+    setMenus: function (menus) {
         try {
             menus = JSON.stringify(menus);
             gkClient.gSetMenu(menus);
@@ -138,14 +138,14 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getNormalPath: function() {
+    getNormalPath: function () {
         try {
             return gkClient.gNormalPath();
         } catch (e) {
             throw e;
         }
     },
-    getBindPath: function() {
+    getBindPath: function () {
         try {
             return gkClient.gBindPath();
         } catch (e) {
@@ -206,17 +206,17 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getUserInfo: function() {
+    getUserInfo: function () {
         try {
             if (!gkClient.gUserInfo()) {
                 return '';
             }
             return JSON.parse(gkClient.gUserInfo());
         } catch (e) {
-            throw e;
+            throw new Error(e.name+':'+e.message);
         }
     },
-    toggleLock: function(path) {
+    toggleLock: function (path) {
         try {
             if (!path.length) {
                 return;
@@ -261,14 +261,14 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getOauthKey: function() {
+    getOauthKey: function () {
         try {
             return gkClient.gOAuthKey();
         } catch (e) {
             throw e;
         }
     },
-    compareVersion: function(params) {
+    compareVersion: function (params) {
         params = JSON.stringify(params);
         gkClient.gCompare(params);
     },
@@ -358,23 +358,18 @@ var gkClientInterface = {
         }
     },
     getApiDomain: function () {
-        var protocol = 'http:',host = '';
-        if(0){
-            host =  gkClient.gApiHost();
-        }else{
-            host = 'a.gokuai.com';
+        try{
+            return gkClient.gApiHost();
+        }catch(e){
+
         }
-        return protocol+'//'+host;
     },
     getRestDomain: function () {
-        var protocol = 'http:';
-        var host = '';
-        if(0){
-            host = gkClient.gRestHost();
-        }else{
-            host = 'r.gokuai.com';
+        try{
+            return  gkClient.gRestHost();
+        }catch(e){
+
         }
-        return protocol+'//'+host;
     },
     openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);
@@ -402,11 +397,17 @@ var gkClientInterface = {
     },
     isWindowsClient:function(){
         return this.getClientOS() == 'windows';
+    },
+    getClientVersion:function(){
+        return this.getUserAgent()[1].toLowerCase();
+    },
+    getClientLang:function(){
+
     }
 };
 var gkClientAjax = {};
 gkClientAjax.Exception = {
-    getErrorMsg: function(request, textStatus, errorThrown) {
+    getErrorMsg: function (request, textStatus, errorThrown) {
         var errorMsg = '';
         if (request.responseText) {
             var result = $.parseJSON(request.responseText);
@@ -414,7 +415,7 @@ gkClientAjax.Exception = {
         } else {
             switch (request.status) {
                 case 0:
-                    errorMsg = '';
+                    errorMsg = L('please_check_your_network');
                     break;
                 case 401:
                     errorMsg = L('ERROR_MSG_401');
@@ -485,12 +486,17 @@ function initWebHref(proxyElem) {
 var PAGE_CONFIG = {};
 //获取当前登录用户的信息
 (function () {
-    var account = gkClientInterface.getUserInfo();
-    if (account) {
-        PAGE_CONFIG.memberId = account.id;
-        PAGE_CONFIG.email = account.email;
-        PAGE_CONFIG.mountId = account.mount_id;
-        PAGE_CONFIG.orgId = account.org_id;
+    try{
+        var account = gkClientInterface.getUserInfo();
+        if (account) {
+            PAGE_CONFIG.memberId = account.id;
+            PAGE_CONFIG.email = account.email;
+            PAGE_CONFIG.mountId = account.mount_id;
+            PAGE_CONFIG.orgId = account.org_id;
+        }
+        console.log(PAGE_CONFIG);
+    }catch(e){
+        throw new Error(e.name+':'+ e.message);
     }
+
 })();
-;

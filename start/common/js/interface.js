@@ -12,7 +12,43 @@ var gkClientFileLock = {
     LOCK_BY_ME: 2
 };
 var gkClientInterface = {
-    setFileStatus: function (path, dir, state) {
+ /*注销登录*/
+    logoOut:function(){
+	  gkClient.gLogoff();
+	},
+//设置客户端消息
+    setClientInfo:function(params){
+	    gkClient.gSetClientInfo(params);
+	},
+   //清除缓存
+    clearCache:function(){
+	   gkClient.gClearCache();
+	},
+	//设置代理
+	setConfigDl:function(){
+	  gkClient.gSettings();
+	},
+	//移动文件
+	moveFile:function(path){
+	   return gkClient.gSelectPath(path);
+	},
+	//移动同步文件
+    moveSyncFile:function(path){
+        try {
+            return gkClient.gMoveBindPath(path);
+        } catch (e) {
+            throw e;
+        }
+	},
+    getClientInfo:function(){
+        try {
+            return JSON.parse(gkClient.gGetClientInfo());
+        } catch (e) {
+            throw e;
+        }
+
+    },
+    setFileStatus: function(path, dir, state) {
         var params = JSON.stringify({
             webpath: path,
             status: state,
@@ -44,9 +80,6 @@ var gkClientInterface = {
     },
     openURL: function (param) {
         try {
-            if (!param.sso && param.url && /^(http:\/\/|https:\/\/).+/.test(param.url)) {
-                param.url = param.url.replace(/^http:\/\/|^https:\/\//, '');
-            }
             param = JSON.stringify(param);
             gkClient.gOpenUrl(param);
         } catch (e) {
@@ -129,9 +162,6 @@ var gkClientInterface = {
     },
     openWindow: function (params) {
         try {
-            if (!params.sso && params.url && /^(http:\/\/|https:\/\/).+/.test(params.url)) {
-                params.url = params.url.replace(/^http:\/\/|^https:\/\//, '');
-            }
             params = JSON.stringify(params);
             return gkClient.gMain(params);
         } catch (e) {
@@ -183,7 +213,7 @@ var gkClientInterface = {
             }
             return JSON.parse(gkClient.gUserInfo());
         } catch (e) {
-            throw e;
+            throw new Error(e.name+':'+e.message);
         }
     },
     toggleLock: function (path) {
@@ -227,7 +257,6 @@ var gkClientInterface = {
                 return;
             }
             gkClient.gLaunchpad();
-
         } catch (e) {
             throw e;
         }
@@ -329,10 +358,18 @@ var gkClientInterface = {
         }
     },
     getApiDomain: function () {
-        return 'http://a.gokuai.com';
+        try{
+            return gkClient.gApiHost();
+        }catch(e){
+
+        }
     },
     getRestDomain: function () {
-        return 'http://r.gokuai.com';
+        try{
+            return  gkClient.gRestHost();
+        }catch(e){
+
+        }
     },
     openDiskPath: function (path) {
         gkClient.gOpenDiskPath(path);
@@ -360,6 +397,12 @@ var gkClientInterface = {
     },
     isWindowsClient:function(){
         return this.getClientOS() == 'windows';
+    },
+    getClientVersion:function(){
+        return this.getUserAgent()[1].toLowerCase();
+    },
+    getClientLang:function(){
+
     }
 };
 var gkClientAjax = {};
@@ -372,7 +415,7 @@ gkClientAjax.Exception = {
         } else {
             switch (request.status) {
                 case 0:
-                    errorMsg = '';
+                    errorMsg = L('please_check_your_network');
                     break;
                 case 401:
                     errorMsg = L('ERROR_MSG_401');
@@ -443,13 +486,17 @@ function initWebHref(proxyElem) {
 var PAGE_CONFIG = {};
 //获取当前登录用户的信息
 (function () {
-    var account = gkClientInterface.getUserInfo();
-    if (account) {
-        PAGE_CONFIG.memberId = account.id;
-        PAGE_CONFIG.email = account.email;
-        PAGE_CONFIG.mountId = account.mount_id;
-        PAGE_CONFIG.orgId = account.org_id;
-        PAGE_CONFIG.memberType = account.member_type;
+    try{
+        var account = gkClientInterface.getUserInfo();
+        if (account) {
+            PAGE_CONFIG.memberId = account.id;
+            PAGE_CONFIG.email = account.email;
+            PAGE_CONFIG.mountId = account.mount_id;
+            PAGE_CONFIG.orgId = account.org_id;
+        }
+        console.log(PAGE_CONFIG);
+    }catch(e){
+        throw new Error(e.name+':'+ e.message);
     }
+
 })();
-;

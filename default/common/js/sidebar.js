@@ -332,7 +332,7 @@ var gkClientSidebar = {
                     if(file.is_share==1 && file.dir==0 && file.auth>0 && (file.state ==2 ||  file.state ==4)){
 
                     }else{
-                        if(file.fullpath&&(file.state==3 ||file.state==5)){
+                        if(file.fullpath&&file.state==5){
                             classes+=' hide';
                         }else{
                             classes+=' disabled';
@@ -356,7 +356,7 @@ var gkClientSidebar = {
                     break;
                 case 'archive':
                     if(typeof PAGE_CONFIG !=='undefined' && PAGE_CONFIG.orgId>0){
-                        if(file.fullpath&&PAGE_CONFIG.type==1){
+                        if(file.fullpath&&(PAGE_CONFIG.type==1 || PAGE_CONFIG.type==2)){
 
                         }else{
                             classes+=' disabled';
@@ -996,12 +996,13 @@ var gkClientSidebar = {
             });
         });
 
-        $('textarea#post_value').on('keydown',function(e){
-            if (e.keyCode == 13) {
-                $('.post_now').trigger('click');
-                return false;
-            }
-        })
+        //不支持enter键 GeorgeXu 2013-09-09
+//        $('textarea#post_value').on('keydown',function(e){
+//            if (e.keyCode == 13) {
+//                $('.post_now').trigger('click');
+//                return false;
+//            }
+//        })
 
         //历史版本
         slideItemShare.find('.version').click(function () {
