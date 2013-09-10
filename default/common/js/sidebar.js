@@ -827,6 +827,10 @@ var gkClientSidebar = {
     getFileMain: function (fullpath, tab) {
         tab = tab === undefined ? '' : tab;
         var _context = this;
+        var dir = 0;
+        if(Util.String.lastChar(fullpath)==='/'){
+            dir=1;
+        }
         var params = {
             fullpath: PAGE_CONFIG.path,
             token: gkClientInterface.getToken(),
@@ -874,7 +878,10 @@ var gkClientSidebar = {
                 error: function (request, textStatus, errorThrown) {
                     $('.tab_content_wrapper > div .loader').remove();
                     var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
-                    $('.file_info_wrapper').remove();
+                    if(PAGE_CONFIG.state==1){
+                        errorMsg = L('this_file_is_synchronizing',dir?L('folder'):L('file'));
+                    }
+                    //$('.file_info_wrapper').remove();
                     $('#main').html('<div class="empty">' + errorMsg + '</div>');
                 }
             }
@@ -886,7 +893,7 @@ var gkClientSidebar = {
         var _context = this;
         var main = $('#main');
         main.empty();
-        if (PAGE_CONFIG.state > 1 && PAGE_CONFIG.state < 6) {
+        if (PAGE_CONFIG.state > 0 && PAGE_CONFIG.state < 6) {
             var _this = this;
             var fileMainTmpl = $('#fileMainTmpl').tmpl().appendTo(main);
 
