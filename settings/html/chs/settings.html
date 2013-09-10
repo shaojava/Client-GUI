@@ -35,7 +35,6 @@
                 <label data-locale="language_switch">语言切换</label>
                 <select class="input_text_radius">
                     <option>简体中文</option>
-                    <option>繁体中文</option>
                     <option>英文</option>
                 </select>
                 <span data-locale="take_effect_after_software_restart">软件重启生效</span>
@@ -46,15 +45,24 @@
             </div>
             <div class="panel location">
                 <div class="sync_loc">
-                    <p><h2 data-locale="sync_dir_locatin">同步文件位置</h2></p>
+                    <p><label data-locale="sync_dir_locatin">同步文件位置</label></p>
                     <p>
                         <input type="text" class="input_text_radius disabled" disabled="disabled"/>
                         <button class="btn sync-move" checkLogin data-locale="move"></button>
                         <button class="btn sync-position" checkLogin data-locale="select_files_to_sync"></button>
                     </p>
                 </div>
+                <div class="virtual_loc" style="display: none">
+                    <p><label data-locale="virtual_disk">虚拟盘</label><span></span></p>
+                    <p>
+                        <input type="text" class="input_text_radius disabled" disabled="disabled"/>
+                        <button class="btn virtual-pwd" checkLogin data-locale="edit_password">修改密码</button>
+                        <button class="btn virtual-change" checkLogin data-locale="change_to_folder_mode">转文件夹模式</button>
+                        <button class="btn virtual-del" checkLogin data-locale="del" >删除</button>
+                    </p>
+                </div>
                 <div class="config_loc">
-                    <p><h2 data-locale="config_file_location">配置文件位置</h2></p>
+                    <p><label data-locale="config_file_location">配置文件位置</label></p>
                     <p><input type="text" class="input_text_radius disabled" disabled="disabled"/>
                         <button class="btn move" data-locale="move" checkLogin></button></p>
                     <p><span data-locale="take_effect_after_software_restart">软件重启生效</span></p>

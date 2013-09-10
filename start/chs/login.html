@@ -199,18 +199,18 @@
                     <h1 data-locale="virtual_settings">虚拟盘设置</h1>
                     <div class="content">
                         <dl class="from_raw">
-                            <h2>虚拟盘位置</h2>
-                            <p>请选择要分出虚拟盘的磁盘位置</p>
+                            <h2 data-locale="virtual_location">虚拟盘位置</h2>
+                            <p data-locale="virtual_select">请选择要分出虚拟盘的磁盘位置</p>
                             <p><select class="local_drives input_text"></select></p>
                         </dl>
                         <dl class="from_raw">
-                            <h2>虚拟盘大小</h2>
+                            <h2 data-locale="virtual_size">虚拟盘大小</h2>
                             <p class="c_f">
-                                <em class="f_l">占用空间上限</em>
+                                <em class="f_l" data-locale="virtual_set_size">占用空间上限</em>
                                 <em class="f_r"><input id="virtual_size" value="0" class="input_text" type="number"/>G</em>
                             </p>
-                            <p><span>当文件大小不足此上限值时，虚拟盘只占用文件大小的空间，建议设置为本地磁盘可用空间的最大值</span></p>
-                            <p><label class="err">超出磁盘可用空间</label></p>
+                            <p><span data-locale="virtual_set_size_desc">当文件大小不足此上限值时，虚拟盘只占用文件大小的空间，建议设置为本地磁盘可用空间的最大值</span></p>
+                            <p><label class="err" data-locale="virtual_beyond_size">超出磁盘可用空间</label></p>
                         </dl>
                     </div>
                     <div class="dialog_bottom">
@@ -221,24 +221,45 @@
             </div>
             <div id="login_p15" class="login_page">
                 <form id="is_virtual_password_settings">
-                    <h1 >虚拟盘密码设置</h1>
+                    <h1 data-locale="virtual_password_settings">虚拟盘密码设置</h1>
                     <div class="content">
-                        <dl class="from_raw">
-                            <h2>请牢记您的虚拟盘密码</h2>
-                        </dl>
-                        <dl class="from_raw">
-                            <label for="virtual_password">设置密码</label>
+                        <div class="from_raw">
+                            <h2 data-locale="remember_virtual_password">请牢记您的虚拟盘密码</h2>
+                        </div>
+                        <div class="from_raw">
+                            <label for="virtual_password" data-locale="set_password">设置密码</label>
                             <input type="password" id="virtual_password" class="input_text"  maxlength="50" />
-                        </dl>
-                        <dl class="from_raw">
-                            <label for="re_virtual_password">重复密码</label>
+                        </div>
+                        <div class="from_raw">
+                            <label for="re_virtual_password" data-locale="repeat_password">重复密码</label>
                             <input type="password" id="re_virtual_password" class="input_text" maxlength="50" />
-                            <span class="err">输入的密码不一致，请重新输入</span>
-                        </dl>
+                            <span class="err" data-locale="passwords_do_not_match">输入的密码不一致，请重新输入</span>
+                        </div>
+                        <div class="from_raw">
+                            <label for="virtual_password_prompt" data-locale="password_prompt">密码提示</label>
+                            <input type="text" id="virtual_password_prompt" class="input_text" maxlength="50" />
+                        </div>
                     </div>
                     <div class="dialog_bottom">
                         <button type="button" class="btn_prev" data-locale="prev_step">上一步</button>
                         <button type="submit" data-locale="next_step">下一步</button>
+                    </div>
+                </form>
+            </div>
+            <div id="login_p16" class="login_page">
+                <form id="is_virtual_login">
+                    <h1 data-locale="virtual_login">虚拟盘登录</h1>
+                    <div class="content">
+                        <div class="from_raw">
+                            <label for="re_virtual_password" data-locale="input_virtual_password">请输入虚拟盘密码</label>
+                            <input type="password" id="virtual_login_password" class="input_text" maxlength="50" />
+                            <span class="info" ><em data-locale="password_prompt">密码提示</em>：</span>
+                        </div>
+                        <div class="from_raw">
+                            <button class="btn blue_btn login_btn" type="submit" data-locale="login_btn">登&nbsp;&nbsp;&nbsp;&nbsp;录</button>
+                        </div>
+                    </div>
+                    <div class="dialog_bottom">
                     </div>
                 </form>
             </div>
@@ -253,6 +274,11 @@
         <script type="text/javascript" src="../common/js/login.js"></script>
         <script type="text/javascript" src="../common/js/spin.js"></script>
         <script type="text/javascript">
+            function gDrivePassword(data){
+                var data = $.parseJSON(data);
+                $('#is_virtual_login #virtual_login_password').next().append(data.prompt);
+                gkClientLogin.setHash('login_p16');
+            }
             $(function(){
                 $('[data-locale]').translate();
                 gkClientLogin.init();

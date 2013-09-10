@@ -816,6 +816,24 @@ var LANG = {
     select_sync_files_btn:'选择同步文件夹',
     is_use_last_sync_settings:'是否使用上一次同步设置？',
     use_last_sync_settings:'使用上一次的同步设置',
-    reset_sync:'重新设置'
-
+    reset_sync:'重新设置',
+    virtual_location:'虚拟盘位置',
+    virtual_select:'请选择要分出虚拟盘的磁盘位置',
+    virtual_size:'虚拟盘大小',
+    virtual_set_size: '占用空间上限',
+    virtual_set_size_desc: '当文件大小不足此上限值时，虚拟盘只占用文件大小的空间，建议设置为本地磁盘可用空间的最大值',
+    virtual_beyond_size:'超出磁盘可用空间',
+    virtual_password_settings: '虚拟盘密码设置',
+    remember_virtual_password: '请牢记您的虚拟盘密码',
+    set_password: '设置密码',
+    repeat_password: '重复密码',
+    passwords_do_not_match: '输入的密码不一致，请重新输入',
+    password_prompt: '密码提示',
+    virtual_login: '虚拟盘登录',
+    input_virtual_password:'请输入虚拟盘密码',
+    virtual_disk: '虚拟盘',
+    edit_password: '修改密码',
+    change_to_folder_mode: '转文件夹模式',
+    language_switch: '语言切换',
+    preferences:'软件设置'
 };

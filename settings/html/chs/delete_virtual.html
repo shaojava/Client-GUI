@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>删除虚拟盘</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <link rel="stylesheet" type="text/css" href="../common/css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../common/css/settings.css"/>
+</head>
+<body id="setting" class="setting_dialog">
+<div id="wrapper" class="delete_virtual_dialog">
+    <div id="main">
+        <form class="single_form panel">
+            <div class="form_item form_item_title">
+                <p>您确定要删除虚拟盘吗？</p>
+            </div>
+            <div class="form_item">
+                <p>删除虚拟盘后盘内的文件会彻底删除，请确认您的文件已同步至云端。您可以在下次同步设置后重新下载云端文件至本地。</p>
+            </div>
+            <div class="form_item form_item_title">
+                <p>请输入虚拟盘密码：</p>
+            </div>
+            <div class="form_item">
+                <input type="password" class="input_text_radius"/>
+            </div>
+            <div class="form_item">
+                <span class="err">&nbsp;</span>
+            </div>
+        </form>
+    </div>
+    <div id="footer">
+        <button class="btn cancel" data-locale="cancel">取消</button>
+        <button class="btn blue_btn confirm purple_btn" data-locale="ok">确定</button>
+    </div>
+</div>
+<script type="text/javascript" src="../common/js/lib/jquery.js"></script>
+<script type="text/javascript" src="../common/js/util.js"></script>
+<script type="text/javascript" src="../common/js/interface.js"></script>
+<script type="text/javascript" src="../common/js/lang.js"></script>
+<script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
+<script type="text/javascript" src="../common/js/common.js"></script>
+<script type="text/javascript" src="../common/js/setting.js"></script>
+<script type="text/javascript">
+    $(function () {
+        $('[data-locale]').translate();
+        gkClientSetting.initDialog();
+    })
+</script>
+</body>
+</html>

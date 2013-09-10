@@ -1,17 +1,16 @@
 var gkClientSetting = {
     clientInfo: null,
+    //初始化
     init: function () {
-        //初始化
         this.clientInfo = gkClientInterface.getClientInfo();
         this.initData();
         this.initUI();
-        var config = this.getConfig();
-        $('#configTmpl').tmpl({configs: config.baseconfig}).appendTo($('.basic_setting'));
-        $('#configTmpl').tmpl({configs: config.gjconfig}).appendTo($('.advance_setting'));
-        //注销登录
-        $('.edit_btn').click(function () {
-            gkClientInterface.logoOut();
-        })
+
+        this.initEvent();
+        this.initBasic();
+        this.initAdvance();
+    },
+    initEvent: function(){
         //确定
         $('.purple_btn').click(function () {
             var params = {};
@@ -31,49 +30,80 @@ var gkClientSetting = {
         $('.cancel').click(function () {
             gkClientInterface.closeWindow();
         });
+        //选中
+        $('body').on('click', '.chk', function () {
+            $(this).toggleClass('checked');
+        });
+    },
+    initBasic: function(){
+        //注销登录
+        $('.edit_btn').click(function () {
+            gkClientInterface.logoOut();
+        });
+    },
+    initAdvance: function(){
         //清除缓存数据
         $('.clearCache').click(function () {
             if (confirm(L('are_sure_to_clear_cache'))) {
                 gkClientInterface.clearCache();
             }
-        })
+        });
         //设置代理
         $('.settingDl').click(function () {
             gkClientInterface.setConfigDl();
-        })
+        });
         //移动
         $('.move').click(function () {
             var d = gkClientInterface.moveFile($('.file_index').find('input').val());
             if (d != '') {
-                $('.file_index').find('input').val(d);
+                $('.config_loc').find('input').val(d);
             }
-        })
+            return;
+        });
         //同步文件位置移动
         $('.sync-move').click(function () {
             var old = $('.sync').find('input').val();
             var d = gkClientInterface.getBindPath();
             if (d != '') {
                 if (confirm(L('are_you_sure_to_move_synchronize_directory', old, d))) {
-                    $('.sync').find('input').val(d);
-                    var syncPath = $('.sync').find('input').val();
+                    $('.sync_loc').find('input').val(d);
+                    var syncPath = $('.sync_loc').find('input').val();
                     gkClientInterface.moveSyncFile(syncPath);
                 }
             }
-        })
+        });
         //选择同步位置
         $('.sync-position').click(function () {
             var d = gkClientInterface.selectSyncFile('{"name":' + $('.sync').find('input').val() + ',"type":3}');
-        })
-
-        $('body').on('click', '.chk', function () {
-            $(this).toggleClass('checked');
+            return;
         });
-
-        if (this.clientInfo.proxy == 1) {
-            $('.chk.use_proxy').addClass('checked');
-        } else {
-            $('.chk.use_proxy').removeClass('checked');
-        }
+        //虚拟盘转文件夹
+        $('.virtual-change').on('click', function(){
+            var d = gkClientInterface.getBindPath();
+            if (d != '') {
+                $('.virtual_loc').hide().siblings('.sync_loc').show().find('input').val(d);
+                gkClientInterface.changeDriveMode({
+                    diskpath: d,
+                    type: 0
+                });
+            }
+        });
+        //修改虚拟盘密码
+        $('.virtual-pwd').on('click', function(){
+            gkClientInterface.openChildWindow({
+                url: 'settings/html/chs/reset_pwd.html',
+                width: 340,
+                height: 380
+            });
+        });
+        //删除虚拟盘
+        $('.virtual-del').on('click', function(){
+            gkClientInterface.openChildWindow({
+                url: 'settings/html/chs/delete_virtual.html',
+                width: 340,
+                height: 380
+            });
+        });
     },
     initUI: function () {
         //头部切换
@@ -83,6 +113,18 @@ var gkClientSetting = {
             $('.' + target).show().siblings().hide();
             return;
         });
+
+        //填充选项
+        var config = this.getConfig();
+        $('#configTmpl').tmpl({configs: config.baseconfig}).appendTo($('.basic_setting'));
+        $('#configTmpl').tmpl({configs: config.gjconfig}).appendTo($('.advance_setting'));
+
+        if (this.clientInfo.proxy == 1) {
+            $('.chk.use_proxy').addClass('checked');
+        } else {
+            $('.chk.use_proxy').removeClass('checked');
+        }
+
         //检查是否登录
         if (typeof gkClientInterface.getUserInfo() === 'undefined') {
             $('button[checkLogin]').addClass('disabled').css('color', '#999');
@@ -102,6 +144,12 @@ var gkClientSetting = {
         $('.config_loc').find('input').val(this.clientInfo.configpath);
         //设置配置文件位置
         $('.sync_loc').find('input').val(this.clientInfo.bindpath);
+
+        var syncInfo = gkClientInterface.getSyncInfo();
+        if(syncInfo.type == 'disk'){
+            $('.sync_loc').hide().siblings('.virtual_loc').show().find('input').val(syncInfo.path);
+            $('.virtual_loc label').next().text('(' + Util.Number.bitSize(syncInfo.size) + ')');
+        }
     },
     //获取设置权限
     getConfig: function () {
@@ -155,5 +203,17 @@ var gkClientSetting = {
             }
         };
         return featureSettings;
+    },
+    initDialog: function(){
+        this.clientInfo = gkClientInterface.getClientInfo();
+        $('.setting_dialog .cancel').on('click', function(){
+            gkClientInterface.closeWindow();
+        });
+        //修改虚拟盘密码
+        var resetPwdFrom = $('.reset_virtual_pwd');
+        $('.form_item_title em',resetPwdFrom).text(this.clientInfo.username);
+        $('.purple_btn',resetPwdFrom).on('click', function(){
+
+        });
     }
 };

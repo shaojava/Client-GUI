@@ -1,5 +1,23 @@
 jsMD5_Typ = 'Typ32';
 var gkClientLogin = {
+    //载入时菊花的参数设置
+    loadingIcon : {
+        lines: 9, // The number of lines to draw
+        length: 4, // The length of each line
+        width: 2, // The line thickness
+        radius: 3, // The radius of the inner circle
+        corners: 1, // Corner roundness (0..1)
+        rotate: 0, // The rotation offset
+        color: '#FFF', // #rgb or #rrggbb
+        speed: 1, // Rounds per second
+        trail: 60, // Afterglow percentage
+        shadow: false, // Whether to render a shadow
+        hwaccel: false, // Whether to use hardware acceleration
+        className: 'spinner', // The CSS class to assign to the spinner
+        zIndex: 2e9, // The z-index (defaults to 2000000000)
+        top: 'auto', // Top position relative to parent in px
+        left: 'auto' // Left position relative to parent in px
+    },
     setHash: function(ac) {
         location.hash = '#!' + ac;
     },
@@ -77,7 +95,7 @@ var gkClientLogin = {
                 'username': email,
                 'password': MD5(password)
             };
-            var spinner = new Spinner(loadingIcon).spin(loginBtn);
+            var spinner = new Spinner(gkClientLogin.loadingIcon).spin(loginBtn);
             loginBtn.append(spinner.el);
             gkClientInterface.login(param);
             return false;
@@ -171,7 +189,7 @@ var gkClientLogin = {
                 return false;
             }
             var registBtn = $('#regist_form button[type="submit"]');
-            var spinner = new Spinner(loadingIcon).spin(registBtn);
+            var spinner = new Spinner(gkClientLogin.loadingIcon).spin(registBtn);
             registBtn.append(spinner.el);
             $.ajax({
                 url: gkClientInterface.getSiteDomain() + '/regist/regist_by_email',
@@ -291,7 +309,7 @@ var gkClientLogin = {
         });
         $('#login_p3 form').on('click', function() {
             var val = $(this).find('input[name="chose_settings"]:checked').val();
-            if (val == 1) {
+            if (val) {
                 $(this).find('.btn_next').html(L('next_step'));
             } else {
                 $(this).find('.btn_next').html(L('done'));
@@ -421,26 +439,6 @@ var gkClientLogin = {
 //            }
 //        }, 5000);
         //checkLogin(key);
-
-        //载入时菊花的参数设置
-        var loadingIcon = {
-            lines: 9, // The number of lines to draw
-            length: 4, // The length of each line
-            width: 2, // The line thickness
-            radius: 3, // The radius of the inner circle
-            corners: 1, // Corner roundness (0..1)
-            rotate: 0, // The rotation offset
-            color: '#FFF', // #rgb or #rrggbb
-            speed: 1, // Rounds per second
-            trail: 60, // Afterglow percentage
-            shadow: false, // Whether to render a shadow
-            hwaccel: false, // Whether to use hardware acceleration
-            className: 'spinner', // The CSS class to assign to the spinner
-            zIndex: 2e9, // The z-index (defaults to 2000000000)
-            top: 'auto', // Top position relative to parent in px
-            left: 'auto' // Left position relative to parent in px
-        };
-
         this.initVirtual();
     },
     //绑定UI事件
@@ -494,6 +492,7 @@ var gkClientLogin = {
 
     //虚拟盘相关
     initVirtual: function () {
+        //虚拟盘设置
         var virtualForm = $('#is_virtual_settings');
         var checkSize = function () {
             var freeSize = parseInt($('.local_drives :selected', virtualForm).attr('free'));
@@ -525,6 +524,7 @@ var gkClientLogin = {
             gkClientLogin.setHash('login_p15');
             return false;
         });
+        //虚拟盘密码设置
         var virtualPwdForm = $('#is_virtual_password_settings');
         var checkPwd = function () {
             var pwd = $('#virtual_password', virtualPwdForm).val();
@@ -553,6 +553,20 @@ var gkClientLogin = {
             gkClientLogin.setHash('login_p12');
             return false;
         });
+        //虚拟盘登录
+        var virtualLoginForm = $('#is_virtual_login');
+        virtualLoginForm.on('submit', function(){
+            var password = $(this).find('#virtual_login_password');
+            var loginBtn = $(this).find('button[type="submit"]');
+            var spinner = new Spinner(gkClientLogin.loadingIcon).spin(loginBtn);
+            loginBtn.append(spinner.el);
+            if(!gkClientInterface.checkDirvePwd(MD5(password.val()))){
+                loginBtn.find('.spinner').remove();
+                password.next().show();
+                alert('密码错误');
+            };
+            return false;
+        });
     },
     //完成时检测虚拟盘
     checkVirtual: function(params){
@@ -566,6 +580,7 @@ var gkClientLogin = {
         params.size = virtualSize * 1024 * 1024 * 1024;
         params.password = MD5(password);
         params.diskpath = $('.local_drives', virtualForm).val();
+        params.prompt = $.trim($('#virtual_password_prompt', virtualPwdForm).val());
         params.path = 3;
         return params;
     }

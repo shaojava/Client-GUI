@@ -866,3 +866,8 @@ dl.from_raw.selected{
     font-size: 16px;
     color: #5E656D;
 }
+#is_virtual_login .info{
+    font-size: 12px;
+    color: blue;
+    display: none;
+}

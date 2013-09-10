@@ -404,10 +404,47 @@ var gkClientInterface = {
     getClientLang:function(){
 
     },
-    
     getDriveInfo: function(){
         try {
             return $.parseJSON(gkClient.gGetDriveInfo());
+        } catch (e) {
+            throw e;
+        }
+    },
+    checkDirvePwd: function(password){
+        try {
+            var params = {
+                password: password
+            };
+            var reuslt = gkClient.gCheckDrivePassword(JSON.stringify(params));
+            reuslt = $.parseJSON(reuslt);
+            return reuslt.checkresult;
+        } catch (e) {
+            throw e;
+        }
+    },
+    getSyncInfo: function(){
+        try {
+            return $.parseJSON(gkClient.gSyncInfo());
+        } catch (e) {
+            throw e;
+        }
+    },
+    changeDriveMode: function(params){
+        try {
+            gkClient.gChangeDriveMode(JSON.stringify(params));
+        } catch (e) {
+            throw e;
+        }
+    },
+    deleteDisk: function(password){
+        try {
+            var params = {
+                password: password
+            };
+            var reuslt = gkClient.gCheckDrivePassword(JSON.stringify(params));
+            reuslt = $.parseJSON(reuslt);
+            return reuslt.checkresult;
         } catch (e) {
             throw e;
         }
@@ -503,6 +540,7 @@ var PAGE_CONFIG = {};
             PAGE_CONFIG.orgId = account.org_id;
 	    PAGE_CONFIG.memberType = account.member_type;
         }
+        console.log(PAGE_CONFIG);
     }catch(e){
         throw new Error(e.name+':'+ e.message);
     }

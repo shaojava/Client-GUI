@@ -72,7 +72,9 @@
     padding: 10px;
     background: #FFF;
 }
-
+#setting.setting_dialog #wrapper #main{
+    top: 0;
+}
 #setting #wrapper #main .panel {
     border: 1px solid #e1ebf5;
     border-radius: 3px;
@@ -212,21 +214,27 @@
 }
 #setting #wrapper #main .advance .location p{
     line-height: 26px;
+    height: 26px;
 }
-#setting #wrapper #main .advance .location h2{
+#setting #wrapper #main .advance .location label{
     color: #6185BC;
     font-size: 14px;
+    margin-bottom: 2px;
 }
 #setting #wrapper #main .advance .location button{
     vertical-align: middle;
     margin-top: -4px;
     margin-left: 4px;
 }
+#setting #wrapper #main .advance .location .virtual_loc,
 #setting #wrapper #main .advance .location .sync_loc{
-    margin-bottom: 16px;
+    margin-bottom: 12px;
+}
+#setting #wrapper #main .advance .location .virtual_loc input{
+    width: 230px;
 }
 #setting #wrapper #main .advance .others > div{
-    margin: 7px 0;
+    margin: 5px 0;
 }
 /*关于*/
 #setting #wrapper #main .about {
@@ -255,4 +263,19 @@
 #setting #wrapper #main .about .mess h3 {
     color: #6185BC;
     font-size: 16px;
+}
+
+/* 重新密码 */
+
+/* 删除虚拟盘 */
+#setting #wrapper.delete_virtual_dialog #main .panel{
+    padding: 48px 50px;
+}
+#setting #wrapper.delete_virtual_dialog .single_form .form_item_title{
+    text-align: left;
+    color: #6185BC;
+    padding-bottom: 12px;
+}
+#setting #wrapper.delete_virtual_dialog .single_form input{
+    width: 200px;
 }

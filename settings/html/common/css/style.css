@@ -911,3 +911,145 @@ input[type="radio"]{
 .slide_banner .qr_img{
     padding: 40px 0;
 }
+/** 简单表单 **/
+.single_form{
+
+}
+.single_form .form_item{
+    padding-bottom: 20px;
+    overflow: hidden;
+    zoom: 1;
+}
+.single_form .form_item_last{
+    padding-bottom: 0;
+}
+.single_form .form_item input{
+    padding: 4px 8px;
+    width: 150px;
+    float: left;
+}
+.single_form .user_folder_name{
+    position: absolute;
+    left:28%;
+    top:245px;
+    font-size:14px;
+}
+.single_form .form_item.form_item_btn .btn{
+    margin-left: 5px;
+}
+.single_form .form_item label{
+    color: #7F8999;
+    font-size: 12px;
+    width: 90px;
+    display: inline-block;
+    float: left;
+    height: 30px;
+    line-height: 30px;
+}
+.single_form .form_item label.checkbox{
+    width: 105px;
+    color: #8A8A8A;
+    padding-left: 20px;
+    font-size:13px;
+}
+.single_form .form_item label.checkbox input{
+    float: left;
+    display: inline-block;
+    margin:2px 0 0 -18px;
+    margin-bottom: 0;
+    cursor: pointer;
+    padding: 1px 0 0 0;
+}
+.single_form .form_item a{
+    font-size:13px;
+}
+.single_form .form_item a:hover{
+    text-decoration: underline;
+}
+.single_form .form_item .ps{
+    font-size: 14px;
+    color:red;
+}
+.single_form .form_item select{
+    height: auto;
+    padding: 8px 10px;
+}
+.single_form .form_item .alert{
+    max-width: none;
+    margin-bottom: 0;
+}
+.single_form .verify_wrapper input{
+    width: 100px;
+}
+.single_form .verify_wrapper img{
+    border: 1px solid #CECECE;
+    height: 32px;
+    margin: 2px 5px;
+    cursor: pointer;
+}
+.single_form .verify_wrapper a{
+    margin-top: 20px;
+}
+.single_form .verify_wrapper label{
+    float: left;
+    margin-top: 8px;
+}
+.single_form .form_item_attach{
+    position: relative;
+}
+.single_form .form_item_attach .btn{
+    position: absolute;
+    top: 0;
+    right: -45px;
+    font-size: 14px;
+    padding: 8px 15px;
+}
+.single_form .form_item_title{
+    padding-bottom: 22px;
+    text-align: center;
+    color: #606d7f;
+}
+.single_form .form_item_title h1{
+    font-size: 14px;
+}
+.single_form .form_item_title p{
+    font-size: 12px;
+}
+.single_form .form_item_submit{
+    text-align: center;
+}
+.single_form .form_item .submit_btn,
+.single_form .form_item_submit .btn{
+    margin-bottom: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    width: 247px;
+    padding: 10px;
+    margin-left: 53px;
+}
+.single_form .form_item .btn:hover{
+    text-decoration: none;
+}
+.single_form .form_item .err{
+    font-size: 12px;
+    color: red;
+}
+.single_form .form_item_btn .btn{
+    padding: 10px 15px;
+    font-size: 14px;
+    margin-left: 5px;
+}
+.single_form .form_item input.width_auto,
+.single_form .form_item label.width_auto{
+    width: auto;
+}
+.single_form_mini .form_item{
+    padding-bottom: 10px;
+}
+.single_form_mini .form_item label{
+    display: block;
+}
+.single_form_mini .form_item.verify_wrapper label{
+    float: none;
+    margin-top: 0;
+}
