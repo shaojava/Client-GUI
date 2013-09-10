@@ -732,6 +732,7 @@ var LANG = {
     //sync.html
     plus_add:'+ add',
     pls_login:'Please sign in',
+    synchronization_options:'Synchronization folders',
 
     //tcframe.html
     view_all:'View all',
