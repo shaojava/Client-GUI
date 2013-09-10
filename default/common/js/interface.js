@@ -503,7 +503,6 @@ var PAGE_CONFIG = {};
             PAGE_CONFIG.orgId = account.org_id;
 	    PAGE_CONFIG.memberType = account.member_type;
         }
-        console.log(PAGE_CONFIG);
     }catch(e){
         throw new Error(e.name+':'+ e.message);
     }
