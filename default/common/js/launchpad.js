@@ -2,6 +2,7 @@ var gkClientLaunchPad = {
     init:function(callback){
         //disable浏览器的默认事件
 		//callback();
+        alert(4);
         gkClientCommon.disableDefaultEvent();
         var menus = [
             {
@@ -99,5 +100,6 @@ var gkClientLaunchPad = {
             selectNav();
         });
         selectNav();
+        alert(5);
     }
 };
