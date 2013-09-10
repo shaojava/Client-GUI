@@ -649,9 +649,9 @@ var LANG = {
     nav_trash:'Trash',
 
     //sidebar.js
-    opt_lock:'Lock to edit',
-    opt_unlock:'Unlock',
-    opt_force_lock:'Force to unlock',
+    opt_lock:'Activate Exclusive Edit',
+    opt_unlock:'Deactivate Exclusive Edit',
+    opt_force_lock:'Deactivate Exclusive Edit',
     opt_archive:'Archive',
     opt_add_decription:'Add description',
     opt_create_smart_folder:'New smart folder',
@@ -694,7 +694,7 @@ var LANG = {
     this_file_is_not_synchronous:'Can not sync',
     modify_by_at:'$1 modified on $2',
     view_version:'Versions',
-    lock_by_at:'$1 locked on $2',
+    lock_by_at:'$1 activated Exclusive Edit mode on $2',
     modify_by_at:'$1 modified at $2',
     synchronization_options:'',
 
@@ -743,7 +743,7 @@ var LANG = {
     revert_to_the_classic_contextmenu:'Enable right menu',
     enable_https_contection:'Enable HTTPS',
     enable_lan_sync:'Enable LAN acceleration',
-    select_lock_file_remind_me_by_desktop_notification:'Notify me when selecting the locked files',
+    select_lock_file_remind_me_by_desktop_notification:'Notify me when the selected file is in Exclusive Edit mode.',
     show_explorer_contextmenu:'Enable explorer right menu',
     show_desktop_notifications:'Show desktop notifications',
     other_members_del_my_share_folders_tip:'Keep file in my trash when other collaborators delete it',
