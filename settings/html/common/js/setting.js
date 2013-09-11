@@ -25,19 +25,6 @@ var gkClientSetting = {
             });
             params['configpath'] = $.trim($('input', $('.config_loc')).val());
             gkClientInterface.setClientInfo(JSON.stringify(params));
-            var language = $('#select_language').val();
-            if(language != lang){
-                var type = 0;
-                switch (language){
-                    case 'zh-cn':
-                        type = 1;
-                        break;
-                    case 'en-us':
-                        type = 2;
-                        break;
-                }
-                gkClientInterface.changeLanguage(type);
-            }
             gkClientInterface.closeWindow();
         })
         //取消
@@ -53,6 +40,22 @@ var gkClientSetting = {
         //注销登录
         $('.edit_btn').click(function () {
             gkClientInterface.logoOut();
+        });
+        //语言修改
+        $('#select_language').on('change', function(){
+            var language = $(this).val();
+            if(language != lang){
+                var type = 0;
+                switch (language){
+                    case 'zh-cn':
+                        type = 1;
+                        break;
+                    case 'en-us':
+                        type = 2;
+                        break;
+                }
+                gkClientInterface.changeLanguage(type);
+            }
         });
     },
     initAdvance: function(){
