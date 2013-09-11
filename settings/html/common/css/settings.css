@@ -266,7 +266,11 @@
 }
 
 /* 重新密码 */
-
+#setting #wrapper.reset_virtual_pwd #main .single_form .form_item label{
+    width: 55px;
+    text-align: right;
+    padding: 0 10px;
+}
 /* 删除虚拟盘 */
 #setting #wrapper.delete_virtual_dialog #main .panel{
     padding: 48px 50px;
@@ -275,6 +279,9 @@
     text-align: left;
     color: #6185BC;
     padding-bottom: 12px;
+}
+#setting #wrapper.delete_virtual_dialog .single_form .form_item_title p{
+    font-size: 14px;
 }
 #setting #wrapper.delete_virtual_dialog .single_form input{
     width: 200px;
