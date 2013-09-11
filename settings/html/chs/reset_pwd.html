@@ -15,19 +15,19 @@
             </div>
             <div class="form_item">
                 <label>请输入旧密码</label>
-                <input type="password" class="input_text_radius"/>
+                <input type="password" id="old_password" class="input_text_radius"/>
             </div>
             <div class="form_item">
                 <label>请输入新密码</label>
-                <input type="password" class="input_text_radius"/>
+                <input type="password" id="password" class="input_text_radius"/>
             </div>
             <div class="form_item">
                 <label>请重复新密码</label>
-                <input type="password" class="input_text_radius"/>
+                <input type="password" id="confirm_password" class="input_text_radius"/>
             </div>
             <div class="form_item">
                 <label>密码提示</label>
-                <input type="text" class="input_text_radius"/>
+                <input type="text" id="prompt" class="input_text_radius"/>
             </div>
             <div class="form_item">
                 <span class="err">&nbsp;</span>
@@ -46,6 +46,7 @@
 <script type="text/javascript" src="../common/js/lib/jquery.tmpl.min.js"></script>
 <script type="text/javascript" src="../common/js/common.js"></script>
 <script type="text/javascript" src="../common/js/setting.js"></script>
+<script type="text/javascript" src="../common/js/lib/jsMD5.js"></script>
 <script type="text/javascript">
     $(function () {
         $('[data-locale]').translate();

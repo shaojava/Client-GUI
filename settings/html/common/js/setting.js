@@ -1,3 +1,4 @@
+jsMD5_Typ = 'Typ32';
 var gkClientSetting = {
     clientInfo: null,
     //初始化
@@ -213,7 +214,27 @@ var gkClientSetting = {
         var resetPwdFrom = $('.reset_virtual_pwd');
         $('.form_item_title em',resetPwdFrom).text(this.clientInfo.username);
         $('.purple_btn',resetPwdFrom).on('click', function(){
+            var password = $('#password', resetPwdFrom).val(),
+                old_password = $('#old_password', resetPwdFrom).val(),
+                confirm_password = $('#confirm_password', resetPwdFrom).val(),
+                prompt = $('#prompt', resetPwdFrom).val();
+            if(password != confirm_password){
+                alert('重复密码不相同');
+                return;
+            }
+            gkClientInterface.changeDrivePwd(MD5(old_password), MD5(password), prompt);
+            return;
+        });
+        //删除虚拟盘
+        var deleteVirtualFrom = $('.delete_virtual_dialog');
+        $('.purple_btn',deleteVirtualFrom).on('click', function(){
+            var password = $('#password', deleteVirtualFrom).val();
+            if(confirm('是否确定删除该虚拟盘？')){
+                if(gkClientInterface.deleteDisk(MD5(password))){
 
+                }
+            }
+            return;
         });
     }
 };

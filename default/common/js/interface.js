@@ -442,7 +442,21 @@ var gkClientInterface = {
             var params = {
                 password: password
             };
-            var reuslt = gkClient.gCheckDrivePassword(JSON.stringify(params));
+            var reuslt = gkClient.gDeleteDisk(JSON.stringify(params));
+            reuslt = $.parseJSON(reuslt);
+            return reuslt.checkresult;
+        } catch (e) {
+            throw e;
+        }
+    },
+    changeDrivePwd: function (oldPwd, newPwd, prompt) {
+        try {
+            var params = {
+                oldpassword: oldPwd,
+                newpassword: newPwd,
+                prompt: prompt
+            };
+            var reuslt = gkClient.gChangeDrivePassword(JSON.stringify(params));
             reuslt = $.parseJSON(reuslt);
             return reuslt.checkresult;
         } catch (e) {
