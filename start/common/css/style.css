@@ -871,3 +871,6 @@ dl.from_raw.selected{
     color: blue;
     display: none;
 }
+#is_virtual_login .content{
+    margin-top: 60px;
+}
