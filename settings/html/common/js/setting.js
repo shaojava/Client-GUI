@@ -229,7 +229,7 @@ var gkClientSetting = {
         });
         //修改虚拟盘密码
         var resetPwdFrom = $('.reset_virtual_pwd');
-        $('.form_item_title h1', resetPwdFrom).html(L('edit_virtual_password_now'), '<em>' + this.clientInfo.username + '</em>');
+        $('.form_item_title h1', resetPwdFrom).html(L('edit_virtual_password_now', '<em>' + this.clientInfo.username + '</em>'));
         $('.purple_btn',resetPwdFrom).on('click', function(){
             var password = $('#password', resetPwdFrom).val(),
                 old_password = $('#old_password', resetPwdFrom).val(),

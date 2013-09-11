@@ -845,7 +845,7 @@ var LANG = {
     are_u_sure_delete_virtual: '您确定要删除虚拟盘吗？',
     confirm_delete_virtual: '删除虚拟盘后盘内的文件会彻底删除，请确认您的文件已同步至云端。您可以在下次同步设置后重新下载云端文件至本地。',
     edit_virtual_password: '修改虚拟盘密码',
-    pls_input_new_password: '请输入旧密码',
+    pls_input_old_password: '请输入旧密码',
     pls_input_new_password: '请输入新密码',
     pls_repeat_new_password: '请重复新密码',
     edit_virtual_password_now: '正在修改 $1 的虚拟盘密码'
