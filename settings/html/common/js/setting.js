@@ -102,12 +102,10 @@ var gkClientSetting = {
                 });
             }
         });
-        var path = document.URL;
-        path = path.substring(0, path.lastIndexOf('/'));
         //修改虚拟盘密码
         $('.virtual-pwd').on('click', function(){
             gkClientInterface.openChildWindow({
-                url: path + '/reset_pwd.html',
+                url: '/html/chs/reset_pwd.html',
                 type: 1,
                 width: 340,
                 height: 380
@@ -116,7 +114,7 @@ var gkClientSetting = {
         //删除虚拟盘
         $('.virtual-del').on('click', function(){
             gkClientInterface.openChildWindow({
-                url: path + '/delete_virtual.html',
+                url: '/html/chs/delete_virtual.html',
                 type: 1,
                 width: 340,
                 height: 380
