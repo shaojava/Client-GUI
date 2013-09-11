@@ -468,11 +468,11 @@ var gkClientLogin = {
             $('#gk_sync_dir').val(defaultPath).attr('title', defaultPath);
         } else if (target == '#login_p14') {
             var drives = gkClientInterface.getDriveInfo();
-            var dirve_list = drives['list'];
+            var drive_list = drives['list'];
             var options = '';
-            for (var i in dirve_list) {
-                var drive = dirve_list[i];
-                var value = '本地' + drive['name'] + '盘，可用空间' + Util.Number.bitSize(drive['free'], 0);
+            for (var i in drive_list) {
+                var drive = drive_list[i];
+                var value = L('local_drive',drive['name'], Util.Number.bitSize(drive['free'], 0));
                 options += '<option value="' + drive['name'] + ':\\" free="' + drive['free'] + '">' + value + '</option>';
             }
             $('.local_drives').html(options);
@@ -498,12 +498,12 @@ var gkClientLogin = {
             var freeSize = parseInt($('.local_drives :selected', virtualForm).attr('free'));
             var setSize = parseInt($('#virtual_size', virtualForm).val());
             if (!setSize) {
-                return [0, '请设置虚拟盘大小'];
+                return [0, L('pls_set_virtual_size')];
             }
             var err = $('.err', virtualForm);
             if (setSize * 1024 * 1024 * 1024 > freeSize) {
-                err.show();
-                return [0, $.trim(err.text())];
+                err.show().text(L('virtual_beyond_size'));
+                return [0, L('virtual_beyond_size')];
             } else {
                 err.hide();
                 return [1];
@@ -529,13 +529,19 @@ var gkClientLogin = {
         var checkPwd = function () {
             var pwd = $('#virtual_password', virtualPwdForm).val();
             var rpwd = $('#re_virtual_password', virtualPwdForm).val();
-            if (!pwd.length) {
-                return [0, '请先设置密码'];
-            }
             var err = $('.err', virtualPwdForm);
+            if (!pwd.length) {
+                return [0, L('pls_set_password')];
+            }
+            if (pwd.length < 6){
+                err.show().text(L('password_great_then', 6));
+                return [0, L('password_great_then', 6)];
+            }else{
+                err.hide();
+            }
             if (pwd != rpwd) {
-                err.show();
-                return [0, $.trim(err.text())];
+                err.show().text(L('passwords_do_not_match'));
+                return [0, L('passwords_do_not_match')];
             } else {
                 err.hide();
                 return [1];
@@ -562,8 +568,8 @@ var gkClientLogin = {
             loginBtn.append(spinner.el);
             if(!gkClientInterface.checkDirvePwd(MD5(password.val()))){
                 loginBtn.find('.spinner').remove();
-                password.next().show();
-                alert('密码错误');
+                $('.info', virtualLoginForm).show();
+                alert(L('password_error'));
             };
             return false;
         });

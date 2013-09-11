@@ -25,6 +25,19 @@ var gkClientSetting = {
             });
             params['configpath'] = $.trim($('input', $('.config_loc')).val());
             gkClientInterface.setClientInfo(JSON.stringify(params));
+            var language = $('#select_language').val();
+            if(language != lang){
+                var type = 0;
+                switch (language){
+                    case 'zh-cn':
+                        type = 1;
+                        break;
+                    case 'en-us':
+                        type = 2;
+                        break;
+                }
+                gkClientInterface.changeLanguage(type);
+            }
             gkClientInterface.closeWindow();
         })
         //取消
@@ -89,10 +102,13 @@ var gkClientSetting = {
                 });
             }
         });
+        var path = document.URL;
+        path = path.substring(0, path.lastIndexOf('/'));
         //修改虚拟盘密码
         $('.virtual-pwd').on('click', function(){
             gkClientInterface.openChildWindow({
-                url: 'settings/html/chs/reset_pwd.html',
+                url: path + '/reset_pwd.html',
+                type: 1,
                 width: 340,
                 height: 380
             });
@@ -100,7 +116,8 @@ var gkClientSetting = {
         //删除虚拟盘
         $('.virtual-del').on('click', function(){
             gkClientInterface.openChildWindow({
-                url: 'settings/html/chs/delete_virtual.html',
+                url: path + '/delete_virtual.html',
+                type: 1,
                 width: 340,
                 height: 380
             });
@@ -151,6 +168,8 @@ var gkClientSetting = {
             $('.sync_loc').hide().siblings('.virtual_loc').show().find('input').val(syncInfo.path);
             $('.virtual_loc label').next().text('(' + Util.Number.bitSize(syncInfo.size) + ')');
         }
+        //当前语言
+        $('#select_language option[value="' + lang + '"]').attr('selected', true);
     },
     //获取设置权限
     getConfig: function () {
@@ -212,14 +231,14 @@ var gkClientSetting = {
         });
         //修改虚拟盘密码
         var resetPwdFrom = $('.reset_virtual_pwd');
-        $('.form_item_title em',resetPwdFrom).text(this.clientInfo.username);
+        $('.form_item_title h1', resetPwdFrom).html(L('edit_virtual_password_now'), '<em>' + this.clientInfo.username + '</em>');
         $('.purple_btn',resetPwdFrom).on('click', function(){
             var password = $('#password', resetPwdFrom).val(),
                 old_password = $('#old_password', resetPwdFrom).val(),
                 confirm_password = $('#confirm_password', resetPwdFrom).val(),
                 prompt = $('#prompt', resetPwdFrom).val();
             if(password != confirm_password){
-                alert('重复密码不相同');
+                alert(L('passwords_do_not_match'));
                 return;
             }
             gkClientInterface.changeDrivePwd(MD5(old_password), MD5(password), prompt);
@@ -229,10 +248,8 @@ var gkClientSetting = {
         var deleteVirtualFrom = $('.delete_virtual_dialog');
         $('.purple_btn',deleteVirtualFrom).on('click', function(){
             var password = $('#password', deleteVirtualFrom).val();
-            if(confirm('是否确定删除该虚拟盘？')){
-                if(gkClientInterface.deleteDisk(MD5(password))){
+            if(gkClientInterface.deleteDisk(MD5(password))){
 
-                }
             }
             return;
         });

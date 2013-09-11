@@ -827,7 +827,7 @@ var LANG = {
     remember_virtual_password: '请牢记您的虚拟盘密码',
     set_password: '设置密码',
     repeat_password: '重复密码',
-    passwords_do_not_match: '输入的密码不一致，请重新输入',
+    passwords_do_not_match: '重复密码不一致',
     password_prompt: '密码提示',
     virtual_login: '虚拟盘登录',
     input_virtual_password:'请输入虚拟盘密码',
@@ -835,5 +835,19 @@ var LANG = {
     edit_password: '修改密码',
     change_to_folder_mode: '转文件夹模式',
     language_switch: '语言切换',
-    preferences:'软件设置'
+    preferences:'软件设置',
+    local_drive:'本地$1盘，可用空间$2',
+    pls_set_virtual_size:'请设置虚拟盘大小',
+    pls_set_password:'请先设置密码',
+    password_great_then: '密码长度不小于$1位',
+    password_error : '密码错误',
+    delete_virtual: '删除虚拟盘',
+    are_u_sure_delete_virtual: '您确定要删除虚拟盘吗？',
+    confirm_delete_virtual: '删除虚拟盘后盘内的文件会彻底删除，请确认您的文件已同步至云端。您可以在下次同步设置后重新下载云端文件至本地。',
+    edit_virtual_password: '修改虚拟盘密码',
+    pls_input_new_password: '请输入旧密码',
+    pls_input_new_password: '请输入新密码',
+    pls_repeat_new_password: '请重复新密码',
+    edit_virtual_password_now: '正在修改 $1 的虚拟盘密码'
+
 };

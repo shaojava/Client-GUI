@@ -401,8 +401,14 @@ var gkClientInterface = {
     getClientVersion:function(){
         return this.getUserAgent()[1].toLowerCase();
     },
-    getClientLang:function(){
-
+    changeLanguage:function(type){
+        try {
+            gkClient.gCheckDrivePassword(JSON.stringify({
+                type: type
+            }));
+        } catch (e) {
+            throw e;
+        }
     },
     getDriveInfo: function(){
         try {
