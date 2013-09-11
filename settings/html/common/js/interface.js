@@ -403,7 +403,7 @@ var gkClientInterface = {
     },
     changeLanguage:function(type){
         try {
-            gkClient.gCheckDrivePassword(JSON.stringify({
+            gkClient.gChangeLanguage(JSON.stringify({
                 type: type
             }));
         } catch (e) {
