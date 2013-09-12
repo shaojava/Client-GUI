@@ -304,7 +304,7 @@ var gkClientSetting = {
                 if (gkClientInterface.checkPassword(MD5(user_password), 'user')) {
                     location.hash = 'step2';
                 } else {
-                    alert('密码错误！');
+                    alert(L('password_error'));
                 }
                 return false;
             });
