@@ -467,7 +467,7 @@ var gkClientLogin = {
             $('#default_gk_sync_dir').text(defaultPath);
             $('#gk_sync_dir').val(defaultPath).attr('title', defaultPath);
         } else if (target == '#login_p14') {
-            var drives = gkClientInterface.getDriveInfo();
+            var drives = gkClientInterface.getDiskInfo();
             var drive_list = drives['list'];
             var options = '';
             for (var i in drive_list) {
@@ -566,7 +566,7 @@ var gkClientLogin = {
             var loginBtn = $(this).find('button[type="submit"]');
             var spinner = new Spinner(gkClientLogin.loadingIcon).spin(loginBtn);
             loginBtn.append(spinner.el);
-            if(!gkClientInterface.checkDirvePwd(MD5(password.val()))){
+            if(!gkClientInterface.checkPassword(MD5(password.val()), 'disk')){
                 loginBtn.find('.spinner').remove();
                 $('.info', virtualLoginForm).show();
                 alert(L('password_error'));

@@ -94,12 +94,21 @@ var gkClientSetting = {
             var d = gkClientInterface.selectSyncFile('{"name":' + $('.sync').find('input').val() + ',"type":3}');
             return;
         });
+        //文件夹转虚拟盘
+        $('.sync-change').on('click', function(){
+            gkClientInterface.openChildWindow({
+                url: '/html/chs/virtual_mode.html',
+                type: 1,
+                width: 340,
+                height: 380
+            });
+        });
         //虚拟盘转文件夹
         $('.virtual-change').on('click', function(){
             var d = gkClientInterface.getBindPath();
             if (d != '') {
                 $('.virtual_loc').hide().siblings('.sync_loc').show().find('input').val(d);
-                gkClientInterface.changeDriveMode({
+                gkClientInterface.changeDiskMode({
                     diskpath: d,
                     type: 0
                 });
@@ -242,7 +251,7 @@ var gkClientSetting = {
                 alert(L('passwords_do_not_match'));
                 return;
             }
-            gkClientInterface.changeDrivePwd(MD5(old_password), MD5(password), prompt);
+            gkClientInterface.changeDiskPassword(MD5(old_password), MD5(password), prompt);
             return;
         });
         //删除虚拟盘
@@ -254,5 +263,30 @@ var gkClientSetting = {
             }
             return;
         });
+        //转到虚拟盘模式
+        var virtualMode = $('.virtual_mode');
+        if (virtualMode.size()) {
+            var virtualSizeForm = $('#set_virtual_size');
+            var drives = gkClientInterface.getDiskInfo();
+            var drive_list = drives['list'];
+            var options = '';
+            for (var i in drive_list) {
+                var drive = drive_list[i];
+                var value = L('local_drive', drive['name'], Util.Number.bitSize(drive['free'], 0));
+                options += '<option value="' + drive['name'] + ':\\" free="' + drive['free'] + '">' + value + '</option>';
+            }
+            $('select', virtualSizeForm).html(options);
+
+            $('.btn_next', virtualSizeForm).on('click', function(){
+                var hash = location.hash;
+                if(hash == 'step3'){
+
+                } else if(hash == 'step2'){
+                    location.hash = 'step3';
+                } else {
+
+                }
+            });
+        }
     }
 };

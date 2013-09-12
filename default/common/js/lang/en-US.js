@@ -850,5 +850,6 @@ var LANG = {
     pls_repeat_new_password: '重复密码',
     edit_virtual_password_now: '正在修改 $1 的虚拟盘密码',
     remember_virtual_password_desc: '够快不会保留您的密码，若密码遗失将不能找回，请牢记您的虚拟盘密码。',
-    learn_more: '了解更多'
+    learn_more: '了解更多',
+    change_to_virtual_mode:'转虚拟盘模式'
 };

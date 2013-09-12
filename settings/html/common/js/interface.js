@@ -410,19 +410,20 @@ var gkClientInterface = {
             throw e;
         }
     },
-    getDriveInfo: function(){
+    getDiskInfo: function(){
         try {
-            return $.parseJSON(gkClient.gGetDriveInfo());
+            return $.parseJSON(gkClient.gGetDiskInfo());
         } catch (e) {
             throw e;
         }
     },
-    checkDirvePwd: function(password){
+    checkPassword: function(password, type){
         try {
             var params = {
-                password: password
+                password: password,
+                type: type
             };
-            var reuslt = gkClient.gCheckDrivePassword(JSON.stringify(params));
+            var reuslt = gkClient.gCheckPassword(JSON.stringify(params));
             reuslt = $.parseJSON(reuslt);
             return reuslt.checkresult;
         } catch (e) {
@@ -436,9 +437,9 @@ var gkClientInterface = {
             throw e;
         }
     },
-    changeDriveMode: function(params){
+    changeDiskMode: function(params){
         try {
-            gkClient.gChangeDriveMode(JSON.stringify(params));
+            gkClient.gChangeDiskMode(JSON.stringify(params));
         } catch (e) {
             throw e;
         }
@@ -455,14 +456,14 @@ var gkClientInterface = {
             throw e;
         }
     },
-    changeDrivePwd: function (oldPwd, newPwd, prompt) {
+    changeDiskPassword: function (oldPwd, newPwd, prompt) {
         try {
             var params = {
                 oldpassword: oldPwd,
                 newpassword: newPwd,
                 prompt: prompt
             };
-            var reuslt = gkClient.gChangeDrivePassword(JSON.stringify(params));
+            var reuslt = gkClient.gChangeDiskPassword(JSON.stringify(params));
             reuslt = $.parseJSON(reuslt);
             return reuslt.checkresult;
         } catch (e) {

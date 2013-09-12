@@ -202,7 +202,7 @@
 }
 #setting #wrapper #main .advance .input_text_radius{
     padding: 4px 6px;
-    width: 300px;
+    width: 230px;
 }
 #setting #wrapper #main .advance .textMes{
     float: left;
@@ -230,8 +230,8 @@
 #setting #wrapper #main .advance .location .sync_loc{
     margin-bottom: 12px;
 }
-#setting #wrapper #main .advance .location .virtual_loc input{
-    width: 230px;
+#setting #wrapper #main .advance .location .config_loc input{
+    width: 300px;
 }
 #setting #wrapper #main .advance .others > div{
     margin: 5px 0;
@@ -285,4 +285,41 @@
 }
 #setting #wrapper.delete_virtual_dialog .single_form input{
     width: 200px;
+}
+/*文件夹转虚拟盘*/
+#setting #set_virtual_size h1{
+    font-size: 16px;
+}
+#setting #set_virtual_size .form_item p{
+    line-height: 28px;
+}
+#setting #set_virtual_size .form_item .local_drives{
+    font-size: 14px;
+    color: #5E656D;
+    padding: 2px;
+    height: 28px;
+    line-height: 28px;
+}
+#setting #set_virtual_size .form_item #virtual_size{
+    width: 60px;
+    padding: 2px 4px;
+    height: 20px;
+    line-height: 20px;
+}
+#setting #set_virtual_size .form_item .virtual_set_size_desc{
+    line-height: 20px;
+    display: inline-block;
+    margin-top: 2px;
+}
+#setting #set_virtual_size .form_item {
+    margin-top: 16px;
+}
+#setting #wrapper #main #check_login{
+    padding: 112px 30px;
+}
+#setting #wrapper #main #check_login input{
+    float: none;
+    margin: auto;
+    display: block;
+    width: 180px;
 }
