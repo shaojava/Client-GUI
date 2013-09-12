@@ -403,6 +403,9 @@ var gkClientInterface = {
     },
     getClientLang:function(){
 
+    },
+	openGKP:function(gkp_url){
+        gkClient.gOpengkp(gkp_url);
     }
 };
 var gkClientAjax = {};
@@ -493,8 +496,8 @@ var PAGE_CONFIG = {};
             PAGE_CONFIG.email = account.email;
             PAGE_CONFIG.mountId = account.mount_id;
             PAGE_CONFIG.orgId = account.org_id;
-            PAGE_CONFIG.memberType = account.member_type;
         }
+        console.log(PAGE_CONFIG);
     }catch(e){
         throw new Error(e.name+':'+ e.message);
     }
