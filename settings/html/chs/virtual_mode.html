@@ -9,7 +9,7 @@
 <body id="setting" class="setting_dialog">
 <div id="wrapper" class="virtual_mode">
     <div id="main">
-        <form id="check_login" class="single_form panel"  >
+        <form id="check_login" class="single_form panel step step1"  >
             <div class="form_item form_item_title">
                 <h1 >请输入您的登录密码以确认操作</h1>
             </div>
@@ -17,7 +17,7 @@
                 <input type="password" id="user_password" class="input_text_radius" maxlength="50" />
             </div>
         </form>
-        <form id="set_virtual_size" class="single_form panel" style="display: none">
+        <form id="set_virtual_size" class="single_form panel step step2" style="display: none">
             <div class="form_item">
                 <h1 data-locale="virtual_location">虚拟盘位置</h1>
                 <p data-locale="virtual_select">请选择要分出虚拟盘的磁盘位置</p>
@@ -35,7 +35,7 @@
                 <span class="err">&nbsp;</span>
             </div>
         </form>
-        <form id="set_virtual_password" class="single_form panel" style="display: none">
+        <form id="set_virtual_password" class="single_form panel step step3" style="display: none">
             <div class="form_item form_item_title">
                 <h1 data-locale="virtual_password_settings" style="font-size: 16px">虚拟盘密码设置</h1>
                 <p style="text-align: left;margin-top: 10px">
@@ -61,9 +61,9 @@
         </form>
     </div>
     <div id="footer">
-        <button class="btn cancel" data-hash="" data-locale="cancel" >取消</button>
-        <button class="btn btn_prev" data-hash=""  data-locale="prev_step" style="display: none">上一步</button>
-        <button class="btn blue_btn btn_next" data-hash="" data-locale="next_step" >下一步</button>
+        <button class="btn cancel step step1 step2 step3" data-locale="cancel" >取消</button>
+        <button class="btn btn_prev step" data-locale="prev_step" style="display: none">上一步</button>
+        <button class="btn blue_btn btn_next step step1 step2 step3" data-locale="next_step" >下一步</button>
     </div>
 </div>
 <script type="text/javascript" src="../common/js/lib/jquery.js"></script>
