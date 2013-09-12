@@ -732,6 +732,7 @@ var LANG = {
     //sync.html
     plus_add:'+ 添加',
     pls_login:'请先登录',
+    synchronization_options:'设置文件夹的同步',
 
     //tcframe.html
     view_all:'查看全部',
