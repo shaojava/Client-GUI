@@ -1,5 +1,5 @@
 var gkClientLaunchPad = {
-    init:function(callback){
+    init:function(){
         //disable浏览器的默认事件
 		//callback();
         gkClientCommon.disableDefaultEvent();
@@ -43,6 +43,22 @@ var gkClientLaunchPad = {
         $('#leftMenuList').tmpl({
             menus:menus
         }).appendTo($('.launth_pad_left .left_menu_list'));
+
+        $('.launth_pad_left').on('click','.left_menu_list li',function(){
+            var url = $(this).data("url");
+            var sso =  $(this).data("sso");
+            if(sso==1){
+                url  = gkClientInterface.openWindow({
+                    url:url,
+                    sso:1,
+                    opentype:1
+                });
+            }
+            $("iframe").attr("src",url);
+            $(".launth_pad_left li").removeClass('selected');
+            $(this).addClass('selected');
+        })
+
         var localMenus = [];
         $.ajax({
             url:gkClientInterface.getApiDomain()+'/left_extended_menu',
@@ -66,22 +82,6 @@ var gkClientLaunchPad = {
                 }).appendTo($('.launth_pad_left .left_menu_list'));
             }
         });
-
-        
-		$(".launth_pad_left").on("click",'li',function(){
-            var url = $(this).data("url");
-            var sso =  $(this).data("sso");
-            if(sso==1){
-                url  = gkClientInterface.openWindow({
-                    url:url,
-                    sso:1,
-                    opentype:1
-                });
-            }
-           $("iframe").attr("src",url);
-           $(".launth_pad_left li").removeClass('selected');
-           $(this).addClass('selected');
-        })
 
         var selectNav = function(){
             var re = '';
