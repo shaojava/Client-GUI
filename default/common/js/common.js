@@ -3213,11 +3213,12 @@ var gkFile = {
               heights = resultList.length * 25;
 			}
 			hintWrapper = $('<ul id="input_list_wrapper"  rel="' + q + '"></ul>');
-			
+			var username = '';
             for (var i = 0; i < resultList.length; i++) {
-                hintWrapper.append('<li><a title="' + resultList[i].username + '" class="' + (i == 0 ? 'select' : '') + '" href="javascript:void(0)" email="' + resultList[i].email + '" uid="' + resultList[i].id + '" >' + resultList[i].username + '</a></li>');
+                username = resultList[i].username || resultList[i].name;
+                hintWrapper.append('<li><a title="' + username + '" class="' + (i == 0 ? 'select' : '') + '" href="javascript:void(0)" email="' + resultList[i].email + '" uid="' + resultList[i].id + '" >' + username + '</a></li>');
             }
-             $('body').append(hintWrapper);
+            $('body').append(hintWrapper);
 			$("#input_list_wrapper").css({left:"10px",top:jqTextarea.offset().top - heights +"px"});
 			 
             hintWrapper.mousedown(function(e) {
