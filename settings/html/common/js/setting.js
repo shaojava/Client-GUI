@@ -277,15 +277,126 @@ var gkClientSetting = {
             }
             $('select', virtualSizeForm).html(options);
 
-            $('.btn_next', virtualSizeForm).on('click', function(){
-                var hash = location.hash;
-                if(hash == 'step3'){
+            var initPage = function(){
+                var hash = location.hash || '#step1';
+                hash = hash.replace('#', '');
+                $('.step', virtualMode).hide();
+                $('.' + hash, virtualMode).show();
+            }
 
-                } else if(hash == 'step2'){
-                    location.hash = 'step3';
+            initPage();
+            $(window).on('hashchange', function(){
+                initPage();
+            });
+
+            $('.btn_prev', virtualMode).on('click', function () {
+                history.back();
+                return;
+            });
+            $('.btn_next', virtualMode).on('click', function () {
+                var hash = location.hash || '#step1';
+                hash = hash.replace('#', '');
+                $('form.' + hash).submit();
+                return;
+            });
+            $('#check_login').on('submit', function(){
+                var user_password = $('#user_password', $(this)).val();
+                if (gkClientInterface.checkPassword(MD5(user_password), 'user')) {
+                    location.hash = 'step2';
                 } else {
-
+                    alert(L('password_error'));
                 }
+                return false;
+            });
+
+
+            //虚拟盘设置
+            var virtualSizeForm = $('#set_virtual_size');
+            var checkSize = function () {
+                var freeSize = parseInt($('.local_drives :selected', virtualSizeForm).attr('free'));
+                var setSize = parseInt($('#virtual_size', virtualSizeForm).val());
+                if (!setSize) {
+                    return [0, L('pls_set_virtual_size')];
+                }
+                var err = $('.err', virtualSizeForm);
+                if (setSize * 1024 * 1024 * 1024 > freeSize) {
+                    err.text(L('virtual_beyond_size'));
+                    return [0, L('virtual_beyond_size')];
+                } else {
+                    err.text('');
+                    return [1];
+                }
+            };
+            $('#virtual_size', virtualSizeForm).on('blur',function () {
+                checkSize();
+            }).on('keydown', function (e) {
+                    if (e.keyCode > 47 && e.keyCode < 58 || e.keyCode > 95 && e.keyCode < 106 || $.inArray(e.keyCode, [8, 9, 13, 37, 39]) > -1) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                });
+            $('.local_drives', virtualSizeForm).on('change', function () {
+                checkSize();
+            });
+            virtualSizeForm.on('submit', function () {
+                var result = checkSize();
+                if (!result[0]) {
+                    alert(result[1]);
+                    return false;
+                }
+                location.hash = 'step3';
+                return false;
+            });
+            //虚拟盘密码设置
+            var virtualPwdForm = $('#set_virtual_password');
+            var checkPwd = function (flag) {
+                var pwd = $('#virtual_password', virtualPwdForm).val();
+                var rpwd = $('#re_virtual_password', virtualPwdForm).val();
+                var err = $('.err', virtualPwdForm);
+                if (!pwd.length) {
+                    return [0, L('pls_set_password')];
+                }
+                if (pwd.length < 6){
+                    err.text(L('password_great_then', 6));
+                    return [0, L('password_great_then', 6)];
+                }else{
+                    err.text('');
+                    if(flag){
+                        return;
+                    }
+                }
+                if (pwd != rpwd) {
+                    err.text(L('passwords_do_not_match'));
+                    return [0, L('passwords_do_not_match')];
+                } else {
+                    err.text('');
+                    return [1];
+                }
+            };
+            $('#virtual_password,#re_virtual_password', virtualPwdForm).on('blur', function () {
+                checkPwd($(this).attr('id') == 'virtual_password');
+            });
+            virtualPwdForm.on('submit', function () {
+                var result = checkPwd();
+                if (!result[0]) {
+                    alert(result[1]);
+                    return false;
+                }
+                var virtualSize = parseInt($('#virtual_size', virtualSizeForm).val()),
+                    diskPath = $('.local_drives', virtualSizeForm).val(),
+                    password = $('#virtual_password', virtualPwdForm).val(),
+                    prompt = $.trim($('#virtual_password_prompt', virtualPwdForm).val());
+                var params = {
+                    diskpath: diskPath,
+                    size: virtualSize * 1024 * 1024 * 1024,
+                    password: MD5(password),
+                    prompt: prompt,
+                    type: 1
+                };
+                gkClientInterface.changeDiskMode(params);
+                gkClientInterface.closeWindow();
+                return false;
             });
         }
     }

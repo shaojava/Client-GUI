@@ -207,7 +207,7 @@
                             <h2 data-locale="virtual_size">虚拟盘大小</h2>
                             <p class="c_f">
                                 <em class="f_l" data-locale="virtual_set_size">占用空间上限</em>
-                                <em class="f_r"><input id="virtual_size" value="0" class="input_text" type="number"/>G</em>
+                                <em class="f_r"><input id="virtual_size" value="0" min="0" step="1" class="input_text" type="number"/>G</em>
                             </p>
                             <p><span data-locale="virtual_set_size_desc">当文件大小不足此上限值时，虚拟盘只占用文件大小的空间，建议设置为本地磁盘可用空间的最大值</span></p>
                             <p><label class="err" ></label></p>
@@ -283,7 +283,11 @@
             initWebHref();
             function gDiskPassword(data){
                 var data = $.parseJSON(data);
-                $('#is_virtual_login .info').append(data.prompt);
+                if(data.prompt){
+                    $('#is_virtual_login .info').append(data.prompt);
+                }else{
+                    $('#is_virtual_login .info').empty();;
+                }
                 gkClientLogin.setHash('login_p16');
             }
             $(function(){

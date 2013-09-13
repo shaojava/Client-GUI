@@ -511,7 +511,13 @@ var gkClientLogin = {
         };
         $('#virtual_size', virtualForm).on('blur', function () {
             checkSize();
-        });
+        }).on('keydown', function (e) {
+                if (e.keyCode > 47 && e.keyCode < 58 || e.keyCode > 95 && e.keyCode < 106 || $.inArray(e.keyCode, [8, 9, 13, 37, 39]) > -1) {
+                    return true;
+                } else {
+                    return false;
+                }
+            });
         $('.local_drives', virtualForm).on('change', function () {
             checkSize();
         });
