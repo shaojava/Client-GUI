@@ -240,7 +240,7 @@
                     {{/if}}
                     {{if typeof(last_member_name)!=='undefined' && last_member_name&&typeof(last_datetime)!=='undefined'&&last_datetime}}
                     {{if (state==3|| state==5)&&dir==0}}
-                    1${L('lock_by_at',last_member_name,last_datetime)}
+                    ${L('modify_by_at',last_member_name,last_datetime)}
                     {{else}}
                     ${L('modify_by_at',last_member_name,last_datetime)}
                     {{/if}}

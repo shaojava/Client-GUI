@@ -1405,7 +1405,7 @@ gkSetting = {
             var phone = $.trim($('.step2 .phone', dpscope).val()),
                     code = $.trim($('.step2 .code', dpscope).val());
             if (!code) {
-                $.alert(L('PLEASE_INPUT_VERIFY_CODE'));
+                $.alert(L('please_input_verify_code'));
                 return false;
             }
             $(this).loader();
@@ -2819,16 +2819,16 @@ $.fn.emailInput = function(width, el) {
                                 hash: data.hash
                             };
                             if ($('.upload_wrapper #' + data.hash).size()) {
-                                alert(L('INDEX_FILE_UPLOADED'));
+                                alert(L('index_file_uploaded'));
                                 return;
                             }
                             if (Number(file.size) > Number(options.fileSizeLimit)) {
-                                alert(L('INDEX_FILE_SIZE_LIMIT', Util.Number.bitSize(options.fileSizeLimit)));
+                                alert(L('index_file_size_limit', Util.Number.bitSize(options.fileSizeLimit)));
                                 return;
                             }
                             var ext = gkStorage.getExt(file.name);
                             if ($.inArray(ext, options.denyExts) >= 0) {
-                                alert(L('INDEX_FILE_FORMAT_LIMIT', ext));
+                                alert(L('index_file_format_limit', ext));
                                 return;
                             }
                             if (confirm(L('are_you_sure_to_upload', file.name))) {

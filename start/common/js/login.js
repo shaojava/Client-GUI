@@ -83,7 +83,7 @@ var gkClientLogin = {
                 return false;
             }
             if (!Util.Validation.isEmail(email)) {
-                alert(L('INDEX_FIND_PASSWORD_invalid_email_format'));
+                alert(L('index_find_password_invalid_email_format'));
                 return false;
             }
             if (!password.length) {
@@ -185,7 +185,7 @@ var gkClientLogin = {
                 }
             });
             if (flag.state) {
-                alert(L('INDEX_EXSIT_ID'));
+                alert(L('index_exsit_id'));
                 return false;
             }
             var registBtn = $('#regist_form button[type="submit"]');

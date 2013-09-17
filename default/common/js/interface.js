@@ -488,6 +488,12 @@ var gkClientInterface = {
         } catch (e) {
             throw e;
         }
+    },
+    getClientLang:function(){
+
+    },
+    openGKP:function(gkp_url){
+        gkClient.gOpengkp(gkp_url);
     }
 };
 var gkClientAjax = {};
