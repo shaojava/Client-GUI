@@ -909,7 +909,7 @@ var gkClientSidebar = {
         var remarkList = $('#remarkListTmpl').tmpl({
             remarks: remarks,
             old_remark: old_remark ? old_remark : '',
-            Show: (this.remindMembers.length > 1) ? 'is' : ''
+            Show: ($.isArray(this.remindMembers)&&this.remindMembers.length) ? 'is' : ''
         }).appendTo(slideItemShare);
         $(".textarea_wrapper").inputTip(_context.remindMembers, $(".at_and_task"));
 
