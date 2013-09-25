@@ -219,7 +219,7 @@ var gkClientSidebar = {
                 selectWrp.find('ul a').show();
             });
 
-            selectWrp.find('.dropdown_menu a:first').trigger('click');
+            selectWrp.find('.dropdown_menu a').eq(1).trigger('click');
 
             $('.share_types li a').click(function () {
 
