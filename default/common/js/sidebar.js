@@ -954,8 +954,10 @@ var gkClientSidebar = {
                 $('textarea#post_value').val('');
                 localStorage.removeItem('remark_' + PAGE_CONFIG.path);
 
-            }, function () {
+            }, function (request, textStatus, errorThrown) {
                 _self.removeClass('disabled').addClass('blue_btn');
+                var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                alert(errorMsg);
             });
         });
 
