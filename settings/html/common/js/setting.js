@@ -330,6 +330,7 @@ var gkClientSetting = {
             var checkSize = function () {
                 var freeSize = parseInt($('.local_drives :selected', virtualSizeForm).attr('free'));
                 var setSize = parseInt($('#virtual_size', virtualSizeForm).val());
+                $('#virtual_size', virtualSizeForm).val(setSize);
                 if (!setSize) {
                     return [0, L('pls_set_virtual_size')];
                 }
