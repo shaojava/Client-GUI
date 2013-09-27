@@ -263,7 +263,10 @@ var gkClientSetting = {
                 alert(L('passwords_do_not_match'));
                 return;
             }
-            gkClientInterface.changeDiskPassword(MD5(old_password), MD5(password), prompt);
+            var result = gkClientInterface.changeDiskPassword(MD5(old_password), MD5(password), prompt);
+            if(!result){
+                alert(L('edit_virtual_password_error'));
+            }
             return;
         });
         //删除虚拟盘
