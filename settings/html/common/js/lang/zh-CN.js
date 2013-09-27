@@ -840,6 +840,7 @@ var LANG = {
     local_drive:'本地$1盘，可用空间$2',
     pls_set_virtual_size:'请设置虚拟盘大小',
     pls_set_password:'请先设置密码',
+    pls_input_current_password:'请先输入当前密码',
     password_great_then: '密码长度不小于$1位',
     password_error : '密码错误',
     delete_virtual: '删除虚拟盘',

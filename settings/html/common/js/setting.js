@@ -247,6 +247,10 @@ var gkClientSetting = {
                 old_password = $('#old_password', resetPwdFrom).val(),
                 confirm_password = $('#confirm_password', resetPwdFrom).val(),
                 prompt = $('#prompt', resetPwdFrom).val();
+            if (!old_password.length) {
+                alert(L('pls_input_current_password'));
+                return;
+            }
             if (!password.length) {
                 alert(L('pls_set_password'));
                 return;

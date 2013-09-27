@@ -840,6 +840,7 @@ var LANG = {
     local_drive:'Disk $1,$2 available',
     pls_set_virtual_size:'Please set the size',
     pls_set_password:'Please create a password',
+    pls_input_current_password:'Please enter current password',
     password_great_then: 'Please enter no less than $1 characters',
     password_error : 'Invalid password',
     delete_virtual: 'Delete',
