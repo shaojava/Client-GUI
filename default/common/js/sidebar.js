@@ -219,7 +219,7 @@ var gkClientSidebar = {
                 selectWrp.find('ul a').show();
             });
 
-            selectWrp.find('.dropdown_menu a:first').trigger('click');
+            selectWrp.find('.dropdown_menu a').eq(1).trigger('click');
 
             $('.share_types li a').click(function () {
 
@@ -954,8 +954,10 @@ var gkClientSidebar = {
                 $('textarea#post_value').val('');
                 localStorage.removeItem('remark_' + PAGE_CONFIG.path);
 
-            }, function () {
+            }, function (request, textStatus, errorThrown) {
                 _self.removeClass('disabled').addClass('blue_btn');
+                var errorMsg = gkClientAjax.Exception.getErrorMsg(request, textStatus, errorThrown);
+                alert(errorMsg);
             });
         });
 
