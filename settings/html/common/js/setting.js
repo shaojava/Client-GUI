@@ -79,7 +79,7 @@ var gkClientSetting = {
         });
         //同步文件位置移动
         $('.sync-move').click(function () {
-            var old = $('.sync').find('input').val();
+            var old = $('.sync_loc').find('input').val();
             var d = gkClientInterface.getBindPath();
             if (d != '') {
                 if (confirm(L('are_you_sure_to_move_synchronize_directory', old, d))) {
