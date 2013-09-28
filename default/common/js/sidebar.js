@@ -313,7 +313,7 @@ var gkClientSidebar = {
                     break;
                 case 'archive':
                     if(typeof PAGE_CONFIG !=='undefined' && PAGE_CONFIG.orgId>0){
-                        if(file.fullpath&&(PAGE_CONFIG.type==1 || PAGE_CONFIG.type==2)){
+                        if(file.fullpath&&(PAGE_CONFIG.type==1 || PAGE_CONFIG.type==2) && PAGE_CONFIG.local==0){
 
                         }else{
                             classes+=' disabled';
