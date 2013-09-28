@@ -79,7 +79,7 @@ var gkClientSetting = {
         });
         //同步文件位置移动
         $('.sync-move').click(function () {
-            var old = $('.sync').find('input').val();
+            var old = $('.sync_loc').find('input').val();
             var d = gkClientInterface.getBindPath();
             if (d != '') {
                 if (confirm(L('are_you_sure_to_move_synchronize_directory', old, d))) {
@@ -247,11 +247,26 @@ var gkClientSetting = {
                 old_password = $('#old_password', resetPwdFrom).val(),
                 confirm_password = $('#confirm_password', resetPwdFrom).val(),
                 prompt = $('#prompt', resetPwdFrom).val();
+            if (!old_password.length) {
+                alert(L('pls_input_current_password'));
+                return;
+            }
+            if (!password.length) {
+                alert(L('pls_set_password'));
+                return;
+            }
+            if (password.length < 6){
+                alert(L('password_great_then', 6));
+                return;
+            }
             if(password != confirm_password){
                 alert(L('passwords_do_not_match'));
                 return;
             }
-            gkClientInterface.changeDiskPassword(MD5(old_password), MD5(password), prompt);
+            var result = gkClientInterface.changeDiskPassword(MD5(old_password), MD5(password), prompt);
+            if(!result){
+                alert(L('edit_virtual_password_error'));
+            }
             return;
         });
         //删除虚拟盘
@@ -315,6 +330,7 @@ var gkClientSetting = {
             var checkSize = function () {
                 var freeSize = parseInt($('.local_drives :selected', virtualSizeForm).attr('free'));
                 var setSize = parseInt($('#virtual_size', virtualSizeForm).val());
+                $('#virtual_size', virtualSizeForm).val(setSize);
                 if (!setSize) {
                     return [0, L('pls_set_virtual_size')];
                 }

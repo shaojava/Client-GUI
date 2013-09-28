@@ -840,6 +840,7 @@ var LANG = {
     local_drive:'本地$1盘，可用空间$2',
     pls_set_virtual_size:'请设置虚拟盘大小',
     pls_set_password:'请先设置密码',
+    pls_input_current_password:'请先输入当前密码',
     password_great_then: '密码长度不小于$1位',
     password_error : '密码错误',
     delete_virtual: '删除虚拟盘',
@@ -853,5 +854,6 @@ var LANG = {
     remember_virtual_password_desc: '够快不会保留您的密码，若密码遗失将不能找回，请牢记您的虚拟盘密码。',
     learn_more: '了解更多',
     change_to_virtual_mode:'转虚拟盘模式',
-    enter_the_password_to_confirm: '请输入您的登录密码以确认操作'
+    enter_the_password_to_confirm: '请输入您的登录密码以确认操作',
+    edit_virtual_password_error:'修改密码失败，请检查当前密码是否正确'
 };
