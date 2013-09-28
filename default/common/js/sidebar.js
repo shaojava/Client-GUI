@@ -298,14 +298,14 @@ var gkClientSidebar = {
                     }
                     break;
                 case 'force_to_lock':
-                    if(file.fullpath&&file.is_share==1 && file.dir==0 && file.state ==3 ){
+                    if(file.fullpath&&file.is_share==1 && file.dir==0 && file.auth>0 && file.state ==3){
 
                     }else{
                         classes+=' disabled hide';
                     }
                     break;
                 case 'finish_edit':
-                    if(file.fullpath&&file.is_share==1 && file.dir==0 && file.auth>0 && file.state ==5){
+                    if(file.fullpath&&file.is_share==1 && file.dir==0 && file.state ==5){
 
                     }else{
                         classes+=' disabled hide';
