@@ -289,7 +289,7 @@ var gkClientSidebar = {
                     if(file.is_share==1 && file.dir==0 && file.auth>0 && (file.state ==2 ||  file.state ==4)){
 
                     }else{
-                        if(file.fullpath&&file.state==5){
+                        if(file.fullpath&&(file.state==5||file.state==3)){
                             classes+=' hide';
                         }else{
                             classes+=' disabled';
