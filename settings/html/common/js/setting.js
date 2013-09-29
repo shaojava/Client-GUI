@@ -14,6 +14,20 @@ var gkClientSetting = {
     initEvent: function(){
         //确定
         $('.purple_btn').click(function () {
+            //更改语言设定
+            var language = $('#select_language').val();
+            if(language != lang){
+                var type = 0;
+                switch (language){
+                    case 'zh-cn':
+                        type = 1;
+                        break;
+                    case 'en-us':
+                        type = 2;
+                        break;
+                }
+                gkClientInterface.changeLanguage(type);
+            }
             var params = {};
             $('.chk').each(function(){
                 var config = $(this).data('config');
@@ -43,19 +57,19 @@ var gkClientSetting = {
         });
         //语言修改
         $('#select_language').on('change', function(){
-            var language = $(this).val();
-            if(language != lang){
-                var type = 0;
-                switch (language){
-                    case 'zh-cn':
-                        type = 1;
-                        break;
-                    case 'en-us':
-                        type = 2;
-                        break;
-                }
-                gkClientInterface.changeLanguage(type);
-            }
+//            var language = $(this).val();
+//            if(language != lang){
+//                var type = 0;
+//                switch (language){
+//                    case 'zh-cn':
+//                        type = 1;
+//                        break;
+//                    case 'en-us':
+//                        type = 2;
+//                        break;
+//                }
+//                gkClientInterface.changeLanguage(type);
+//            }
         });
     },
     initAdvance: function(){
