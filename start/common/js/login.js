@@ -28,6 +28,12 @@ var gkClientLogin = {
         }
         gkClientLogin.showPage('#' + ac);
     },
+    fixMacSiteDomain:function(siteDomain){
+        if(gkClientInterface.getClientOS()=='mac' && Util.Browser.compareVersion(gkClientInterface.getClientVersion(),'2.1.5.0')<0 ){
+            return siteDomain.replace(/(http|https):\/\//,'');
+        }
+        return siteDomain;
+    },
     init: function() {
         var key = gkClientInterface.getOauthKey();
 
@@ -107,8 +113,16 @@ var gkClientLogin = {
                 alert(L('pls_enter_team_code'));
                 return false;
             }
+            var siteDomain = gkClientInterface.getSiteDomain();
+
+            /**
+             * 如果是mac客户端，并且版本小于2.1.5.0时oauth不用传http://
+             */
+
+            siteDomain = gkClientLogin.fixMacSiteDomain(siteDomain);
+
             var params = {
-                url: gkClientInterface.getSiteDomain() + '/account/oauth?oauth=' + ent_id + '&key=' + key + '&gk=1',
+                url: siteDomain + '/account/oauth?oauth=' + ent_id + '&key=' + key + '&gk=1',
                 width: 500,
                 height: 485,
                 resize: 0,
@@ -148,7 +162,12 @@ var gkClientLogin = {
         //使用第三方帐号
         $('.oauth_btn.btn').on('click', function() {
             var oauth = $(this).attr('name');
-            var oauthURL = gkClientInterface.getSiteDomain() + '/account/oauth?oauth=' + oauth + '&key=' + gkClientInterface.getOauthKey();
+            /**
+             * 如果是mac客户端，并且版本小于2.1.5.0时oauth不用传http://
+             */
+
+            var siteDomain = gkClientLogin.fixMacSiteDomain(gkClientInterface.getSiteDomain());
+            var oauthURL = siteDomain + '/account/oauth?oauth=' + oauth + '&key=' + gkClientInterface.getOauthKey();
             if(oauth=='qq'){
                 //oauthURL+='&display=mobile';
             }
