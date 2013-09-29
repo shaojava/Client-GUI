@@ -438,6 +438,7 @@ input[type="password"] {
 }
 .login_page{
     z-index: 2;
+    display: none;
 }
 .login_page_wrp{
     background-color: #FFF;
