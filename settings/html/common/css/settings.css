@@ -177,10 +177,10 @@
     height: 30px;
 }
 /*隐藏语言切换所需*/
-#setting #wrapper #main .basic .configs li{
-    line-height: 42px;
-    height: 42px;
-}
+/*#setting #wrapper #main .basic .configs li{*/
+/*    line-height: 42px;*/
+/*    height: 42px;*/
+/*}*/
 #setting #wrapper #main .configs li i{
     margin-right: 10px;
 }
