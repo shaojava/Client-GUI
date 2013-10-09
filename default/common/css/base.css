@@ -10,6 +10,9 @@ html,body{
 h1, h2, h3, h4, h5, h6{
     font-weight:normal;
 }
+html,body, h1, h2, h3, h4, h5, h6, hr, p, blockquote, dl, dt, dd, ul, ol, li, form, fieldset, legend, button,th,td{
+    -webkit-user-select: none;
+}
 body,button, input, select, textarea{
     font: 12px/1.5 "hiragino sans gb","Helvetica Neue","Helvetica","Arial","宋体", "simsun","sans-serif";
 }
