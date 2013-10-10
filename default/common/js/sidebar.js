@@ -934,6 +934,7 @@ var gkClientSidebar = {
             var text = $('textarea#post_value').val();
             if (!text) {
                 alert(L('FILE_EMPTY_COMMENT'));
+                return;
             }
             var oldText = _self.text();
             _self.removeClass('.blue_btn').addClass('disabled');
