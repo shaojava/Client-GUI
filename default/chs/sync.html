@@ -112,17 +112,17 @@
 <script type="text/javascript" src="../common/js/lib/zTree/js/jquery.ztree.core-3.5.js"></script>
 <script type="text/javascript" src="../common/js/common.js"></script>
 <script type="text/javascript" src="../common/js/component/droplist.js"></script>
-<script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap_customize.min.js"></script>
+<script type="text/javascript" src="../common/js/lib/bootstrap/bootstrap-tooltips.js"></script>
 <script type="text/javascript" src="../common/js/sync.js"></script>
 <script type="text/javascript">
     $(function () {
         $('[data-locale]').translate();
         initWebHref();
-        $('body').tooltip({
-            selector: '.gktooltip'
-        });
         gkClientSync.init();
 
+        $('.gktooltip').tooltip({
+            container: 'body'
+        });
     })
 </script>
 </body>

@@ -1142,18 +1142,6 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .tooltip.in {
     opacity: 0.8;
 }
-.tooltip.top {
-    margin-top: 3px;
-}
-.tooltip.right {
-    margin-left: 3px;
-}
-.tooltip.bottom {
-    margin-top: -3px;
-}
-.tooltip.left {
-    margin-left: 3px;
-}
 .tooltip-inner {
     max-width: 200px;
     padding: 3px 6px;
@@ -1437,6 +1425,8 @@ i.share_i{background-position:0 -125px}
     font-size:13px;
     text-decoration: none;
     overflow: hidden;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 .launth_pad .launth_pad_left li.selected{
     background: #486EA9;
@@ -1833,7 +1823,7 @@ border:1px solid #D0D6DB;
 }
 #sidebar #header .opts{
     text-align: center;
-    margin: 16px 0 0 0;
+    margin: 8px 0 0 0;
 }
 #sidebar #header .opts button{
     display: inline-block;
@@ -1918,13 +1908,15 @@ border:1px solid #D0D6DB;
     text-overflow: ellipsis;
 }
 #sidebar .user_info .attrs .name,
-#sidebar .org_info .org_name{
-color:#6185BC;
- font-size: 18px;
-font-weight: 600;
+#sidebar .org_info .org_name {
+    color: #6185BC;
+    font-size: 18px;
+    font-weight: 600;
 }
-#header .file_info{
-padding: 15px 10px 0 0;
+
+#header .file_info {
+    padding: 15px 10px 0 0;
+    height: 48px;
 }
 #header .file_info .file_icon{
     display: block;
