@@ -651,7 +651,7 @@ var LANG = {
     //sidebar.js
     opt_lock:'Activate Exclusive Edit',
     opt_unlock:'Deactivate Exclusive Edit',
-    opt_force_lock:'Deactivate Exclusive Edit',
+    opt_force_lock:'Activate Exclusive Edit',
     opt_archive:'Archive',
     opt_add_decription:'Add description',
     opt_create_smart_folder:'New smart folder',
