@@ -406,6 +406,9 @@ button, input, select, textarea { font-size: 100%; outline: 0;}
 .icon_64_local_folder{
     background-image:url(../images/icon/local_folder64x64.png);
 }
+.icon_64_private_folder{
+    background-image:url(../images/icon/private_cloud64x64.png);
+}
 .icon_64_shared_folder{
     background-image:url(../images/icon/shared_folder64x64.png);
 }

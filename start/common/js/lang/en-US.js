@@ -855,5 +855,6 @@ var LANG = {
     learn_more: 'Details',
     change_to_virtual_mode:'Virtual disk mode',
     enter_the_password_to_confirm: 'Please enter your password to confirm that you want to change to virtual disk mode. ',
-    edit_virtual_password_error:'Edit password error, please check current password'
+    edit_virtual_password_error:'Edit password error, please check current password',
+    private_storage_cannot_be_linked:'Private storage files cannot be shared.'
 };

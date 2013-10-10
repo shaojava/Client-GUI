@@ -158,8 +158,10 @@ var gkClientSidebar = {
         var _context = this;
         var tab_content_wrapper = $('.tab_content_link');
         tab_content_wrapper.find(".select_wrapper").remove();
-        if (publish.isclosed == 1) {
-            tab_content_wrapper.append('<div class="empty">'+L('share_by_link_has_been_disable')+'</div>');
+        if(PAGE_CONFIG.local){
+            tab_content_wrapper.append('<div class="empty">' + L('private_storage_cannot_be_linked') + '</div>');
+        } else if (publish.isclosed == 1) {
+            tab_content_wrapper.append('<div class="empty">' + L('share_by_link_has_been_disable') + '</div>');
             tab_content_wrapper.find('.open_link_share').click(function () {
                 var params = {
                     url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
@@ -665,10 +667,11 @@ var gkClientSidebar = {
                     last_datetime: reData.last_datetime,
                     is_share: reData.share,
                     auth: reData.auth,
-                    icon: 'icon_64_' + _context.getFileIconSuffix(filename, dir, reData.share, file.local),
+                    icon: 'icon_64_' + _context.getFileIconSuffix(filename, dir, reData.share, reData.local),
                     index: reData.index || 0,
                     last_member_name: reData.last_member_name
                 };
+                PAGE_CONFIG.local = reData.local;
                 $.extend(localData, newData);
                 $.extend(data, localData);
                 _context.fetchFileHeader(data);

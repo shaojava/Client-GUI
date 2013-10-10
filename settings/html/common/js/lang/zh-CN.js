@@ -855,5 +855,6 @@ var LANG = {
     learn_more: '了解更多',
     change_to_virtual_mode:'转虚拟盘模式',
     enter_the_password_to_confirm: '请输入您的登录密码以确认操作',
-    edit_virtual_password_error:'修改密码失败，请检查当前密码是否正确'
+    edit_virtual_password_error:'修改密码失败，请检查当前密码是否正确',
+    private_storage_cannot_be_linked:'内部存储文件或文件夹不能使用链接分享功能'
 };
