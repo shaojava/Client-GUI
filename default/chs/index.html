@@ -50,11 +50,12 @@
 
         </div>
         <div class="tab_content_link">
-             <span class="gjmodel"><i></i>${L('advance_settings')}</span>
+
         </div>
         <div class="tab_content_remark">
+
         </div>
-		
+
     </div>
 </script>
 <script type="text/x-jquery-tmpl" id="remarkListTmpl">
@@ -119,8 +120,7 @@
 </div>
 </script>
 <script type="text/x-jquery-tmpl" id="linkModeTmpl">
-<div class="select_wrapper">
-
+<div class="select_wrapper scrollbar">
     {{if modes && modes.length}}
     <ul class="dropdown_menu">
         {{each(i,mode) modes}}
@@ -157,7 +157,11 @@
         </a></li>
     </ul>
 </div>
- 
+<div class="manage_link_wrapper">
+    <a href="javascript:;" class="manage_link">
+        <i></i>${L('advance_settings')}
+    </a>
+</div>
 </script>
 <script type="text/x-jquery-tmpl" id="shareMembersTmpl">
     <ul class="share_members scrollbar">

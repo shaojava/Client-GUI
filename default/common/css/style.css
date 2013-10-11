@@ -1287,9 +1287,6 @@ i.share_i{background-position:0 -125px}
 .toolbar .main_nav li.main_nav_li a>span i.updates_span{background-position:center -255px}/*-255*/
 .toolbar .main_nav li.main_nav_li a>span i.updates_span_slide{background-position:center -195px}
 .toolbar .main_nav li .share_info{width:238px;background:#fff;overflow-y:auto;overflow-x:hidden;height:100%;font-size:12px;font-family:"微软雅黑"}
-.tab_content_link{position:relative;height:100%;padding-top:1px}
-.tab_content_link .gjmodel{position:absolute;width:100%;cursor:pointer;padding:20px 0;border-top:1px solid #c5ced8;bottom:1px;left:0;display:block;text-align:center;font-size:20px;font-family:'Microsoft Yahei';background-color:#f3f7f9}
-.tab_content_link .gjmodel i{display:inline-block;width:32px;height:32px;background:url("../images/icon/slide_icons2.png") no-repeat 0 -224px;vertical-align:middle}
 .toolbar .main_nav li .share_info .share_mes_info{padding:10px 0 10px 22px;color:#64727C;position:relative;cursor: pointer}
 .toolbar .main_nav li .share_info .share_mes_info:hover{background:#e9eff3}
 .toolbar .main_nav li .share_info .share_mes_info img{display:block;width:32px;height:32px;border-radius:50%}
@@ -2184,7 +2181,8 @@ color:#B8BFC8;
 
 
 #main .post_wrapper,
-#main .manage_share_wrapper{
+#main .manage_share_wrapper,
+#main .manage_link_wrapper{
     background: #F3F7F9;
     position: absolute;
     bottom:0;
@@ -2196,10 +2194,12 @@ color:#B8BFC8;
 #main .post_wrapper{
     height: 110px;
 }
-#main .manage_share_wrapper{
+#main .manage_share_wrapper,
+#main .manage_link_wrapper{
     height: 80px;
 }
-#main .manage_share_wrapper a i{
+#main .manage_share_wrapper a i,
+#main .manage_link_wrapper a i{
     width: 32px;
     height: 32px;
     display: inline-block;
@@ -2207,7 +2207,11 @@ color:#B8BFC8;
     background: url(../images/icon/slide_icons2.png) no-repeat 0 -192px;
     margin: -5px 5px 0 0;
 }
-#main .manage_share_wrapper a{
+#main .manage_link_wrapper a i{
+    background-position: 0 -224px;
+}
+#main .manage_share_wrapper a,
+#main .manage_link_wrapper a{
     height: 32px;
     display: block;
     line-height: 32px;
@@ -2311,8 +2315,15 @@ margin-right: 8px;}
         width: 80px;
 }
 #main .select_wrapper{
-    margin: 8px auto 0;
+    position: absolute;
     width: 232px;
+    top: 4px;
+    left: 50%;
+    margin-left: -116px;
+    bottom: 81px;
+    right: 0;
+    overflow: auto;
+    overflow-x: hidden;
 }
 #main .select_wrapper ul{
     padding: 10px 0;
@@ -2373,12 +2384,11 @@ margin-right: 8px;}
 }
 #main .share_types{
     overflow: hidden;
-    width: 600px;
     margin: auto;
 }
 #main .share_types li{
-margin-right:2px;
-width:230px;
+    margin-right:2px;
+    width:230px;
 }
 
 #main .share_types li a{

@@ -110,8 +110,7 @@ var gkClientSidebar = {
             gkClientInterface.openWindow(params);
         });
         //高级模式
-        $(".gjmodel").click(function () {
-
+        $('.manage_link').click(function () {
             var params = {
                 url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
                 sso: 1,
@@ -192,6 +191,7 @@ var gkClientSidebar = {
             var selectWrp = $('#linkModeTmpl').tmpl({
                 modes: modes
             }).prependTo(tab_content_wrapper);
+            selectWrp = selectWrp.eq(0);
             selectWrp.find('.dropdown_menu').on('click', 'a', function () {
 
                 var btn = selectWrp.children('a:first');
