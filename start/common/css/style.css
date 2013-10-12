@@ -497,6 +497,8 @@ dl.from_raw.selected{
 .from_raw dd{
     margin:3px 0 0 23px;
     color:#666;
+    word-break: break-all;
+    word-wrap: break-word;
 }
 .login_page input[type="text"],
 .login_page input[type="password"]{
