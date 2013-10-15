@@ -573,7 +573,7 @@ function initWebHref(proxyElem) {
             return false;
         } else if ($.trim(href) != '' && $.trim(href).indexOf('#') != 0 && !/^javascript:.*?$/.test(href)) {
             if (/\/storage#!(.*?)(:0|:1|)$/.test(href)) {
-                if (RegExp.$1 == 'teamfiles') {
+                if (RegExp.$1 == 'team_files') {
                     gkClientInterface.openSyncByPath(1, '', 'orgpath');
                     return false;
                 } else if(RegExp.$1 == 'files') {
