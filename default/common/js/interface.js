@@ -494,6 +494,17 @@ var gkClientInterface = {
     },
     openGKP:function(gkp_url){
         gkClient.gOpengkp(gkp_url);
+    },
+    openSyncByPath: function (dir, path, pathtype) {
+        try {
+            var config = {
+                "path": path,
+                "pathtype": pathtype || "webpath",
+                "opentype": dir ? "open" : "select"
+            };
+            gkClient.gShellExecute(JSON.stringify(config));
+        } catch (e) {
+        }
     }
 };
 var gkClientAjax = {};
@@ -561,6 +572,15 @@ function initWebHref(proxyElem) {
             }
             return false;
         } else if ($.trim(href) != '' && $.trim(href).indexOf('#') != 0 && !/^javascript:.*?$/.test(href)) {
+            if (/\/storage#!(.*?)(:0|:1|)$/.test(href)) {
+                if (RegExp.$1 == 'teamfiles') {
+                    gkClientInterface.openSyncByPath(1, '', 'orgpath');
+                    return false;
+                } else if(RegExp.$1 == 'files') {
+                    gkClientInterface.openSyncDir();
+                    return false;
+                }
+            }
             var param = {
                 url: href,
                 sso: 0
