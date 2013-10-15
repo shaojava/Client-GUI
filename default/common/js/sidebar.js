@@ -109,18 +109,6 @@ var gkClientSidebar = {
             };
             gkClientInterface.openWindow(params);
         });
-        //高级模式
-        $('.manage_link').click(function () {
-            var params = {
-                url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
-                sso: 1,
-                resize: 0,
-                width: 800,
-                height: 600
-            };
-            gkClientInterface.openWindow(params);
-        })
-
     },
     getLinkKeyAndTipByAuth: function (auth) {
         var re = {};
@@ -234,6 +222,7 @@ var gkClientSidebar = {
                 }
                 var filename = Util.String.baseName(Util.String.rtrim(PAGE_CONFIG.path, '/'));
                 var callback = function (url) {
+                    var content = L('weibo_share_text',dir ? L('folder') : L('file'),filename);
                     if (_self.hasClass('link_browser')) {
                         gkClientInterface.openURL({
                             url: url,
@@ -247,9 +236,16 @@ var gkClientSidebar = {
                     } else if (_self.hasClass('link_qq')) {
                         _context.shareToWeibo('qq', content, url);
                     } else if (_self.hasClass('link_mail')) {
-						var subject = L('link_share');
-						var content =L('email_share_text',PAGE_CONFIG.membername,url);
-						gkClientInterface.mailTo('', subject, content);
+						//var subject = L('link_share');
+                        //var content = L('email_share_text', PAGE_CONFIG.membername, url);
+						//gkClientInterface.mailTo('', subject, content);
+                        gkClientInterface.openWindow({
+                            url: gkClientInterface.getSiteDomain() + '/client/send_email?url=' + encodeURIComponent(url),
+                            resize: 0,
+                            sso: 1,
+                            width: 420,
+                            height: 362
+                        });
                     }
                 };
                 var params = {
@@ -276,6 +272,18 @@ var gkClientSidebar = {
                     }
                 });
             });
+
+            //高级模式
+            $('.manage_link').click(function () {
+                var params = {
+                    url: '/client/client_file_detail?tab=link&fullpath=' + encodeURIComponent(PAGE_CONFIG.path),
+                    sso: 1,
+                    resize: 0,
+                    width: 800,
+                    height: 600
+                };
+                gkClientInterface.openWindow(params);
+            })
         }
     },
     getOptClassesByFileInfo:function(ac,file){
