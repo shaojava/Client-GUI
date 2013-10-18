@@ -145,7 +145,8 @@ var gkClientSidebar = {
         var _context = this;
         var tab_content_wrapper = $('.tab_content_link');
         tab_content_wrapper.find(".select_wrapper").remove();
-        if(PAGE_CONFIG.local){
+        //去掉内部存储的外链限制 20131018 ps河蟹需求
+        if(0 && PAGE_CONFIG.local){
             tab_content_wrapper.append('<div class="empty">' + L('private_storage_cannot_be_linked') + '</div>');
         } else if (publish.isclosed == 1) {
             tab_content_wrapper.append('<div class="empty">' + L('share_by_link_has_been_disable') + '</div>');
