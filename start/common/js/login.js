@@ -685,6 +685,14 @@ function gLoginResult(data) {
     }
     if (rep.error != 0) {
         gkClientInterface.showError(rep.message);
+        if(rep.error == '10044'){
+            var param = {
+                url: gkClientInterface.getSiteDomain() + '/software',
+                sso: 0
+            };
+            gkClientInterface.openURL(param);
+            return;
+        }
         //第三方登录失败
         if (rep.type == "weblogin") {
             gkClientLogin.setHash('login_p2');
