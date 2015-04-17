@@ -2031,14 +2031,16 @@ background: none;
 }
 #sidebar #main{
    position: absolute;
-    top:147px;
+    /*top:147px;*/
+    top: 162px;
     bottom: 0;
     left:0;
     right: 0;
 
 }
 #sidebar #main.main_3.main_root{
-    top:42px;
+    /*top:42px;*/
+    top:64px;
 }
 #sidebar #main.main.main_root .root_content,
 #sidebar #main.main_1.main_root .root_content,
