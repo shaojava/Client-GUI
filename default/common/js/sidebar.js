@@ -77,6 +77,7 @@ var gkClientSidebar = {
         }
         if(typeof data.member_type !== 'undefined' && data.member_type < 2){
             $('.upgrade_remind').show();
+            $('#sidebar').addClass('show_upgrade');
         }
     },
     fetchShareMembers: function (share_members) {
