@@ -50,6 +50,7 @@ var gkClientSidebar = {
         var _context = this;
         var account = gkClientInterface.getUserInfo();
         var data = {
+            member_type:account.member_type,
             username: account.username,
             org_name: account.org_name,
             photourl: account.photourl,
@@ -74,7 +75,9 @@ var gkClientSidebar = {
         } else {
             account_info.find('.user_info').show();
         }
-
+        if(typeof data.member_type !== 'undefined' && data.member_type < 2){
+            $('.upgrade_remind').show();
+        }
     },
     fetchShareMembers: function (share_members) {
         var _context = this;
