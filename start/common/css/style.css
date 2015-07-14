@@ -469,9 +469,9 @@ input[type="password"] {
 }
 .from_raw {
     margin: 10px auto;
-    padding: 5px;
+    padding: 3px;
     cursor: default;
-    width: 240px;
+    width: 245px;
 }
 dl.from_raw{
     padding: 8px;

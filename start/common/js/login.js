@@ -684,10 +684,14 @@ function gLoginResult(data) {
         return;
     }
     if (rep.error != 0) {
-        gkClientInterface.showError(rep.message);
+        var message = rep.message;
+        if(rep.error == '10015'){
+            message = '您所在团队服务已过期，请让团队管理员联系客服升级到够快云库';
+        }
+        gkClientInterface.showError(message);
         if(rep.error == '10044'){
             var param = {
-                url: gkClientInterface.getSiteDomain() + '/software',
+                url: 'http://www.gokuai.com/software/',
                 sso: 0
             };
             gkClientInterface.openURL(param);
